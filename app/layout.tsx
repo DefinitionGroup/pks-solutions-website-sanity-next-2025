@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { cn } from "@/lib/utils.ts";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const fontBrandRegular = localFont({
+  src: "./fonts/borna-regular-webfont.woff2",
+  variable: "--font-brand-regular",
+  weight: "500",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const fontBrandSemi = localFont({
+  src: "./fonts/borna-semibold-webfont.woff2",
+  variable: "--font-brand-semi",
+  weight: "500",
 });
 
 export const metadata: Metadata = {
@@ -24,10 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="de">
+      <body className={` ${fontBrandRegular.className} antialiased`}>
         {children}
       </body>
     </html>
