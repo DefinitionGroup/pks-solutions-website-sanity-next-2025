@@ -16,10 +16,17 @@ const variants = {
   9: "relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-2 ring-1 ring-white/10 px-8 md:py-4 md:text-xl",
   10: "border-white hover:border-gray-500 px-16 py-4 border rounded-none text-sm text-white transition duration-300 hover:cursor-pointer ease-in-out",
 };
-function Button({ text, variant = 10, className }) {
+function Button({
+  text,
+  variant = 10,
+  className,
+}: {
+  text: string;
+  variant?: keyof typeof variants;
+  className?: string;
+}) {
   return (
     <a
-      variants={variant}
       className={cn(
         "pointer-events-auto hover:cursor-pointer tracking-wider",
         variants[variant],

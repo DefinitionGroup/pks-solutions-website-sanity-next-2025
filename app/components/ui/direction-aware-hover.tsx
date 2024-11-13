@@ -18,6 +18,7 @@ export const DirectionAwareHover = ({
   childrenClassName?: string;
   imageClassName?: string;
   className?: string;
+  fixedContent: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 

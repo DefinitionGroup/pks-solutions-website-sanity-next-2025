@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "home",
+    "title": "Home Page",
+    "subtitle": "Welcome to the home page",
+    "content": "This is the content of the home page.",
+    "image": "/home-image.jpg"
+  },
+  {
+    "slug": "about",
+    "title": "About Page",
+    "subtitle": "Learn more about us",
+    "content": "This is the content of the about page.",
+    "image": "/about-image.jpg"
+  }
+]

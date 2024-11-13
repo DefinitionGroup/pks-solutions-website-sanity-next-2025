@@ -2,13 +2,13 @@ import { motion, Variants } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 
 interface AnimationWrapperProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   variants?: Variants;
-  initial?: "hidden" | "visible" | Variants;
-  animate?: "hidden" | "visible" | Variants;
-  exit?: "hidden" | "visible" | Variants;
+  initial?: string;
+  animate?: string;
+  exit?: string;
   transition?: any;
-  className: string;
+  className?: string;
   threshold?: number; // Viewport visibility threshold
 }
 
@@ -27,6 +27,7 @@ const AnimationWrapper: React.FC<AnimationWrapperProps> = ({
   const elementRef = useRef<HTMLDivElement>(null);
   const classes = className;
   useEffect(() => {
+    const observerRefValue = elementRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -39,13 +40,13 @@ const AnimationWrapper: React.FC<AnimationWrapperProps> = ({
       }
     );
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    if (observerRefValue) {
+      observer.observe(observerRefValue);
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (observerRefValue) {
+        observer.unobserve(observerRefValue);
       }
     };
   }, [hasAnimated, threshold]);

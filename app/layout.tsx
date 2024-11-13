@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { cn } from "@/lib/utils.ts";
+
 import "./globals.css";
 
 const fontBrandRegular = localFont({
@@ -8,11 +8,11 @@ const fontBrandRegular = localFont({
   variable: "--font-brand-regular",
   weight: "500",
 });
-const fontBrandSemi = localFont({
-  src: "./fonts/borna-semibold-webfont.woff2",
-  variable: "--font-brand-semi",
-  weight: "500",
-});
+// const fontBrandSemi = localFont({
+//   src: "./fonts/borna-semibold-webfont.woff2",
+//   variable: "--font-brand-semi",
+//   weight: "500",
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",

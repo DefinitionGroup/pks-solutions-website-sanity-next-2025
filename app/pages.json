@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "home",
+    "title": "Home Page",
+    "subtitle": "Welcome to the home page",
+    "content": "This is the content of the home page.",
+    "image": "/home-image.jpg"
+  },
+  {
+    "slug": "about",
+    "title": "About Page",
+    "subtitle": "Learn more about us",
+    "content": "This is the content of the about page.",
+    "image": "https://images.unsplash.com/photo-1721791256304-f86b84fbfa97?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  }
+]

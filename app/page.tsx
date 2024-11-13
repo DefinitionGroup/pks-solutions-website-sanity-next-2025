@@ -1,28 +1,24 @@
 "use client";
-import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
-import Image from "next/image";
-import { ParallaxScroll } from "./components/ui/parallax-scroll";
-import { LampDemo } from "./components/ui/lamp";
-import { useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { HeroHighlight, Highlight } from "@/app/components/ui/hero-highlight";
-import { DirectionAwareHover } from "./components/ui/direction-aware-hover";
-import { FloatingNav } from "./components/ui/floating-navbar";
+import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Button from "./components/Button";
 import Button2 from "./components/Button2";
 import AnimationWrapper from "./components/ui/anim/AnimationWrapper";
+import { DirectionAwareHover } from "./components/ui/direction-aware-hover";
+import { FloatingNav } from "./components/ui/floating-navbar";
+import { LampDemo } from "./components/ui/lamp";
 
-import Footer from "./components/Footer";
-import img1 from "../public/img/mainframe_ai_german_northseacoast_beach_with_polestar_3_electri_a81296f4-8931-4f10-b9a5-152686f8e27b-gigapixel-standard-scale-6_00x.jpg";
 import imgL1 from "../public/img/pks1-v.svg";
 import imgL2 from "../public/img/pks2-v.svg";
 import imgL3 from "../public/img/pks3av-v.svg";
+import Footer from "./components/Footer";
 
 import imgBack1 from "public/img/mainframe_ai_polestar_3_black_car_on_lanzarote_desert_an_sunset_020c936a-6ebc-4315-84f2-4f506b1f0586-gigapixel-standard-scale-6_00x.jpg";
 import imgBack2 from "../public/img/mainframe_ai_german_northseacoast_beach_with_polestar_3_electri_a81296f4-8931-4f10-b9a5-152686f8e27b-gigapixel-standard-scale-6_00x.jpg";
-import { Container } from "postcss";
-import { TabsDemo } from "./components/TabsDemo";
 import { CardDemo } from "./components/CardDemo";
+
 export default function Home() {
   const navItems = [
     {
@@ -43,8 +39,8 @@ export default function Home() {
       ),
     },
   ];
-  const imageUrl =
-    "https://images.unsplash.com/photo-1663765970236-f2acfde22237?q=80&w=3542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  // const imageUrl =
+  //   "https://images.unsplash.com/photo-1663765970236-f2acfde22237?q=80&w=3542&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   const images = [
     "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3387&q=80",
@@ -105,11 +101,10 @@ export default function Home() {
                 y: [20, -5, 0],
               }}
               transition={{ type: "spring", delay: 0.3 }}
-              className="px-48 py-24"
+              className="flex mt-12 w-full"
             >
               <Button2
-                variant="10"
-                className="inline-block border-white/20 border-x px-24"
+                className="border-white/20 border-x px-24 w-full"
                 text="mehr erfahren"
               />
             </motion.div>
@@ -117,13 +112,13 @@ export default function Home() {
           <div className="border-white/20 grid grid-cols-1 grid-rows-1 border-t border-r border-l">
             <div className="place-content-start grid grid-cols-12 col-start-1 row-start-1 w-full">
               <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-                <h2 className="col-span-5 col-start-1 p-4 text-6xl text-white">
+                <h2 className="col-span-5 col-start-1 p-8 text-6xl text-white">
                   Mission:
                 </h2>
               </AnimationWrapper>
               <AnimationWrapper
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="col-span-5 col-start-1 p-4 text-2xl text-white"
+                className="col-span-5 col-start-1 p-8 text-2xl text-white"
               >
                 <h2>
                   "Software für die Ermittlung von Prozesskennzahlen in
@@ -132,7 +127,7 @@ export default function Home() {
                 </h2>
               </AnimationWrapper>
               <AnimationWrapper
-                className="col-span-5 col-start-6 p-4 text-md text-white"
+                className="col-span-4 col-start-6 p-8 text-md text-white"
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
                 <h2>
@@ -142,45 +137,42 @@ export default function Home() {
                   Ansatz in der Zeitwirtschaft.
                 </h2>{" "}
               </AnimationWrapper>
-              <div className="align-items-start grid col-span-2 col-start-11 text-md text-white">
+              <div className="align-items-start grid col-span-3 col-start-10 pt-8 text-md text-white">
                 <Button2 text="Mehr erfahren"></Button2>
               </div>
             </div>
 
             <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
               <div className="col-span-5"></div>
-              <div className="col-span-5"></div>
+              <div className="col-span-4"></div>
               <div className="col-span-2"></div>
             </div>
           </div>
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-1">
             <CardDemo />
             <CardDemo />
             <CardDemo />
           </div>
           <div className="z-10 border-white/20 grid grid-cols-1 grid-rows-1 pb-8 border-t border-r border-b border-l">
             <div className="grid grid-cols-12 col-start-1 row-start-1 w-full">
-              <h2 className="col-span-4 col-start-1 p-4 text-6xl text-white">
+              <h2 className="col-span-4 col-start-1 p-8 text-6xl text-white">
                 Erfahrung
               </h2>
-              <h2 className="col-span-4 col-start-5 row-start-1 p-4 text-2xl text-white">
+              <h2 className="col-span-4 col-start-6 p-8 text-2xl text-white">
                 Mit angewandten Methoden der Statistik in der
                 Arbeitsorganisation werden die Anforderungen an die
                 Zeitwirtschaft, bei "Losgröße 1" und "Mass Customization" in
                 Produktion und Verwaltung digital erfüllt.
               </h2>
 
-              <h2 className="border-white/20 col-span-4 col-start-5 row-start-2 p-4 border-t text-md text-white">
+              <h2 className="border-white/20 col-span-4 col-start-6 row-start-2 p-8 border-t text-md text-white">
                 Für die schlanke Bewirtschaftung von Planzeiten nach dieser
                 Methode wird eine Software ("PKS" = Prozess Kennzahlen System)
                 angeboten und ständig weiterentwickelt.
               </h2>
-              <div className="align-items-start grid col-span-4 col-start-5 text-md text-white">
-                <Button2 text="Mehr erfahren"></Button2>
-              </div>
 
-              <div className="z-10 place-content-stretch grid grid-cols-2 grid-rows-2 col-span-4 col-start-9 row-start-1">
-                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border transition duration-300">
+              <div className="z-10 place-content-start grid grid-cols-2 col-span-3 col-start-10 row-start-1">
+                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300">
                   <Image
                     aria-hidden
                     src={"/img/logos/rotpunkt-kuechen-logo.svg"}
@@ -190,7 +182,7 @@ export default function Home() {
                     className="block place-content-center p-4 w-1/1 self-stretch"
                   />
                 </div>
-                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border transition duration-300">
+                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300">
                   <Image
                     aria-hidden
                     src={"/img/logos/logo_head_stoermer.png"}
@@ -200,7 +192,7 @@ export default function Home() {
                     className="block place-content-center p-4 w-1/1 self-center"
                   />
                 </div>
-                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border transition duration-300">
+                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300">
                   <Image
                     aria-hidden
                     src={"/img/logos/otten-logo.svg"}
@@ -210,7 +202,7 @@ export default function Home() {
                     className="block p-4 w-1/1 self-stretch"
                   />
                 </div>
-                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border transition duration-300">
+                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300">
                   <Image
                     aria-hidden
                     src={"/img/logos/otten-logo.svg"}
@@ -220,7 +212,7 @@ export default function Home() {
                     className="block p-4 w-1/1 self-stretch"
                   />
                 </div>{" "}
-                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border transition duration-300">
+                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300">
                   <Image
                     aria-hidden
                     src={"/img/logos/rotpunkt-kuechen-logo.svg"}
@@ -230,7 +222,7 @@ export default function Home() {
                     className="block place-content-center p-4 w-1/1 self-stretch"
                   />
                 </div>
-                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border transition duration-300">
+                <div className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300">
                   <Image
                     aria-hidden
                     src={"/img/logos/logo_head_stoermer.png"}
@@ -239,18 +231,21 @@ export default function Home() {
                     height={164}
                     className="block place-content-center p-4 w-1/1 self-center"
                   />
+                </div>{" "}
+                <div className="align-items-start grid col-span-2 col-start-1 text-md text-white">
+                  <Button2 text="Referenzen und Kunden"></Button2>
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
+              <div className="col-span-5"> </div>
               <div className="col-span-4"> </div>
-              <div className="col-span-4"> </div>
-              <div className="col-span-4"> </div>
+              <div className="col-span-3"> </div>
             </div>
           </div>
         </HeroHighlight>
-        <TabsDemo className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]" />
+        {/* <TabsDemo className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]" /> */}
         <div className="relative flex justify-center items-center gap-4 w-full h-[40rem]">
           <DirectionAwareHover
             imageUrl={imgBack1}
