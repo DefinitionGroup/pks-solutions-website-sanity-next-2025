@@ -11,7 +11,8 @@ export const generateStaticParams = () => {
   return pagesData.map((page) => ({ slug: page.slug }));
 };
 
-export default async function Page({ params }) {
+export default async function Page(props) {
+  const params = await props.params;
   const page = pagesData.find((p) => p.slug === params.slug);
 
   if (!page) {

@@ -9,11 +9,11 @@ interface Button2Props {
 function Button2({ text, className }: Button2Props) {
   return (
     <div
-      className={`inline-block relative top-0 left-0  w-96 ml-[1px] border-white/20 border-t border-b h-14 text-sm overflow-hidden group/btn min-h-6 `}
+      className={`inline-block relative top-0 left-0  min-w-full ml-[1px]   h-14 text-sm overflow-hidden group/btn min-h-6 `}
     >
       <a
         className={cn(
-          "pointer-events-auto bg-black absolute top-0 left-0  justify-between font-bold flex w-full p-4 hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out",
+          "pointer-events-auto absolute top-0 left-0  border-t border-b border-white/20 justify-between font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out",
           className
         )}
       >

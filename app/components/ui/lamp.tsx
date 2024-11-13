@@ -2,22 +2,36 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
-
+import { video1 } from "public/video/pks1_desktop.mp4";
 export function LampDemo() {
   return (
     <LampContainer>
       <motion.h1
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0.1, y: 200, scale: 0.8 }}
+        whileInView={{ opacity: 1, y: 180, scale: 1 }}
         transition={{
+          type: "spring",
           delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
+          damping: 23,
+          bounce: 0.2,
         }}
-        className="bg-clip-text bg-gradient-to-br from-slate-100 to-slate-500 mt-8 py-4 max-w-[50%] font-medium text-4xl text-center text-transparent md:text-5xl md:leading-normal tracking-tight"
+        className="z-10 bg-clip-text bg-gradient-to-br from-white to-cyan-600 mt-8 py-4 max-w-[50%] font-medium text-4xl text-center text-transparent md:text-6xl leading-none tracking-tight"
       >
         Erfassen Sie Daten in Ihrem Unternehmen. Auf die richtige Art und Weise.
-      </motion.h1>
+      </motion.h1>{" "}
+      <motion.h1
+        initial={{ opacity: 0.1, y: 200, scale: 0.8 }}
+        whileInView={{ opacity: 1, y: 160, scale: 1 }}
+        transition={{
+          type: "spring",
+          delay: 0.3,
+          damping: 23,
+          bounce: 0.2,
+        }}
+        className="z-10 bg-clip-text bg-gradient-to-br from-white to-cyan-600 mt-8 py-4 max-w-[50%] font-medium text-center text-pink-200xl text-transparent md:text-4xl leading-none tracking-tight"
+      >
+        Datensicher. Effizient. Einfach. Und Ehrlich.
+      </motion.h1>{" "}
     </LampContainer>
   );
 }
@@ -32,17 +46,18 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-slate-950 w-full rounded-md z-0",
+        "relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-slate-950 w-full rounded-md z-0",
         className
       )}
     >
-      <div className="relative z-0 flex flex-1 justify-center items-center w-full isolate scale-y-125">
+      {" "}
+      <div className="relative z-0 flex flex-1 justify-center items-center w-full isolate scale-x-150 scale-y-150">
         <motion.div
-          initial={{ opacity: 0.5, width: "15rem" }}
-          whileInView={{ opacity: 1, width: "30rem" }}
+          initial={{ opacity: 0.55, width: "15rem" }}
+          whileInView={{ opacity: 0.7, width: "30rem" }}
           transition={{
-            delay: 0.3,
-            duration: 0.8,
+            delay: 0.2,
+            duration: 1.8,
             ease: "easeInOut",
           }}
           style={{
@@ -76,8 +91,8 @@ export const LampContainer = ({
           initial={{ width: "8rem" }}
           whileInView={{ width: "16rem" }}
           transition={{
-            delay: 0.3,
-            duration: 0.8,
+            delay: 0.2,
+            duration: 1.8,
             ease: "easeInOut",
           }}
           className="z-30 absolute inset-auto bg-cyan-400 blur-2xl rounded-full w-64 h-36 -translate-y-[6rem]"
@@ -86,8 +101,8 @@ export const LampContainer = ({
           initial={{ width: "15rem" }}
           whileInView={{ width: "30rem" }}
           transition={{
-            delay: 0.3,
-            duration: 0.8,
+            delay: 0.2,
+            duration: 1.8,
             ease: "easeInOut",
           }}
           className="z-50 absolute inset-auto bg-cyan-400 w-[30rem] h-0.5 -translate-y-[7rem]"
@@ -95,8 +110,7 @@ export const LampContainer = ({
 
         <div className="z-40 absolute inset-auto bg-slate-950 w-full h-44 -translate-y-[12.5rem]"></div>
       </div>
-
-      <div className="relative z-50 flex flex-col items-center px-5 -translate-y-80">
+      <div className="relative z-50 flex flex-col items-center px-5 -translate-y-[34rem]">
         {children}
       </div>
     </div>
