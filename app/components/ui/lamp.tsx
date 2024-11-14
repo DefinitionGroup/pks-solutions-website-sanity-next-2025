@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
 import { cn } from "../../lib/utils";
-import { video1 } from "public/video/pks1_desktop.mp4";
 export function LampDemo() {
   return (
     <LampContainer>

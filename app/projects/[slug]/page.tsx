@@ -8,12 +8,12 @@ const pagesData = JSON.parse(
 );
 console.log("pagesData", pagesData);
 export const generateStaticParams = () => {
-  return pagesData.map((page) => ({ slug: page.slug }));
+  return pagesData.map((page: { slug: any }) => ({ slug: page.slug }));
 };
 
-export default async function Page(props) {
+export default async function Page(props: { params: any }) {
   const params = await props.params;
-  const page = pagesData.find((p) => p.slug === params.slug);
+  const page = pagesData.find((p: { slug: any }) => p.slug === params.slug);
 
   if (!page) {
     notFound();

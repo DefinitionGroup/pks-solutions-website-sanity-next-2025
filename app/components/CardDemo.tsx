@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/app/lib/utils";
 import Image from "next/image";
-export function CardDemo(props) {
+export function CardDemo() {
   return (
     <div className="relative bg-black w-full max-w-lg overflow-hidden">
       <Image

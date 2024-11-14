@@ -1,11 +1,6 @@
-import React from "react";
-import Image from "next/image";
-import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import Button2 from "../Button2";
-import { CardDemo } from "../CardDemo";
-import { CardDemo2 } from "../CardDemo2";
-import { cn } from "@/app/lib/utils";
 import { CardDemo3 } from "../CardDemo3";
+import AnimationWrapper from "../ui/anim/AnimationWrapper";
 function GridHero3() {
   return (
     <>

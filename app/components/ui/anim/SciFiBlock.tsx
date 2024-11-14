@@ -3,9 +3,14 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
-export default function SciFiBlock({ children, className }) {
+interface SciFiBlockProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export default function SciFiBlock({ children, className }: SciFiBlockProps) {
   const parentRef = useRef(null);
-  const childRef = useRef(null);
+  const childRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
 
   useEffect(() => {

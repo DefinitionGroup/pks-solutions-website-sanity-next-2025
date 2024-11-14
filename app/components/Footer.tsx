@@ -2,33 +2,30 @@ import Image from "next/image";
 import Button2 from "./Button2";
 const navigation = {
   solutions: [
-    { name: "Marketing", href: "#" },
-    { name: "Analytics", href: "#" },
-    { name: "Automation", href: "#" },
-    { name: "Commerce", href: "#" },
-    { name: "Insights", href: "#" },
+    { name: "Zeiterfassung", href: "#" },
+    { name: "Arbeitsleistungerfassung", href: "#" },
+    { name: "Analyse", href: "#" },
+    { name: "Workflow Analyse", href: "#" },
+    { name: "Integration", href: "#" },
   ],
   support: [
-    { name: "Submit ticket", href: "#" },
-    { name: "Documentation", href: "#" },
-    { name: "Guides", href: "#" },
+    { name: "Ticket einreichen", href: "#" },
+    { name: "Dokumentation", href: "#" },
   ],
   company: [
-    { name: "About", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Jobs", href: "#" },
-    { name: "Press", href: "#" },
+    { name: "Über uns", href: "#" },
+    { name: "News", href: "#" },
+    { name: "Stellen", href: "#" },
   ],
   legal: [
-    { name: "Terms of service", href: "#" },
-    { name: "Privacy policy", href: "#" },
-    { name: "License", href: "#" },
+    { name: "Impressum", href: "#" },
+    { name: "Datenschutz", href: "#" },
   ],
   social: [
     {
       name: "Facebook",
       href: "#",
-      icon: (props) => (
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -41,7 +38,7 @@ const navigation = {
     {
       name: "Instagram",
       href: "#",
-      icon: (props) => (
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -54,7 +51,7 @@ const navigation = {
     {
       name: "X",
       href: "#",
-      icon: (props) => (
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z" />
         </svg>
@@ -63,7 +60,7 @@ const navigation = {
     {
       name: "GitHub",
       href: "#",
-      icon: (props) => (
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -76,7 +73,7 @@ const navigation = {
     {
       name: "YouTube",
       href: "#",
-      icon: (props) => (
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -95,19 +92,20 @@ export default function Footer() {
       <div className="mx-auto px-6 lg:px-8 py-16 sm:py-24 lg:py-32 max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-semibold text-base/7 text-red-500">
-            Get started
+            Jetzt starten.
           </h2>
           <p className="mt-2 font-semibold text-4xl text-balance text-white sm:text-5xl tracking-tight">
-            Boost your productivity. Start using our app today.
+            Bringen Sie Ihre Zeiterfassung und Produktionsanalyse auf ein neues
+            Level.
           </p>
           <p className="mx-auto mt-6 max-w-xl text-gray-400 text-lg/8 text-pretty">
-            Incididunt sint fugiat pariatur cupidatat consectetur sit cillum
-            anim id veniam aliqua proident excepteur commodo do ea.
+            Wir zeigen Ihnen in einem persönlichen Meeting, wie PKS Ihre
+            Organisationsherausforderungen meistern kann.
           </p>
           <div className="flex justify-center">
             <div className="flex justify-center mt-8 w-64 text-white">
               <Button2
-                text="Get Started"
+                text="Demo anfordern."
                 className="border-white/20 border-r border-l"
               />
             </div>
@@ -124,9 +122,7 @@ export default function Footer() {
           <div className="gap-8 grid grid-cols-2 xl:col-span-2 mt-16 xl:mt-0">
             <div className="md:gap-8 md:grid md:grid-cols-2">
               <div>
-                <h3 className="font-semibold text-sm/6 text-white">
-                  Solutions
-                </h3>
+                <h3 className="font-semibold text-sm/6 text-white">Lösungen</h3>
                 <ul role="list" className="space-y-4 mt-6">
                   {navigation.solutions.map((item) => (
                     <li key={item.name}>
@@ -158,7 +154,9 @@ export default function Footer() {
             </div>
             <div className="md:gap-8 md:grid md:grid-cols-2">
               <div>
-                <h3 className="font-semibold text-sm/6 text-white">Company</h3>
+                <h3 className="font-semibold text-sm/6 text-white">
+                  Das Unternehmen
+                </h3>
                 <ul role="list" className="space-y-4 mt-6">
                   {navigation.company.map((item) => (
                     <li key={item.name}>

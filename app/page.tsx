@@ -1,27 +1,17 @@
 "use client";
+import TripleHero from "@/app/components/Content/TripleHero";
 import { HeroHighlight, Highlight } from "@/app/components/ui/hero-highlight";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import Button from "./components/Button";
 import Button2 from "./components/Button2";
-import AnimationWrapper from "./components/ui/anim/AnimationWrapper";
-import { DirectionAwareHover } from "./components/ui/direction-aware-hover";
-import { FloatingNav } from "./components/ui/floating-navbar";
-import { LampDemo } from "./components/ui/lamp";
-import TripleHero from "@/app/components/Content/TripleHero";
-import imgL1 from "../public/img/pks1-v.svg";
-import imgL2 from "../public/img/pks2-v.svg";
-import imgL3 from "../public/img/pks3av-v.svg";
-import SciFiBlock from "./components/ui/anim/SciFiBlock";
-import Footer from "./components/Footer";
 import GridHero from "./components/Content/GridHero";
 import GridHero2 from "./components/Content/GridHero2";
 import GridHero3 from "./components/Content/GridHero3";
 import ZwischenTitelCta from "./components/Content/ZwischenTitelCta";
-import imgBack1 from "public/img/mainframe_ai_polestar_3_black_car_on_lanzarote_desert_an_sunset_020c936a-6ebc-4315-84f2-4f506b1f0586-gigapixel-standard-scale-6_00x.jpg";
-import imgBack2 from "../public/img/mainframe_ai_german_northseacoast_beach_with_polestar_3_electri_a81296f4-8931-4f10-b9a5-152686f8e27b-gigapixel-standard-scale-6_00x.jpg";
-import { CardDemo } from "./components/CardDemo";
+import Footer from "./components/Footer";
+import SciFiBlock from "./components/ui/anim/SciFiBlock";
+import { FloatingNav } from "./components/ui/floating-navbar";
+import { LampDemo } from "./components/ui/lamp";
 
 export default function Home() {
   const navItems = [
@@ -31,12 +21,17 @@ export default function Home() {
       icon: <IconHome className="w-4 h-4 text-neutral-500 dark:text-white" />,
     },
     {
-      name: "About",
+      name: "Lösungen",
+      link: "/solutions",
+      icon: <IconUser className="w-4 h-4 text-neutral-500 dark:text-white" />,
+    },
+    {
+      name: "Über uns",
       link: "/about",
       icon: <IconUser className="w-4 h-4 text-neutral-500 dark:text-white" />,
     },
     {
-      name: "Contact",
+      name: "Kontakt",
       link: "/contact",
       icon: (
         <IconMessage className="w-4 h-4 text-neutral-500 dark:text-white" />
@@ -77,6 +72,16 @@ export default function Home() {
       <main className="items-center sm:items-start gap-8 row-start-2 bg-black w-full">
         <HeroHighlight className="container">
           <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full">
+            {" "}
+            <video
+              loop
+              autoPlay
+              muted
+              className="col-start-1 row-start-1 opacity-50"
+              width="2000"
+              height="2000"
+              src="videos/2.mp4"
+            />
             <div className="grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
               <motion.h1
                 initial={{
@@ -106,7 +111,7 @@ export default function Home() {
                   y: [20, -5, 0],
                 }}
                 transition={{ type: "spring", delay: 0.3 }}
-                className="col-span-4 col-start-1 px-8 text-white"
+                className="col-span-6 col-start-1 px-8 text-white lg:text-xl"
               >
                 Die PKS GmbH berät Unternehmen der Möbelindustrie und sonstige
                 industrielle Produktionsbetriebe bei der Optimierung von
@@ -123,21 +128,28 @@ export default function Home() {
                   y: [20, -5, 0],
                 }}
                 transition={{ type: "spring", delay: 0.6 }}
-                className="flex flex-col justify-center border-white col-span-3 col-start-10 mt-24 mb-24 w-full text-white"
+                className="flex flex-col justify-center border-white col-span-3 col-start-10 w-full text-white"
               >
+                <p className="flex flex-col justify-center border-white p-8 w-full text-sm text-white">
+                  Die PKS GmbH berät Unternehmen der Möbelindustrie und sonstige
+                  industrielle Produktionsbetriebe bei der Optimierung von
+                  Verwaltungs- und Produktionsprozessen mit einem innovativen
+                  Ansatz in der Zeitwirtschaft.
+                </p>
                 <Button2
                   className="border-white/20 px-24 w-full"
                   text="mehr erfahren"
                 />
               </motion.div>
             </div>
-
             <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
               <div className="col-span-9"></div>
               <div className="col-span-2"></div>
             </div>
           </div>
-
+          <SciFiBlock key="login" className={"scifi-border mb-12 mx-4"}>
+            <TripleHero strings={images} />
+          </SciFiBlock>
           <GridHero />
           <GridHero2 />
 
@@ -147,9 +159,6 @@ export default function Home() {
         {/* <TabsDemo className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]" /> */}
         <div className="flex flex-col justify-center items-center w-full">
           <LampDemo />{" "}
-          <SciFiBlock key="login" className={"scifi-border mb-12 mx-4"}>
-            <TripleHero strings={images} />
-          </SciFiBlock>
         </div>{" "}
         {/* <ParallaxScroll images={images} />;  */}
         <Footer />

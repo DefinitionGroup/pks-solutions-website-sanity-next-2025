@@ -129,44 +129,48 @@ const variants = {
     y: 0,
   },
   top: {
-    y: 20,
+    y: 0,
   },
   bottom: {
-    y: -20,
+    y: 0,
   },
   left: {
-    x: 20,
+    x: 0,
   },
   right: {
-    x: -20,
+    x: 0,
   },
 };
 
 const textVariants = {
   initial: {
-    y: 0,
+    y: 48,
     x: 0,
     opacity: 0,
   },
   exit: {
-    y: 0,
+    y: 48,
     x: 0,
     opacity: 0,
   },
   top: {
-    y: -20,
+    y: 48,
     opacity: 1,
   },
   bottom: {
-    y: 2,
+    y: 48,
     opacity: 1,
   },
   left: {
-    x: -2,
+    y: 48,
+
+    x: 0,
     opacity: 1,
   },
   right: {
-    x: 20,
+    y: 48,
+
+    x: 0,
     opacity: 1,
   },
 };
