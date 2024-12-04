@@ -2,10 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-    output:'export',
-    distDir: 'pks001',
-    basePath: '/pks001',
-    images: {
+    // output: 'export',
+    // assetPrefix: '/pks001',
+    // basePath: '/pks001',
+    images: { unoptimized: true ,
       remotePatterns: [
         {
           protocol: 'https',
