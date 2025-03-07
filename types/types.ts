@@ -37,6 +37,7 @@ export type PortableTextBlock = any;
  * HeroType Schema
  */
 export interface Hero {
+  _type: "hero";
   className?: string;
   containerClassName?: string;
   videoCloudinary?: CloudinaryAsset;
@@ -58,10 +59,12 @@ export interface Hero {
  * TripleHero Schema and its Hero Items.
  */
 export interface TripleHero {
+  _type: "tripleHero";
   items: HeroItem[]; // Must contain exactly three items in your schema validation.
 }
 
 export interface HeroItem {
+  _type: "heroItem";
   /** Background image for hover effect */
   hoverBackgroundCloudinary?: CloudinaryAsset;
   /** Fixed title text (e.g. "PSYSTEM", "PMOBILE", "AVATR") */
@@ -79,6 +82,7 @@ export interface HeroItem {
  * This schema now only uses the TripleHero module.
  */
 export interface SciFiBlock {
+  _type: "sciFiBlock";
   className?: string;
   tripleHero: TripleHero;
 }
@@ -87,6 +91,7 @@ export interface SciFiBlock {
  * GridHero Schema
  */
 export interface GridHero {
+  _type: "gridHero";
   sectionOne: {
     left: {
       subtitle: string;
@@ -120,6 +125,7 @@ export interface GridHero {
  * GridHero2 Schema
  */
 export interface GridHero2 {
+  _type: "gridHero2";
   leftTitle: string;
   middle: {
     description1: string;
@@ -136,6 +142,7 @@ export interface GridHero2 {
  * GridHero3 Schema
  */
 export interface GridHero3 {
+  _type: "gridHero3";
   leftSection: {
     subtitle: string;
     title: string;
@@ -156,12 +163,16 @@ export interface GridHero3 {
  * ZwischenTitelCta Schema
  */
 export interface ZwischenTitelCta {
+  _type: "zwischenTitelCta";
   integrationTitle: string;
   headline: string;
   subHeadline: string;
   buttonText: string;
 }
 
+/**
+ * PageType Schema
+ */
 export interface PageType {
   _type: "page";
   title: string;

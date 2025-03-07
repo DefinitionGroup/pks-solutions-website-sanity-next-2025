@@ -12,7 +12,16 @@ import { Hero as HeroType } from "@/types/types";
 import { FC, ReactNode } from "react";
 
 const HeroHighlightComponent: FC<HeroType> = (props) => {
-  const { className } = props;
+  const {
+    className,
+    videoCloudinary,
+    headline,
+    highlightText,
+    leftDescription,
+    rightDescription,
+    ctaButtonText,
+    modules,
+  } = props;
 
   return (
     <HeroHighlight className="container">
@@ -25,7 +34,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
           className="col-start-1 row-start-1 opacity-50"
           width="2000"
           height="2000"
-          src="videos/2.mp4"
+          src={videoCloudinary?.secure_url}
         />
         <div className="grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
           <motion.h1
@@ -40,10 +49,10 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
             transition={{ type: "spring" }}
             className="col-span-9 col-start-1 px-8 py-32 pb-8 w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug"
           >
-            Ihr Unternehmen fährt gelassen
+            {headline}
             <br />
             <Highlight className="text-white dark:text-white">
-              in die Zukunft.
+              {highlightText}
             </Highlight>
           </motion.h1>
           <motion.div
@@ -58,10 +67,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
             transition={{ type: "spring", delay: 0.3 }}
             className="col-span-6 col-start-1 px-8 text-white lg:text-xl"
           >
-            Die PKS GmbH berät Unternehmen der Möbelindustrie und sonstige
-            industrielle Produktionsbetriebe bei der Optimierung von
-            Verwaltungs- und Produktionsprozessen mit einem innovativen Ansatz
-            in der Zeitwirtschaft.{" "}
+            {leftDescription}
           </motion.div>
           <motion.div
             initial={{
@@ -76,14 +82,11 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
             className="flex flex-col justify-center border-white col-span-3 col-start-10 w-full text-white"
           >
             <p className="flex flex-col justify-center border-white p-8 w-full text-sm text-white">
-              Die PKS GmbH berät Unternehmen der Möbelindustrie und sonstige
-              industrielle Produktionsbetriebe bei der Optimierung von
-              Verwaltungs- und Produktionsprozessen mit einem innovativen Ansatz
-              in der Zeitwirtschaft.
+              {rightDescription}
             </p>
             <Button2
               className="border-white/20 px-24 w-full"
-              text="mehr erfahren"
+              text={ctaButtonText}
             />
           </motion.div>
         </div>
@@ -92,9 +95,29 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
           <div className="col-span-2"></div>
         </div>
       </div>
-      <SciFiBlock key="login" className={"scifi-border mb-12 mx-4"}>
-        <TripleHero strings={images} />
-      </SciFiBlock>
+      {modules?.map((block: any, index: number) => {
+        switch (block._type) {
+          case "sciFiBlock":
+            return (
+              <SciFiBlock
+                key={`sciFiBlock-${index}`}
+                className={"scifi-border mb-12 mx-4"}
+              >
+                <TripleHero strings={block.images} />
+              </SciFiBlock>
+            );
+          case "gridHero":
+            return <GridHero key={`gridHero-${index}`} />;
+          case "gridHero2":
+            return <GridHero2 key={`gridHero2-${index}`} />;
+          case "zwischenTitelCta":
+            return <ZwischenTitelCta key={`zwischenTitelCta-${index}`} />;
+          case "gridHero3":
+            return <GridHero3 key={`gridHero3-${index}`} />;
+          default:
+            return null;
+        }
+      })}
       <GridHero />
       <GridHero2 />
 
