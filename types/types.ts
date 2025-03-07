@@ -149,3 +149,18 @@ export interface ZwischenTitelCta {
   subHeadline: string;
   buttonText: string;
 }
+
+export interface PageType {
+  _type: "page";
+  title: string;
+  slug: string;
+  subtitle: string;
+  content: (
+    | HeroHighlight
+    | SciFiBlock
+    | GridHero
+    | GridHero2
+    | GridHero3
+    | ZwischenTitelCta
+  )[];
+}
