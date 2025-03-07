@@ -34,12 +34,24 @@ export type PortableTextBlock = any;
 /* ===================================================== */
 
 /**
- * HeroHighlight Schema
+ * HeroType Schema
  */
-export interface HeroHighlight {
-  content: PortableTextBlock[];
+export interface Hero {
   className?: string;
   containerClassName?: string;
+  videoCloudinary?: CloudinaryAsset;
+  headline: string;
+  highlightText: string;
+  leftDescription: string;
+  rightDescription: string;
+  ctaButtonText: string;
+  modules: (
+    | SciFiBlock[]
+    | GridHero[]
+    | GridHero2[]
+    | GridHero3[]
+    | ZwischenTitelCta[]
+  )[];
 }
 
 /**
@@ -155,12 +167,5 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
-  content: (
-    | HeroHighlight
-    | SciFiBlock
-    | GridHero
-    | GridHero2
-    | GridHero3
-    | ZwischenTitelCta
-  )[];
+  content: Hero[];
 }
