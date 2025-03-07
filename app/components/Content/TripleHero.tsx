@@ -1,13 +1,7 @@
 import Button2 from "@/app/components/Button2";
 import { DirectionAwareHover } from "@/app/components/ui/direction-aware-hover";
-import imgL1 from "@/public/img/pks1-v.svg";
-import imgL2 from "@/public/img/pks2-v.svg";
-import imgL3 from "@/public/img/pks3av-v.svg";
 import { FC, ReactNode } from "react";
-
 import Image from "next/image";
-import imgBack2 from "public/img/mainframe_ai_german_northseacoast_beach_with_polestar_3_electri_a81296f4-8931-4f10-b9a5-152686f8e27b-gigapixel-standard-scale-6_00x.jpg";
-import imgBack1 from "public/img/mainframe_ai_polestar_3_black_car_on_lanzarote_desert_an_sunset_020c936a-6ebc-4315-84f2-4f506b1f0586-gigapixel-standard-scale-6_00x.jpg";
 import { TripleHero as trupleHeroProps } from "@/types/types";
 
 const TripleHero: FC<trupleHeroProps> = (props) => {

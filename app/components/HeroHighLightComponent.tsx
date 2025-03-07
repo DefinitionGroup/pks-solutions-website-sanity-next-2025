@@ -107,22 +107,26 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               </SciFiBlock>
             );
           case "gridHero":
-            return <GridHero key={`gridHero-${index}`} />;
+            return <GridHero key={`gridHero-${index}`} {...block.gridHero} />;
           case "gridHero2":
-            return <GridHero2 key={`gridHero2-${index}`} />;
+            return (
+              <GridHero2 {...block.gridHero2} key={`gridHero2-${index}`} />
+            );
           case "zwischenTitelCta":
-            return <ZwischenTitelCta key={`zwischenTitelCta-${index}`} />;
+            return (
+              <ZwischenTitelCta
+                {...block.zwischenTitelCta}
+                key={`zwischenTitelCta-${index}`}
+              />
+            );
           case "gridHero3":
-            return <GridHero3 key={`gridHero3-${index}`} />;
+            return (
+              <GridHero3 {...block.gridHero3} key={`gridHero3-${index}`} />
+            );
           default:
             return null;
         }
       })}
-      <GridHero />
-      <GridHero2 />
-
-      <ZwischenTitelCta />
-      <GridHero3 />
     </HeroHighlight>
   );
 };
