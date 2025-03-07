@@ -41,12 +41,12 @@ export default defineType({
             //   options: { hotspot: true },
             //   description: "Icon image displayed alongside the fixed title",
             // }),
-            // defineField({
-            //   name: "fixedIconCloudinary",
-            //   title: "Fixed Icon (Cloudinary)",
-            //   type: "cloudinary.asset",
-            //   description: "Cloudinary asset for fixed icon",
-            // }),
+            defineField({
+              name: "fixedIconCloudinary",
+              title: "Fixed Icon (Cloudinary)",
+              type: "cloudinary.asset",
+              description: "Cloudinary asset for fixed icon",
+            }),
             defineField({
               name: "hoverTitle",
               title: "Hover Title",

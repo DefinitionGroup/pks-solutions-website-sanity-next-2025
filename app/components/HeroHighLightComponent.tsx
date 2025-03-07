@@ -103,7 +103,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
                 key={`sciFiBlock-${index}`}
                 className={"scifi-border mb-12 mx-4"}
               >
-                <TripleHero strings={block.images} />
+                <TripleHero {...block.tripleHero} />
               </SciFiBlock>
             );
           case "gridHero":

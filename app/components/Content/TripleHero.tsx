@@ -3,14 +3,54 @@ import { DirectionAwareHover } from "@/app/components/ui/direction-aware-hover";
 import imgL1 from "@/public/img/pks1-v.svg";
 import imgL2 from "@/public/img/pks2-v.svg";
 import imgL3 from "@/public/img/pks3av-v.svg";
+import { FC, ReactNode } from "react";
+
 import Image from "next/image";
 import imgBack2 from "public/img/mainframe_ai_german_northseacoast_beach_with_polestar_3_electri_a81296f4-8931-4f10-b9a5-152686f8e27b-gigapixel-standard-scale-6_00x.jpg";
 import imgBack1 from "public/img/mainframe_ai_polestar_3_black_car_on_lanzarote_desert_an_sunset_020c936a-6ebc-4315-84f2-4f506b1f0586-gigapixel-standard-scale-6_00x.jpg";
+import { TripleHero as trupleHeroProps } from "@/types/types";
 
-export default function TripleHero(props: { strings: string[] }) {
+const TripleHero: FC<trupleHeroProps> = (props) => {
+  const { items } = props;
   return (
     <div className="relative flex justify-center items-center gap-4 w-full h-[40rem]">
-      <DirectionAwareHover
+      {items.map((item, index) => (
+        <DirectionAwareHover
+          imageUrl={item.hoverBackgroundCloudinary?.secure_url}
+          className="bg-black text-white"
+          fixedContent={
+            <>
+              <Image
+                className="py-3 w-1/4 h-1/4 object-cover"
+                aria-hidden
+                src={item.fixedIconCloudinary?.secure_url || ""}
+                alt="Window icon"
+                width={64}
+                height={64}
+              />
+              <p className="font-bold text-5xl">{item.fixedTitle}</p>
+            </>
+          }
+        >
+          <p className="font-bold text-xl">{item.hoverTitle}</p>
+          <p className="font-normal text-sm">{item.hoverDescription}</p>
+
+          <div className="px-4 py-12">
+            <Button2
+              text={item.buttonText}
+              className={"border-x max-w-fit border-white/20"}
+            ></Button2>
+          </div>
+        </DirectionAwareHover>
+      ))}
+    </div>
+  );
+};
+
+export default TripleHero;
+
+/**
+ * <DirectionAwareHover
         imageUrl={imgBack1}
         className="bg-black text-white"
         fixedContent={
@@ -106,6 +146,4 @@ export default function TripleHero(props: { strings: string[] }) {
           ></Button2>
         </div>
       </DirectionAwareHover>
-    </div>
-  );
-}
+ */

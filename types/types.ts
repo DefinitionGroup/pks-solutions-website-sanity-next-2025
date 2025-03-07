@@ -75,6 +75,8 @@ export interface HeroItem {
   hoverDescription?: string;
   /** Call-to-action button text */
   buttonText: string;
+  /** Icon image displayed alongside the fixed title */
+  fixedIconCloudinary?: CloudinaryAsset;
 }
 
 /**
