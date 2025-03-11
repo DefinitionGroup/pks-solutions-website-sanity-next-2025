@@ -127,6 +127,7 @@ export interface GridHero {
  * GridHero2 Schema
  */
 export interface GridHero2 {
+  _key: string;
   _type: "gridHero2";
   leftTitle: string;
   middle: {

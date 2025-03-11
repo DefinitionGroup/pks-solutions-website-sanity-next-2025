@@ -11,6 +11,7 @@ const TripleHero: FC<trupleHeroProps> = (props) => {
       {items.map((item, index) => (
         <DirectionAwareHover
           imageUrl={item.hoverBackgroundCloudinary?.secure_url}
+          key={index}
           className="bg-black text-white"
           fixedContent={
             <>

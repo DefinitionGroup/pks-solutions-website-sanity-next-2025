@@ -1,3 +1,4 @@
+"use client";
 import { HeroHighlight, Highlight } from "@/app/components/ui/hero-highlight";
 import { motion } from "framer-motion";
 import Button2 from "./Button2";
@@ -107,22 +108,15 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               </SciFiBlock>
             );
           case "gridHero":
-            return <GridHero key={`gridHero-${index}`} {...block.gridHero} />;
+            return <GridHero key={`gridHero-${index}`} {...block} />;
           case "gridHero2":
-            return (
-              <GridHero2 {...block.gridHero2} key={`gridHero2-${index}`} />
-            );
+            return <GridHero2 {...block} key={`gridHero2-${index}`} />;
           case "zwischenTitelCta":
             return (
-              <ZwischenTitelCta
-                {...block.zwischenTitelCta}
-                key={`zwischenTitelCta-${index}`}
-              />
+              <ZwischenTitelCta {...block} key={`zwischenTitelCta-${index}`} />
             );
           case "gridHero3":
-            return (
-              <GridHero3 {...block.gridHero3} key={`gridHero3-${index}`} />
-            );
+            return <GridHero3 {...block} key={`gridHero3-${index}`} />;
           default:
             return null;
         }
