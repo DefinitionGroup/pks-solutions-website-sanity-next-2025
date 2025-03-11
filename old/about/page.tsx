@@ -10,7 +10,7 @@ import { HeroHighlight, Highlight } from "@/app/components/ui/hero-highlight";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { TabsDemo } from "../components/TabsDemo";
+import { TabsDemo } from "../../app/components/TabsDemo";
 
 export default function Home() {
   const navItems = [
