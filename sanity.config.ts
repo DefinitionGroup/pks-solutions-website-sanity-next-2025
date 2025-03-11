@@ -12,7 +12,7 @@ import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/deskStructure";
-
+import { presentationTool } from "sanity/presentation";
 export default defineConfig({
   basePath: "/studio",
   projectId,
@@ -25,5 +25,14 @@ export default defineConfig({
     // Vision is for querying with GROQ from inside the Studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
+    presentationTool({
+      previewUrl: {
+        origin: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL,
+        preview: "/", // The path to preview your front-end
+        previewMode: {
+          enable: "/api/draft-mode/enable", // Endpoint to enable draft mode
+        },
+      },
+    }),
   ],
 });

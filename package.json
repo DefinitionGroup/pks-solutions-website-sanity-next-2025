@@ -12,7 +12,9 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
     "@sanity/image-url": "^1.1.0",
+    "@sanity/react-loader": "^1.10.47",
     "@sanity/vision": "^3.78.0",
+    "@sanity/visual-editing": "^2.13.7",
     "@tabler/icons-react": "^3.19.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.9",

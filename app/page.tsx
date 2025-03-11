@@ -5,9 +5,13 @@ import HeroHighlightComponent from "./components/HeroHighLightComponent";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import { FloatingNav } from "./components/ui/floating-navbar";
 import Footer from "./components/Footer";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity";
+import PreviewBanner from "./components/PreviewBanner";
 
 export default async function Home() {
-  const page: PageType = await getPageBySlug("home");
+  const { isEnabled } = await draftMode();
+  const page: PageType = await getPageBySlug("home", isEnabled);
   //console.log(page);
   const { title, content } = page;
   const navItems = [
@@ -36,6 +40,12 @@ export default async function Home() {
   ];
   return (
     <>
+      {isEnabled && (
+        <>
+          <VisualEditing />
+          <PreviewBanner />
+        </>
+      )}
       <FloatingNav navItems={navItems} />
       {content.map((block, index) => {
         //console.log(block);

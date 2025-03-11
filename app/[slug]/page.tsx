@@ -8,6 +8,8 @@ import HeroHighlightComponent from "../components/HeroHighLightComponent";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import Footer from "../components/Footer";
 import { FloatingNav } from "../components/ui/floating-navbar";
+import { draftMode } from "next/headers";
+
 // Generate paths for pages (excluding "home")
 export async function generateStaticParams() {
   const query = groq`*[_type == "page" && slug.current != "home"]{"slug": slug.current}`;
@@ -26,7 +28,8 @@ interface PageProps {
 export default async function Page(props: PageProps) {
   const params = await props.params;
   const { slug } = params;
-  const page: PageType = await getPageBySlug(slug);
+  const { isEnabled } = await draftMode();
+  const page: PageType = await getPageBySlug(slug, isEnabled);
   const { title, content } = page;
 
   if (!page) {

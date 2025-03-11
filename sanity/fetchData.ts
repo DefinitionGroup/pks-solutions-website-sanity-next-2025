@@ -1,8 +1,12 @@
 import { groq } from "next-sanity";
 import { PageType } from "../types/types";
 import { client } from "./lib/client";
+import { ClientPerspective } from "@sanity/client";
 
-export const getPageBySlug = async (slug: string): Promise<PageType> => {
+export const getPageBySlug = async (
+  slug: string,
+  draft: boolean = false
+): Promise<PageType> => {
   const query = groq`*[_type == "page" && slug.current == $slug][0]{
     title,
     _id,
@@ -11,5 +15,14 @@ export const getPageBySlug = async (slug: string): Promise<PageType> => {
     slug,
     content
 }`;
-  return client.fetch(query, { slug });
+
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
+  return client.fetch(query, { slug }, options);
 };

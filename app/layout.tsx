@@ -19,11 +19,15 @@ export const metadata: Metadata = {
   description: "Welcome to PKS Solutions, your partner in innovation.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (!children) {
+    return null;
+  }
+
   return (
     <html lang="de">
       <body className={` ${fontBrandRegular.className} antialiased`}>
