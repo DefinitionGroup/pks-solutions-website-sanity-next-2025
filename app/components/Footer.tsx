@@ -90,7 +90,7 @@ export default function Footer({ menu }: { menu: MenuType }) {
 
           {menu.copyright && (
             <p className="md:order-1 mt-8 md:mt-0 text-gray-400 text-sm/6">
-              {menu.copyright}
+              &copy; {menu.copyright}
             </p>
           )}
         </div>
