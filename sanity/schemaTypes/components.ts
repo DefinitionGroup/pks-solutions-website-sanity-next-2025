@@ -5,6 +5,7 @@ import GridHero2 from "./components/GridHero2";
 import GridHero3 from "./components/GridHero3";
 import zwischenTitelCta from "./components/zwischenTitelCta";
 import TripleHero from "./components/TripleHero";
+import Menu from "./components/Menu";
 const ComponentsElements = [
   Hero,
   TripleHero,
@@ -13,5 +14,6 @@ const ComponentsElements = [
   GridHero3,
   ScifiBlock,
   zwischenTitelCta,
+  Menu
 ];
 export default ComponentsElements;

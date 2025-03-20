@@ -9,15 +9,12 @@ import {
 import { cn } from "../../lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { MenuType } from "@/types/types";
 export const FloatingNav = ({
-  navItems,
+  menu,
   className,
 }: {
-  navItems: {
-    name: string;
-    link: string;
-    icon?: JSX.Element;
-  }[];
+  menu: MenuType;
   className?: string;
 }) => {
   const { scrollYProgress } = useScroll();
@@ -66,22 +63,23 @@ export const FloatingNav = ({
           )}
         >
           <Image
-            src="/img/logopks--outline.svg"
+            src={menu.imageCloud?.secure_url || "/img/logopks--outline.svg"} 
             alt="logo"
             width={128}
             height={32}
+            className="h-6 w-auto"
           />
         </Link>
-        {navItems.map((navItem: any, idx: number) => (
+        {menu.menuItems?.map((item, idx) => (
           <Link
-            key={`link=${idx}`}
-            href={navItem.link}
+            key={`link-${idx}`}
+            href={item.page.slug.current === 'home' ? '/' : `/${item.page.slug.current}`}
             className={cn(
               "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
             )}
           >
-            <span className="block sm:hidden">{navItem.icon}</span>
-            <span className="sm:block hidden text-sm">{navItem.name}</span>
+            <span className="block sm:hidden">{/* Icon if needed */}</span>
+            <span className="sm:block hidden text-sm">{item.displayName}</span>
           </Link>
         ))}
         <button className="relative border-neutral-200 dark:border-white/[0.2] px-4 py-2 border rounded-full font-medium text-sm text-white">

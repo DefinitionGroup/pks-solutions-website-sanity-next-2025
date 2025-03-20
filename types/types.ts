@@ -176,6 +176,48 @@ export interface ZwischenTitelCta {
 /**
  * PageType Schema
  */
+// Add these interfaces above your existing PageType definition
+export interface MenuItemType {
+  _key: string;
+  displayName: string;
+  page: {
+    slug: {
+      current: string;
+    };
+  };
+}
+
+export interface MenuType {
+  _id: string;
+  _type: "menu";
+  title?: string;
+  menuType: "Navbar" | "Footer";
+  menuItems?: MenuItemType[];
+  imageCloud?: CloudinaryAsset;
+  footerColumns?: Array<{
+    title?: string;
+    links?: LinkType[];
+  }>;
+  socialLinks?: Array<{
+    platform: string;
+    url: string;
+  }>;
+  copyright?: string;
+}
+
+export interface LinkType {
+  displayName?: string;
+  linkType?: "internal" | "external";
+  page?: {
+    _ref: string;
+    _type: "reference";
+    slug?: {
+      current: string;
+    };
+  };
+  externalUrl?: string;
+}
+
 export interface PageType {
   _type: "page";
   title: string;

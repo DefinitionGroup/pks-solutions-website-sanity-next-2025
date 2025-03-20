@@ -9,7 +9,8 @@ import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import Footer from "../components/Footer";
 import { FloatingNav } from "../components/ui/floating-navbar";
 import { draftMode } from "next/headers";
-
+import { getMenuByType } from "@/sanity/fetchData";
+import { getFooterMenu } from "@/sanity/fetchData";
 // Generate paths for pages (excluding "home")
 export async function generateStaticParams() {
   const query = groq`*[_type == "page" && slug.current != "home"]{"slug": slug.current}`;
@@ -29,39 +30,22 @@ export default async function Page(props: PageProps) {
   const params = await props.params;
   const { slug } = params;
   const { isEnabled } = await draftMode();
-  const page: PageType = await getPageBySlug(slug, isEnabled);
-  const { title, content } = page;
 
-  if (!page) {
-    return notFound();
-  }
-  const navItems = [
-    {
-      name: "Home",
-      link: "/",
-      icon: <IconHome className="w-4 h-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Lösungen",
-      link: "/solutions",
-      icon: <IconUser className="w-4 h-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Über uns",
-      link: "/about",
-      icon: <IconUser className="w-4 h-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Kontakt",
-      link: "/contact",
-      icon: (
-        <IconMessage className="w-4 h-4 text-neutral-500 dark:text-white" />
-      ),
-    },
-  ];
+ 
+  const [page, navbarMenu, footerMenu] = await Promise.all([
+    getPageBySlug(slug, isEnabled),
+    getMenuByType('Navbar', isEnabled),
+    getFooterMenu()
+
+  ]);
+  const { title, content } = page;
+  if (!page || !navbarMenu) return notFound();
+
+  
+
   return (
     <>
-      <FloatingNav navItems={navItems} />
+      <FloatingNav menu={navbarMenu} />
 
       {content.map((block, index) => {
         //console.log(block);
@@ -72,7 +56,7 @@ export default async function Page(props: PageProps) {
             return null;
         }
       })}
-      <Footer />
+      <Footer menu={footerMenu} />
     </>
   );
 }

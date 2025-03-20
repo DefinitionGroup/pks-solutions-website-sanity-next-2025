@@ -1,6 +1,6 @@
 import { LampDemo } from "./components/ui/lamp";
 import { PageType } from "@/types/types";
-import { getPageBySlug } from "@/sanity/fetchData";
+import { getFooterMenu, getPageBySlug } from "@/sanity/fetchData";
 import HeroHighlightComponent from "./components/HeroHighLightComponent";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import { FloatingNav } from "./components/ui/floating-navbar";
@@ -8,36 +8,21 @@ import Footer from "./components/Footer";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 import PreviewBanner from "./components/PreviewBanner";
-
+import { getMenuByType } from "@/sanity/fetchData";
+import { notFound } from "next/navigation";
+import GetDemoComponent from "./components/GetDemoComponent";
+//import Footer from "@/components/Footer";
 export default async function Home() {
   const { isEnabled } = await draftMode();
-  const page: PageType = await getPageBySlug("home", isEnabled);
-  //console.log(page);
+  const [page, navbarMenu, footerMenu] = await Promise.all([
+    getPageBySlug("home", isEnabled),
+    getMenuByType('Navbar', isEnabled),
+    getFooterMenu()
+  ]);
   const { title, content } = page;
-  const navItems = [
-    {
-      name: "Home",
-      link: "/",
-      icon: <IconHome className="w-4 h-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Lösungen",
-      link: "/solutions",
-      icon: <IconUser className="w-4 h-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Über uns",
-      link: "/about",
-      icon: <IconUser className="w-4 h-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Kontakt",
-      link: "/contact",
-      icon: (
-        <IconMessage className="w-4 h-4 text-neutral-500 dark:text-white" />
-      ),
-    },
-  ];
+
+
+  if (!page || !navbarMenu) return notFound();
   return (
     <>
       {isEnabled && (
@@ -46,7 +31,7 @@ export default async function Home() {
           <PreviewBanner />
         </>
       )}
-      <FloatingNav navItems={navItems} />
+      <FloatingNav menu={navbarMenu} />
       {content.map((block, index) => {
         //console.log(block);
         switch (block._type) {
@@ -61,7 +46,10 @@ export default async function Home() {
         <LampDemo />{" "}
       </div>{" "}
       {/* <ParallaxScroll images={images} />;  */}
-      <Footer />
+      {/* <Footer /> */}
+      <GetDemoComponent/>
+      <Footer menu={footerMenu}/>
+
     </>
   );
 }
