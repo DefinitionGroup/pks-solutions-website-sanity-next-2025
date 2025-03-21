@@ -44,14 +44,14 @@ export default function Footer({ menu }: { menu: MenuType }) {
                             {link.displayName}
                           </Link>
                         ) : (
-                          <a
-                            href={link.externalUrl}
+                          <Link
+                            href={link.externalUrl || '#'}
                             className="text-gray-400 text-sm/6 hover:text-white"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             {link.displayName}
-                          </a>
+                          </Link>
                         )}
                       </li>
                     ))}
@@ -75,7 +75,7 @@ export default function Footer({ menu }: { menu: MenuType }) {
               }[social.platform];
 
               return Icon ? (
-                <a
+                <Link
                   key={index}
                   href={social.url}
                   className="text-gray-400 hover:text-gray-300"
@@ -83,7 +83,7 @@ export default function Footer({ menu }: { menu: MenuType }) {
                   rel="noopener noreferrer"
                 >
                   <Icon aria-hidden="true" className="size-6" />
-                </a>
+                </Link>
               ) : null;
             })}
           </div>
