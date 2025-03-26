@@ -11,6 +11,7 @@ import { FloatingNav } from "../components/ui/floating-navbar";
 import { draftMode } from "next/headers";
 import { getMenuByType } from "@/sanity/fetchData";
 import { getFooterMenu } from "@/sanity/fetchData";
+import BlogListComponent from "../components/BlogListComponent";
 // Generate paths for pages (excluding "home")
 export async function generateStaticParams() {
   const query = groq`*[_type == "page" && slug.current != "home"]{"slug": slug.current}`;
@@ -31,17 +32,13 @@ export default async function Page(props: PageProps) {
   const { slug } = params;
   const { isEnabled } = await draftMode();
 
- 
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, isEnabled),
-    getMenuByType('Navbar', isEnabled),
-    getFooterMenu()
-
+    getMenuByType("Navbar", isEnabled),
+    getFooterMenu(),
   ]);
   const { title, content } = page;
   if (!page || !navbarMenu) return notFound();
-
-  
 
   return (
     <>
@@ -52,6 +49,8 @@ export default async function Page(props: PageProps) {
         switch (block._type) {
           case "hero":
             return <HeroHighlightComponent key={index} {...block} />;
+          case "blogList":
+            return <BlogListComponent key={index} block={block}/>;
           default:
             return null;
         }

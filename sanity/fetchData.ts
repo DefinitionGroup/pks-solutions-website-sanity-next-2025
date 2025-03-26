@@ -3,6 +3,7 @@ import { PageType } from "../types/types";
 import { client } from "./lib/client";
 import { ClientPerspective } from "@sanity/client";
 import { MenuType } from "../types/types";
+import { BlogList, BlogPost } from "../types/types";
 export const getPageBySlug = async (
   slug: string,
   draft: boolean = false
@@ -79,4 +80,62 @@ export async function getFooterMenu() {
     imageCloud
   }`;
   return client.fetch(query);
+}
+
+export async function getBlogPosts(block: BlogList): Promise<BlogPost[]> {
+  if (block.selectionType === "auto") {
+    const query = groq`*[_type == "blogPost"] | order(publishedAt desc)[0...$limit] {
+      _id,
+      title,
+      slug,
+      publishedAt,
+      excerpt,
+      author->{name}
+    }`;
+    
+    return client.fetch(query, {
+      limit: block.postsPerPage || 6
+    });
+  }
+
+  const query = groq`*[_type == "blogPost" && _id in $ids] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    author->{name}
+  }`;
+  
+  return client.fetch(query, {
+    ids: block.selectedPosts?.map(p => p._id) || []
+  });
+}
+
+// Add this function to your existing fetchData.ts
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost> {
+  const query = groq`*[_type == "blogPost" && slug.current == $slug][0]{
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    content,
+    author->{
+      name,
+      image,
+      bio
+    },
+    categories[]->{
+      title,
+      slug
+    }
+  }`;
+  
+  return client.fetch(query, { slug });
+}
+
+export async function getAllBlogPostSlugs() {
+  const query = groq`*[_type == "blogPost"]{ "slug": slug.current }`;
+  return client.fetch<{ slug: string }[]>(query);
 }

@@ -223,5 +223,45 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
-  content: Hero[];
+  content: (Hero | BlogList)[]; // Add BlogList to the union type
+}
+
+// Add these interfaces to your existing types.ts
+export interface BlogPost {
+  _id: string;
+  _type: "blogPost";
+  title: string;
+  slug: {
+    _type: 'slug';
+    current: string;
+  };
+  publishedAt: string;
+  excerpt?: string;
+  content: PortableTextBlock;
+  categories?: BlogCategory[];
+  author?: BlogAuthor;
+}
+
+export interface BlogCategory {
+  _id: string;
+  _type: "blogCategory";
+  title: string;
+  slug: string;
+}
+
+export interface BlogAuthor {
+  _id: string;
+  _type: "blogAuthor";
+  name: string;
+  image?: SanityImage;
+  bio?: string;
+}
+
+export interface BlogList {
+  _type: "blogList";
+  title?: string;
+  subtitle?: string;
+  postsPerPage?: number;
+  selectedPosts?: BlogPost[];
+  selectionType: "auto" | "manual";
 }

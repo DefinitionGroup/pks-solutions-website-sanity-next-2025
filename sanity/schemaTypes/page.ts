@@ -25,7 +25,7 @@ export default {
       name: "content",
       title: "Content",
       type: "array",
-      of: [{ type: "hero" }],
+      of: [{ type: "hero" }, { type: "blogList" }],
     },
   ],
 };
