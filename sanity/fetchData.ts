@@ -82,7 +82,15 @@ export async function getFooterMenu() {
   return client.fetch(query);
 }
 
-export async function getBlogPosts(block: BlogList): Promise<BlogPost[]> {
+export async function getBlogPosts(block: BlogList, draft: boolean = false): Promise<BlogPost[]> {
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
   if (block.selectionType === "auto") {
     const query = groq`*[_type == "blogPost"] | order(publishedAt desc)[0...$limit] {
       _id,
@@ -95,7 +103,7 @@ export async function getBlogPosts(block: BlogList): Promise<BlogPost[]> {
     
     return client.fetch(query, {
       limit: block.postsPerPage || 6
-    });
+    }, options);
   }
 
   const query = groq`*[_type == "blogPost" && _id in $ids] {
@@ -109,11 +117,18 @@ export async function getBlogPosts(block: BlogList): Promise<BlogPost[]> {
   
   return client.fetch(query, {
     ids: block.selectedPosts?.map(p => p._id) || []
-  });
+  }, options);
 }
 
-// Add this function to your existing fetchData.ts
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost> {
+export async function getBlogPostBySlug(slug: string, draft: boolean = false): Promise<BlogPost> {
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
   const query = groq`*[_type == "blogPost" && slug.current == $slug][0]{
     _id,
     title,
@@ -132,7 +147,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost> {
     }
   }`;
   
-  return client.fetch(query, { slug });
+  return client.fetch(query, { slug }, options);
 }
 
 export async function getAllBlogPostSlugs() {
