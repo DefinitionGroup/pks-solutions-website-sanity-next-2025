@@ -1,12 +1,12 @@
-import Hero from "./components/Hero";
-import ScifiBlock from "./components/ScifiBlock";
-import GridHero from "./components/GridHero";
-import GridHero2 from "./components/GridHero2";
-import GridHero3 from "./components/GridHero3";
-import zwischenTitelCta from "./components/zwischenTitelCta";
-import TripleHero from "./components/TripleHero";
-import Menu from "./components/Menu";
-import blogList from "./components/blogList";
+import Hero from "./PKS/components/Hero";
+import ScifiBlock from "./PKS/components/ScifiBlock";
+import GridHero from "./PKS/components/GridHero";
+import GridHero2 from "./PKS/components/GridHero2";
+import GridHero3 from "./PKS/components/GridHero3";
+import zwischenTitelCta from "./PKS/components/zwischenTitelCta";
+import TripleHero from "./PKS/components/TripleHero";
+import Menu from "./PKS/components/Menu";
+import blogList from "./PKS/components/blogList";
 const ComponentsElements = [
   Hero,
   TripleHero,
@@ -16,6 +16,6 @@ const ComponentsElements = [
   ScifiBlock,
   zwischenTitelCta,
   Menu,
-  blogList
+  blogList,
 ];
 export default ComponentsElements;

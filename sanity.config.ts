@@ -1,36 +1,83 @@
 "use client";
-
-/**
- * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
- */
-
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { cloudinarySchemaPlugin } from "sanity-plugin-cloudinary";
-// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/deskStructure";
 import { presentationTool } from "sanity/presentation";
+
+const pageWithChannelTemplate = {
+  id: "page-with-channel",
+  title: "Page with Channel",
+  schemaType: "page",
+  parameters: [{ name: "channel", title: "Channel", type: "string" }],
+  value: (params: { channel: string }) => ({
+    channel: params.channel,
+  }),
+};
+
+// Add templates for blog-related types
+const blogPostWithChannelTemplate = {
+  id: "blogPost-with-channel",
+  title: "Blog Post with Channel",
+  schemaType: "blogPost",
+  parameters: [{ name: "channel", title: "Channel", type: "string" }],
+  value: (params: { channel: string }) => ({
+    channel: params.channel,
+  }),
+};
+
+const blogCategoryWithChannelTemplate = {
+  id: "blogCategory-with-channel",
+  title: "Blog Category with Channel",
+  schemaType: "blogCategory",
+  parameters: [{ name: "channel", title: "Channel", type: "string" }],
+  value: (params: { channel: string }) => ({
+    channel: params.channel,
+  }),
+};
+
+const blogAuthorWithChannelTemplate = {
+  id: "blogAuthor-with-channel",
+  title: "Blog Author with Channel",
+  schemaType: "blogAuthor",
+  parameters: [{ name: "channel", title: "Channel", type: "string" }],
+  value: (params: { channel: string }) => ({
+    channel: params.channel,
+  }),
+};
+
+// Add menu template if needed later
+// const menuWithChannelTemplate = { ... };
+
 export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
-  // Add and edit the content schema in the './sanity/schemaTypes' folder
-  schema,
+  schema: {
+    types: schema.types,
+    // Add all templates to the array
+    templates: (prev) => [
+      ...prev,
+      pageWithChannelTemplate,
+      blogPostWithChannelTemplate,
+      blogCategoryWithChannelTemplate,
+      blogAuthorWithChannelTemplate,
+      // menuWithChannelTemplate, // Add if defined
+    ],
+  },
   plugins: [
     structureTool({ structure }),
     cloudinarySchemaPlugin(),
-    // Vision is for querying with GROQ from inside the Studio
-    // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
     presentationTool({
       previewUrl: {
-        origin: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL,
-        preview: "/", // The path to preview your front-end
+        origin: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'http://localhost:3000', // Provide a fallback origin
+        preview: "/",
         previewMode: {
-          enable: "/api/draft-mode/enable", // Endpoint to enable draft mode
+          enable: "/api/draft-mode/enable",
         },
       },
     }),

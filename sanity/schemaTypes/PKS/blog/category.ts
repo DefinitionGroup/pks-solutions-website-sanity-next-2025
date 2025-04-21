@@ -1,33 +1,26 @@
-export default {
-  name: "page",
-  _type: "page",
-  title: "Page",
+import { defineType, defineField } from "sanity";
+
+export default defineType({
+  name: "blogCategory",
+  title: "Blog Category",
   type: "document",
   fields: [
-    {
+    defineField({
       name: "title",
       title: "Title",
       type: "string",
-    },
-    {
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "title", maxLength: 96 },
-    },
-    {
-      name: "subtitle",
-      title: "Subtitle",
-      type: "string",
-    },
-
-    {
-      name: "content",
-      title: "Content",
-      type: "array",
-      of: [{ type: "hero" }, { type: "blogList" }],
-    },
-    {
+      options: {
+        source: "title",
+        maxLength: 96,
+      },
+    }),
+    defineField({
       name: "channel",
       title: "Channel",
       type: "string",
@@ -43,6 +36,6 @@ export default {
       },
       readOnly: true,
       description: "Automatically set channel based on creation location",
-    },
+    }),
   ],
-};
+});

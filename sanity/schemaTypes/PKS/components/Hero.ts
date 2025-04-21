@@ -86,6 +86,13 @@ export default defineType({
       description:
         "Additional content modules to render below the main HeroHighlight section",
     }),
+    defineField({
+      name: "channel",
+      title: "Channel",
+      type: "string",
+      initialValue: "pksWeb",
+      hidden: true,
+    }),
   ],
   preview: {
     select: {

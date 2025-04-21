@@ -22,5 +22,22 @@ export default defineType({
       title: "Bio",
       type: "text",
     }),
+    defineField({
+      name: "channel",
+      title: "Channel",
+      type: "string",
+      options: {
+        list: [
+          { title: "PKS Website", value: "pksWeb" },
+          { title: "Avtr Website", value: "avtWeb" },
+        ],
+        layout: "radio",
+      },
+      initialValue: (context: any) => {
+        return context.document?.__inferMetadata?.params?.channel || "pksWeb";
+      },
+      readOnly: true,
+      description: "Automatically set channel based on creation location",
+    }),
   ],
 });
