@@ -1,5 +1,12 @@
 import type { StructureResolver } from "sanity/structure";
-import { MdWeb, MdBusiness, MdArticle, MdMenu, MdCategory, MdPerson } from "react-icons/md"; // Import necessary icons
+import {
+  MdWeb,
+  MdBusiness,
+  MdArticle,
+  MdMenu,
+  MdCategory,
+  MdPerson,
+} from "react-icons/md"; // Import necessary icons
 
 // Define templates for creating documents with pre-filled channel
 const createDocWithChannel = (S: any, schemaType: string, channel: string) => {
@@ -9,22 +16,37 @@ const createDocWithChannel = (S: any, schemaType: string, channel: string) => {
 
 export const structure: StructureResolver = (S) => {
   // Define templates for each channel and document type
-  const pksPageTemplate = createDocWithChannel(S, 'page', 'pksWeb');
-  const avtrPageTemplate = createDocWithChannel(S, 'page', 'avtWeb');
+  const pksPageTemplate = createDocWithChannel(S, "page", "pksWeb");
+  const avtrPageTemplate = createDocWithChannel(S, "page", "avtWeb");
   // Add templates for blog posts, categories, authors
-  const pksBlogPostTemplate = createDocWithChannel(S, 'blogPost', 'pksWeb');
-  const avtrBlogPostTemplate = createDocWithChannel(S, 'blogPost', 'avtWeb');
-  const pksBlogCategoryTemplate = createDocWithChannel(S, 'blogCategory', 'pksWeb');
-  const avtrBlogCategoryTemplate = createDocWithChannel(S, 'blogCategory', 'avtWeb');
-  const pksBlogAuthorTemplate = createDocWithChannel(S, 'blogAuthor', 'pksWeb');
-  const avtrBlogAuthorTemplate = createDocWithChannel(S, 'blogAuthor', 'avtWeb');
+  const pksBlogPostTemplate = createDocWithChannel(S, "blogPost", "pksWeb");
+  const avtrBlogPostTemplate = createDocWithChannel(S, "blogPost", "avtWeb");
+  const pksBlogCategoryTemplate = createDocWithChannel(
+    S,
+    "blogCategory",
+    "pksWeb"
+  );
+  const avtrBlogCategoryTemplate = createDocWithChannel(
+    S,
+    "blogCategory",
+    "avtWeb"
+  );
+  const pksBlogAuthorTemplate = createDocWithChannel(S, "blogAuthor", "pksWeb");
+  const avtrBlogAuthorTemplate = createDocWithChannel(
+    S,
+    "blogAuthor",
+    "avtWeb"
+  );
   // Add menu templates if needed later
-  // const pksMenuTemplate = createDocWithChannel(S, 'menu', 'pksWeb');
-  // const avtrMenuTemplate = createDocWithChannel(S, 'menu', 'avtWeb');
-
+  const pksMenuTemplate = createDocWithChannel(S, "menu", "pksWeb");
+  const avtrMenuTemplate = createDocWithChannel(S, "menu", "avtWeb");
 
   // Helper function to create the structure for a channel
-  const createChannelStructure = (channelTitle: string, channelValue: string, channelIcon: React.ElementType) => {
+  const createChannelStructure = (
+    channelTitle: string,
+    channelValue: string,
+    channelIcon: React.ElementType
+  ) => {
     return S.listItem()
       .title(channelTitle)
       .icon(channelIcon)
@@ -42,7 +64,9 @@ export const structure: StructureResolver = (S) => {
                   .filter('_type == "page" && channel == $channel')
                   .params({ channel: channelValue })
                   .initialValueTemplates([
-                    channelValue === 'pksWeb' ? pksPageTemplate : avtrPageTemplate
+                    channelValue === "pksWeb"
+                      ? pksPageTemplate
+                      : avtrPageTemplate,
                   ])
               ),
             // Blogs section for the channel
@@ -61,8 +85,11 @@ export const structure: StructureResolver = (S) => {
                           .title(`Blog Posts for ${channelTitle}`)
                           .filter('_type == "blogPost" && channel == $channel') // Filter needs channel field in schema
                           .params({ channel: channelValue })
-                          .initialValueTemplates([ // Use the correct template
-                             channelValue === 'pksWeb' ? pksBlogPostTemplate : avtrBlogPostTemplate
+                          .initialValueTemplates([
+                            // Use the correct template
+                            channelValue === "pksWeb"
+                              ? pksBlogPostTemplate
+                              : avtrBlogPostTemplate,
                           ])
                       ),
                     S.listItem()
@@ -71,10 +98,15 @@ export const structure: StructureResolver = (S) => {
                       .child(
                         S.documentTypeList("blogCategory") // Assuming 'blogCategory' is the schema name
                           .title(`Blog Categories for ${channelTitle}`)
-                          .filter('_type == "blogCategory" && channel == $channel') // Filter needs channel field in schema
+                          .filter(
+                            '_type == "blogCategory" && channel == $channel'
+                          ) // Filter needs channel field in schema
                           .params({ channel: channelValue })
-                          .initialValueTemplates([ // Use the correct template
-                             channelValue === 'pksWeb' ? pksBlogCategoryTemplate : avtrBlogCategoryTemplate
+                          .initialValueTemplates([
+                            // Use the correct template
+                            channelValue === "pksWeb"
+                              ? pksBlogCategoryTemplate
+                              : avtrBlogCategoryTemplate,
                           ])
                       ),
                     S.listItem()
@@ -83,10 +115,15 @@ export const structure: StructureResolver = (S) => {
                       .child(
                         S.documentTypeList("blogAuthor") // Assuming 'blogAuthor' is the schema name
                           .title(`Blog Authors for ${channelTitle}`)
-                          .filter('_type == "blogAuthor" && channel == $channel') // Filter needs channel field in schema
+                          .filter(
+                            '_type == "blogAuthor" && channel == $channel'
+                          ) // Filter needs channel field in schema
                           .params({ channel: channelValue })
-                          .initialValueTemplates([ // Use the correct template
-                             channelValue === 'pksWeb' ? pksBlogAuthorTemplate : avtrBlogAuthorTemplate
+                          .initialValueTemplates([
+                            // Use the correct template
+                            channelValue === "pksWeb"
+                              ? pksBlogAuthorTemplate
+                              : avtrBlogAuthorTemplate,
                           ])
                       ),
                   ])
@@ -100,7 +137,11 @@ export const structure: StructureResolver = (S) => {
                   .title(`Menus for ${channelTitle}`)
                   .filter('_type == "menu" && channel == $channel') // Filter needs channel field in schema
                   .params({ channel: channelValue })
-                // .initialValueTemplates([ /* Add menu templates here if needed */ ])
+                  .initialValueTemplates([
+                    channelValue === "pksWeb"
+                      ? pksMenuTemplate
+                      : avtrMenuTemplate,
+                  ])
               ),
           ])
       );

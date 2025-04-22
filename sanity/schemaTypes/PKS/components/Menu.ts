@@ -1,21 +1,47 @@
-import { defineField, defineType } from "sanity";
 import { IoShareSocialOutline } from "react-icons/io5";
-import { FaFacebook, FaInstagram, FaTwitter, FaGithub, FaYoutube, FaElementor } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+  FaGithub,
+  FaYoutube,
+  FaElementor,
+} from "react-icons/fa";
 import React from "react";
-export default defineType({
+
+export default {
+  // Changed from defineType({...}) to export default {...}
   name: "menu",
   title: "Menu",
   type: "document",
+  i18n: {
+    base: "de",
+    languages: [
+      { id: "en", title: "English" },
+      { id: "de", title: "German" },
+    ],
+    referenceBehavior: "weak",
+  },
   fields: [
-    defineField({
+    // Removed defineField wrappers from all fields below
+    {
+      name: "language",
+      title: "Language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+      description:
+        "Managed by @sanity/document-internationalization; do not edit manually.",
+    },
+    {
       name: "title",
       title: "Title",
       type: "string",
       description: "Automatically matches menu type",
-      hidden: ({ document }) => !!document?.menuType,
+      hidden: ({ document }: { document: any }) => !!document?.menuType, // Added type annotation for document
       initialValue: "Menu",
-    }),
-    defineField({
+    },
+    {
       name: "menuType",
       title: "Menu Type",
       type: "string",
@@ -24,224 +50,262 @@ export default defineType({
           { title: "Navbar", value: "Navbar" },
           { title: "Footer", value: "Footer" },
         ],
-        layout: "radio"
+        layout: "radio",
       },
-      validation: (Rule) => Rule.required(),
-    }),
+      validation: (Rule: any) => Rule.required(), // Added type annotation for Rule
+    },
 
     /* Navbar Fields */
-    defineField({
+    {
       name: "menuItems",
       title: "Navigation Items",
       type: "array",
-      of: [{
-        type: "object",
-        icon: FaElementor,
-        fields: [
-          defineField({ 
-            name: "page",
-            title: "Page",
-            type: "reference",
-            to: [{ type: "page" }]
-          }),
-          defineField({
-            name: "displayName",
-            title: "Display Name",
-            type: "string"
-          })
-        ]
-      }],
-      hidden: ({ parent }) => parent?.menuType !== "Navbar"
-    }),
+      of: [
+        {
+          type: "object",
+          icon: FaElementor,
+          fields: [
+            {
+              // Removed defineField
+              name: "page",
+              title: "Page",
+              type: "reference",
+              to: [{ type: "page" }],
+            },
+            {
+              // Removed defineField
+              name: "displayName",
+              title: "Display Name",
+              type: "string",
+            },
+          ],
+        },
+      ],
+      hidden: ({ parent }: { parent: any }) => parent?.menuType !== "Navbar", // Added type annotation for parent
+    },
 
     /* Shared Fields */
-    defineField({
+    {
       name: "imageCloud",
       title: "Logo",
       type: "cloudinary.asset",
-      description: "Main logo (used in both header and footer)"
-    }),
+      description: "Main logo (used in both header and footer)",
+    },
 
     /* Footer Fields */
-    defineField({
+    {
       name: "footerColumns",
       title: "Footer Columns",
       type: "array",
-      of: [{
-        type: "object",
-        icon: FaElementor,
-        fields: [
-          defineField({
-            name: "title",
-            title: "Column Title",
-            type: "string"
-          }),
-          defineField({
-            name: "links",
-            title: "Links",
-            type: "array",
-            of: [{
-              type: "object",
-              fields: [
-                defineField({
-                  name: "title",
-                  title: "Title",
-                  type: "string",
-                  description: "Automatically matches link name",
-                  hidden: ({ document }) => !!document?.menuType,
-                  initialValue: "Menu",
-                }),
-                defineField({
-                  name: "linkType",
-                  title: "Link Type",
-                  type: "string",
-                  options: {
-                    list: [
-                      { title: "Internal Page", value: "internal" },
-                      { title: "External URL", value: "external" }
-                    ],
-                    layout: "radio"
-                  }
-                }),
-                defineField({
-                  name: "page",
-                  title: "Page",
-                  type: "reference",
-                  to: [{ type: "page" }],
-                  hidden: ({ parent }) => parent?.linkType !== "internal"
-                }),
-                defineField({
-                  name: "externalUrl",
-                  title: "External URL",
-                  type: "url",
-                  hidden: ({ parent }) => parent?.linkType !== "external"
-                }),
-                defineField({
-                  name: "displayName",
-                  title: "Link Name",
-                  type: "string"
-                })
-              ],
-              preview: {
-                select: {
-                  title: "displayName",
-                  subtitle: "linkType"
+      of: [
+        {
+          type: "object",
+          icon: FaElementor,
+          fields: [
+            {
+              // Removed defineField
+              name: "title",
+              title: "Column Title",
+              type: "string",
+            },
+            {
+              // Removed defineField
+              name: "links",
+              title: "Links",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    {
+                      // Removed defineField
+                      name: "title",
+                      title: "Title",
+                      type: "string",
+                      description: "Automatically matches link name",
+                      hidden: ({ document }: { document: any }) =>
+                        !!document?.menuType, // Added type annotation
+                      initialValue: "Menu",
+                    },
+                    {
+                      // Removed defineField
+                      name: "linkType",
+                      title: "Link Type",
+                      type: "string",
+                      options: {
+                        list: [
+                          { title: "Internal Page", value: "internal" },
+                          { title: "External URL", value: "external" },
+                        ],
+                        layout: "radio",
+                      },
+                    },
+                    {
+                      // Removed defineField
+                      name: "page",
+                      title: "Page",
+                      type: "reference",
+                      to: [{ type: "page" }],
+                      hidden: ({ parent }: { parent: any }) =>
+                        parent?.linkType !== "internal", // Added type annotation
+                    },
+                    {
+                      // Removed defineField
+                      name: "externalUrl",
+                      title: "External URL",
+                      type: "url",
+                      hidden: ({ parent }: { parent: any }) =>
+                        parent?.linkType !== "external", // Added type annotation
+                    },
+                    {
+                      // Removed defineField
+                      name: "displayName",
+                      title: "Link Name",
+                      type: "string",
+                    },
+                  ],
+                  preview: {
+                    select: {
+                      title: "displayName",
+                      subtitle: "linkType",
+                    },
+                    prepare({
+                      title,
+                      subtitle,
+                    }: {
+                      title: string;
+                      subtitle: string;
+                    }) {
+                      // Added type annotation
+                      return {
+                        title: title || "Untitled link",
+                        subtitle: subtitle ? `${subtitle} link` : "",
+                      };
+                    },
+                  },
                 },
-                prepare({ title, subtitle }) {
-                  return {
-                    title: title || "Untitled link",
-                    subtitle: subtitle ? `${subtitle} link` : ""
-                  };
-                }
-              }
-            }]
-          })
-        ]
-      }],
-      hidden: ({ parent }) => parent?.menuType !== "Footer"
-    }),
+              ],
+            },
+          ],
+        },
+      ],
+      hidden: ({ parent }: { parent: any }) => parent?.menuType !== "Footer", // Added type annotation
+    },
 
-    defineField({
+    {
       name: "socialLinks",
       title: "Social Media Links",
       icon: IoShareSocialOutline,
       type: "array",
-      of: [{
-        type: "object",
-        fields: [
-          defineField({
-            name: "platform",
-            type: "string",
-            options: {
-              list: [
-                { title: "Facebook", value: "Facebook" },
-                { title: "Instagram", value: "Instagram" },
-                { title: "X (Twitter)", value: "X",  },
-                { title: "GitHub", value: "GitHub" },
-                { title: "YouTube", value: "YouTube" }
-              ]
-            }
-          }),
-          defineField({
-            name: "url",
-            title: "Profile URL",
-            type: "url"
-          })
-        ],
-        preview: {
-          select: {
-            platform: "platform",
-            url: "url"
-          },
-          prepare({ platform, url }) {
-            const icons = {
-              Facebook: FaFacebook,
-              Instagram: FaInstagram,
-              X: FaTwitter,
-              GitHub: FaGithub,
-              YouTube: FaYoutube
-            };
-            
-            return {
-              title: platform,
-              subtitle: url,
-              media: icons[platform as keyof typeof icons] ? React.createElement(icons[platform as keyof typeof icons]) : null
-            };
-          }
-        }
-      }],
-      hidden: ({ parent }) => parent?.menuType !== "Footer"
-    }),
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              // Removed defineField
+              name: "platform",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Facebook", value: "Facebook" },
+                  { title: "Instagram", value: "Instagram" },
+                  { title: "X (Twitter)", value: "X" },
+                  { title: "GitHub", value: "GitHub" },
+                  { title: "YouTube", value: "YouTube" },
+                ],
+              },
+            },
+            {
+              // Removed defineField
+              name: "url",
+              title: "Profile URL",
+              type: "url",
+            },
+          ],
+          preview: {
+            select: {
+              platform: "platform",
+              url: "url",
+            },
+            prepare({ platform, url }: { platform: string; url: string }) {
+              // Added type annotation
+              const icons: Record<string, React.ElementType> = {
+                // Added type annotation for icons
+                Facebook: FaFacebook,
+                Instagram: FaInstagram,
+                X: FaTwitter,
+                GitHub: FaGithub,
+                YouTube: FaYoutube,
+              };
 
-    defineField({
+              return {
+                title: platform,
+                subtitle: url,
+                media: icons[platform]
+                  ? React.createElement(icons[platform])
+                  : null,
+              };
+            },
+          },
+        },
+      ],
+      hidden: ({ parent }: { parent: any }) => parent?.menuType !== "Footer", // Added type annotation
+    },
+
+    {
       name: "copyright",
       title: "Copyright Text",
       type: "string",
-      hidden: ({ parent }) => parent?.menuType !== "Footer"
-    }),
-
-    
-   
+      hidden: ({ parent }: { parent: any }) => parent?.menuType !== "Footer", // Added type annotation
+    },
+    {
+      name: "channel",
+      title: "Channel",
+      type: "string",
+      options: {
+        list: [
+          { title: "PKS Website", value: "pksWeb" },
+          { title: "Avtr Website", value: "avtWeb" },
+        ],
+        layout: "radio",
+      },
+      initialValue: (context: any) => {
+        return context.document?.__inferMetadata?.params?.channel || "pksWeb";
+      },
+      readOnly: true,
+      description: "Automatically set channel based on creation location",
+    },
   ],
-  // Document-level validation to enforce a singleton per menu type.
-  validation: (Rule) =>
-    Rule.custom(async (doc, context) => {
-      // If no document or menuType is set, skip further validation.
+  validation: (
+    Rule: any // Added type annotation for Rule
+  ) =>
+    Rule.custom(async (doc: any, context: any) => {
+      // Added type annotations
       if (!doc || !doc.menuType) return true;
-
-      // Get the current document id.
       const id = doc._id || "";
-      // Normalize the id by removing the "drafts." prefix, if it exists.
       const baseId = id.replace(/^drafts\./, "");
-
       const client = context.getClient({ apiVersion: "2023-01-01" });
-
-      // Query for any other document with the same menuType but with an id
-      // that is not either the current id or the base (published) id.
       const query = `
         *[_type == "menu" && menuType == $menuType && !(_id in [$id, $baseId])] {
           _id
         }
       `;
       const params = { menuType: doc.menuType, id, baseId };
-
       const result = await client.fetch(query, params);
-
       if (result.length > 0) {
         return `Only one ${doc.menuType} menu is allowed.`;
       }
-
       return true;
     }),
-  // Add this preview configuration
   preview: {
     select: {
       menuType: "menuType",
     },
-    prepare({ menuType }) {
+    prepare({ menuType }: { menuType: string }) {
+      // Added type annotation
       return {
         title: menuType ? `${menuType} Menu` : "Menu",
       };
     },
   },
-});
+}; // Closed the export default object

@@ -6,16 +6,18 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { cn } from "../../lib/utils";
+import { cn } from "@/app/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuType } from "@/types/types";
 export const FloatingNav = ({
   menu,
   className,
+  currentLocale, // Add currentLocale prop
 }: {
   menu: MenuType;
   className?: string;
+  currentLocale: string; // Define the type for currentLocale
 }) => {
   const { scrollYProgress } = useScroll();
 
@@ -37,6 +39,8 @@ export const FloatingNav = ({
       }
     }
   });
+
+  if (!menu || !menu.menuItems) return null; // Check if menu and menuItems exist
 
   return (
     <AnimatePresence mode="wait">
@@ -63,7 +67,7 @@ export const FloatingNav = ({
           )}
         >
           <Image
-            src={menu.imageCloud?.secure_url || "/img/logopks--outline.svg"} 
+            src={menu.imageCloud?.secure_url || "/img/logopks--outline.svg"}
             alt="logo"
             width={128}
             height={32}
@@ -73,7 +77,11 @@ export const FloatingNav = ({
         {menu.menuItems?.map((item, idx) => (
           <Link
             key={`link-${idx}`}
-            href={item.page.slug.current === 'home' ? '/' : `/${item.page.slug.current}`}
+            href={
+              item.page.slug.current === "home"
+                ? "/"
+                : `/${item.page.slug.current}`
+            }
             className={cn(
               "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
             )}

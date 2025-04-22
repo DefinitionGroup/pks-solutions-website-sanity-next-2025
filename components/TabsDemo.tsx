@@ -71,5 +71,16 @@ export function TabsDemo({ className }: TabsDemoProps) {
 }
 
 const DummyContent = () => {
-  return <CardDemo3 />;
+  return (
+    <CardDemo3
+      title={""}
+      subtitle={""}
+      video={{
+        _type: "cloudinary.asset",
+        secure_url:
+          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        public_id: "test",
+      }}
+    />
+  );
 };

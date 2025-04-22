@@ -10,7 +10,15 @@ import {
 } from "react-icons/fa";
 import { MenuType } from "@/types/types";
 
-export default function Footer({ menu }: { menu: MenuType }) {
+// Update the props interface to include currentLocale
+export default function Footer({
+  menu,
+  currentLocale,
+}: {
+  menu: MenuType;
+  currentLocale: string;
+}) {
+  // Add currentLocale prop
   if (!menu) return null;
   return (
     <footer className="bg-slate-950">
@@ -34,27 +42,35 @@ export default function Footer({ menu }: { menu: MenuType }) {
                     {column.title}
                   </h3>
                   <ul role="list" className="space-y-4 mt-6">
-                    {column.links?.map((link, linkIndex) => (
-                      <li key={linkIndex}>
-                        {link.linkType === "internal" ? (
-                          <Link
-                            href={`/${link.page?.slug?.current || "#"}`}
-                            className="text-gray-400 text-sm/6 hover:text-white"
-                          >
-                            {link.displayName}
-                          </Link>
-                        ) : (
-                          <Link
-                            href={link.externalUrl || '#'}
-                            className="text-gray-400 text-sm/6 hover:text-white"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {link.displayName}
-                          </Link>
-                        )}
-                      </li>
-                    ))}
+                    {column.links?.map((link, linkIndex: number) => {
+                      // Use FooterLink type if available
+                      // Construct the href using the currentLocale for internal links
+                      const internalHref = link.page?.slug?.current
+                        ? `/${currentLocale}/${link.page.slug.current}` // Prepend locale
+                        : "#";
+
+                      return (
+                        <li key={linkIndex}>
+                          {link.linkType === "internal" ? (
+                            <Link
+                              href={internalHref} // Use the locale-aware href
+                              className="text-gray-400 text-sm/6 hover:text-white"
+                            >
+                              {link.displayName}
+                            </Link>
+                          ) : (
+                            <Link
+                              href={link.externalUrl || "#"}
+                              className="text-gray-400 text-sm/6 hover:text-white"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {link.displayName}
+                            </Link>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}

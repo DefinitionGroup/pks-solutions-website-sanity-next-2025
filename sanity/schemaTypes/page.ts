@@ -3,7 +3,25 @@ export default {
   _type: "page",
   title: "Page",
   type: "document",
+  i18n: {
+    base: "de",
+    languages: [
+      { id: "en", title: "English" },
+      { id: "de", title: "German" },
+      // add more locales here…
+    ],
+    referenceBehavior: "weak", // or "strong" if you prefer
+  },
   fields: [
+    {
+      name: "language",
+      title: "Language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+      description:
+        "Managed by @sanity/document-internationalization; do not edit manually.",
+    },
     {
       name: "title",
       title: "Title",

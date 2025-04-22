@@ -3,17 +3,22 @@ import { BlogPost, BlogList } from "@/types/types";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { getBlogPosts } from "@/sanity/fetchData";
+import { draftMode } from "next/headers"; // Import draftMode
+
+// Update props type to include locale
+interface BlogListComponentProps {
+  block: BlogList;
+  locale: string; // Add locale prop
+}
 
 // In the component function:
-export default async function BlogListComponent({
-  block,
-}: {
-  block: BlogList;
-}) {
-  const posts = await getBlogPosts(block);
+export default async function BlogListComponent({ block, locale }: BlogListComponentProps) { // Use updated props type
+  const { isEnabled } = await draftMode(); // Check draft mode status
+  // Pass locale and draft status to getBlogPosts
+  const posts = await getBlogPosts(block, locale, isEnabled);
 
   return (
-    <section className="py-12 container mx-auto px-4 py-40">
+    <section className="py-12 container mx-auto px-4"> {/* Removed py-40 for potential overlap */}
       {(block.title || block.subtitle) && (
         <div className="mb-12 text-center">
           {block.title && (
@@ -30,8 +35,9 @@ export default async function BlogListComponent({
             key={post._id}
             className="border rounded-lg p-6 hover:shadow-lg transition-shadow"
           >
+            {/* Update Link href to include locale */}
             <Link
-              href={`/blog/${post.slug?.current}`} // Use slug.current explicitly
+              href={`/${locale}/blog/${post.slug?.current}`} // Add locale prefix
               className="block"
             >
               <time className="text-sm text-gray-600 dark:text-gray-400">

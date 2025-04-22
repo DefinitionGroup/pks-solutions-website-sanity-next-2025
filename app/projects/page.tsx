@@ -8,7 +8,6 @@ import {
   JSXElementConstructor,
   ReactNode,
   ReactPortal,
-  AwaitedReactNode,
 } from "react";
 
 // Read the content from a JSON file
@@ -37,7 +36,6 @@ export default async function Page() {
               | ReactElement<any, string | JSXElementConstructor<any>>
               | Iterable<ReactNode>
               | ReactPortal
-              | Promise<AwaitedReactNode>
               | null
               | undefined;
           }) => (

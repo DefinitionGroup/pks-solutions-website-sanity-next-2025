@@ -1,5 +1,5 @@
 "use client";
-import { HeroHighlight, Highlight } from "@/app/components/ui/hero-highlight";
+import { HeroHighlight, Highlight } from "./ui/hero-highlight";
 import { motion } from "framer-motion";
 import Button2 from "./Button2";
 import SciFiBlock from "./ui/anim/SciFiBlock";
@@ -47,7 +47,8 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               opacity: 1,
               y: [20, -5, 0],
             }}
-            transition={{ type: "spring" }}
+            // Remove type: "spring" if you want to keep the [20, -5, 0] animation
+            transition={{ duration: 0.5 }} // Example: Use duration or other tween options
             className="col-span-9 col-start-1 px-8 py-32 pb-8 w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug"
           >
             {headline}
@@ -65,7 +66,8 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               opacity: 1,
               y: [20, -5, 0],
             }}
-            transition={{ type: "spring", delay: 0.3 }}
+            // Remove type: "spring"
+            transition={{ delay: 0.3, duration: 0.5 }} // Example: Use duration or other tween options
             className="col-span-6 col-start-1 px-8 text-white lg:text-xl"
           >
             {leftDescription}
@@ -79,7 +81,8 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               opacity: 1,
               y: [20, -5, 0],
             }}
-            transition={{ type: "spring", delay: 0.6 }}
+            // Remove type: "spring"
+            transition={{ delay: 0.6, duration: 0.5 }} // Example: Use duration or other tween options
             className="flex flex-col justify-center border-white col-span-3 col-start-10 w-full text-white"
           >
             <p className="flex flex-col justify-center border-white p-8 w-full text-sm text-white">

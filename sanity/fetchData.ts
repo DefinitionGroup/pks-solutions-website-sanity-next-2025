@@ -4,17 +4,22 @@ import { client } from "./lib/client";
 import { ClientPerspective } from "@sanity/client";
 import { MenuType } from "../types/types";
 import { BlogList, BlogPost } from "../types/types";
+
+// Updated getPageBySlug to include locale
 export const getPageBySlug = async (
   slug: string,
+  locale: string, // Add locale parameter
   draft: boolean = false
 ): Promise<PageType> => {
-  const query = groq`*[_type == "page" && slug.current == $slug][0]{
+  const query = groq`*[_type == "page" && slug.current == $slug && language == $locale][0]{
     title,
     _id,
     _createdAt,
     _updatedAt,
     slug,
-    content
+    content,
+    language, // Include language if needed elsewhere
+    channel // Add channel field
 }`;
 
   const options = draft
@@ -25,26 +30,31 @@ export const getPageBySlug = async (
       }
     : {};
 
-  return client.fetch(query, { slug }, options);
+  // Pass locale to the query parameters
+  return client.fetch(query, { slug, locale }, options);
 };
 
-
+// Updated getMenuByType to include locale
 export const getMenuByType = async (
   menuType: string,
+  locale: string, // Add locale parameter
   draft: boolean = false
 ): Promise<MenuType | null> => {
-  const query = groq`*[_type == "menu" && menuType == $menuType][0]{
+  // Assuming menus are also localized by a 'language' field
+  const query = groq`*[_type == "menu" && menuType == $menuType && language == $locale][0]{
     _id,
     _type,
     title,
     menuType,
+    language, // Include language if needed
     menuItems[] {
       _key,
       displayName,
       page-> {
         slug {
           current
-        }
+        },
+        language // Ensure linked pages respect locale if needed for URL generation
       }
     },
     imageCloud,
@@ -58,18 +68,21 @@ export const getMenuByType = async (
     stega: true,
   } : {};
 
-  return client.fetch(query, { menuType }, options);
+  // Pass locale to the query parameters
+  return client.fetch(query, { menuType, locale }, options);
 };
 
-export async function getFooterMenu() {
-  const query = groq`*[_type == "menu" && menuType == "Footer"][0]{
+// Updated getFooterMenu to include locale
+export async function getFooterMenu(locale: string, draft: boolean = false) { // Add locale and draft parameters
+  // Assuming footer menus are also localized by a 'language' field
+  const query = groq`*[_type == "menu" && menuType == "Footer" && language == $locale][0]{
     footerColumns[] {
       title,
       links[] {
         displayName,
         linkType,
         externalUrl,
-        page->{ slug }
+        page->{ slug, language } // Fetch language for locale-specific links
       }
     },
     socialLinks[] {
@@ -77,12 +90,22 @@ export async function getFooterMenu() {
       url
     },
     copyright,
-    imageCloud
+    imageCloud,
+    language // Include language if needed
   }`;
-  return client.fetch(query);
+
+   const options = draft ? {
+    perspective: "previewDrafts" as ClientPerspective,
+    useCdn: false,
+    stega: true,
+  } : {};
+
+  // Pass locale to the query parameters
+  return client.fetch(query, { locale }, options);
 }
 
-export async function getBlogPosts(block: BlogList, draft: boolean = false): Promise<BlogPost[]> {
+// Updated getBlogPosts to include locale (if blog posts are localized)
+export async function getBlogPosts(block: BlogList, locale: string, draft: boolean = false): Promise<BlogPost[]> { // Add locale parameter
   const options = draft
     ? {
         perspective: "previewDrafts" as ClientPerspective,
@@ -91,36 +114,44 @@ export async function getBlogPosts(block: BlogList, draft: boolean = false): Pro
       }
     : {};
 
+  // Assuming blog posts have a 'language' field for localization
   if (block.selectionType === "auto") {
-    const query = groq`*[_type == "blogPost"] | order(publishedAt desc)[0...$limit] {
+    const query = groq`*[_type == "blogPost" && language == $locale] | order(publishedAt desc)[0...$limit] {
       _id,
       title,
       slug,
       publishedAt,
       excerpt,
-      author->{name}
+      author->{name},
+      language // Include language if needed
     }`;
-    
+
     return client.fetch(query, {
-      limit: block.postsPerPage || 6
+      limit: block.postsPerPage || 6,
+      locale // Pass locale to the query parameters
     }, options);
   }
 
-  const query = groq`*[_type == "blogPost" && _id in $ids] {
+  // Fetch selected posts, ensuring they match the locale if necessary
+  // This might need adjustment depending on whether selectedPosts references are locale-specific
+  const query = groq`*[_type == "blogPost" && _id in $ids && language == $locale] {
     _id,
     title,
     slug,
     publishedAt,
     excerpt,
-    author->{name}
+    author->{name},
+    language // Include language if needed
   }`;
-  
+
   return client.fetch(query, {
-    ids: block.selectedPosts?.map(p => p._id) || []
+    ids: block.selectedPosts?.map(p => p._id) || [], // Use _ref for references
+    locale // Pass locale to the query parameters
   }, options);
 }
 
-export async function getBlogPostBySlug(slug: string, draft: boolean = false): Promise<BlogPost> {
+// Updated getBlogPostBySlug to include locale
+export async function getBlogPostBySlug(slug: string, locale: string, draft: boolean = false): Promise<BlogPost> { // Add locale parameter
   const options = draft
     ? {
         perspective: "previewDrafts" as ClientPerspective,
@@ -129,7 +160,8 @@ export async function getBlogPostBySlug(slug: string, draft: boolean = false): P
       }
     : {};
 
-  const query = groq`*[_type == "blogPost" && slug.current == $slug][0]{
+  // Assuming blog posts have a 'language' field
+  const query = groq`*[_type == "blogPost" && slug.current == $slug && language == $locale][0]{
     _id,
     title,
     slug,
@@ -144,13 +176,30 @@ export async function getBlogPostBySlug(slug: string, draft: boolean = false): P
     categories[]->{
       title,
       slug
-    }
+    },
+    language // Include language if needed
   }`;
-  
-  return client.fetch(query, { slug }, options);
+
+  // Pass locale to the query parameters
+  return client.fetch(query, { slug, locale }, options);
 }
 
-export async function getAllBlogPostSlugs() {
-  const query = groq`*[_type == "blogPost"]{ "slug": slug.current }`;
-  return client.fetch<{ slug: string }[]>(query);
+// Updated getAllBlogPostSlugs to include locale
+export async function getAllBlogPostSlugs(locale: string) { // Add locale parameter
+  // Assuming blog posts have a 'language' field
+  const query = groq`*[_type == "blogPost" && language == $locale]{ "slug": slug.current }`;
+  // Pass locale to the query parameters
+  return client.fetch<{ slug: string }[]>(query, { locale });
+}
+
+// Add function to get all page slugs and locales for generateStaticParams
+export async function getAllPageSlugsAndLocales() {
+  const query = groq`*[_type == "page" && defined(slug.current) && defined(language)]{
+    "slug": slug.current,
+    "locale": language,
+    "channel": channel // Add channel field
+  }`;
+  // No draft options needed usually for static generation
+  // Update the return type to include channel
+  return client.fetch<{ slug: string; locale: string; channel: string }[]>(query);
 }

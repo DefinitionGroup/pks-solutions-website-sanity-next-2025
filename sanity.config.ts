@@ -7,6 +7,7 @@ import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/deskStructure";
 import { presentationTool } from "sanity/presentation";
+import { documentInternationalization } from "@sanity/document-internationalization";
 
 const pageWithChannelTemplate = {
   id: "page-with-channel",
@@ -48,9 +49,15 @@ const blogAuthorWithChannelTemplate = {
     channel: params.channel,
   }),
 };
-
-// Add menu template if needed later
-// const menuWithChannelTemplate = { ... };
+const menuWithChannelTemplate = {
+  id: "menu-with-channel",
+  title: "Menu with Channel",
+  schemaType: "menu",
+  parameters: [{ name: "channel", title: "Channel", type: "string" }],
+  value: (params: { channel: string }) => ({
+    channel: params.channel,
+  }),
+};
 
 export default defineConfig({
   basePath: "/studio",
@@ -65,16 +72,24 @@ export default defineConfig({
       blogPostWithChannelTemplate,
       blogCategoryWithChannelTemplate,
       blogAuthorWithChannelTemplate,
-      // menuWithChannelTemplate, // Add if defined
+      menuWithChannelTemplate,
     ],
   },
   plugins: [
+    documentInternationalization({
+      supportedLanguages: [
+        { id: "de", title: "German" },
+        { id: "en", title: "English" },
+      ],
+      schemaTypes: ["page", "blogPost", "blogCategory", "blogAuthor", "menu"],
+    }),
     structureTool({ structure }),
     cloudinarySchemaPlugin(),
     visionTool({ defaultApiVersion: apiVersion }),
     presentationTool({
       previewUrl: {
-        origin: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'http://localhost:3000', // Provide a fallback origin
+        origin:
+          process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || "http://localhost:3000", // Provide a fallback origin
         preview: "/",
         previewMode: {
           enable: "/api/draft-mode/enable",

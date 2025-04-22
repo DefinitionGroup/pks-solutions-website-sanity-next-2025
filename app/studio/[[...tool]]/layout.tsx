@@ -1,5 +1,9 @@
 import { ReactNode } from "react";
 
 export default function StudioLayout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
 }

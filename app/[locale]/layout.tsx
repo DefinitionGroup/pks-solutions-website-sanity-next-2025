@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import "./globals.css";
+import "../globals.css";
 
 const fontBrandRegular = localFont({
-  src: "./fonts/borna-regular-webfont.woff2",
+  src: "../fonts/borna-regular-webfont.woff2",
   variable: "--font-brand-regular",
   weight: "500",
 });
