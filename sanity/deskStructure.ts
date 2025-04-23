@@ -6,6 +6,7 @@ import {
   MdMenu,
   MdCategory,
   MdPerson,
+  MdTranslate, // Import language icon
 } from "react-icons/md"; // Import necessary icons
 
 // Define templates for creating documents with pre-filled channel
@@ -14,11 +15,16 @@ const createDocWithChannel = (S: any, schemaType: string, channel: string) => {
   return S.initialValueTemplateItem(`${schemaType}-with-channel`, { channel });
 };
 
+// Define supported languages (can also be imported from config if preferred)
+const supportedLanguages = [
+  { id: "de", title: "German" },
+  { id: "en", title: "English" },
+];
+
 export const structure: StructureResolver = (S) => {
-  // Define templates for each channel and document type
+  // Define templates for each channel and document type (remains the same)
   const pksPageTemplate = createDocWithChannel(S, "page", "pksWeb");
   const avtrPageTemplate = createDocWithChannel(S, "page", "avtWeb");
-  // Add templates for blog posts, categories, authors
   const pksBlogPostTemplate = createDocWithChannel(S, "blogPost", "pksWeb");
   const avtrBlogPostTemplate = createDocWithChannel(S, "blogPost", "avtWeb");
   const pksBlogCategoryTemplate = createDocWithChannel(
@@ -37,11 +43,10 @@ export const structure: StructureResolver = (S) => {
     "blogAuthor",
     "avtWeb"
   );
-  // Add menu templates if needed later
   const pksMenuTemplate = createDocWithChannel(S, "menu", "pksWeb");
   const avtrMenuTemplate = createDocWithChannel(S, "menu", "avtWeb");
 
-  // Helper function to create the structure for a channel
+  // Helper function to create the structure for a channel, now including language separation
   const createChannelStructure = (
     channelTitle: string,
     channelValue: string,
@@ -53,97 +58,122 @@ export const structure: StructureResolver = (S) => {
       .child(
         S.list()
           .title(`${channelTitle} Content`)
-          .items([
-            // Pages for the channel
-            S.listItem()
-              .title("Pages")
-              .icon(MdWeb)
-              .child(
-                S.documentTypeList("page")
-                  .title(`Pages for ${channelTitle}`)
-                  .filter('_type == "page" && channel == $channel')
-                  .params({ channel: channelValue })
-                  .initialValueTemplates([
-                    channelValue === "pksWeb"
-                      ? pksPageTemplate
-                      : avtrPageTemplate,
-                  ])
-              ),
-            // Blogs section for the channel
-            S.listItem()
-              .title("Blogs")
-              .icon(MdArticle)
-              .child(
-                S.list()
-                  .title(`${channelTitle} Blogs`)
-                  .items([
-                    S.listItem()
-                      .title("Blog Posts")
-                      .icon(MdArticle)
-                      .child(
-                        S.documentTypeList("blogPost") // Assuming 'blogPost' is the schema name
-                          .title(`Blog Posts for ${channelTitle}`)
-                          .filter('_type == "blogPost" && channel == $channel') // Filter needs channel field in schema
-                          .params({ channel: channelValue })
-                          .initialValueTemplates([
-                            // Use the correct template
-                            channelValue === "pksWeb"
-                              ? pksBlogPostTemplate
-                              : avtrBlogPostTemplate,
-                          ])
-                      ),
-                    S.listItem()
-                      .title("Blog Categories")
-                      .icon(MdCategory)
-                      .child(
-                        S.documentTypeList("blogCategory") // Assuming 'blogCategory' is the schema name
-                          .title(`Blog Categories for ${channelTitle}`)
-                          .filter(
-                            '_type == "blogCategory" && channel == $channel'
-                          ) // Filter needs channel field in schema
-                          .params({ channel: channelValue })
-                          .initialValueTemplates([
-                            // Use the correct template
-                            channelValue === "pksWeb"
-                              ? pksBlogCategoryTemplate
-                              : avtrBlogCategoryTemplate,
-                          ])
-                      ),
-                    S.listItem()
-                      .title("Blog Authors")
-                      .icon(MdPerson)
-                      .child(
-                        S.documentTypeList("blogAuthor") // Assuming 'blogAuthor' is the schema name
-                          .title(`Blog Authors for ${channelTitle}`)
-                          .filter(
-                            '_type == "blogAuthor" && channel == $channel'
-                          ) // Filter needs channel field in schema
-                          .params({ channel: channelValue })
-                          .initialValueTemplates([
-                            // Use the correct template
-                            channelValue === "pksWeb"
-                              ? pksBlogAuthorTemplate
-                              : avtrBlogAuthorTemplate,
-                          ])
-                      ),
-                  ])
-              ),
-            // Menu section for the channel (Add templates if needed)
-            S.listItem()
-              .title("Menus")
-              .icon(MdMenu)
-              .child(
-                S.documentTypeList("menu") // Assuming 'menu' is the schema name for Nav/Footer menus
-                  .title(`Menus for ${channelTitle}`)
-                  .filter('_type == "menu" && channel == $channel') // Filter needs channel field in schema
-                  .params({ channel: channelValue })
-                  .initialValueTemplates([
-                    channelValue === "pksWeb"
-                      ? pksMenuTemplate
-                      : avtrMenuTemplate,
-                  ])
-              ),
-          ])
+          .items(
+            // Create a list item for each language
+            supportedLanguages.map((lang) =>
+              S.listItem()
+                .title(`${lang.title} (${lang.id.toUpperCase()})`)
+                .icon(MdTranslate) // Use a language icon
+                .child(
+                  S.list()
+                    .title(`${channelTitle} - ${lang.title}`)
+                    .items([
+                      // Pages for the channel and language
+                      S.listItem()
+                        .title("Pages")
+                        .icon(MdWeb)
+                        .child(
+                          S.documentTypeList("page")
+                            .title(`Pages (${lang.title})`)
+                            .filter(
+                              '_type == "page" && channel == $channel && language == $language' // Add language filter
+                            )
+                            .params({ channel: channelValue, language: lang.id }) // Add language param
+                            .initialValueTemplates([
+                              // Templates remain channel-specific
+                              channelValue === "pksWeb"
+                                ? pksPageTemplate
+                                : avtrPageTemplate,
+                            ])
+                        ),
+                      // Blogs section for the channel and language
+                      S.listItem()
+                        .title("Blogs")
+                        .icon(MdArticle)
+                        .child(
+                          S.list()
+                            .title(`Blogs (${lang.title})`)
+                            .items([
+                              S.listItem()
+                                .title("Blog Posts")
+                                .icon(MdArticle)
+                                .child(
+                                  S.documentTypeList("blogPost")
+                                    .title(`Blog Posts (${lang.title})`)
+                                    .filter(
+                                      '_type == "blogPost" && channel == $channel && language == $language' // Add language filter
+                                    )
+                                    .params({
+                                      channel: channelValue,
+                                      language: lang.id, // Add language param
+                                    })
+                                    .initialValueTemplates([
+                                      channelValue === "pksWeb"
+                                        ? pksBlogPostTemplate
+                                        : avtrBlogPostTemplate,
+                                    ])
+                                ),
+                              S.listItem()
+                                .title("Blog Categories")
+                                .icon(MdCategory)
+                                .child(
+                                  S.documentTypeList("blogCategory")
+                                    .title(`Blog Categories (${lang.title})`)
+                                    .filter(
+                                      '_type == "blogCategory" && channel == $channel && language == $language' // Add language filter
+                                    )
+                                    .params({
+                                      channel: channelValue,
+                                      language: lang.id, // Add language param
+                                    })
+                                    .initialValueTemplates([
+                                      channelValue === "pksWeb"
+                                        ? pksBlogCategoryTemplate
+                                        : avtrBlogCategoryTemplate,
+                                    ])
+                                ),
+                              S.listItem()
+                                .title("Blog Authors")
+                                .icon(MdPerson)
+                                .child(
+                                  S.documentTypeList("blogAuthor")
+                                    .title(`Blog Authors (${lang.title})`)
+                                    .filter(
+                                      '_type == "blogAuthor" && channel == $channel && language == $language' // Add language filter
+                                    )
+                                    .params({
+                                      channel: channelValue,
+                                      language: lang.id, // Add language param
+                                    })
+                                    .initialValueTemplates([
+                                      channelValue === "pksWeb"
+                                        ? pksBlogAuthorTemplate
+                                        : avtrBlogAuthorTemplate,
+                                    ])
+                                ),
+                            ])
+                        ),
+                      // Menu section for the channel and language
+                      S.listItem()
+                        .title("Menus")
+                        .icon(MdMenu)
+                        .child(
+                          S.documentTypeList("menu")
+                            .title(`Menus (${lang.title})`)
+                            .filter(
+                              '_type == "menu" && channel == $channel && language == $language' // Add language filter
+                            )
+                            .params({ channel: channelValue, language: lang.id }) // Add language param
+                            .initialValueTemplates([
+                              channelValue === "pksWeb"
+                                ? pksMenuTemplate
+                                : avtrMenuTemplate,
+                            ])
+                        ),
+                    ])
+                )
+            )
+          )
       );
   };
 
@@ -153,7 +183,7 @@ export const structure: StructureResolver = (S) => {
       createChannelStructure("PKS", "pksWeb", MdBusiness), // PKS Section
       createChannelStructure("AVTR", "avtWeb", MdBusiness), // AVTR Section
       S.divider(), // Add a visual separator
-      // List other document types that are not channel-specific (if any)
+      // List other document types that are not channel-specific or language-specific (if any)
       ...S.documentTypeListItems().filter(
         (listItem) =>
           ![
@@ -161,8 +191,8 @@ export const structure: StructureResolver = (S) => {
             "blogPost",
             "blogCategory",
             "blogAuthor",
-            "menu", // Add schema names managed within channels here
-            // Add any other types managed within the channel structure
+            "menu", // Add schema names managed within channels/languages here
+            // Add any other types managed within the channel/language structure
           ].includes(listItem.getId() || "")
       ),
     ]);

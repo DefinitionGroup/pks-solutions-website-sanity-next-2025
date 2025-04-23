@@ -48,8 +48,8 @@ export default async function Page({ params }: PageProps) {
   // Fetch data using updated functions with locale
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, isEnabled),
-    getMenuByType("Navbar", locale, isEnabled),
-    getFooterMenu(locale, isEnabled), // Pass locale and isEnabled
+    getMenuByType("Navbar", locale, isEnabled), // Fetches Navbar menu for the current locale
+    getFooterMenu(locale, isEnabled), // Fetches Footer menu for the current locale
   ]);
 
   // Check if page or navbarMenu for the specific locale exists
@@ -58,13 +58,13 @@ export default async function Page({ params }: PageProps) {
     return notFound();
   }
   if (!navbarMenu) {
-    console.warn(`Navbar menu not found for locale: ${locale}`);
+    console.warn(`Navbar menu not found for locale: ${locale}`); // This logs the warning
     // Decide if this should be a notFound() or if a default/fallback menu is acceptable
     // return notFound();
   }
   // Footer menu might be optional or have a default
   if (!footerMenu) {
-    console.warn(`Footer menu not found for locale: ${locale}`);
+    console.warn(`Footer menu not found for locale: ${locale}`); // This logs the warning
   }
 
   const { title, content } = page;

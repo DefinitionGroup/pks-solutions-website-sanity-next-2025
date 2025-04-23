@@ -10,17 +10,22 @@ import { cn } from "@/app/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuType } from "@/types/types";
+import { usePathname } from "next/navigation"; // Import usePathname
+
+// Define supported locales (consistent with middleware)
+const locales = ['en', 'de'];
+
 export const FloatingNav = ({
   menu,
   className,
-  currentLocale, // Add currentLocale prop
+  currentLocale,
 }: {
   menu: MenuType;
   className?: string;
-  currentLocale: string; // Define the type for currentLocale
+  currentLocale: string;
 }) => {
   const { scrollYProgress } = useScroll();
-
+  const pathname = usePathname(); // Get current pathname
   const [visible, setVisible] = useState(true);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
@@ -42,6 +47,21 @@ export const FloatingNav = ({
 
   if (!menu || !menu.menuItems) return null; // Check if menu and menuItems exist
 
+  // Function to get the path without the current locale prefix
+  const getPathWithoutLocale = () => {
+    if (pathname.startsWith(`/${currentLocale}`)) {
+      // Remove locale prefix and ensure root path is "/"
+      return pathname.substring(`/${currentLocale}`.length) || "/";
+    }
+    // Fallback if middleware didn't prefix (shouldn't normally happen)
+    return pathname;
+  };
+
+  const basePath = getPathWithoutLocale();
+
+  // Determine the correct homepage slug for the current locale
+  const homeSlugForCurrentLocale = currentLocale === 'en' ? 'home' : 'startseite';
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -55,13 +75,14 @@ export const FloatingNav = ({
         }}
         transition={{ type: "spring" }}
         className={cn(
-          "fixed flex max-w-fit top-10 inset-x-0 mx-auto border  border-white/[0.2] rounded-full bg-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-8 pl-12 py-4  items-center justify-center space-x-16",
+          // Adjusted padding/spacing for language switcher
+          "fixed flex max-w-fit top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-2 items-center justify-center space-x-4",
           className
         )}
       >
-        {" "}
+        {/* Logo Link - points to the root of the current locale */}
         <Link
-          href={"/"}
+          href={`/${currentLocale}`} // Link to the locale's root
           className={cn(
             "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
           )}
@@ -74,26 +95,58 @@ export const FloatingNav = ({
             className="h-6 w-auto"
           />
         </Link>
-        {menu.menuItems?.map((item, idx) => (
-          <Link
-            key={`link-${idx}`}
-            href={
-              item.page.slug.current === "home"
-                ? "/"
-                : `/${item.page.slug.current}`
-            }
-            className={cn(
-              "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
-            )}
-          >
-            <span className="block sm:hidden">{/* Icon if needed */}</span>
-            <span className="sm:block hidden text-sm">{item.displayName}</span>
-          </Link>
-        ))}
-        {/* <button className="relative border-neutral-200 dark:border-white/[0.2] px-4 py-2 border rounded-full font-medium text-sm text-white">
-          <span>Login</span>
-          <span className="-bottom-px absolute inset-x-0 bg-gradient-to-r from-transparent via-blue-100 to-transparent mx-auto w-1/2 h-px" />
-        </button> */}
+
+        {/* Menu Items */}
+        <div className="flex items-center space-x-4"> {/* Group menu items */}
+          {menu.menuItems?.map((item, idx) => {
+            // Determine href based on slug and currentLocale
+            // Check against the correct home slug for the *current* locale
+            const isHomePageLink = item.page.slug.current === homeSlugForCurrentLocale;
+            const href = isHomePageLink
+              ? `/${currentLocale}` // Link to locale root for the homepage slug
+              : `/${currentLocale}/${item.page.slug.current}`; // Prepend locale for other slugs
+
+            return (
+              <Link
+                key={`link-${idx}`}
+                href={href} // Use the generated href
+                className={cn(
+                  "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
+                )}
+              >
+                <span className="sm:block hidden text-sm">{item.displayName}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Language Switcher - ADDED BACK */}
+        <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4"> {/* Separator and spacing */}
+          {locales.map((locale) => {
+            const isActive = locale === currentLocale;
+            // Construct the path for the other locale using the basePath
+            const href = `/${locale}${basePath}`;
+
+            return (
+              <Link
+                key={locale}
+                href={href}
+                aria-current={isActive ? "page" : undefined}
+                className={cn(
+                  "px-3 py-1 rounded-full text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-neutral-700 text-white" // Style for active locale
+                    : "text-neutral-400 hover:text-white hover:bg-neutral-800" // Style for inactive locale
+                )}
+              >
+                {locale.toUpperCase()}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Optional Login Button */}
+        {/* <button className="...">...</button> */}
       </motion.div>
     </AnimatePresence>
   );

@@ -52,7 +52,7 @@ export default {
         ],
         layout: "radio",
       },
-      validation: (Rule: any) => Rule.required(), // Added type annotation for Rule
+      validation: (Rule: any) => Rule.required(),
     },
 
     /* Navbar Fields */
@@ -275,28 +275,46 @@ export default {
       readOnly: true,
       description: "Automatically set channel based on creation location",
     },
+    {
+      name: "validationRule", // This rule enforces uniqueness correctly
+      title: "Unique Menu Type Validation",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+      validation: (Rule: any) =>
+        Rule.custom(async (value: any, context: any) => {
+          const { document, getClient } = context;
+          if (!document?.menuType || !document?.language || !document?.channel) {
+            return true; // Not enough info yet
+          }
+
+          const client = getClient({ apiVersion: "2023-10-09" });
+          // Checks if another menu of the same type, language, and channel exists
+          const query = `count(*[_type == "menu" && menuType == $menuType && language == $language && channel == $channel && _id != $documentId && !(_id in [$draftId])])`; // Added draft check
+          const draftId = `drafts.${document._id.replace("drafts.", "")}`;
+          const params = {
+            menuType: document.menuType,
+            language: document.language,
+            channel: document.channel,
+            documentId: document._id.replace("drafts.", ""),
+            draftId: draftId, // Pass draft ID to exclude it
+          };
+
+          try {
+            const count = await client.fetch(query, params);
+            if (count > 0) {
+              // This is the error message you are seeing
+              return `Only one ${document.menuType} menu is allowed per language and channel.`;
+            }
+          } catch (error) {
+            console.error("Validation query failed:", error);
+            return "Validation check failed, please try again.";
+          }
+
+          return true; // Validation passes
+        }),
+    },
   ],
-  validation: (
-    Rule: any // Added type annotation for Rule
-  ) =>
-    Rule.custom(async (doc: any, context: any) => {
-      // Added type annotations
-      if (!doc || !doc.menuType) return true;
-      const id = doc._id || "";
-      const baseId = id.replace(/^drafts\./, "");
-      const client = context.getClient({ apiVersion: "2023-01-01" });
-      const query = `
-        *[_type == "menu" && menuType == $menuType && !(_id in [$id, $baseId])] {
-          _id
-        }
-      `;
-      const params = { menuType: doc.menuType, id, baseId };
-      const result = await client.fetch(query, params);
-      if (result.length > 0) {
-        return `Only one ${doc.menuType} menu is allowed.`;
-      }
-      return true;
-    }),
   preview: {
     select: {
       menuType: "menuType",

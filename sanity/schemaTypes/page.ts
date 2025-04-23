@@ -31,7 +31,13 @@ export default {
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "title", maxLength: 96 },
+      options: {
+        source: "title",
+        maxLength: 96,
+        // No isUnique needed here, the plugin handles it
+      },
+      // Keep validation if you have it
+      validation: (Rule: any) => Rule.required(),
     },
     {
       name: "subtitle",

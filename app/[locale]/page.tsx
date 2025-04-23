@@ -15,27 +15,37 @@ import RenderContent from "@/components/RenderContent"; // Import RenderContent
 // Define the default locale
 const defaultLocale = "de";
 
-export default async function Home() {
+// Define props to receive params
+interface HomeProps {
+  params: { locale: string };
+}
+
+// Update the function signature to accept props
+export default async function Home({ params }: HomeProps) {
+  const { locale } = params; // Get locale from params
   const { isEnabled } = await draftMode();
 
-  // Fetch data using the default locale 'de'
+  // Determine the correct homepage slug based on the locale
+  const homepageSlug = locale === "en" ? "home" : "startseite";
+
+  // Fetch data using the determined slug and the locale from params
   const [page, navbarMenu, footerMenu] = await Promise.all([
-    getPageBySlug("home", defaultLocale, isEnabled), // Pass defaultLocale
-    getMenuByType("Navbar", defaultLocale, isEnabled), // Pass defaultLocale
-    getFooterMenu(defaultLocale, isEnabled), // Pass defaultLocale and isEnabled
+    getPageBySlug(homepageSlug, locale, isEnabled), // Use dynamic slug and locale
+    getMenuByType("Navbar", locale, isEnabled), // Pass locale from params
+    getFooterMenu(locale, isEnabled), // Pass locale from params and isEnabled
   ]);
 
-  // Check if page or navbarMenu for the default locale exists
+  // Check if page or navbarMenu for the specific locale exists
   if (!page) {
-    console.error(`Homepage ('home') not found for default locale: ${defaultLocale}`);
+    console.error(`Homepage ('${homepageSlug}') not found for locale: ${locale}`);
     return notFound();
   }
    if (!navbarMenu) {
-     console.warn(`Navbar menu not found for default locale: ${defaultLocale}`);
+     console.warn(`Navbar menu not found for locale: ${locale}`); // This logs the warning if 'en' Navbar is missing
      // return notFound(); // Decide if this is critical
    }
    if (!footerMenu) {
-     console.warn(`Footer menu not found for default locale: ${defaultLocale}`);
+     console.warn(`Footer menu not found for locale: ${locale}`); // This logs the warning if 'en' Footer is missing
    }
 
   const { title, content } = page;
@@ -48,14 +58,11 @@ export default async function Home() {
           <PreviewBanner />
         </>
       )}
-      {/* Pass defaultLocale as currentLocale */}
-      {navbarMenu && <FloatingNav menu={navbarMenu} currentLocale={defaultLocale} />}
+      {/* Pass locale from params as currentLocale */}
+      {navbarMenu && <FloatingNav menu={navbarMenu} currentLocale={locale} />}
 
-      {/* Use RenderContent for page content blocks */}
-      {content && <RenderContent content={content} locale={defaultLocale} />}
-
-      {/* Remove the old mapping logic */}
-      {/* {content.map((block, index) => { ... })} */}
+      {/* Use RenderContent for page content blocks, passing the locale */}
+      {content && <RenderContent content={content} locale={locale} />}
 
       {/* Other components specific to the homepage */}
       <div className="flex flex-col justify-center items-center w-full">
@@ -63,8 +70,8 @@ export default async function Home() {
       </div>{" "}
       <GetDemoComponent />
 
-      {/* Pass defaultLocale as currentLocale */}
-      {footerMenu && <Footer menu={footerMenu} currentLocale={defaultLocale} />}
+      {/* Pass locale from params as currentLocale */}
+      {footerMenu && <Footer menu={footerMenu} currentLocale={locale} />}
     </>
   );
 }
