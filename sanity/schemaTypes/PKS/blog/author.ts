@@ -6,6 +6,15 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
+      name: "language",
+      title: "Language",
+      type: "string",
+      readOnly: true,
+      hidden: true,
+      description:
+        "Managed by @sanity/document-internationalization; do not edit manually.",
+    }),
+    defineField({
       name: "name",
       title: "Name",
       type: "string",

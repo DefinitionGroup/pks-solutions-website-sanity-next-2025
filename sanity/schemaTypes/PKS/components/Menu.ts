@@ -66,14 +66,27 @@ export default {
           icon: FaElementor,
           fields: [
             {
-              // Removed defineField
               name: "page",
               title: "Page",
               type: "reference",
               to: [{ type: "page" }],
+              options: {
+                // Modify filter to directly reference document's language
+                // Remove filterParams entirely
+                filter: ({ document }: { document: { language?: string } }) => {
+                  if (!document?.language) {
+                    // If language isn't set on the menu yet, maybe show no pages?
+                    // Or return a filter that matches nothing, e.g., '_id == "___"'
+                    return { filter: '_id == "___"' }; // Filter matching nothing
+                  }
+                  return {
+                    filter: 'language == $language',
+                    params: { language: document.language },
+                  };
+                },
+              },
             },
             {
-              // Removed defineField
               name: "displayName",
               title: "Display Name",
               type: "string",
@@ -81,7 +94,7 @@ export default {
           ],
         },
       ],
-      hidden: ({ parent }: { parent: any }) => parent?.menuType !== "Navbar", // Added type annotation for parent
+      hidden: ({ parent }: { parent: any }) => parent?.menuType !== "Navbar",
     },
 
     /* Shared Fields */
@@ -147,7 +160,20 @@ export default {
                       type: "reference",
                       to: [{ type: "page" }],
                       hidden: ({ parent }: { parent: any }) =>
-                        parent?.linkType !== "internal", // Added type annotation
+                        parent?.linkType !== "internal",
+                      options: {
+                         // Modify filter to directly reference document's language
+                         // Remove filterParams entirely
+                        filter: ({ document }: { document: { language?: string } }) => {
+                          if (!document?.language) {
+                            return { filter: '_id == "___"' }; // Filter matching nothing
+                          }
+                          return {
+                            filter: 'language == $language',
+                            params: { language: document.language },
+                          };
+                        },
+                      },
                     },
                     {
                       // Removed defineField
