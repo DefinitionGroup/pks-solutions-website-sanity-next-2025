@@ -44,10 +44,10 @@ export default async function Page({ params }: PageProps) {
   // Extract locale along with slug
   const { slug, locale } = params;
   const { isEnabled } = await draftMode();
-
+  const channel = "avtWeb";
   // Fetch data using updated functions with locale
   const [page, navbarMenu, footerMenu] = await Promise.all([
-    getPageBySlug(slug, locale, isEnabled),
+    getPageBySlug(slug, locale, channel, isEnabled),
     getMenuByType("Navbar", locale, isEnabled), // Fetches Navbar menu for the current locale
     getFooterMenu(locale, isEnabled), // Fetches Footer menu for the current locale
   ]);
@@ -67,7 +67,7 @@ export default async function Page({ params }: PageProps) {
     console.warn(`Footer menu not found for locale: ${locale}`); // This logs the warning
   }
 
-  const { title, content } = page;
+  const { title, contentPKS } = page;
 
   return (
     <>
@@ -80,7 +80,7 @@ export default async function Page({ params }: PageProps) {
       {navbarMenu && <FloatingNav menu={navbarMenu} currentLocale={locale} />}
 
       {/* Use the RenderContent component - Uncommented */}
-      {content && <RenderContent content={content} locale={locale} />}
+      {contentPKS && <RenderContent contentPKS={contentPKS} locale={locale} />}
 
       {/* Remove this testing div */}
       {/* <div className="bg-red-500 text-white p-8 my-4 mx-auto max-w-md">

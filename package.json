@@ -17,6 +17,7 @@
     "@sanity/structure": "^2.36.2",
     "@sanity/vision": "^3.85.1",
     "@sanity/visual-editing": "^2.13.18",
+    "@superside-oss/sanity-plugin-copy-paste": "^1.0.3",
     "@tabler/icons-react": "^3.31.0",
     "@tailwindcss/postcss": "^4.1.4",
     "autoprefixer": "^10.4.21",

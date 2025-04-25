@@ -223,7 +223,8 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
-  content: (Hero | BlogList)[]; // Add BlogList to the union type
+  contentPKS: (Hero | BlogList)[]; // Add BlogList to the union type
+  channel: string;
 }
 
 // Add these interfaces to your existing types.ts
@@ -232,7 +233,7 @@ export interface BlogPost {
   _type: "blogPost";
   title: string;
   slug: {
-    _type: 'slug';
+    _type: "slug";
     current: string;
   };
   publishedAt: string;

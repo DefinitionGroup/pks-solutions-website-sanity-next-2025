@@ -1,3 +1,5 @@
+import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
+import { defineField } from "sanity";
 export default {
   name: "page",
   _type: "page",
@@ -13,6 +15,7 @@ export default {
     referenceBehavior: "weak", // or "strong" if you prefer
   },
   fields: [
+    defineField(copyPaste),
     {
       name: "language",
       title: "Language",
@@ -34,10 +37,58 @@ export default {
       options: {
         source: "title",
         maxLength: 96,
-        // No isUnique needed here, the plugin handles it
+        slugify: (
+          input: string,
+          type: object,
+          context: { parent?: { channel?: string } }
+        ) => {
+          // Get the base slug (standard slugify process)
+          const baseSlug = input
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]+/g, "")
+            .replace(/--+/g, "-")
+            .replace(/^-+/, "")
+            .replace(/-+$/, "");
+
+          return baseSlug;
+        },
+        isUnique: async (
+          slug: string,
+          context: {
+            document?: { channel?: string; _id: string; language?: string };
+            getClient: (options: { apiVersion: string }) => any;
+          }
+        ) => {
+          const { document, getClient } = context;
+          const channel = document?.channel || "pksWeb";
+          const language = document?.language || "de";
+          const client = getClient({ apiVersion: "2021-03-25" });
+
+          // Get the base ID without drafts prefix
+          const baseId = document?._id.replace(/^drafts\./, "");
+
+          // Query to check for conflicting slugs
+          const query = `*[
+            _type == "page" && 
+            slug.current == $slug && 
+            channel == $channel && 
+            language == $language && 
+            !(_id in [$draftId, $publishedId])
+          ][0]`;
+          const params = {
+            slug: slug,
+            channel: channel,
+            language: language,
+            draftId: `drafts.${baseId}`,
+            publishedId: baseId,
+          };
+
+          const existingDoc = await client.fetch(query, params);
+          return !existingDoc;
+        },
       },
-      // Keep validation if you have it
-      validation: (Rule: any) => Rule.required(),
+      validation: (Rule: { required: () => any }) => Rule.required(),
     },
     {
       name: "subtitle",
@@ -46,11 +97,22 @@ export default {
     },
 
     {
-      name: "content",
-      title: "Content",
+      name: "contentPKS",
+      title: "Content PKS",
       type: "array",
       of: [{ type: "hero" }, { type: "blogList" }],
+      hidden: ({ parent }: { parent?: { channel?: string } }) =>
+        parent?.channel !== "pksWeb",
     },
+    {
+      name: "contentAVT",
+      title: "Content AVT",
+      type: "array",
+      of: [{ type: "heroAVT" }, { type: "blogList" }],
+      hidden: ({ parent }: { parent?: { channel?: string } }) =>
+        parent?.channel !== "avtWeb",
+    },
+
     {
       name: "channel",
       title: "Channel",
@@ -62,11 +124,25 @@ export default {
         ],
         layout: "radio",
       },
-      initialValue: (context: any) => {
+      initialValue: (context: {
+        document?: { __inferMetadata?: { params?: { channel?: string } } };
+      }) => {
         return context.document?.__inferMetadata?.params?.channel || "pksWeb";
       },
       readOnly: true,
       description: "Automatically set channel based on creation location",
     },
   ],
+  preview: {
+    select: {
+      title: "title",
+      channel: "channel",
+    },
+    prepare({ title, channel }: { title: string; channel: string }) {
+      return {
+        title: title || "Untitled Page",
+        subtitle: channel === "pksWeb" ? "PKS Website" : "AVTR Website",
+      };
+    },
+  },
 };

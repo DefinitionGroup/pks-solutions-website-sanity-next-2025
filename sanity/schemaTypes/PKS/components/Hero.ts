@@ -1,11 +1,12 @@
 import { defineType, defineField } from "sanity";
+import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 
 export default defineType({
   name: "hero",
   title: "Hero",
   type: "object",
   fields: [
-    // Optional CSS class names (for the outer container and inner content)
+    defineField(copyPaste),
     defineField({
       name: "className",
       title: "Class Name",

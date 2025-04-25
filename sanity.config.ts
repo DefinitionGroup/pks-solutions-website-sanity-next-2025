@@ -8,7 +8,7 @@ import { schema } from "./sanity/schemaTypes";
 import { structure } from "./sanity/deskStructure";
 import { presentationTool } from "sanity/presentation";
 import { documentInternationalization } from "@sanity/document-internationalization";
-
+import { copyPastePlugin } from "@superside-oss/sanity-plugin-copy-paste";
 const pageWithChannelTemplate = {
   id: "page-with-channel",
   title: "Page with Channel",
@@ -83,7 +83,7 @@ export default defineConfig({
       ],
       schemaTypes: ["page", "blogPost", "blogCategory", "blogAuthor", "menu"],
     }),
-    structureTool({ structure }),
+    structureTool({ structure }), // Use the imported structure config here
     cloudinarySchemaPlugin(),
     visionTool({ defaultApiVersion: apiVersion }),
     presentationTool({
@@ -96,5 +96,6 @@ export default defineConfig({
         },
       },
     }),
+    copyPastePlugin(),
   ],
 });

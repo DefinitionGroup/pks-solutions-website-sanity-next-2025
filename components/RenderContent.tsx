@@ -3,18 +3,21 @@ import HeroHighlightComponent from "@/components/HeroHighLightComponent"; // Adj
 import BlogListComponent from "@/components/BlogListComponent"; // Adjust path if needed
 import { BlogList, Hero } from "@/types/types"; // Assuming BlogList type is defined
 interface RenderContentProps {
-  content: (Hero | BlogList)[]; // Consider defining a more specific type for content blocks
+  contentPKS: (Hero | BlogList)[]; // Consider defining a more specific type for content blocks
   locale: string; // Pass locale down if child components need it
 }
 
-const RenderContent: React.FC<RenderContentProps> = ({ content, locale }) => {
-  if (!content) {
+const RenderContent: React.FC<RenderContentProps> = ({
+  contentPKS,
+  locale,
+}) => {
+  if (!contentPKS) {
     return null;
   }
 
   return (
     <>
-      {content.map((block, index) => {
+      {contentPKS.map((block, index) => {
         // console.log("Rendering block:", block._type, block); // For debugging
         switch (block._type) {
           case "hero":
