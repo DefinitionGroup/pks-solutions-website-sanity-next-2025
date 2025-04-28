@@ -44,7 +44,7 @@ export default async function Page({ params }: PageProps) {
   // Extract locale along with slug
   const { slug, locale } = params;
   const { isEnabled } = await draftMode();
-  const channel = "avtWeb";
+  const channel = "pksWeb";
   // Fetch data using updated functions with locale
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, channel, isEnabled),
