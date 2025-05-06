@@ -1,5 +1,5 @@
 import { defineType, defineField } from "sanity";
-
+import type { SlugifierFn, SlugSourceContext } from "sanity";
 export default defineType({
   name: "blogPost",
   title: "Blog Post",
@@ -27,6 +27,49 @@ export default defineType({
       options: {
         source: "title",
         maxLength: 96,
+        slugify: (input: string, _type: any, context: SlugSourceContext) => {
+          // Get the base slug (standard slugify process)
+          const baseSlug = input
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^\w-]+/g, "")
+            .replace(/--+/g, "-")
+            .replace(/^-+/, "")
+            .replace(/-+$/, "");
+
+          return baseSlug;
+        },
+        isUnique: async (
+          slug: string,
+          context: {
+            document?: { _id: string; language?: string };
+            getClient: (options: { apiVersion: string }) => any;
+          }
+        ) => {
+          const { document, getClient } = context;
+          const language = document?.language || "de";
+          const client = getClient({ apiVersion: "2021-03-25" });
+
+          // Get the base ID without drafts prefix
+          const baseId = document?._id.replace(/^drafts\./, "");
+
+          // Query to check for conflicting slugs
+          const query = `*[
+            _type == "blogPost" && 
+            slug.current == $slug && 
+            language == $language && 
+            !(_id in [$draftId, $publishedId])
+          ][0]`;
+          const params = {
+            slug: slug,
+            language: language,
+            draftId: `drafts.${baseId}`,
+            publishedId: baseId,
+          };
+
+          const existingDoc = await client.fetch(query, params);
+          return !existingDoc;
+        },
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -73,23 +116,6 @@ export default defineType({
       title: "Author",
       type: "reference",
       to: { type: "blogAuthor" },
-    }),
-    defineField({
-      name: "channel",
-      title: "Channel",
-      type: "string",
-      options: {
-        list: [
-          { title: "PKS Website", value: "pksWeb" },
-          { title: "Avtr Website", value: "avtWeb" },
-        ],
-        layout: "radio",
-      },
-      initialValue: (context: any) => {
-        return context.document?.__inferMetadata?.params?.channel || "pksWeb";
-      },
-      readOnly: true,
-      description: "Automatically set channel based on creation location",
     }),
   ],
   preview: {

@@ -110,7 +110,7 @@ export async function getFooterMenu(locale: string, draft: boolean = false) {
   return client.fetch(query, { locale }, options);
 }
 
-// Updated getBlogPosts to include locale (if blog posts are localized)
+// Updated getBlogPosts to remove channel dependency
 export async function getBlogPosts(
   block: BlogList,
   locale: string,
@@ -125,7 +125,7 @@ export async function getBlogPosts(
       }
     : {};
 
-  // Assuming blog posts have a 'language' field for localization
+  // Removed channel filter, only filter by language
   if (block.selectionType === "auto") {
     const query = groq`*[_type == "blogPost" && language == $locale] | order(publishedAt desc)[0...$limit] {
       _id,
@@ -148,7 +148,7 @@ export async function getBlogPosts(
   }
 
   // Fetch selected posts, ensuring they match the locale if necessary
-  // This might need adjustment depending on whether selectedPosts references are locale-specific
+  // Removed channel filter
   const query = groq`*[_type == "blogPost" && _id in $ids && language == $locale] {
     _id,
     title,
@@ -169,7 +169,7 @@ export async function getBlogPosts(
   );
 }
 
-// Updated getBlogPostBySlug to include locale
+// Updated getBlogPostBySlug to remove channel dependency
 export async function getBlogPostBySlug(
   slug: string,
   locale: string,
@@ -184,7 +184,7 @@ export async function getBlogPostBySlug(
       }
     : {};
 
-  // Assuming blog posts have a 'language' field
+  // Removed channel filter, only filter by language
   const query = groq`*[_type == "blogPost" && slug.current == $slug && language == $locale][0]{
     _id,
     title,
@@ -208,10 +208,10 @@ export async function getBlogPostBySlug(
   return client.fetch(query, { slug, locale }, options);
 }
 
-// Updated getAllBlogPostSlugs to include locale
+// Updated getAllBlogPostSlugs to remove channel dependency
 export async function getAllBlogPostSlugs(locale: string) {
   // Add locale parameter
-  // Assuming blog posts have a 'language' field
+  // Removed channel filter, only filter by language
   const query = groq`*[_type == "blogPost" && language == $locale]{ "slug": slug.current }`;
   // Pass locale to the query parameters
   return client.fetch<{ slug: string }[]>(query, { locale });

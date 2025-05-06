@@ -25,26 +25,61 @@ export const structure: StructureResolver = (S) => {
   // Define templates for each channel and document type (remains the same)
   const pksPageTemplate = createDocWithChannel(S, "page", "pksWeb");
   const avtrPageTemplate = createDocWithChannel(S, "page", "avtWeb");
-  const pksBlogPostTemplate = createDocWithChannel(S, "blogPost", "pksWeb");
-  const avtrBlogPostTemplate = createDocWithChannel(S, "blogPost", "avtWeb");
-  const pksBlogCategoryTemplate = createDocWithChannel(
-    S,
-    "blogCategory",
-    "pksWeb"
-  );
-  const avtrBlogCategoryTemplate = createDocWithChannel(
-    S,
-    "blogCategory",
-    "avtWeb"
-  );
-  const pksBlogAuthorTemplate = createDocWithChannel(S, "blogAuthor", "pksWeb");
-  const avtrBlogAuthorTemplate = createDocWithChannel(
-    S,
-    "blogAuthor",
-    "avtWeb"
-  );
+  // Remove channel-specific blog templates since blogs are now channel-independent
   const pksMenuTemplate = createDocWithChannel(S, "menu", "pksWeb");
   const avtrMenuTemplate = createDocWithChannel(S, "menu", "avtWeb");
+
+  // Create a shared blogs structure that's independent of channels
+  const createBlogsStructure = () => {
+    return S.listItem()
+      .title("Blogs")
+      .icon(MdArticle)
+      .child(
+        S.list()
+          .title("Blog Content")
+          .items(
+            // Create a list item for each language
+            supportedLanguages.map((lang) =>
+              S.listItem()
+                .title(`${lang.title} (${lang.id.toUpperCase()})`)
+                .icon(MdTranslate)
+                .child(
+                  S.list()
+                    .title(`Blogs - ${lang.title}`)
+                    .items([
+                      S.listItem()
+                        .title("Blog Posts")
+                        .icon(MdArticle)
+                        .child(
+                          S.documentTypeList("blogPost")
+                            .title(`Blog Posts (${lang.title})`)
+                            .filter('_type == "blogPost" && language == $language')
+                            .params({ language: lang.id })
+                        ),
+                      S.listItem()
+                        .title("Blog Categories")
+                        .icon(MdCategory)
+                        .child(
+                          S.documentTypeList("blogCategory")
+                            .title(`Blog Categories (${lang.title})`)
+                            .filter('_type == "blogCategory" && language == $language')
+                            .params({ language: lang.id })
+                        ),
+                      S.listItem()
+                        .title("Blog Authors")
+                        .icon(MdPerson)
+                        .child(
+                          S.documentTypeList("blogAuthor")
+                            .title(`Blog Authors (${lang.title})`)
+                            .filter('_type == "blogAuthor" && language == $language')
+                            .params({ language: lang.id })
+                        ),
+                    ])
+                )
+            )
+          )
+      );
+  };
 
   // Helper function to create the structure for a channel, now including language separation
   const createChannelStructure = (
@@ -86,73 +121,6 @@ export const structure: StructureResolver = (S) => {
                                 : avtrPageTemplate,
                             ])
                         ),
-                      // Blogs section for the channel and language
-                      S.listItem()
-                        .title("Blogs")
-                        .icon(MdArticle)
-                        .child(
-                          S.list()
-                            .title(`Blogs (${lang.title})`)
-                            .items([
-                              S.listItem()
-                                .title("Blog Posts")
-                                .icon(MdArticle)
-                                .child(
-                                  S.documentTypeList("blogPost")
-                                    .title(`Blog Posts (${lang.title})`)
-                                    .filter(
-                                      '_type == "blogPost" && channel == $channel && language == $language' // Add language filter
-                                    )
-                                    .params({
-                                      channel: channelValue,
-                                      language: lang.id, // Add language param
-                                    })
-                                    .initialValueTemplates([
-                                      channelValue === "pksWeb"
-                                        ? pksBlogPostTemplate
-                                        : avtrBlogPostTemplate,
-                                    ])
-                                ),
-                              S.listItem()
-                                .title("Blog Categories")
-                                .icon(MdCategory)
-                                .child(
-                                  S.documentTypeList("blogCategory")
-                                    .title(`Blog Categories (${lang.title})`)
-                                    .filter(
-                                      '_type == "blogCategory" && channel == $channel && language == $language' // Add language filter
-                                    )
-                                    .params({
-                                      channel: channelValue,
-                                      language: lang.id, // Add language param
-                                    })
-                                    .initialValueTemplates([
-                                      channelValue === "pksWeb"
-                                        ? pksBlogCategoryTemplate
-                                        : avtrBlogCategoryTemplate,
-                                    ])
-                                ),
-                              S.listItem()
-                                .title("Blog Authors")
-                                .icon(MdPerson)
-                                .child(
-                                  S.documentTypeList("blogAuthor")
-                                    .title(`Blog Authors (${lang.title})`)
-                                    .filter(
-                                      '_type == "blogAuthor" && channel == $channel && language == $language' // Add language filter
-                                    )
-                                    .params({
-                                      channel: channelValue,
-                                      language: lang.id, // Add language param
-                                    })
-                                    .initialValueTemplates([
-                                      channelValue === "pksWeb"
-                                        ? pksBlogAuthorTemplate
-                                        : avtrBlogAuthorTemplate,
-                                    ])
-                                ),
-                            ])
-                        ),
                       // Menu section for the channel and language
                       S.listItem()
                         .title("Menus")
@@ -182,6 +150,7 @@ export const structure: StructureResolver = (S) => {
     .items([
       createChannelStructure("PKS", "pksWeb", MdBusiness), // PKS Section
       createChannelStructure("AVTR", "avtWeb", MdBusiness), // AVTR Section
+      createBlogsStructure(), // Add the shared blogs structure
       S.divider(), // Add a visual separator
       // List other document types that are not channel-specific or language-specific (if any)
       ...S.documentTypeListItems().filter(
