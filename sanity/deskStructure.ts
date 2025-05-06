@@ -6,7 +6,8 @@ import {
   MdMenu,
   MdCategory,
   MdPerson,
-  MdTranslate, // Import language icon
+  MdTranslate,
+  MdPeople, // Import icon for clients
 } from "react-icons/md"; // Import necessary icons
 
 // Define templates for creating documents with pre-filled channel
@@ -75,6 +76,31 @@ export const structure: StructureResolver = (S) => {
                             .params({ language: lang.id })
                         ),
                     ])
+                )
+            )
+          )
+      );
+  };
+
+  // Create a shared clients structure that's independent of channels
+  const createClientsStructure = () => {
+    return S.listItem()
+      .title("Clients")
+      .icon(MdPeople)
+      .child(
+        S.list()
+          .title("Client Content")
+          .items(
+            // Create a list item for each language
+            supportedLanguages.map((lang) =>
+              S.listItem()
+                .title(`${lang.title} (${lang.id.toUpperCase()})`)
+                .icon(MdTranslate)
+                .child(
+                  S.documentTypeList("client")
+                    .title(`Clients (${lang.title})`)
+                    .filter('_type == "client" && language == $language')
+                    .params({ language: lang.id })
                 )
             )
           )
@@ -151,6 +177,7 @@ export const structure: StructureResolver = (S) => {
       createChannelStructure("PKS", "pksWeb", MdBusiness), // PKS Section
       createChannelStructure("AVTR", "avtWeb", MdBusiness), // AVTR Section
       createBlogsStructure(), // Add the shared blogs structure
+      createClientsStructure(), // Add the shared clients structure
       S.divider(), // Add a visual separator
       // List other document types that are not channel-specific or language-specific (if any)
       ...S.documentTypeListItems().filter(
@@ -160,7 +187,8 @@ export const structure: StructureResolver = (S) => {
             "blogPost",
             "blogCategory",
             "blogAuthor",
-            "menu", // Add schema names managed within channels/languages here
+            "menu",
+            "client", // Add client to the list of excluded types
             // Add any other types managed within the channel/language structure
           ].includes(listItem.getId() || "")
       ),

@@ -81,7 +81,14 @@ export default defineConfig({
         { id: "de", title: "German" },
         { id: "en", title: "English" },
       ],
-      schemaTypes: ["page", "blogPost", "blogCategory", "blogAuthor", "menu"],
+      schemaTypes: [
+        "page",
+        "blogPost",
+        "blogCategory",
+        "blogAuthor",
+        "menu",
+        "client",
+      ],
     }),
     structureTool({ structure }), // Use the imported structure config here
     cloudinarySchemaPlugin(),
