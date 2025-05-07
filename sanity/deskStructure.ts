@@ -8,12 +8,13 @@ import {
   MdPerson,
   MdTranslate,
   MdPeople, // Import icon for clients
+  MdWork, // Import icon for projects
 } from "react-icons/md"; // Import necessary icons
 
 // Define templates for creating documents with pre-filled channel
-const createDocWithChannel = (S: any, schemaType: string, channel: string) => {
+const createDocWithChannel = (S: any, schemaType: string, channel: string, language: string = "de") => {
   // Use the template ID defined in sanity.config.ts
-  return S.initialValueTemplateItem(`${schemaType}-with-channel`, { channel });
+  return S.initialValueTemplateItem(`${schemaType}-with-channel`, { channel, language });
 };
 
 // Define supported languages (can also be imported from config if preferred)
@@ -54,8 +55,15 @@ export const structure: StructureResolver = (S) => {
                         .child(
                           S.documentTypeList("blogPost")
                             .title(`Blog Posts (${lang.title})`)
-                            .filter('_type == "blogPost" && language == $language')
+                            .filter(
+                              '_type == "blogPost" && language == $language'
+                            )
                             .params({ language: lang.id })
+                            .initialValueTemplates([
+                              S.initialValueTemplateItem("blogPost-with-lang", {
+                                channel: lang.id,
+                              }),
+                            ])
                         ),
                       S.listItem()
                         .title("Blog Categories")
@@ -63,8 +71,16 @@ export const structure: StructureResolver = (S) => {
                         .child(
                           S.documentTypeList("blogCategory")
                             .title(`Blog Categories (${lang.title})`)
-                            .filter('_type == "blogCategory" && language == $language')
+                            .filter(
+                              '_type == "blogCategory" && language == $language'
+                            )
                             .params({ language: lang.id })
+                            .initialValueTemplates([
+                              S.initialValueTemplateItem(
+                                "blogCategory-with-lang",
+                                { language: lang.id }
+                              ),
+                            ])
                         ),
                       S.listItem()
                         .title("Blog Authors")
@@ -72,8 +88,16 @@ export const structure: StructureResolver = (S) => {
                         .child(
                           S.documentTypeList("blogAuthor")
                             .title(`Blog Authors (${lang.title})`)
-                            .filter('_type == "blogAuthor" && language == $language')
+                            .filter(
+                              '_type == "blogAuthor" && language == $language'
+                            )
                             .params({ language: lang.id })
+                            .initialValueTemplates([
+                              S.initialValueTemplateItem(
+                                "blogAuthor-with-lang",
+                                { language: lang.id }
+                              ),
+                            ])
                         ),
                     ])
                 )
@@ -85,11 +109,11 @@ export const structure: StructureResolver = (S) => {
   // Create a shared clients structure that's independent of channels
   const createClientsStructure = () => {
     return S.listItem()
-      .title("Clients")
+      .title("Clients & Projects")
       .icon(MdPeople)
       .child(
         S.list()
-          .title("Client Content")
+          .title("Client & Project Content")
           .items(
             // Create a list item for each language
             supportedLanguages.map((lang) =>
@@ -97,10 +121,44 @@ export const structure: StructureResolver = (S) => {
                 .title(`${lang.title} (${lang.id.toUpperCase()})`)
                 .icon(MdTranslate)
                 .child(
-                  S.documentTypeList("client")
-                    .title(`Clients (${lang.title})`)
-                    .filter('_type == "client" && language == $language')
-                    .params({ language: lang.id })
+                  S.list()
+                    .title(`Clients & Projects - ${lang.title}`)
+                    .items([
+                      S.listItem()
+                        .title("Clients")
+                        .icon(MdPeople)
+                        .child(
+                          S.documentTypeList("client")
+                            .title(`Clients (${lang.title})`)
+                            .filter(
+                              '_type == "client" && language == $language'
+                            )
+                            .params({ language: lang.id })
+                            .initialValueTemplates([
+                              S.initialValueTemplateItem(
+                                "client-with-language",
+                                { language: lang.id }
+                              ),
+                            ])
+                        ),
+                      S.listItem()
+                        .title("Projects")
+                        .icon(MdWork)
+                        .child(
+                          S.documentTypeList("project")
+                            .title(`Projects (${lang.title})`)
+                            .filter(
+                              '_type == "project" && language == $language'
+                            )
+                            .params({ language: lang.id })
+                            .initialValueTemplates([
+                              S.initialValueTemplateItem(
+                                "project-with-language",
+                                { language: lang.id }
+                              ),
+                            ])
+                        ),
+                    ])
                 )
             )
           )
@@ -139,12 +197,15 @@ export const structure: StructureResolver = (S) => {
                             .filter(
                               '_type == "page" && channel == $channel && language == $language' // Add language filter
                             )
-                            .params({ channel: channelValue, language: lang.id }) // Add language param
+                            .params({
+                              channel: channelValue,
+                              language: lang.id,
+                            }) // Add language param
                             .initialValueTemplates([
-                              // Templates remain channel-specific
+                              // Templates with both channel and language
                               channelValue === "pksWeb"
-                                ? pksPageTemplate
-                                : avtrPageTemplate,
+                                ? createDocWithChannel(S, "page", "pksWeb", lang.id)
+                                : createDocWithChannel(S, "page", "avtWeb", lang.id),
                             ])
                         ),
                       // Menu section for the channel and language
@@ -157,11 +218,14 @@ export const structure: StructureResolver = (S) => {
                             .filter(
                               '_type == "menu" && channel == $channel && language == $language' // Add language filter
                             )
-                            .params({ channel: channelValue, language: lang.id }) // Add language param
+                            .params({
+                              channel: channelValue,
+                              language: lang.id,
+                            }) // Add language param
                             .initialValueTemplates([
                               channelValue === "pksWeb"
-                                ? pksMenuTemplate
-                                : avtrMenuTemplate,
+                                ? createDocWithChannel(S, "menu", "pksWeb", lang.id)
+                                : createDocWithChannel(S, "menu", "avtWeb", lang.id),
                             ])
                         ),
                     ])
@@ -188,7 +252,8 @@ export const structure: StructureResolver = (S) => {
             "blogCategory",
             "blogAuthor",
             "menu",
-            "client", // Add client to the list of excluded types
+            "client",
+            "project", // Add project to the list of excluded types
             // Add any other types managed within the channel/language structure
           ].includes(listItem.getId() || "")
       ),

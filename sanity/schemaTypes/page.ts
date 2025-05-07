@@ -100,7 +100,12 @@ export default {
       name: "contentPKS",
       title: "Content PKS",
       type: "array",
-      of: [{ type: "hero" }, { type: "blogList" }],
+      of: [
+        { type: "hero" },
+        { type: "blogList" },
+        { type: "projectList" },
+        { type: "clientsList" },
+      ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "pksWeb",
     },
@@ -108,7 +113,12 @@ export default {
       name: "contentAVT",
       title: "Content AVT",
       type: "array",
-      of: [{ type: "heroAVT" }, { type: "blogList" }],
+      of: [
+        { type: "heroAVT" },
+        { type: "blogList" },
+        { type: "projectList" },
+        { type: "clientsList" },
+      ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "avtWeb",
     },

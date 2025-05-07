@@ -230,3 +230,144 @@ export async function getAllPageSlugsAndLocales() {
     query
   );
 }
+
+// Add function to get all projects with locale support
+export async function getProjects(
+  locale: string,
+  draft: boolean = false
+): Promise<any[]> {
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
+  // Query to fetch all projects for a specific locale
+  const query = groq`*[_type == "project" && language == $locale] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    mainImage,
+    categories[]->{
+      title,
+      slug
+    },
+    language
+  }`;
+
+  return client.fetch(query, { locale }, options);
+}
+
+// Add function to get a specific project by slug with locale support
+export async function getProjectBySlug(
+  slug: string,
+  locale: string,
+  draft: boolean = false
+): Promise<any> {
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
+  const query = groq`*[_type == "project" && slug.current == $slug && language == $locale][0]{
+    _id,
+    title,
+    slug,
+    publishedAt,
+    description,
+    headerImage,
+    logo,
+    "client": client->{
+      _id,
+      name,
+      logo,
+      slug
+    },
+    categories[]->{
+      _id,
+      title,
+      slug
+    },
+    language
+  }`;
+
+  return client.fetch(query, { slug, locale }, options);
+}
+
+// Add function to get all project slugs for static generation
+export async function getAllProjectSlugs(locale: string) {
+  const query = groq`*[_type == "project" && language == $locale]{ "slug": slug.current }`;
+  return client.fetch<{ slug: string }[]>(query, { locale });
+}
+export async function getClients(
+  locale: string,
+  draft: boolean = false
+): Promise<any[]> {
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
+  // Query to fetch all clients for a specific locale
+  const query = groq`*[_type == "client" && language == $locale] | order(name asc) {
+    _id,
+    name,
+    slug,
+    logo,
+    description,
+    website,
+    language
+  }`;
+
+  return client.fetch(query, { locale }, options);
+}
+
+// Add function to get a specific client by slug with locale support
+export async function getClientBySlug(
+  slug: string,
+  locale: string,
+  draft: boolean = false
+): Promise<any> {
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
+  const query = groq`*[_type == "client" && slug.current == $slug && language == $locale][0]{
+    _id,
+    name,
+    slug,
+    logo,
+    description,
+    website,
+    language,
+    "projects": *[_type == "project" && references(^._id) && language == $locale]{
+      _id,
+      title,
+      slug,
+      logo,
+      description
+    }
+  }`;
+
+  return client.fetch(query, { slug, locale }, options);
+}
+
+// Add function to get all client slugs for generateStaticParams
+export async function getAllClientSlugs(locale: string) {
+  const query = groq`*[_type == "client" && language == $locale]{ "slug": slug.current }`;
+  return client.fetch<{ slug: string }[]>(query, { locale });
+}

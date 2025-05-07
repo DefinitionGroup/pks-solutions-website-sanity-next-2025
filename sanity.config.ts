@@ -13,52 +13,77 @@ const pageWithChannelTemplate = {
   id: "page-with-channel",
   title: "Page with Channel",
   schemaType: "page",
-  parameters: [{ name: "channel", title: "Channel", type: "string" }],
-  value: (params: { channel: string }) => ({
+  parameters: [
+    { name: "channel", title: "Channel", type: "string" },
+    { name: "language", title: "Language", type: "string" }
+  ],
+  value: (params: { channel: string, language: string }) => ({
     channel: params.channel,
+    language: params.language || "de",
   }),
 };
 
 // Add templates for blog-related types
-const blogPostWithChannelTemplate = {
-  id: "blogPost-with-channel",
+const blogPostTemplate = {
+  id: "blogPost-with-lang",
   title: "Blog Post with Channel",
   schemaType: "blogPost",
-  parameters: [{ name: "channel", title: "Channel", type: "string" }],
-  value: (params: { channel: string }) => ({
-    channel: params.channel,
+  parameters: [{ name: "language", type: "string" }],
+  value: (params: { language: string }) => ({
+    language: params.language || "de",
   }),
 };
 
-const blogCategoryWithChannelTemplate = {
-  id: "blogCategory-with-channel",
+const blogCategoryTemplate = {
+  id: "blogCategory-with-lang",
   title: "Blog Category with Channel",
   schemaType: "blogCategory",
-  parameters: [{ name: "channel", title: "Channel", type: "string" }],
-  value: (params: { channel: string }) => ({
-    channel: params.channel,
+  parameters: [{ name: "language", type: "string" }],
+  value: (params: { language: string }) => ({
+    language: params.language || "de",
   }),
 };
 
-const blogAuthorWithChannelTemplate = {
-  id: "blogAuthor-with-channel",
+const blogAuthorTemplate = {
+  id: "blogAuthor-with-lang",
   title: "Blog Author with Channel",
   schemaType: "blogAuthor",
-  parameters: [{ name: "channel", title: "Channel", type: "string" }],
-  value: (params: { channel: string }) => ({
-    channel: params.channel,
+  parameters: [{ name: "language", type: "string" }],
+  value: (params: { language: string }) => ({
+    language: params.language || "de",
   }),
 };
 const menuWithChannelTemplate = {
   id: "menu-with-channel",
   title: "Menu with Channel",
   schemaType: "menu",
-  parameters: [{ name: "channel", title: "Channel", type: "string" }],
-  value: (params: { channel: string }) => ({
+  parameters: [
+    { name: "channel", title: "Channel", type: "string" },
+    { name: "language", title: "Language", type: "string" }
+  ],
+  value: (params: { channel: string, language: string }) => ({
     channel: params.channel,
+    language: params.language || "de",
   }),
 };
-
+const clientWithLanguageTemplate = {
+  id: "client-with-language",
+  title: "Client with Language",
+  schemaType: "client",
+  parameters: [{ name: "language", type: "string" }],
+  value: (params: { language: string }) => ({
+    language: params.language || "de",
+  }),
+};
+const projectWithLanguageTemplate = {
+  id: "project-with-language",
+  title: "Project with Language",
+  schemaType: "project",
+  parameters: [{ name: "language", type: "string" }],
+  value: (params: { language: string }) => ({
+    language: params.language || "de",
+  }),
+};
 export default defineConfig({
   basePath: "/studio",
   projectId,
@@ -69,10 +94,12 @@ export default defineConfig({
     templates: (prev) => [
       ...prev,
       pageWithChannelTemplate,
-      blogPostWithChannelTemplate,
-      blogCategoryWithChannelTemplate,
-      blogAuthorWithChannelTemplate,
+      blogPostTemplate,
+      blogCategoryTemplate,
+      blogAuthorTemplate,
       menuWithChannelTemplate,
+      clientWithLanguageTemplate,
+      projectWithLanguageTemplate,
     ],
   },
   plugins: [
@@ -88,7 +115,9 @@ export default defineConfig({
         "blogAuthor",
         "menu",
         "client",
+        "project",
       ],
+      weakReferences: true,
     }),
     structureTool({ structure }), // Use the imported structure config here
     cloudinarySchemaPlugin(),

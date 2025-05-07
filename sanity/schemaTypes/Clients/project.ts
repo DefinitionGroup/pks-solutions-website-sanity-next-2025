@@ -1,11 +1,9 @@
 import { defineType, defineField } from "sanity";
-import { MdPeople } from "react-icons/md"; // Import the icon for fallback
 
 export default defineType({
-  name: "client",
-  title: "Client",
+  name: "project",
+  title: "Project",
   type: "document",
-  icon: MdPeople, // Fallback icon if logo isn't available
   fields: [
     defineField({
       name: "language",
@@ -17,9 +15,9 @@ export default defineType({
         "Managed by @sanity/document-internationalization; do not edit manually.",
     }),
     defineField({
-      name: "name",
-      title: "Client Name",
+      name: "title",
       type: "string",
+      title: "Project Name",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -27,7 +25,7 @@ export default defineType({
       title: "Slug",
       type: "slug",
       options: {
-        source: "name",
+        source: "title", // Changed from "name" to "title"
         maxLength: 96,
         slugify: (input: string, _type: any, context: any) => {
           return input
@@ -54,7 +52,7 @@ export default defineType({
 
           // Query to check for conflicting slugs
           const query = `*[
-            _type == "client" && 
+            _type == "project" && // Changed from "client" to "project"
             slug.current == $slug && 
             language == $language && 
             !(_id in [$draftId, $publishedId])
@@ -74,15 +72,14 @@ export default defineType({
     }),
     defineField({
       name: "logo",
-      title: "Client Logo",
+      title: "Project Logo",
       type: "cloudinary.asset",
       description: "Upload the client's logo",
     }),
     defineField({
-      name: "website",
-      title: "Website URL",
-      type: "url",
-      description: "The client's website URL",
+      name: "headerImage",
+      type: "cloudinary.asset",
+      title: "Header Image",
     }),
 
     defineField({
@@ -93,41 +90,32 @@ export default defineType({
     }),
 
     defineField({
-      name: "projects",
-      type: "array",
-      title: "Connected Projects",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "project" }],
-          options: {
-            filter: ({ document }) => {
-              // Only show projects in the same language as the current client
-              return {
-                filter: "language == $language",
-                params: { language: document?.language || "de" },
-              };
-            },
-          },
-        },
-      ],
+      name: "client",
+      type: "reference",
+      title: "Client",
+      to: [{ type: "client" }],
+      options: {
+        filter: ({ document }) => {
+          // Only show clients in the same language as the current project
+          return {
+            filter: 'language == $language',
+            params: { language: document?.language || 'de' }
+          }
+        }
+      }
     }),
   ],
   preview: {
     select: {
-      title: "name",
-      subtitle: "description",
-      logoAsset: "logo",
+      title: "title",
+      subtitle: "description", // Changed from "industry" to "description"
+      media: "logo",
     },
-    prepare({ title, subtitle, logoAsset }) {
-      // Create a proper image component instead of using the URL directly
+    prepare({ title, subtitle, media }) {
       return {
         title,
         subtitle: subtitle || "No description",
-        media: logoAsset && logoAsset.secure_url ? 
-          // Return the asset object itself, not just the URL string
-          logoAsset : 
-          undefined
+        media,
       };
     },
   },

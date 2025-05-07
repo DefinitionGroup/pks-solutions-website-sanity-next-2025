@@ -266,3 +266,33 @@ export interface BlogList {
   selectedPosts?: BlogPost[];
   selectionType: "auto" | "manual";
 }
+
+/**
+ * Project Schema
+ */
+export interface Project {
+  _id: string;
+  _type: "project";
+  title: string;
+  slug: {
+    current: string;
+  };
+  logo?: CloudinaryAsset;
+  headerImage?: CloudinaryAsset;
+  description?: string;
+  client?: {
+    _ref: string;
+    _type: "reference";
+  };
+}
+
+/**
+ * ProjectList Schema
+ */
+export interface ProjectList {
+  _type: "projectList";
+  title: string;
+  subtitle?: string;
+  description?: PortableTextBlock;
+  projects: Project[];
+}
