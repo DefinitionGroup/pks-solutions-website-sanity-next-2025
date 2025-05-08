@@ -34,7 +34,8 @@ export default async function ProjectsPage(props: PageProps) {
   const slug = "projects";
 
   // Fetch projects and page data with locale support
-  const projects = await getProjects(locale, isEnabled);
+  const allProjects = await getProjects(locale, isEnabled);
+
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, channel, isEnabled),
     getMenuByType("Navbar", locale, isEnabled),
@@ -46,7 +47,31 @@ export default async function ProjectsPage(props: PageProps) {
     (content: ProjectList | Hero | BlogList | ClientsList) =>
       content._type === "projectList"
   );
+  // Filter projects to only show those specified in the projectList component
+  let projects = allProjects;
+  if (
+    projectListComponent &&
+    projectListComponent.projects &&
+    projectListComponent.projects.length > 0
+  ) {
+    // Get the list of project IDs from the projectList component
+    const projectIds = projectListComponent.projects.map(
+      (project: any) => project._ref
+    );
 
+    // Filter the projects to only include those in the projectList
+    projects = allProjects.filter((project: any) =>
+      projectIds.includes(project._id)
+    );
+
+    console.log(
+      `Filtered to ${projects.length} specific projects out of ${allProjects.length} total`
+    );
+  } else {
+    console.log(
+      "Using all projects as no specific projects were defined in the projectList"
+    );
+  }
   // Handle case where no projects are found
   if (!projects || projects.length === 0) {
     console.warn(`No projects found for locale: ${locale}`);
