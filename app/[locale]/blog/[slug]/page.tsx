@@ -25,10 +25,10 @@ export default async function BlogPostPage(props: PageProps) {
 
   // Pass locale to fetch functions
   // Assuming getBlogPostBySlug needs locale as the second argument
-  const post = await getBlogPostBySlug(slug, locale, isEnabled); // Pass locale here
+  const post = await getBlogPostBySlug(slug, locale, isEnabled);
   const [navbarMenu, footerMenu] = await Promise.all([
-    getMenuByType("Navbar", locale, isEnabled), // Pass locale
-    getFooterMenu(locale, isEnabled), // Pass locale and isEnabled
+    getMenuByType("Navbar", locale, isEnabled),
+    getFooterMenu(locale, isEnabled, "pksWeb"),
   ]);
 
   // Check if post exists for the given slug (locale might be relevant here too)

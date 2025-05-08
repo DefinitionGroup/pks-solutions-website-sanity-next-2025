@@ -76,10 +76,10 @@ export const getMenuByType = async (
 };
 
 // Updated getFooterMenu to include locale
-export async function getFooterMenu(locale: string, draft: boolean = false) {
-  // Add locale and draft parameters
-  // Assuming footer menus are also localized by a 'language' field
-  const query = groq`*[_type == "menu" && menuType == "Footer" && language == $locale][0]{
+export async function getFooterMenu(locale: string, draft: boolean = false, channel: string = "pksWeb") {
+  // Add locale, draft, and channel parameters
+  // Assuming footer menus are also localized by a 'language' field and have a channel field
+  const query = groq`*[_type == "menu" && menuType == "Footer" && language == $locale && channel == $channel][0]{
     footerColumns[] {
       title,
       links[] {
@@ -95,7 +95,8 @@ export async function getFooterMenu(locale: string, draft: boolean = false) {
     },
     copyright,
     imageCloud,
-    language // Include language if needed
+    language, // Include language if needed
+    channel // Include channel
   }`;
 
   const options = draft
@@ -106,8 +107,8 @@ export async function getFooterMenu(locale: string, draft: boolean = false) {
       }
     : {};
 
-  // Pass locale to the query parameters
-  return client.fetch(query, { locale }, options);
+  // Pass locale and channel to the query parameters
+  return client.fetch(query, { locale, channel }, options);
 }
 
 // Updated getBlogPosts to remove channel dependency
@@ -252,6 +253,7 @@ export async function getProjects(
     publishedAt,
     excerpt,
     mainImage,
+    headerImage,
     categories[]->{
       title,
       slug
@@ -370,4 +372,40 @@ export async function getClientBySlug(
 export async function getAllClientSlugs(locale: string) {
   const query = groq`*[_type == "client" && language == $locale]{ "slug": slug.current }`;
   return client.fetch<{ slug: string }[]>(query, { locale });
+}
+
+// Add function to get project list content with locale support
+export async function getProjectList(
+  locale: string,
+  draft: boolean = false
+): Promise<any> {
+  const options = draft
+    ? {
+        perspective: "previewDrafts" as ClientPerspective,
+        useCdn: false,
+        stega: true,
+      }
+    : {};
+
+  // Query to fetch a standalone project list document for a specific locale
+  const query = groq`*[_type == "projectList" && language == $locale][0]{
+    _id,
+    title,
+    subtitle,
+    description,
+    projects[]->{
+      _id,
+      title,
+      slug,
+      excerpt,
+      headerImage,
+      categories[]->{
+        _id,
+        title,
+        slug
+      }
+    }
+  }`;
+
+  return client.fetch(query, { locale }, options);
 }

@@ -48,8 +48,8 @@ export default async function Page({ params }: PageProps) {
   // Fetch data using updated functions with locale
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, channel, isEnabled),
-    getMenuByType("Navbar", locale, isEnabled), // Fetches Navbar menu for the current locale
-    getFooterMenu(locale, isEnabled), // Fetches Footer menu for the current locale
+    getMenuByType("Navbar", locale, isEnabled),
+    getFooterMenu(locale, isEnabled, channel),
   ]);
 
   // Check if page or navbarMenu for the specific locale exists

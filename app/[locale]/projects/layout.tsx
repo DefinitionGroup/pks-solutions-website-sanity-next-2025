@@ -13,7 +13,7 @@ export default async function ProjectLayout({
   }
 
   return (
-    <main className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       {isEnabled && (
         <>
           <VisualEditing />
@@ -21,6 +21,6 @@ export default async function ProjectLayout({
         </>
       )}
       {children}
-    </main>
+    </div>
   );
 }

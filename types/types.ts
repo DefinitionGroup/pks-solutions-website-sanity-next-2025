@@ -223,7 +223,7 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
-  contentPKS: (Hero | BlogList)[]; // Add BlogList to the union type
+  contentPKS: (Hero | BlogList | ProjectList | ClientsList)[]; // Add BlogList to the union type
   channel: string;
 }
 
@@ -295,4 +295,16 @@ export interface ProjectList {
   subtitle?: string;
   description?: PortableTextBlock;
   projects: Project[];
+}
+
+export interface ClientsList {
+  _type: "clientsList";
+  _key: string;
+  title: string;
+  subtitle?: string;
+  description?: any; // For PortableText content
+  clients?: Array<{
+    _type: "reference";
+    _ref: string;
+  }>;
 }

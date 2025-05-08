@@ -72,7 +72,8 @@ const ProjectListComponent: React.FC<ProjectListComponentProps> = ({
           )}
           {data.description && (
             <div className="mx-auto mt-4 max-w-3xl prose">
-              <PortableText value={data.description} />
+              {/* <PortableText value={data.description} /> */}
+              <p>{data.description}</p>
             </div>
           )}
         </div>

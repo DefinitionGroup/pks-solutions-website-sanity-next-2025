@@ -30,9 +30,15 @@ export default async function RootLayout({
 
   return (
     <html lang="de">
+      <head>
+        <script
+          crossOrigin="anonymous"
+          src="//unpkg.com/react-scan/dist/auto.global.js"
+        />
+      </head>
       <body className={` ${fontBrandRegular.className} antialiased`}>
-        <div className="justify-items-center items-center grid grid-rows-[20px_1fr_10px] p-0 w-full">
-          <main className="items-center sm:items-start gap-8 row-start-2 bg-black w-full">
+        <div className="justify-items-center items-center grid grid-rows-[1fr_10px] p-0 w-full">
+          <main className="items-center sm:items-start gap-8 row-start-1 bg-black w-full">
             {children}
           </main>
         </div>

@@ -1,9 +1,9 @@
 import React from "react";
 import HeroHighlightComponent from "@/components/HeroHighLightComponent"; // Adjust path if needed
 import BlogListComponent from "@/components/BlogListComponent"; // Adjust path if needed
-import { BlogList, Hero } from "@/types/types"; // Assuming BlogList type is defined
+import { BlogList, ClientsList, Hero, ProjectList } from "@/types/types"; // Assuming BlogList type is defined
 interface RenderContentProps {
-  contentPKS: (Hero | BlogList)[]; // Consider defining a more specific type for content blocks
+  contentPKS: (Hero | BlogList | ProjectList | ClientsList)[]; // Consider defining a more specific type for content blocks
   locale: string; // Pass locale down if child components need it
 }
 
@@ -45,7 +45,7 @@ const RenderContent: React.FC<RenderContentProps> = ({
                 className="container mx-auto my-4 p-4 border border-dashed border-red-500"
               >
                 <p className="text-red-500 font-bold">
-                  Unsupported block type: {block}
+                  Unsupported block type: {block._type}
                 </p>
                 <pre className="text-xs text-gray-400">
                   {JSON.stringify(block, null, 2)}
