@@ -34,7 +34,8 @@ export default async function ProjectsPage(props: PageProps) {
   const slug = "projects";
 
   // Fetch projects and page data with locale support
-  const allProjects = await getProjects(locale, isEnabled);
+  // Update to pass channel to getProjects
+  const allProjects = await getProjects(locale, isEnabled, channel);
 
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, channel, isEnabled),
@@ -80,7 +81,7 @@ export default async function ProjectsPage(props: PageProps) {
   if (!page) {
     return notFound();
   }
-  console.log(projectListComponent);
+  
   return (
     <>
       {isEnabled && (

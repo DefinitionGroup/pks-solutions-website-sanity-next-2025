@@ -33,8 +33,8 @@ export default async function ClientsPage(props: PageProps) {
   const channel = "pksWeb";
   const slug = "clients";
 
-  // Fetch clients and page data with locale support
-  const clients = await getClients(locale, isEnabled);
+  // Fetch clients and page data with locale and channel support
+  const clients = await getClients(locale, isEnabled, channel);
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, channel, isEnabled),
     getMenuByType("Navbar", locale, isEnabled),
@@ -49,7 +49,9 @@ export default async function ClientsPage(props: PageProps) {
 
   // Handle case where no clients are found
   if (!clients || clients.length === 0) {
-    console.warn(`No clients found for locale: ${locale}`);
+    console.warn(
+      `No clients found for locale: ${locale} and channel: ${channel}`
+    );
   }
 
   if (!page) {
@@ -162,8 +164,8 @@ export default async function ClientsPage(props: PageProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {clients && clients.length > 0 ? (
             clients.map((client) => (
-              <GlowingStarsBackgroundCard 
-                key={client._id} 
+              <GlowingStarsBackgroundCard
+                key={client._id}
                 className="h-full"
                 useStarsBackground={true}
               >

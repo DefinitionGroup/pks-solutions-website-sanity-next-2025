@@ -84,14 +84,26 @@ export default defineType({
       type: "url",
       description: "The client's website URL",
     }),
-
     defineField({
       name: "description",
       title: "Description",
       type: "text",
       description: "A brief description of the client",
     }),
-
+    defineField({
+      name: "channels",
+      title: "Channels",
+      type: "array",
+      description: "Select the channels where this client will be displayed",
+      of: [{ type: "string" }],
+      options: {
+        list: [
+          { title: "PKS Website", value: "pksWeb" },
+          { title: "AVTR Website", value: "avtWeb" },
+        ],
+        layout: "list",
+      },
+    }),
     defineField({
       name: "projects",
       type: "array",
@@ -124,10 +136,11 @@ export default defineType({
       return {
         title,
         subtitle: subtitle || "No description",
-        media: logoAsset && logoAsset.secure_url ? 
-          // Return the asset object itself, not just the URL string
-          logoAsset : 
-          undefined
+        media:
+          logoAsset && logoAsset.secure_url
+            ? // Return the asset object itself, not just the URL string
+              logoAsset
+            : undefined,
       };
     },
   },
