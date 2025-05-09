@@ -83,4 +83,19 @@ body {
         )
         bottom / 100% 1px no-repeat;
   }
+
+  .bg-dot-thick-neutral-300\/15 {
+    background-image: radial-gradient(circle, rgb(212 212 212 / 0.15) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  
+  .bg-dot-thick-neutral-800\/15 {
+    background-image: radial-gradient(circle, rgb(38 38 38 / 0.15) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  
+  .bg-dot-thick-indigo-500 {
+    background-image: radial-gradient(circle, rgb(99 102 241) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 }
