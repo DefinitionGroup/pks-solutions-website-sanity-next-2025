@@ -14,6 +14,7 @@ type ContactFormProps = {
   emailFieldLabel?: string;
   messageFieldLabel?: string;
   submitButtonText?: string;
+  locale?: string;
 };
 
 type FormData = {
@@ -31,11 +32,12 @@ export default function ContactForm({
   emailFieldLabel = "Your Email",
   messageFieldLabel = "Your Message",
   submitButtonText = "Send Message",
+  locale = "en",
 }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+  console.log(locale);
   const {
     register,
     handleSubmit,
@@ -103,7 +105,7 @@ export default function ContactForm({
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-white mb-4">
-              Message Sent!
+              {locale === "de" ? "E-Mail gesendet!" : "Message Sent!"}
             </h3>
             <p className="text-gray-300 mb-8 max-w-md mx-auto">
               {successMessage}
@@ -116,7 +118,11 @@ export default function ContactForm({
                 className="pointer-events-auto absolute top-0 left-0 border-t border-b border-white/20 justify-between font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
               >
                 <div className="flex justify-between items-center w-full">
-                  <span>Send another message</span>
+                  <span>
+                    {locale === "de"
+                      ? "Weitere Nachricht senden"
+                      : "Send another message"}
+                  </span>
                   <ArrowRight size={16} />
                 </div>
               </button>
@@ -126,7 +132,11 @@ export default function ContactForm({
                 className="pointer-events-auto border bg-slate-100 absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-slate-900 transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider"
               >
                 <div className="flex justify-between items-center w-full">
-                  <span>Send another message</span>
+                  <span>
+                    {locale === "de"
+                      ? "Weitere Nachricht senden"
+                      : "Send another message"}
+                  </span>
                   <ArrowRight className="rotate-45" size={16} />
                 </div>
               </button>
@@ -201,7 +211,12 @@ export default function ContactForm({
                   className={`block w-full bg-gray-900/50 border ${
                     errors.name ? "border-red-500" : "border-gray-700"
                   } rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors`}
-                  {...register("name", { required: "Name is required" })}
+                  {...register("name", {
+                    required:
+                      locale === "de"
+                        ? "Name ist erforderlich"
+                        : "Name is required",
+                  })}
                 />
                 {errors.name && (
                   <p className="mt-2 text-sm text-red-400">
@@ -224,10 +239,16 @@ export default function ContactForm({
                     errors.email ? "border-red-500" : "border-gray-700"
                   } rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors`}
                   {...register("email", {
-                    required: "Email is required",
+                    required:
+                      locale === "de"
+                        ? "E-Mail ist erforderlich"
+                        : "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
+                      message:
+                        locale === "de"
+                          ? "Ungültige E-Mail-Adresse"
+                          : "Invalid email address",
                     },
                   })}
                 />
@@ -252,7 +273,12 @@ export default function ContactForm({
                 className={`block w-full bg-gray-900/50 border ${
                   errors.message ? "border-red-500" : "border-gray-700"
                 } rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors`}
-                {...register("message", { required: "Message is required" })}
+                {...register("message", {
+                  required:
+                    locale === "de"
+                      ? "Nachricht ist erforderlich"
+                      : "Message is required",
+                })}
               />
               {errors.message && (
                 <p className="mt-2 text-sm text-red-400">
@@ -270,7 +296,11 @@ export default function ContactForm({
                 >
                   <div className="flex justify-between items-center w-full">
                     <span>
-                      {isSubmitting ? "Sending..." : submitButtonText}
+                      {isSubmitting
+                        ? locale === "de"
+                          ? "Wird gesendet..."
+                          : "Sending..."
+                        : submitButtonText}
                     </span>
                     <ArrowRight size={16} />
                   </div>
@@ -282,7 +312,11 @@ export default function ContactForm({
                 >
                   <div className="flex justify-between items-center w-full">
                     <span>
-                      {isSubmitting ? "Sending..." : submitButtonText}
+                      {isSubmitting
+                        ? locale === "de"
+                          ? "Wird gesendet..."
+                          : "Sending..."
+                        : submitButtonText}
                     </span>
                     <ArrowRight className="rotate-45" size={16} />
                   </div>

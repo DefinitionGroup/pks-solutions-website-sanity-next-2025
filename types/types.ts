@@ -324,4 +324,5 @@ export interface ContactForm {
 }
 export interface SanityContactFormPropsType {
   value: ContactForm;
+  locale: string;
 }

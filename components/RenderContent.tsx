@@ -37,7 +37,9 @@ const RenderContent: React.FC<RenderContentProps> = ({
               />
             );
           case "contactForm":
-            return <SanityContactForm key={index} value={block} />;
+            return (
+              <SanityContactForm key={index} value={block} locale={locale} />
+            );
 
           default:
             console.warn(`Unsupported block type: ${block}`);

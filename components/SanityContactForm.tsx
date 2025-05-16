@@ -3,6 +3,7 @@ import { SanityContactFormPropsType } from "@/types/types";
 
 export default function SanityContactForm({
   value,
+  locale,
 }: SanityContactFormPropsType) {
   return (
     <ContactForm
@@ -14,6 +15,7 @@ export default function SanityContactForm({
       emailFieldLabel={value.emailFieldLabel}
       messageFieldLabel={value.messageFieldLabel}
       submitButtonText={value.submitButtonText}
+      locale={locale}
     />
   );
 }

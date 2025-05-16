@@ -4,8 +4,12 @@ import nodemailer from "nodemailer";
 export async function POST(request: Request) {
   try {
     const { name, email, message, recipient } = await request.json();
-
-    // Validate the input
+    console.log("Received request with data:", {
+      name,
+      email,
+      message,
+      recipient,
+    });
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: "Name, email, and message are required" },
@@ -13,46 +17,44 @@ export async function POST(request: Request) {
       );
     }
 
-    // Configure email transport
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.example.com",
-      port: parseInt(process.env.SMTP_PORT || "587"),
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || "587", 10),
       secure: process.env.SMTP_SECURE === "true",
       auth: {
-        user: process.env.SMTP_USER || "user@example.com",
-        pass: process.env.SMTP_PASSWORD || "password",
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
       },
     });
 
-    // Set up email data
+    await transporter.verify();
+    console.log("SMTP connection verified successfully");
+
     const mailOptions = {
-      from: process.env.SMTP_FROM || "website@example.com",
-      to: recipient || process.env.CONTACT_EMAIL || "contact@example.com",
+      from: process.env.FROM_EMAIL || "website@example.com",
+      to: recipient || process.env.TO_EMAIL || "default@example.com",
       replyTo: email,
       subject: `New contact form submission from ${name}`,
-      text: `
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-      `,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
-<p><strong>Name:</strong> ${name}</p>
-<p><strong>Email:</strong> ${email}</p>
-<p><strong>Message:</strong></p>
-<p>${message.replace(/\n/g, "<br>")}</p>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
       `,
     };
 
-    // Send the email
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent:", info.messageId);
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Error sending email:", error);
+  } catch (error: any) {
+    console.error("Email sending failed:", error);
     return NextResponse.json(
-      { error: "Failed to send email" },
+      { error: "Failed to send email", detail: error.message },
       { status: 500 }
     );
   }
