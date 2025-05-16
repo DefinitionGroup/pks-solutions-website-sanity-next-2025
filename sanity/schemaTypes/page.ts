@@ -105,6 +105,7 @@ export default {
         { type: "blogList" },
         { type: "projectList" },
         { type: "clientsList" },
+        { type: "contactForm" },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "pksWeb",

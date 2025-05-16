@@ -19,7 +19,13 @@ import Button3 from "@/components/Button3";
 import { PortableText } from "@portabletext/react";
 import { VisualEditing } from "next-sanity";
 import PreviewBanner from "@/components/PreviewBanner";
-import { BlogList, ClientsList, Hero, ProjectList } from "@/types/types";
+import {
+  BlogList,
+  ClientsList,
+  ContactForm,
+  Hero,
+  ProjectList,
+} from "@/types/types";
 
 // Define the page props interface
 interface PageProps {
@@ -34,7 +40,6 @@ export default async function ProjectsPage(props: PageProps) {
   const slug = "projects";
 
   // Fetch projects and page data with locale support
-  // Update to pass channel to getProjects
   const allProjects = await getProjects(locale, isEnabled, channel);
 
   const [page, navbarMenu, footerMenu] = await Promise.all([
@@ -45,7 +50,7 @@ export default async function ProjectsPage(props: PageProps) {
 
   // Extract projectList component from page content
   const projectListComponent = page?.contentPKS?.find(
-    (content: ProjectList | Hero | BlogList | ClientsList) =>
+    (content: ProjectList | Hero | BlogList | ClientsList | ContactForm) =>
       content._type === "projectList"
   );
   // Filter projects to only show those specified in the projectList component
@@ -81,7 +86,7 @@ export default async function ProjectsPage(props: PageProps) {
   if (!page) {
     return notFound();
   }
-  
+
   return (
     <>
       {isEnabled && (

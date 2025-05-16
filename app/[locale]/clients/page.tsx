@@ -19,7 +19,13 @@ import Button3 from "@/components/Button3";
 import { PortableText } from "@portabletext/react";
 import { VisualEditing } from "next-sanity";
 import PreviewBanner from "@/components/PreviewBanner";
-import { BlogList, Hero, ClientsList, ProjectList } from "@/types/types";
+import {
+  BlogList,
+  Hero,
+  ClientsList,
+  ProjectList,
+  ContactForm,
+} from "@/types/types";
 
 // Define the page props interface
 interface PageProps {
@@ -43,7 +49,7 @@ export default async function ClientsPage(props: PageProps) {
 
   // Extract clientsList component from page content
   const clientsListComponent = page?.contentPKS?.find(
-    (content: ClientsList | Hero | BlogList | ProjectList) =>
+    (content: ClientsList | Hero | BlogList | ProjectList | ContactForm) =>
       content._type === "clientsList"
   );
 

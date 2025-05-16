@@ -223,7 +223,7 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
-  contentPKS: (Hero | BlogList | ProjectList | ClientsList)[]; // Add BlogList to the union type
+  contentPKS: (Hero | BlogList | ProjectList | ClientsList | ContactForm)[];
   channel: string;
 }
 
@@ -307,4 +307,21 @@ export interface ClientsList {
     _type: "reference";
     _ref: string;
   }>;
+}
+/**
+ * ContactForm Schema
+ */
+export interface ContactForm {
+  _type: "contactForm";
+  title?: string;
+  subtitle?: string;
+  emailRecipient?: string;
+  successMessage?: string;
+  nameFieldLabel?: string;
+  emailFieldLabel?: string;
+  messageFieldLabel?: string;
+  submitButtonText?: string;
+}
+export interface SanityContactFormPropsType {
+  value: ContactForm;
 }

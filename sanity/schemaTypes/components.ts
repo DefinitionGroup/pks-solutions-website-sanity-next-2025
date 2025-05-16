@@ -7,6 +7,7 @@ import zwischenTitelCta from "./PKS/components/zwischenTitelCta";
 import TripleHero from "./PKS/components/TripleHero";
 import Menu from "./PKS/components/Menu";
 import blogList from "./PKS/components/blogList";
+import ContactForm from "./PKS/components/ContactForm";
 const ComponentsElements = [
   Hero,
   TripleHero,
@@ -17,5 +18,6 @@ const ComponentsElements = [
   zwischenTitelCta,
   Menu,
   blogList,
+  ContactForm,
 ];
 export default ComponentsElements;
