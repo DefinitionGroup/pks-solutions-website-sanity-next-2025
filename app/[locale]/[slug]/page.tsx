@@ -51,7 +51,10 @@ export default async function Page({ params }: PageProps) {
     getMenuByType("Navbar", locale, isEnabled),
     getFooterMenu(locale, isEnabled, channel),
   ]);
-
+  const reservedSlugs = ['sign-in', 'sign-up'];
+  if (reservedSlugs.includes(slug)) {
+    return notFound();
+  }
   // Check if page or navbarMenu for the specific locale exists
   if (!page) {
     console.error(`Page not found for slug: ${slug}, locale: ${locale}`);

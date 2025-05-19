@@ -10,10 +10,17 @@ import { cn } from "@/app/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuType } from "@/types/types";
-import { usePathname } from "next/navigation"; // Import usePathname
+import { usePathname } from "next/navigation";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 // Define supported locales (consistent with middleware)
-const locales = ['en', 'de'];
+const locales = ["en", "de"];
 
 export const FloatingNav = ({
   menu,
@@ -60,7 +67,8 @@ export const FloatingNav = ({
   const basePath = getPathWithoutLocale();
 
   // Determine the correct homepage slug for the current locale
-  const homeSlugForCurrentLocale = currentLocale === 'en' ? 'home' : 'startseite';
+  const homeSlugForCurrentLocale =
+    currentLocale === "en" ? "home" : "startseite";
 
   return (
     <AnimatePresence mode="wait">
@@ -76,7 +84,7 @@ export const FloatingNav = ({
         transition={{ type: "spring" }}
         className={cn(
           // Adjusted padding/spacing for language switcher
-          "fixed flex max-w-fit top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-2 items-center justify-center space-x-4",
+          "fixed flex max-w-fit top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-4 items-center justify-center space-x-4",
           className
         )}
       >
@@ -97,11 +105,14 @@ export const FloatingNav = ({
         </Link>
 
         {/* Menu Items */}
-        <div className="flex items-center space-x-4"> {/* Group menu items */}
+        <div className="flex items-center space-x-4">
+          {" "}
+          {/* Group menu items */}
           {menu.menuItems?.map((item, idx) => {
             // Determine href based on slug and currentLocale
             // Check against the correct home slug for the *current* locale
-            const isHomePageLink = item.page.slug.current === homeSlugForCurrentLocale;
+            const isHomePageLink =
+              item.page.slug.current === homeSlugForCurrentLocale;
             const href = isHomePageLink
               ? `/${currentLocale}` // Link to locale root for the homepage slug
               : `/${currentLocale}/${item.page.slug.current}`; // Prepend locale for other slugs
@@ -114,14 +125,18 @@ export const FloatingNav = ({
                   "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
                 )}
               >
-                <span className="sm:block hidden text-sm">{item.displayName}</span>
+                <span className="sm:block hidden text-sm">
+                  {item.displayName}
+                </span>
               </Link>
             );
           })}
         </div>
 
         {/* Language Switcher - ADDED BACK */}
-        <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4"> {/* Separator and spacing */}
+        <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4">
+          {" "}
+          {/* Separator and spacing */}
           {locales.map((locale) => {
             const isActive = locale === currentLocale;
             // Construct the path for the other locale using the basePath
@@ -145,8 +160,30 @@ export const FloatingNav = ({
           })}
         </div>
 
-        {/* Optional Login Button */}
-        {/* <button className="...">...</button> */}
+        {/* Authentication Buttons */}
+        <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4 mr-4">
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="px-3 py-1 rounded-full text-sm border border-transparent font-medium text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
+                {currentLocale === "en" ? "Sign In" : "Anmelden"}
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 hover:bg-transparent hover:text-white text-black transition-colors border border-transparent hover:border-white">
+                {currentLocale === "en" ? "Sign Up" : "Registrieren"}
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton
+              appearance={{
+                elements: {
+                  userButtonAvatarBox: "w-8 h-8",
+                },
+              }}
+            />
+          </SignedIn>
+        </div>
       </motion.div>
     </AnimatePresence>
   );
