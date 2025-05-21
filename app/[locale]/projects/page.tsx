@@ -19,22 +19,28 @@ import Button3 from "@/components/Button3";
 import { PortableText } from "@portabletext/react";
 import { VisualEditing } from "next-sanity";
 import PreviewBanner from "@/components/PreviewBanner";
-import { BlogList, ClientsList, Hero, ProjectList } from "@/types/types";
+import {
+  BlogList,
+  ClientsList,
+  ContactForm,
+  Hero,
+  ProjectList,
+} from "@/types/types";
 
 // Define the page props interface
 interface PageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export default async function ProjectsPage(props: PageProps) {
   // Extract locale from props
-  const { locale } = props.params;
+  const { locale } = await props.params;
   const { isEnabled } = await draftMode();
   const channel = "pksWeb";
   const slug = "projects";
 
   // Fetch projects and page data with locale support
-  const allProjects = await getProjects(locale, isEnabled);
+  const allProjects = await getProjects(locale, isEnabled, channel);
 
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, channel, isEnabled),
@@ -44,7 +50,7 @@ export default async function ProjectsPage(props: PageProps) {
 
   // Extract projectList component from page content
   const projectListComponent = page?.contentPKS?.find(
-    (content: ProjectList | Hero | BlogList | ClientsList) =>
+    (content: ProjectList | Hero | BlogList | ClientsList | ContactForm) =>
       content._type === "projectList"
   );
   // Filter projects to only show those specified in the projectList component
@@ -80,7 +86,7 @@ export default async function ProjectsPage(props: PageProps) {
   if (!page) {
     return notFound();
   }
-  console.log(projectListComponent);
+
   return (
     <>
       {isEnabled && (

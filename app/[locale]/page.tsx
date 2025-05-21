@@ -17,16 +17,16 @@ import GetDemoComponent from "@/components/GetDemoComponent";
 import RenderContent from "@/components/RenderContent"; // Import RenderContent
 
 // Define the default locale
-const defaultLocale = "de";
+//const defaultLocale = "de";
 
 // Define props to receive params
 interface HomeProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 // Update the function signature to accept props
 export default async function Home({ params }: HomeProps) {
-  const { locale } = params; // Get locale from params
+  const { locale } = await params; // Get locale from params
   const { isEnabled } = await draftMode();
   const channel = "pksWeb"; // Define the channel
   // Determine the correct homepage slug based on the locale

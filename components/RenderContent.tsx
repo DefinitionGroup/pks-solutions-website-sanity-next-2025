@@ -1,10 +1,17 @@
 import React from "react";
-import HeroHighlightComponent from "@/components/HeroHighLightComponent"; // Adjust path if needed
-import BlogListComponent from "@/components/BlogListComponent"; // Adjust path if needed
-import { BlogList, ClientsList, Hero, ProjectList } from "@/types/types"; // Assuming BlogList type is defined
+import HeroHighlightComponent from "@/components/HeroHighLightComponent";
+import BlogListComponent from "@/components/BlogListComponent";
+import SanityContactForm from "@/components/SanityContactForm";
+import {
+  BlogList,
+  ClientsList,
+  Hero,
+  ProjectList,
+  ContactForm,
+} from "@/types/types";
 interface RenderContentProps {
-  contentPKS: (Hero | BlogList | ProjectList | ClientsList)[]; // Consider defining a more specific type for content blocks
-  locale: string; // Pass locale down if child components need it
+  contentPKS: (Hero | BlogList | ProjectList | ClientsList | ContactForm)[];
+  locale: string;
 }
 
 const RenderContent: React.FC<RenderContentProps> = ({
@@ -18,14 +25,10 @@ const RenderContent: React.FC<RenderContentProps> = ({
   return (
     <>
       {contentPKS.map((block, index) => {
-        // console.log("Rendering block:", block._type, block); // For debugging
         switch (block._type) {
           case "hero":
-            // Spread block props to the component
             return <HeroHighlightComponent key={index} {...block} />;
           case "blogList":
-            // Pass the specific block data and locale to BlogListComponent
-            // Ensure BlogListComponent is adapted to receive 'block' and 'locale' props
             return (
               <BlogListComponent
                 key={index}
@@ -33,11 +36,12 @@ const RenderContent: React.FC<RenderContentProps> = ({
                 locale={locale}
               />
             );
-          // Add cases for other block types you have (e.g., textBlock, imageGallery, etc.)
-          // case 'textBlock':
-          //   return <TextBlockComponent key={index} {...block} />;
+          case "contactForm":
+            return (
+              <SanityContactForm key={index} value={block} locale={locale} />
+            );
+
           default:
-            // Optionally render a placeholder or log a warning for unhandled types
             console.warn(`Unsupported block type: ${block}`);
             return (
               <div

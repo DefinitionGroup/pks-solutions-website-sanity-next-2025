@@ -235,7 +235,8 @@ export async function getAllPageSlugsAndLocales() {
 // Add function to get all projects with locale support
 export async function getProjects(
   locale: string,
-  draft: boolean = false
+  draft: boolean = false,
+  channel: string = "pksWeb"
 ): Promise<any[]> {
   const options = draft
     ? {
@@ -245,8 +246,8 @@ export async function getProjects(
       }
     : {};
 
-  // Query to fetch all projects for a specific locale
-  const query = groq`*[_type == "project" && language == $locale] | order(publishedAt desc) {
+  // Updated query to filter by channel
+  const query = groq`*[_type == "project" && language == $locale && $channel in channels] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -258,10 +259,11 @@ export async function getProjects(
       title,
       slug
     },
-    language
+    language,
+    channels
   }`;
 
-  return client.fetch(query, { locale }, options);
+  return client.fetch(query, { locale, channel }, options);
 }
 
 // Add function to get a specific project by slug with locale support
@@ -308,9 +310,11 @@ export async function getAllProjectSlugs(locale: string) {
   const query = groq`*[_type == "project" && language == $locale]{ "slug": slug.current }`;
   return client.fetch<{ slug: string }[]>(query, { locale });
 }
+// Update getClients to include channel filtering
 export async function getClients(
   locale: string,
-  draft: boolean = false
+  draft: boolean = false,
+  channel: string = "pksWeb"
 ): Promise<any[]> {
   const options = draft
     ? {
@@ -320,25 +324,27 @@ export async function getClients(
       }
     : {};
 
-  // Query to fetch all clients for a specific locale
-  const query = groq`*[_type == "client" && language == $locale] | order(name asc) {
+  // Updated query to filter by channel
+  const query = groq`*[_type == "client" && language == $locale && $channel in channels] | order(name asc) {
     _id,
     name,
     slug,
     logo,
     description,
     website,
-    language
+    language,
+    channels
   }`;
 
-  return client.fetch(query, { locale }, options);
+  return client.fetch(query, { locale, channel }, options);
 }
 
-// Add function to get a specific client by slug with locale support
+// Update getClientBySlug to include channel filtering
 export async function getClientBySlug(
   slug: string,
   locale: string,
-  draft: boolean = false
+  draft: boolean = false,
+  channel: string = "pksWeb"
 ): Promise<any> {
   const options = draft
     ? {
@@ -348,7 +354,7 @@ export async function getClientBySlug(
       }
     : {};
 
-  const query = groq`*[_type == "client" && slug.current == $slug && language == $locale][0]{
+  const query = groq`*[_type == "client" && slug.current == $slug && language == $locale && $channel in channels][0]{
     _id,
     name,
     slug,
@@ -356,7 +362,8 @@ export async function getClientBySlug(
     description,
     website,
     language,
-    "projects": *[_type == "project" && references(^._id) && language == $locale]{
+    channels,
+    "projects": *[_type == "project" && references(^._id) && language == $locale && $channel in channels]{
       _id,
       title,
       slug,
@@ -365,7 +372,7 @@ export async function getClientBySlug(
     }
   }`;
 
-  return client.fetch(query, { slug, locale }, options);
+  return client.fetch(query, { slug, locale, channel }, options);
 }
 
 // Add function to get all client slugs for generateStaticParams

@@ -26,7 +26,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
 
   return (
     <HeroHighlight className="container">
-      <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full">
+      <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full bg-black">
         {" "}
         <video
           loop
