@@ -29,12 +29,12 @@ import {
 
 // Define the page props interface
 interface PageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export default async function ProjectsPage(props: PageProps) {
   // Extract locale from props
-  const { locale } = props.params;
+  const { locale } = await props.params;
   const { isEnabled } = await draftMode();
   const channel = "pksWeb";
   const slug = "projects";

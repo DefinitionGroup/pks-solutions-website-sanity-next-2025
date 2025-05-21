@@ -1,28 +1,20 @@
-// app/[locale]/[slug]/page.tsx - Updated path
 import { notFound } from "next/navigation";
-import { groq } from "next-sanity";
-import { client } from "@/sanity/lib/client";
-// Make sure fetchData functions are updated to accept locale
 import {
   getPageBySlug,
   getMenuByType,
   getFooterMenu,
-  getAllPageSlugsAndLocales, // Import the new function
+  getAllPageSlugsAndLocales,
 } from "@/sanity/fetchData";
-import { PageType } from "@/types/types"; // Assuming PageType is correctly defined
-import HeroHighlightComponent from "@/components/HeroHighLightComponent";
-import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import Footer from "@/components/Footer";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { draftMode } from "next/headers";
-import BlogListComponent from "@/components/BlogListComponent";
 import { VisualEditing } from "next-sanity";
-import PreviewBanner from "@/components/PreviewBanner"; // Assuming you have this
+import PreviewBanner from "@/components/PreviewBanner";
 import RenderContent from "@/components/RenderContent";
 
 // Generate paths for pages including locale
 export async function generateStaticParams() {
-  const pages = await getAllPageSlugsAndLocales(); // Use the new fetch function
+  const pages = await getAllPageSlugsAndLocales();
 
   // Filter out any potential null/undefined values if necessary
   return pages
@@ -36,13 +28,12 @@ export async function generateStaticParams() {
 export const revalidate = 10;
 
 interface PageProps {
-  params: { slug: string; locale: string }; // Add locale here
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export default async function Page({ params }: PageProps) {
-  // Use updated PageProps
   // Extract locale along with slug
-  const { slug, locale } = params;
+  const { slug, locale } = await params;
   const { isEnabled } = await draftMode();
   const channel = "pksWeb";
   // Fetch data using updated functions with locale
@@ -51,7 +42,7 @@ export default async function Page({ params }: PageProps) {
     getMenuByType("Navbar", locale, isEnabled),
     getFooterMenu(locale, isEnabled, channel),
   ]);
-  const reservedSlugs = ['sign-in', 'sign-up'];
+  const reservedSlugs = ["sign-in", "sign-up"];
   if (reservedSlugs.includes(slug)) {
     return notFound();
   }
@@ -70,7 +61,7 @@ export default async function Page({ params }: PageProps) {
     console.warn(`Footer menu not found for locale: ${locale}`); // This logs the warning
   }
 
-  const { title, contentPKS } = page;
+  const { contentPKS } = page;
 
   return (
     <>

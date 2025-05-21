@@ -13,18 +13,16 @@ import { VisualEditing } from "next-sanity";
 import PreviewBanner from "@/components/PreviewBanner";
 import { MenuType } from "@/types/types"; // Assuming MenuType is defined here or imported
 
-// Update PageProps to include locale
 interface PageProps {
-  params: { slug: string; locale: string }; // Add locale here
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export default async function BlogPostPage(props: PageProps) {
   // Extract locale along with slug
-  const { slug, locale } = props.params; // Destructure locale
+  const { slug, locale } = await props.params; // Destructure locale
   const { isEnabled } = await draftMode();
 
   // Pass locale to fetch functions
-  // Assuming getBlogPostBySlug needs locale as the second argument
   const post = await getBlogPostBySlug(slug, locale, isEnabled);
   const [navbarMenu, footerMenu] = await Promise.all([
     getMenuByType("Navbar", locale, isEnabled),

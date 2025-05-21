@@ -23,6 +23,7 @@ export async function POST(req: Request) {
       "svix-signature": svix_signature,
     }) as any;
   } catch (err) {
+    console.error("Webhook verification failed:", err);
     return new Response("Error occurred", { status: 400 });
   }
 
@@ -39,6 +40,7 @@ export async function POST(req: Request) {
       role: "viewer",
     });
   } catch (error) {
+    console.error("Error syncing user:", error);
     return new Response("Error syncing user", { status: 500 });
   }
 

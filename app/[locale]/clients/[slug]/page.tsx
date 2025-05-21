@@ -16,12 +16,12 @@ import { Project } from "@/types/types";
 
 // Define the page props interface
 interface PageProps {
-  params: { slug: string; locale: string };
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export default async function ClientDetailPage(props: PageProps) {
   // Extract slug and locale from props
-  const { slug, locale } = props.params;
+  const { slug, locale } = await props.params;
   const { isEnabled } = await draftMode();
 
   // Fetch client and menus with locale support

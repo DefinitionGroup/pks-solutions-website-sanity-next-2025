@@ -16,12 +16,12 @@ import { PortableText } from "@portabletext/react";
 
 // Define the page props interface
 interface PageProps {
-  params: { slug: string; locale: string };
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export default async function ProjectDetailPage(props: PageProps) {
   // Extract slug and locale from props
-  const { slug, locale } = props.params;
+  const { slug, locale } = await props.params;
   const { isEnabled } = await draftMode();
   const channel = "pksWeb";
   // Fetch project and menus with locale support
