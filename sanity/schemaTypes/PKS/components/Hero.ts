@@ -64,12 +64,26 @@ export default defineType({
       description:
         "Right description text that appears alongside the CTA button",
     }),
-    // Call-to-action button text
+    // Call-to-action button
     defineField({
-      name: "ctaButtonText",
-      title: "CTA Button Text",
-      type: "string",
-      description: 'Text for the call-to-action button (e.g. "mehr erfahren")',
+      name: "ctaButton",
+      title: "CTA Button",
+      type: "object",
+      fields: [
+        defineField({
+          name: "name",
+          title: "Button Name",
+          type: "string",
+          description: "Text displayed on the button",
+        }),
+        defineField({
+          name: "link",
+          title: "Button Link",
+          type: "link",
+          description:
+            "Link for the button (can be external or reference to an internal page)",
+        }),
+      ],
     }),
     // Array of additional modules that appear below the main hero content.
     // You should create separate schemas (e.g. sciFiBlock, gridHero, etc.) for these.

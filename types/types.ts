@@ -45,7 +45,18 @@ export interface Hero {
   highlightText: string;
   leftDescription: string;
   rightDescription: string;
-  ctaButtonText: string;
+  ctaButton: {
+    name: string;
+    link?: {
+      _type: string;
+      linkType: "external" | "internal";
+      externalUrl?: string;
+      internalReference?: {
+        _ref: string;
+        _type: "reference";
+      };
+    };
+  };
   modules: (
     | SciFiBlock[]
     | GridHero[]
@@ -74,7 +85,18 @@ export interface HeroItem {
   /** Description text shown on hover */
   hoverDescription?: string;
   /** Call-to-action button text */
-  buttonText: string;
+  ctaButton: {
+    name: string;
+    link?: {
+      _type: string;
+      linkType: "external" | "internal";
+      externalUrl?: string;
+      internalReference?: {
+        _ref: string;
+        _type: "reference";
+      };
+    };
+  };
   /** Icon image displayed alongside the fixed title */
   fixedIconCloudinary?: CloudinaryAsset;
 }
@@ -101,7 +123,18 @@ export interface GridHero {
     };
     middle: {
       quote: string;
-      buttonText: string;
+      ctaButton: {
+        name: string;
+        link?: {
+          _type: string;
+          linkType: "external" | "internal";
+          externalUrl?: string;
+          internalReference?: {
+            _ref: string;
+            _type: "reference";
+          };
+        };
+      };
     };
     right: {
       videoCloudinary?: CloudinaryAsset;
@@ -118,7 +151,18 @@ export interface GridHero {
       subtitle: string;
       title: string;
       description: string;
-      buttonText: string;
+      ctaButton: {
+        name: string;
+        link?: {
+          _type: string;
+          linkType: "external" | "internal";
+          externalUrl?: string;
+          internalReference?: {
+            _ref: string;
+            _type: "reference";
+          };
+        };
+      };
     };
   };
 }
@@ -137,7 +181,18 @@ export interface GridHero2 {
   right: {
     logoTitle: string;
     logos: CloudinaryAsset[];
-    buttonText: string;
+    ctaButton: {
+      name: string;
+      link?: {
+        _type: string;
+        linkType: "external" | "internal";
+        externalUrl?: string;
+        internalReference?: {
+          _ref: string;
+          _type: "reference";
+        };
+      };
+    };
   };
 }
 
@@ -158,7 +213,18 @@ export interface GridHero3 {
   };
   rightSection: {
     quoteRight: string;
-    buttonText: string;
+    ctaButton: {
+      name: string;
+      link?: {
+        _type: string;
+        linkType: "external" | "internal";
+        externalUrl?: string;
+        internalReference?: {
+          _ref: string;
+          _type: "reference";
+        };
+      };
+    };
   };
 }
 
@@ -170,7 +236,18 @@ export interface ZwischenTitelCta {
   integrationTitle: string;
   headline: string;
   subHeadline: string;
-  buttonText: string;
+  ctaButton: {
+    name: string;
+    link?: {
+      _type: string;
+      linkType: "external" | "internal";
+      externalUrl?: string;
+      internalReference?: {
+        _ref: string;
+        _type: "reference";
+      };
+    };
+  };
 }
 
 /**

@@ -61,10 +61,24 @@ export default defineType({
               description: "Description text displayed on hover",
             }),
             defineField({
-              name: "buttonText",
-              title: "Button Text",
-              type: "string",
-              description: "Text for the call-to-action button",
+              name: "ctaButton",
+              title: "CTA Button",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "name",
+                  title: "Button Name",
+                  type: "string",
+                  description: "Text displayed on the button",
+                }),
+                defineField({
+                  name: "link",
+                  title: "Button Link",
+                  type: "link",
+                  description:
+                    "Link for the button (can be external or reference to an internal page)",
+                }),
+              ],
             }),
           ],
           preview: {

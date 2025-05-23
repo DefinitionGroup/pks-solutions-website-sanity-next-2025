@@ -1,40 +1,80 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { cn } from "@/app/lib/utils";
 import { ArrowRight } from "@phosphor-icons/react";
+
 interface Button2Props {
   text?: string;
   className?: string;
+  href?: string;
 }
 
-function Button2({ text, className }: Button2Props) {
+function Button2({ text, className, href }: Button2Props) {
+  // Check if the href is external
+  const isExternal = href?.startsWith('http') || href?.startsWith('mailto:') || href?.startsWith('tel:');
+  
+  // Common props for both links
+  const linkProps = {
+    className: (isTop: boolean) => cn(
+      isTop 
+        ? "pointer-events-auto absolute top-0 left-0 border-t border-b border-white/20 justify-between font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
+        : "pointer-events-auto border bg-slate-100 absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-slate-900 transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider",
+      className
+    ),
+    target: isExternal ? "_blank" : undefined,
+    rel: isExternal ? "noopener noreferrer" : undefined,
+  };
+
+  // Content for both links
+  const content = (isRotated: boolean) => (
+    <div className="flex justify-between items-center w-full">
+      <span>{text}</span>
+      <ArrowRight className={isRotated ? "rotate-45" : ""} size={16} />
+    </div>
+  );
+
   return (
-    <div
-      className={`inline-block relative top-0 left-0  min-w-full ml-[1px]   h-14 text-sm overflow-hidden group/btn min-h-6 `}
-    >
-      <a
-        className={cn(
-          "pointer-events-auto absolute top-0 left-0  border-t border-b border-white/20 justify-between font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out",
-          className
-        )}
-      >
-        <div className="flex justify-between items-center w-full">
-          <span>{text}</span>
-          <ArrowRight size={16} />
-        </div>
-      </a>
-      <a
-        className={cn(
-          "pointer-events-auto border bg-slate-100 absolute font-bold  left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-slate-900  transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider",
-          className
-        )}
-      >
-        <div className="flex justify-between items-center w-full">
-          <span>{text}</span>
-          <ArrowRight className="rotate-45" size={16} />
-        </div>
-      </a>
+    <div className={`inline-block relative top-0 left-0 min-w-full ml-[1px] h-14 text-sm overflow-hidden group/btn min-h-6`}>
+      {isExternal ? (
+        // External links use regular anchor tags
+        <>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkProps.className(true)}
+          >
+            {content(false)}
+          </a>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkProps.className(false)}
+          >
+            {content(true)}
+          </a>
+        </>
+      ) : (
+        // Internal links use Next.js Link component
+        <>
+          <Link
+            href={href || "#"}
+            className={linkProps.className(true)}
+          >
+            {content(false)}
+          </Link>
+          <Link
+            href={href || "#"}
+            className={linkProps.className(false)}
+          >
+            {content(true)}
+          </Link>
+        </>
+      )}
     </div>
   );
 }
+
 export default Button2;

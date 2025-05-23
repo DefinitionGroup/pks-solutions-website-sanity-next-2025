@@ -32,8 +32,12 @@ const TripleHero: FC<trupleHeroProps> = (props) => {
 
           <div className="px-4 py-12">
             <Button2
-              text={item.buttonText}
-              className={"border-x max-w-fit border-white/20"}
+              text={item?.ctaButton.name}
+              href={
+                item?.ctaButton?.link?.linkType === "external"
+                  ? item?.ctaButton?.link?.externalUrl
+                  : item?.ctaButton?.link?.internalReference?._ref
+              }
             ></Button2>
           </div>
         </DirectionAwareHover>

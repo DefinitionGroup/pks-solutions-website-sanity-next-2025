@@ -20,10 +20,9 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
     highlightText,
     leftDescription,
     rightDescription,
-    ctaButtonText,
+    ctaButton,
     modules,
   } = props;
-
   return (
     <HeroHighlight className="container">
       <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full bg-black">
@@ -90,7 +89,12 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
             </p>
             <Button2
               className="border-white/20 px-24 w-full"
-              text={ctaButtonText}
+              text={ctaButton?.name || ""}
+              href={
+                ctaButton?.link?.linkType === "external"
+                  ? ctaButton?.link?.externalUrl
+                  : ctaButton?.link?.internalReference?._ref || ""
+              }
             />
           </motion.div>
         </div>

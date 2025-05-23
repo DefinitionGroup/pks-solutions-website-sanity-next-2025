@@ -43,11 +43,24 @@ export default defineType({
                 'Quote text, e.g. "Software für die Ermittlung von Prozesskennzahlen in Produktion und Verwaltung von Industriebetrieben einführen und pflegen."',
             }),
             defineField({
-              name: "buttonText",
-              title: "Button Text",
-              type: "string",
-              description:
-                'Text for the middle column button, e.g. "mehr erfahren"',
+              name: "ctaButton",
+              title: "CTA Button",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "name",
+                  title: "Button Name",
+                  type: "string",
+                  description: "Text displayed on the button",
+                }),
+                defineField({
+                  name: "link",
+                  title: "Button Link",
+                  type: "link",
+                  description:
+                    "Link for the button (can be external or reference to an internal page)",
+                }),
+              ],
             }),
           ],
         }),
@@ -140,11 +153,24 @@ export default defineType({
                 "Descriptive text for the right section explaining the mission",
             }),
             defineField({
-              name: "buttonText",
-              title: "Button Text",
-              type: "string",
-              description:
-                'Text for the right section button, e.g. "Mehr erfahren"',
+              name: "ctaButton",
+              title: "CTA Button",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "name",
+                  title: "Button Name",
+                  type: "string",
+                  description: "Text displayed on the button",
+                }),
+                defineField({
+                  name: "link",
+                  title: "Button Link",
+                  type: "link",
+                  description:
+                    "Link for the button (can be external or reference to an internal page)",
+                }),
+              ],
             }),
           ],
         }),

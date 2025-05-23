@@ -4,6 +4,7 @@ import ComponentsElements from "./components";
 import BlogElements from "./Blog";
 import AVTRComponentsElements from "./AvatrComponents";
 import ClientsElements from "./Clients";
+import { Objects } from "./Objects";
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     page as SchemaTypeDefinition,
@@ -11,5 +12,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     ...(BlogElements as SchemaTypeDefinition[]),
     ...(AVTRComponentsElements as SchemaTypeDefinition[]),
     ...(ClientsElements as SchemaTypeDefinition[]),
+    ...(Objects as SchemaTypeDefinition[]),
   ],
 };

@@ -44,10 +44,15 @@ const GridHero3: FC<gridHero3Props> = (props) => {
             >
               <h2>{rightSection.quoteRight}</h2>
             </AnimationWrapper>
+
             <Button2
-              className="border-white/20 w-full"
-              text={rightSection.buttonText}
-            />
+              text={rightSection?.ctaButton.name}
+              href={
+                rightSection?.ctaButton?.link?.linkType === "external"
+                  ? rightSection?.ctaButton?.link?.externalUrl
+                  : rightSection?.ctaButton?.link?.internalReference?._ref
+              }
+            ></Button2>
           </div>
         </div>
 
