@@ -1,13 +1,13 @@
 import Button2 from "../Button2";
 import { CardDemo3 } from "../CardDemo3";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero3 as gridHero3Props } from "@/types/types";
 const GridHero3: FC<gridHero3Props> = (props) => {
   const { leftSection, middleSection, rightSection } = props;
   return (
     <>
-      <div className="border-white/20 grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l">
+      <div className="border-white/20 grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l min-h-[32rem]">
         <div className="place-content-start grid grid-cols-12 col-span-2 col-start-1 row-start-1 w-full">
           <div className="flex flex-col col-span-4 col-start-1">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>

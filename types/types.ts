@@ -12,6 +12,51 @@ export interface SanityImage {
   };
 }
 
+export interface ThreeColVideoBannerProps {
+  _type: "threeColumnVideoBanner";
+  videoCloudinary: { url: string };
+  title: string;
+  highlight?: string;
+  primaryDescription?: string;
+  secondaryDescription?: string;
+  ctaButtons: Array<{
+    name: string;
+    link: { href?: string; reference?: { slug?: { current: string } } };
+  }>;
+}
+export interface FourColVideoBannerProps {
+  _type: "fourColumnVideoBanner";
+  videoCloudinary: { url: string };
+  brandName: string;
+  headline: string;
+  headlineHighlight?: string;
+  column2Title?: string;
+  column2Description?: string;
+  column3Title?: string;
+  column3Description?: string;
+  ctaButtons: Array<{
+    name: string;
+    link: { href?: string; reference?: { slug?: { current: string } } };
+  }>;
+}
+type Module = {
+  _type: "card3";
+  title: string;
+  subtitle: string;
+  video: CloudinaryAsset;
+};
+// future modules:
+
+export interface TabItem {
+  title: string;
+  value: string;
+  modules: Module[];
+}
+export interface ShowcaseTabsProps {
+  _type: "showcaseTabs";
+  className?: string;
+  tabs: TabItem[];
+}
 /**
  * CloudinaryAsset represents an asset stored in Cloudinary.
  */
@@ -300,7 +345,15 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
-  contentPKS: (Hero | BlogList | ProjectList | ClientsList | ContactForm)[];
+  contentPKS: (
+    | Hero
+    | BlogList
+    | ProjectList
+    | ClientsList
+    | ContactForm
+    | ThreeColVideoBannerProps
+    | ShowcaseTabsProps
+  )[];
   channel: string;
 }
 

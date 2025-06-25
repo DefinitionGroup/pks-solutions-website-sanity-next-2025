@@ -106,6 +106,7 @@ export default {
         { type: "projectList" },
         { type: "clientsList" },
         { type: "contactForm" },
+        { type: "showcaseTabs" },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "pksWeb",

@@ -25,6 +25,8 @@ import {
   ContactForm,
   Hero,
   ProjectList,
+  ShowcaseTabsProps,
+  ThreeColVideoBannerProps,
 } from "@/types/types";
 
 // Define the page props interface
@@ -50,8 +52,16 @@ export default async function ProjectsPage(props: PageProps) {
 
   // Extract projectList component from page content
   const projectListComponent = page?.contentPKS?.find(
-    (content: ProjectList | Hero | BlogList | ClientsList | ContactForm) =>
-      content._type === "projectList"
+    (
+      content:
+        | ClientsList
+        | Hero
+        | BlogList
+        | ProjectList
+        | ContactForm
+        | ShowcaseTabsProps
+        | ThreeColVideoBannerProps
+    ) => content._type === "projectList"
   );
   // Filter projects to only show those specified in the projectList component
   let projects = allProjects;

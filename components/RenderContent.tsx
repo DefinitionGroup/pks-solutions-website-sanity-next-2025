@@ -8,9 +8,21 @@ import {
   Hero,
   ProjectList,
   ContactForm,
+  ThreeColVideoBannerProps,
+  ShowcaseTabsProps,
 } from "@/types/types";
+import ThreeColVideoBanner from "./ThreeColVideoBanner";
+import { ShowcaseTabs } from "./ShowCaseTabs";
 interface RenderContentProps {
-  contentPKS: (Hero | BlogList | ProjectList | ClientsList | ContactForm)[];
+  contentPKS: (
+    | Hero
+    | BlogList
+    | ProjectList
+    | ClientsList
+    | ContactForm
+    | ThreeColVideoBannerProps
+    | ShowcaseTabsProps
+  )[];
   locale: string;
 }
 
@@ -40,7 +52,22 @@ const RenderContent: React.FC<RenderContentProps> = ({
             return (
               <SanityContactForm key={index} value={block} locale={locale} />
             );
-
+          case "threeColumnVideoBanner":
+            return (
+              <ThreeColVideoBanner
+                key={index}
+                {...(block as ThreeColVideoBannerProps)}
+              />
+            );
+          case "showcaseTabs":
+            return (
+              <ShowcaseTabs
+                key={index}
+                className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]"
+                // block.tabs comes straight from your Sanity document
+                tabs={(block as any).tabs}
+              />
+            );
           default:
             console.warn(`Unsupported block type: ${block}`);
             return (

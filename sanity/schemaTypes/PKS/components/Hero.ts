@@ -97,6 +97,8 @@ export default defineType({
         { type: "gridHero2" },
         { type: "zwischenTitelCta" },
         { type: "gridHero3" },
+        { type: "threeColumnVideoBanner" },
+        { type: "fourColumnVideoBanner" },
       ],
       description:
         "Additional content modules to render below the main HeroHighlight section",

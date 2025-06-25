@@ -8,13 +8,14 @@ import GridHero from "./Content/GridHero";
 import GridHero2 from "./Content/GridHero2";
 import ZwischenTitelCta from "./Content/ZwischenTitelCta";
 import GridHero3 from "./Content/GridHero3";
-import { Hero as HeroType } from "@/types/types";
+import { Hero as HeroType, ThreeColVideoBannerProps } from "@/types/types";
 
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import ThreeColVideoBanner from "./ThreeColVideoBanner";
+import FourColVideoBanner from "./FourColVideoBanner";
 
 const HeroHighlightComponent: FC<HeroType> = (props) => {
   const {
-    className,
     videoCloudinary,
     headline,
     highlightText,
@@ -124,6 +125,16 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
             );
           case "gridHero3":
             return <GridHero3 {...block} key={`gridHero3-${index}`} />;
+          case "threeColumnVideoBanner":
+            return (
+              <ThreeColVideoBanner
+                key={index}
+                {...(block as ThreeColVideoBannerProps)}
+              />
+            );
+          case "fourColumnVideoBanner":
+            return <FourColVideoBanner key={index} {...(block as any)} />;
+
           default:
             return null;
         }

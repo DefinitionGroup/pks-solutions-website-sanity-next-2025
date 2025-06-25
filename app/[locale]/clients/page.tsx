@@ -25,6 +25,8 @@ import {
   ClientsList,
   ProjectList,
   ContactForm,
+  ShowcaseTabsProps,
+  ThreeColVideoBannerProps,
 } from "@/types/types";
 
 // Define the page props interface
@@ -49,8 +51,16 @@ export default async function ClientsPage(props: PageProps) {
 
   // Extract clientsList component from page content
   const clientsListComponent = page?.contentPKS?.find(
-    (content: ClientsList | Hero | BlogList | ProjectList | ContactForm) =>
-      content._type === "clientsList"
+    (
+      content:
+        | ClientsList
+        | Hero
+        | BlogList
+        | ProjectList
+        | ContactForm
+        | ShowcaseTabsProps
+        | ThreeColVideoBannerProps
+    ) => content._type === "clientsList"
   );
 
   // Handle case where no clients are found
