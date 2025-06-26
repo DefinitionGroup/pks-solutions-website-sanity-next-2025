@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Highlight } from "./ui/hero-highlight";
 import Button2 from "./Button2";
 import { ThreeColVideoBannerProps } from "@/types/types";
+import { easeInOut } from "framer-motion";
 
 export default function ThreeColVideoBanner({
   videoCloudinary,
@@ -25,7 +26,7 @@ export default function ThreeColVideoBanner({
   // a single tween config for all 3-step keyframe animations
   const keyframeTransition = {
     type: "tween" as const,
-    ease: "easeInOut",
+    ease: [easeInOut, easeInOut],
     duration: 0.8,
     times: [0, 0.5, 1],
   };
