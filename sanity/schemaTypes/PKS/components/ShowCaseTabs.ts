@@ -4,7 +4,7 @@ import { defineType, defineField } from "sanity";
 export default defineType({
   name: "showcaseTabs",
   title: "Showcase Tabs",
-  type: "document",
+  type: "object",
   fields: [
     defineField({
       name: "tabs",

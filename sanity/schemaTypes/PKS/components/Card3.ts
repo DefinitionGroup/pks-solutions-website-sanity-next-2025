@@ -4,7 +4,7 @@ import { defineType, defineField } from "sanity";
 export default defineType({
   name: "card3",
   title: "Card 3",
-  type: "document",
+  type: "object",
 
   groups: [
     { name: "content", title: "Content" },

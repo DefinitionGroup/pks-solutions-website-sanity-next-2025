@@ -120,6 +120,7 @@ export default {
         { type: "blogList" },
         { type: "projectList" },
         { type: "clientsList" },
+        { type: "showcaseTabs" },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "avtWeb",

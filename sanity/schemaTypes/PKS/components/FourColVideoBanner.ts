@@ -4,7 +4,7 @@ import { defineType, defineField } from "sanity";
 export default defineType({
   name: "fourColumnVideoBanner",
   title: "Four-Column Video Banner",
-  type: "document",
+  type: "object",
 
   // Define your groups (tabs)
   groups: [
