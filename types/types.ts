@@ -424,16 +424,26 @@ export interface ProjectList {
   _type: "projectList";
   title: string;
   subtitle?: string;
-  description?: PortableTextBlock;
+  description?: string;
   projects: Project[];
 }
-
+export interface Client {
+  _id: string;
+  _type: "client";
+  name: string;
+  slug: { current: string };
+  logo?: CloudinaryAsset;
+  website?: string;
+  description?: string;
+  channels?: string[];
+  projects?: Project[];
+}
 export interface ClientsList {
   _type: "clientsList";
   _key: string;
   title: string;
   subtitle?: string;
-  description?: any; // For PortableText content
+  description?: string;
   clients?: Array<{
     _type: "reference";
     _ref: string;

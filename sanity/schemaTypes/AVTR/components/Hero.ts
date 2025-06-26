@@ -16,6 +16,8 @@ export default defineType({
         { type: "sciFiBlockAVT" },
         { type: "gridHeroAVT" },
         { type: "gridHeroVariantAVT" },
+        { type: "fourColumnVideoBanner" },
+        { type: "threeColumnVideoBanner" },
       ],
       description:
         "Additional content modules to render below the main HeroHighlight section",
@@ -38,8 +40,8 @@ export default defineType({
     prepare({ moduleCount, firstModuleType, firstModuleTitle }) {
       return {
         title: firstModuleTitle || "Hero AVT",
-        subtitle: moduleCount 
-          ? `${moduleCount} module(s) - First: ${firstModuleType || 'none'}`
+        subtitle: moduleCount
+          ? `${moduleCount} module(s) - First: ${firstModuleType || "none"}`
           : "No modules added",
       };
     },
