@@ -8,17 +8,26 @@ export default defineType({
   fields: [
     defineField(copyPaste),
     defineField({
+      name: "showTopHero",
+      title: "Show Top Hero",
+      type: "boolean",
+      description: "Toggle display of the top hero section",
+      initialValue: true,
+    }),
+    defineField({
       name: "className",
       title: "Class Name",
       type: "string",
       description: "Optional CSS classes for the outer container",
       initialValue: "container",
+      hidden: ({ parent }) => parent?.showTopHero === false,
     }),
     defineField({
       name: "containerClassName",
       title: "Container Class Name",
       type: "string",
       description: "Optional custom classes for the inner container",
+      hidden: ({ parent }) => parent?.showTopHero === false,
     }),
     // Main background video
     // defineField({
@@ -35,6 +44,7 @@ export default defineType({
       title: "Background Video (Cloudinary)",
       type: "cloudinary.asset",
       description: "Cloudinary asset for the background video",
+      hidden: ({ parent }) => parent?.showTopHero === false,
     }),
     // Headline & Highlight text (the headline is split into two parts)
     defineField({
@@ -42,6 +52,7 @@ export default defineType({
       title: "Headline",
       type: "string",
       description: 'Headline text (e.g. "Ihr Unternehmen fährt gelassen")',
+      hidden: ({ parent }) => parent?.showTopHero === false,
     }),
     defineField({
       name: "highlightText",
@@ -49,6 +60,7 @@ export default defineType({
       type: "string",
       description:
         'Text to be highlighted within the headline (e.g. "in die Zukunft.")',
+      hidden: ({ parent }) => parent?.showTopHero === false,
     }),
     // Descriptions for the grid sections
     defineField({
@@ -56,6 +68,7 @@ export default defineType({
       title: "Left Description",
       type: "text",
       description: "Left description text below the headline",
+      hidden: ({ parent }) => parent?.showTopHero === false,
     }),
     defineField({
       name: "rightDescription",
@@ -63,12 +76,14 @@ export default defineType({
       type: "text",
       description:
         "Right description text that appears alongside the CTA button",
+      hidden: ({ parent }) => parent?.showTopHero === false,
     }),
     // Call-to-action button
     defineField({
       name: "ctaButton",
       title: "CTA Button",
       type: "object",
+      hidden: ({ parent }) => parent?.showTopHero === false,
       fields: [
         defineField({
           name: "name",
@@ -115,12 +130,14 @@ export default defineType({
     select: {
       headline: "headline",
       highlight: "highlightText",
+      visible: "showTopHero",
     },
-    prepare({ headline, highlight }) {
+    prepare({ headline, highlight, visible }) {
       return {
         title: headline
           ? `${headline}${highlight ? " - " + highlight : ""}`
           : "Hero Highlight",
+        subtitle: visible ? "Top Hero shown" : "Top Hero hidden",
       };
     },
   },

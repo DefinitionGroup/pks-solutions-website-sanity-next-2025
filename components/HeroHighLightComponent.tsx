@@ -16,6 +16,7 @@ import FourColVideoBanner from "./FourColVideoBanner";
 
 const HeroHighlightComponent: FC<HeroType> = (props) => {
   const {
+    showTopHero,
     videoCloudinary,
     headline,
     highlightText,
@@ -26,84 +27,86 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
   } = props;
   return (
     <HeroHighlight className="container">
-      <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full bg-black">
-        {" "}
-        <video
-          loop
-          autoPlay
-          muted
-          className="col-start-1 row-start-1 opacity-50"
-          width="2000"
-          height="2000"
-          src={videoCloudinary?.secure_url}
-        />
-        <div className="grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
-          <motion.h1
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: [20, -5, 0],
-            }}
-            // Remove type: "spring" if you want to keep the [20, -5, 0] animation
-            transition={{ duration: 0.5 }} // Example: Use duration or other tween options
-            className="col-span-9 col-start-1 px-8 py-32 pb-8 w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug"
-          >
-            {headline}
-            <br />
-            <Highlight className="text-white dark:text-white">
-              {highlightText}
-            </Highlight>
-          </motion.h1>
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: [20, -5, 0],
-            }}
-            // Remove type: "spring"
-            transition={{ delay: 0.3, duration: 0.5 }} // Example: Use duration or other tween options
-            className="col-span-6 col-start-1 px-8 text-white lg:text-xl"
-          >
-            {leftDescription}
-          </motion.div>
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: [20, -5, 0],
-            }}
-            // Remove type: "spring"
-            transition={{ delay: 0.6, duration: 0.5 }} // Example: Use duration or other tween options
-            className="flex flex-col justify-center border-white col-span-3 col-start-10 w-full text-white"
-          >
-            <p className="flex flex-col justify-center border-white p-8 w-full text-sm text-white">
-              {rightDescription}
-            </p>
-            <Button2
-              className="border-white/20 px-24 w-full"
-              text={ctaButton?.name || ""}
-              href={
-                ctaButton?.link?.linkType === "external"
-                  ? ctaButton?.link?.externalUrl
-                  : ctaButton?.link?.internalReference?._ref || ""
-              }
-            />
-          </motion.div>
+      {showTopHero && (
+        <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full bg-black">
+          {" "}
+          <video
+            loop
+            autoPlay
+            muted
+            className="col-start-1 row-start-1 opacity-50"
+            width="2000"
+            height="2000"
+            src={videoCloudinary?.secure_url}
+          />
+          <div className="grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
+            <motion.h1
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: [20, -5, 0],
+              }}
+              // Remove type: "spring" if you want to keep the [20, -5, 0] animation
+              transition={{ duration: 0.5 }} // Example: Use duration or other tween options
+              className="col-span-9 col-start-1 px-8 py-32 pb-8 w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug"
+            >
+              {headline}
+              <br />
+              <Highlight className="text-white dark:text-white">
+                {highlightText}
+              </Highlight>
+            </motion.h1>
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: [20, -5, 0],
+              }}
+              // Remove type: "spring"
+              transition={{ delay: 0.3, duration: 0.5 }} // Example: Use duration or other tween options
+              className="col-span-6 col-start-1 px-8 text-white lg:text-xl"
+            >
+              {leftDescription}
+            </motion.div>
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: [20, -5, 0],
+              }}
+              // Remove type: "spring"
+              transition={{ delay: 0.6, duration: 0.5 }} // Example: Use duration or other tween options
+              className="flex flex-col justify-center border-white col-span-3 col-start-10 w-full text-white"
+            >
+              <p className="flex flex-col justify-center border-white p-8 w-full text-sm text-white">
+                {rightDescription}
+              </p>
+              <Button2
+                className="border-white/20 px-24 w-full"
+                text={ctaButton?.name || ""}
+                href={
+                  ctaButton?.link?.linkType === "external"
+                    ? ctaButton?.link?.externalUrl
+                    : ctaButton?.link?.internalReference?._ref || ""
+                }
+              />
+            </motion.div>
+          </div>
+          <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
+            <div className="col-span-9"></div>
+            <div className="col-span-2"></div>
+          </div>
         </div>
-        <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
-          <div className="col-span-9"></div>
-          <div className="col-span-2"></div>
-        </div>
-      </div>
+      )}
       {modules?.map((block: any, index: number) => {
         switch (block._type) {
           case "sciFiBlock":

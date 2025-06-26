@@ -83,6 +83,7 @@ export type PortableTextBlock = any;
  */
 export interface Hero {
   _type: "hero";
+  showTopHero?: boolean;
   className?: string;
   containerClassName?: string;
   videoCloudinary?: CloudinaryAsset;
