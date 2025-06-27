@@ -14,11 +14,13 @@ import RenderContent from "@/components/RenderContent";
 
 // Generate paths for pages including locale
 export async function generateStaticParams() {
+  const RESERVED_SLUGS = ["projects", "clients"];
   const pages = await getAllPageSlugsAndLocales();
 
-  // Filter out any potential null/undefined values if necessary
   return pages
-    .filter((page) => page.slug && page.locale)
+    .filter(
+      (page) => page.slug && page.locale && !RESERVED_SLUGS.includes(page.slug) // Exclude reserved
+    )
     .map((page) => ({
       slug: page.slug,
       locale: page.locale,
