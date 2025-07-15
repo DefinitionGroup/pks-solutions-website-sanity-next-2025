@@ -8,13 +8,22 @@ import {
   MdPerson,
   MdTranslate,
   MdPeople, // Import icon for clients
-  MdWork, // Import icon for projects
+  MdWork,
+  MdSupervisedUserCircle, // Import icon for projects
 } from "react-icons/md"; // Import necessary icons
 
 // Define templates for creating documents with pre-filled channel
-const createDocWithChannel = (S: any, schemaType: string, channel: string, language: string = "de") => {
+const createDocWithChannel = (
+  S: any,
+  schemaType: string,
+  channel: string,
+  language: string = "de"
+) => {
   // Use the template ID defined in sanity.config.ts
-  return S.initialValueTemplateItem(`${schemaType}-with-channel`, { channel, language });
+  return S.initialValueTemplateItem(`${schemaType}-with-channel`, {
+    channel,
+    language,
+  });
 };
 
 // Define supported languages (can also be imported from config if preferred)
@@ -123,15 +132,12 @@ export const structure: StructureResolver = (S) => {
                 .child(
                   S.documentTypeList("client")
                     .title(`Clients (${lang.title})`)
-                    .filter(
-                      '_type == "client" && language == $language'
-                    )
+                    .filter('_type == "client" && language == $language')
                     .params({ language: lang.id })
                     .initialValueTemplates([
-                      S.initialValueTemplateItem(
-                        "client-with-language",
-                        { language: lang.id }
-                      ),
+                      S.initialValueTemplateItem("client-with-language", {
+                        language: lang.id,
+                      }),
                     ])
                 )
             )
@@ -156,15 +162,12 @@ export const structure: StructureResolver = (S) => {
                 .child(
                   S.documentTypeList("project")
                     .title(`Projects (${lang.title})`)
-                    .filter(
-                      '_type == "project" && language == $language'
-                    )
+                    .filter('_type == "project" && language == $language')
                     .params({ language: lang.id })
                     .initialValueTemplates([
-                      S.initialValueTemplateItem(
-                        "project-with-language",
-                        { language: lang.id }
-                      ),
+                      S.initialValueTemplateItem("project-with-language", {
+                        language: lang.id,
+                      }),
                     ])
                 )
             )
@@ -211,8 +214,18 @@ export const structure: StructureResolver = (S) => {
                             .initialValueTemplates([
                               // Templates with both channel and language
                               channelValue === "pksWeb"
-                                ? createDocWithChannel(S, "page", "pksWeb", lang.id)
-                                : createDocWithChannel(S, "page", "avtWeb", lang.id),
+                                ? createDocWithChannel(
+                                    S,
+                                    "page",
+                                    "pksWeb",
+                                    lang.id
+                                  )
+                                : createDocWithChannel(
+                                    S,
+                                    "page",
+                                    "avtWeb",
+                                    lang.id
+                                  ),
                             ])
                         ),
                       // Menu section for the channel and language
@@ -231,8 +244,18 @@ export const structure: StructureResolver = (S) => {
                             }) // Add language param
                             .initialValueTemplates([
                               channelValue === "pksWeb"
-                                ? createDocWithChannel(S, "menu", "pksWeb", lang.id)
-                                : createDocWithChannel(S, "menu", "avtWeb", lang.id),
+                                ? createDocWithChannel(
+                                    S,
+                                    "menu",
+                                    "pksWeb",
+                                    lang.id
+                                  )
+                                : createDocWithChannel(
+                                    S,
+                                    "menu",
+                                    "avtWeb",
+                                    lang.id
+                                  ),
                             ])
                         ),
                     ])
@@ -241,17 +264,25 @@ export const structure: StructureResolver = (S) => {
           )
       );
   };
-
+  const createUsersStructure = () => {
+    return S.listItem()
+      .title("Users")
+      .icon(MdSupervisedUserCircle)
+      .child(
+        S.documentTypeList("user").title("Users").filter('_type == "user"')
+      );
+  };
   return S.list()
     .title("Content")
     .items([
       createChannelStructure("PKS", "pksWeb", MdBusiness), // PKS Section
       createChannelStructure("AVTR", "avtWeb", MdBusiness), // AVTR Section
-      createBlogsStructure(), // Add the shared blogs structure
-      createClientsStructure(), // Add the clients structure
-      createProjectsStructure(), // Add the projects structure
-      S.divider(), // Add a visual separator
-      // List other document types that are not channel-specific or language-specific (if any)
+      createBlogsStructure(),
+      createClientsStructure(),
+      createProjectsStructure(),
+      createUsersStructure(),
+      S.divider(),
+
       ...S.documentTypeListItems().filter(
         (listItem) =>
           ![
@@ -261,8 +292,8 @@ export const structure: StructureResolver = (S) => {
             "blogAuthor",
             "menu",
             "client",
-            "project", // Add project to the list of excluded types
-            // Add any other types managed within the channel/language structure
+            "project",
+            "user",
           ].includes(listItem.getId() || "")
       ),
     ]);

@@ -37,11 +37,10 @@ export default defineType({
       initialValue: "viewer",
     }),
     defineField({
-      name: "restrictedPages",
-      title: "Restricted Pages",
-      type: "array",
-      of: [{ type: "string" }],
-      description: "Pages this user cannot access",
+      name: "group",
+      title: "User Group",
+      type: "reference",
+      to: [{ type: "userGroup" }],
     }),
   ],
 });

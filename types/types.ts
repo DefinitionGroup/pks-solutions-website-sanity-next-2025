@@ -356,6 +356,8 @@ export interface PageType {
     | ShowcaseTabsProps
   )[];
   channel: string;
+  protected?: boolean;
+  allowedGroups?: UserGroup[];
 }
 
 // Add these interfaces to your existing types.ts
@@ -466,4 +468,21 @@ export interface ContactForm {
 export interface SanityContactFormPropsType {
   value: ContactForm;
   locale: string;
+}
+export interface UserGroup {
+  _id: string;
+  _type: "userGroup";
+  name: string;
+  description?: string;
+}
+
+export interface User {
+  _id: string;
+  _type: "user";
+  clerkId: string;
+  name: string;
+  email: string;
+  role: "admin" | "editor" | "viewer";
+  group?: UserGroup;
+  restrictedPages?: string[];
 }
