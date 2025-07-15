@@ -41,7 +41,14 @@ const GridHero2: FC<gridHero2Props> = (props) => {
           ))}
 
           <div className="align-items-start grid col-span-2 col-start-1 text-md text-white">
-            <Button2 text={right?.buttonText}></Button2>
+            <Button2
+              text={right?.ctaButton.name}
+              href={
+                right?.ctaButton?.link?.linkType === "external"
+                  ? right?.ctaButton?.link?.externalUrl
+                  : right?.ctaButton?.link?.internalReference?._ref
+              }
+            ></Button2>
           </div>
         </div>
       </div>

@@ -10,9 +10,8 @@ export default {
     languages: [
       { id: "en", title: "English" },
       { id: "de", title: "German" },
-      // add more locales here…
     ],
-    referenceBehavior: "weak", // or "strong" if you prefer
+    referenceBehavior: "weak",
   },
   fields: [
     defineField(copyPaste),
@@ -106,6 +105,7 @@ export default {
         { type: "projectList" },
         { type: "clientsList" },
         { type: "contactForm" },
+        { type: "showcaseTabs" },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "pksWeb",
@@ -142,6 +142,23 @@ export default {
       },
       readOnly: true,
       description: "Automatically set channel based on creation location",
+    },
+    {
+      name: "protected",
+      title: "Protected Page",
+      type: "boolean",
+      initialValue: false,
+      description: "Restrict access to this page by user group.",
+    },
+    {
+      name: "allowedGroups",
+      title: "Allowed User Groups",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "userGroup" }] }],
+      hidden: ({ parent }: { parent?: { protected?: boolean } }) =>
+        !parent?.protected,
+      description:
+        "Only users in these groups can access this page if protected.",
     },
   ],
   preview: {

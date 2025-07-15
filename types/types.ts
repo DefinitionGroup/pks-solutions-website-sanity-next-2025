@@ -12,6 +12,51 @@ export interface SanityImage {
   };
 }
 
+export interface ThreeColVideoBannerProps {
+  _type: "threeColumnVideoBanner";
+  videoCloudinary: { url: string };
+  title: string;
+  highlight?: string;
+  primaryDescription?: string;
+  secondaryDescription?: string;
+  ctaButtons: Array<{
+    name: string;
+    link: { href?: string; reference?: { slug?: { current: string } } };
+  }>;
+}
+export interface FourColVideoBannerProps {
+  _type: "fourColumnVideoBanner";
+  videoCloudinary: { url: string };
+  brandName: string;
+  headline: string;
+  headlineHighlight?: string;
+  column2Title?: string;
+  column2Description?: string;
+  column3Title?: string;
+  column3Description?: string;
+  ctaButtons: Array<{
+    name: string;
+    link: { href?: string; reference?: { slug?: { current: string } } };
+  }>;
+}
+type Module = {
+  _type: "card3";
+  title: string;
+  subtitle: string;
+  video: CloudinaryAsset;
+};
+// future modules:
+
+export interface TabItem {
+  title: string;
+  value: string;
+  modules: Module[];
+}
+export interface ShowcaseTabsProps {
+  _type: "showcaseTabs";
+  className?: string;
+  tabs: TabItem[];
+}
 /**
  * CloudinaryAsset represents an asset stored in Cloudinary.
  */
@@ -38,6 +83,7 @@ export type PortableTextBlock = any;
  */
 export interface Hero {
   _type: "hero";
+  showTopHero?: boolean;
   className?: string;
   containerClassName?: string;
   videoCloudinary?: CloudinaryAsset;
@@ -45,7 +91,18 @@ export interface Hero {
   highlightText: string;
   leftDescription: string;
   rightDescription: string;
-  ctaButtonText: string;
+  ctaButton: {
+    name: string;
+    link?: {
+      _type: string;
+      linkType: "external" | "internal";
+      externalUrl?: string;
+      internalReference?: {
+        _ref: string;
+        _type: "reference";
+      };
+    };
+  };
   modules: (
     | SciFiBlock[]
     | GridHero[]
@@ -74,7 +131,18 @@ export interface HeroItem {
   /** Description text shown on hover */
   hoverDescription?: string;
   /** Call-to-action button text */
-  buttonText: string;
+  ctaButton: {
+    name: string;
+    link?: {
+      _type: string;
+      linkType: "external" | "internal";
+      externalUrl?: string;
+      internalReference?: {
+        _ref: string;
+        _type: "reference";
+      };
+    };
+  };
   /** Icon image displayed alongside the fixed title */
   fixedIconCloudinary?: CloudinaryAsset;
 }
@@ -101,7 +169,18 @@ export interface GridHero {
     };
     middle: {
       quote: string;
-      buttonText: string;
+      ctaButton: {
+        name: string;
+        link?: {
+          _type: string;
+          linkType: "external" | "internal";
+          externalUrl?: string;
+          internalReference?: {
+            _ref: string;
+            _type: "reference";
+          };
+        };
+      };
     };
     right: {
       videoCloudinary?: CloudinaryAsset;
@@ -118,7 +197,18 @@ export interface GridHero {
       subtitle: string;
       title: string;
       description: string;
-      buttonText: string;
+      ctaButton: {
+        name: string;
+        link?: {
+          _type: string;
+          linkType: "external" | "internal";
+          externalUrl?: string;
+          internalReference?: {
+            _ref: string;
+            _type: "reference";
+          };
+        };
+      };
     };
   };
 }
@@ -137,7 +227,18 @@ export interface GridHero2 {
   right: {
     logoTitle: string;
     logos: CloudinaryAsset[];
-    buttonText: string;
+    ctaButton: {
+      name: string;
+      link?: {
+        _type: string;
+        linkType: "external" | "internal";
+        externalUrl?: string;
+        internalReference?: {
+          _ref: string;
+          _type: "reference";
+        };
+      };
+    };
   };
 }
 
@@ -158,7 +259,18 @@ export interface GridHero3 {
   };
   rightSection: {
     quoteRight: string;
-    buttonText: string;
+    ctaButton: {
+      name: string;
+      link?: {
+        _type: string;
+        linkType: "external" | "internal";
+        externalUrl?: string;
+        internalReference?: {
+          _ref: string;
+          _type: "reference";
+        };
+      };
+    };
   };
 }
 
@@ -170,7 +282,18 @@ export interface ZwischenTitelCta {
   integrationTitle: string;
   headline: string;
   subHeadline: string;
-  buttonText: string;
+  ctaButton: {
+    name: string;
+    link?: {
+      _type: string;
+      linkType: "external" | "internal";
+      externalUrl?: string;
+      internalReference?: {
+        _ref: string;
+        _type: "reference";
+      };
+    };
+  };
 }
 
 /**
@@ -223,8 +346,18 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
-  contentPKS: (Hero | BlogList | ProjectList | ClientsList | ContactForm)[];
+  contentPKS: (
+    | Hero
+    | BlogList
+    | ProjectList
+    | ClientsList
+    | ContactForm
+    | ThreeColVideoBannerProps
+    | ShowcaseTabsProps
+  )[];
   channel: string;
+  protected?: boolean;
+  allowedGroups?: UserGroup[];
 }
 
 // Add these interfaces to your existing types.ts
@@ -293,16 +426,26 @@ export interface ProjectList {
   _type: "projectList";
   title: string;
   subtitle?: string;
-  description?: PortableTextBlock;
+  description?: string;
   projects: Project[];
 }
-
+export interface Client {
+  _id: string;
+  _type: "client";
+  name: string;
+  slug: { current: string };
+  logo?: CloudinaryAsset;
+  website?: string;
+  description?: string;
+  channels?: string[];
+  projects?: Project[];
+}
 export interface ClientsList {
   _type: "clientsList";
   _key: string;
   title: string;
   subtitle?: string;
-  description?: any; // For PortableText content
+  description?: string;
   clients?: Array<{
     _type: "reference";
     _ref: string;
@@ -325,4 +468,21 @@ export interface ContactForm {
 export interface SanityContactFormPropsType {
   value: ContactForm;
   locale: string;
+}
+export interface UserGroup {
+  _id: string;
+  _type: "userGroup";
+  name: string;
+  description?: string;
+}
+
+export interface User {
+  _id: string;
+  _type: "user";
+  clerkId: string;
+  name: string;
+  email: string;
+  role: "admin" | "editor" | "viewer";
+  group?: UserGroup;
+  restrictedPages?: string[];
 }

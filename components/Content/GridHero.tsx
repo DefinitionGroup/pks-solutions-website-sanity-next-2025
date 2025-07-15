@@ -35,7 +35,12 @@ const GridHero: FC<GridHeroProps> = (props) => {
             </AnimationWrapper>{" "}
             <Button2
               className="border-white/20 px-24 w-full"
-              text={sectionOne?.middle.buttonText}
+              text={sectionOne?.middle.ctaButton.name}
+              href={
+                sectionOne?.middle?.ctaButton?.link?.linkType === "external"
+                  ? sectionOne.middle.ctaButton.link.externalUrl
+                  : sectionOne?.middle?.ctaButton?.link?.internalReference?._ref
+              }
             />
           </div>
           <AnimationWrapper
@@ -97,7 +102,14 @@ const GridHero: FC<GridHeroProps> = (props) => {
             </AnimationWrapper>
             <Button2
               className="inline-block ml-8 px-24 border-r border-l max-w-96"
-              text={sectionTwo?.rightSection.buttonText}
+              text={sectionTwo?.rightSection.ctaButton.name}
+              href={
+                sectionTwo?.rightSection?.ctaButton?.link?.linkType ===
+                "external"
+                  ? sectionTwo.rightSection.ctaButton.link.externalUrl
+                  : sectionTwo?.rightSection?.ctaButton?.link?.internalReference
+                      ?._ref
+              }
             ></Button2>
           </div>
         </div>

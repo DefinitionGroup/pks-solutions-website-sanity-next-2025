@@ -13,14 +13,19 @@ export const getPageBySlug = async (
   draft: boolean = false
 ): Promise<PageType> => {
   const query = groq`*[_type == "page" && slug.current == $slug && language == $locale && channel == $channel][0]{
-    title,
+  title,
+  _id,
+  _createdAt,
+  _updatedAt,
+  slug,
+  contentPKS,
+  language,
+  channel,
+  protected,
+  allowedGroups[]->{
     _id,
-    _createdAt,
-    _updatedAt,
-    slug,
-    contentPKS,
-    language, // Include language if needed elsewhere
-    channel // Add channel field
+    name
+  }
 }`;
 
   const options = draft
@@ -76,7 +81,11 @@ export const getMenuByType = async (
 };
 
 // Updated getFooterMenu to include locale
-export async function getFooterMenu(locale: string, draft: boolean = false, channel: string = "pksWeb") {
+export async function getFooterMenu(
+  locale: string,
+  draft: boolean = false,
+  channel: string = "pksWeb"
+) {
   // Add locale, draft, and channel parameters
   // Assuming footer menus are also localized by a 'language' field and have a channel field
   const query = groq`*[_type == "menu" && menuType == "Footer" && language == $locale && channel == $channel][0]{
@@ -415,4 +424,11 @@ export async function getProjectList(
   }`;
 
   return client.fetch(query, { locale }, options);
+}
+export async function getUserGroupByClerkId(
+  clerkId: string
+): Promise<{ _id: string; name: string } | null> {
+  const query = groq`*[_type == "user" && clerkId == $clerkId][0]{ group->{_id, name} }`;
+  const user = await client.fetch(query, { clerkId });
+  return user?.group || null;
 }

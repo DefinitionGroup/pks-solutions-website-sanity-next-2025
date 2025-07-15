@@ -61,10 +61,24 @@ export default defineType({
             "An array of logo images to be displayed in the grid. Upload your images here.",
         }),
         defineField({
-          name: "buttonText",
-          title: "Button Text",
-          type: "string",
-          description: 'Text for the button, e.g. "Referenzen und Kunden".',
+          name: "ctaButton",
+          title: "CTA Button",
+          type: "object",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Button Name",
+              type: "string",
+              description: "Text displayed on the button",
+            }),
+            defineField({
+              name: "link",
+              title: "Button Link",
+              type: "link",
+              description:
+                "Link for the button (can be external or reference to an internal page)",
+            }),
+          ],
         }),
       ],
     }),

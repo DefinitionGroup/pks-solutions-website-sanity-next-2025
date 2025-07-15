@@ -8,7 +8,6 @@ import {
 import { draftMode } from "next/headers";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import Image from "next/image";
 import {
   GlowingStarsBackgroundCard,
@@ -25,6 +24,9 @@ import {
   ClientsList,
   ProjectList,
   ContactForm,
+  ShowcaseTabsProps,
+  ThreeColVideoBannerProps,
+  Client,
 } from "@/types/types";
 
 // Define the page props interface
@@ -40,29 +42,25 @@ export default async function ClientsPage(props: PageProps) {
   const slug = "clients";
 
   // Fetch clients and page data with locale and channel support
-  const clients = await getClients(locale, isEnabled, channel);
+  const allClients = await getClients(locale, isEnabled, channel);
   const [page, navbarMenu, footerMenu] = await Promise.all([
     getPageBySlug(slug, locale, channel, isEnabled),
     getMenuByType("Navbar", locale, isEnabled),
     getFooterMenu(locale, isEnabled, channel),
   ]);
 
-  // Extract clientsList component from page content
-  const clientsListComponent = page?.contentPKS?.find(
-    (content: ClientsList | Hero | BlogList | ProjectList | ContactForm) =>
-      content._type === "clientsList"
-  );
+  if (!page) return notFound();
 
-  // Handle case where no clients are found
-  if (!clients || clients.length === 0) {
-    console.warn(
-      `No clients found for locale: ${locale} and channel: ${channel}`
-    );
-  }
+  // Extract clientsList slice
+  const clientsSlice = page.contentPKS?.find(
+    (slice) => slice._type === "clientsList"
+  ) as ClientsList | undefined;
 
-  if (!page) {
-    return notFound();
-  }
+  // All clients are already filtered by channel in fetch
+  const clients: Client[] = allClients;
+
+  // Plain-text description
+  const description: string | undefined = clientsSlice?.description;
 
   return (
     <>
@@ -75,90 +73,23 @@ export default async function ClientsPage(props: PageProps) {
       {navbarMenu && <FloatingNav menu={navbarMenu} currentLocale={locale} />}
 
       <div className="container mx-auto px-4 py-40">
-        {clientsListComponent ? (
+        {clientsSlice ? (
           <>
             <h1 className="text-4xl font-bold mb-4 text-center">
-              {clientsListComponent.title ||
+              {clientsSlice.title ||
                 (locale === "de" ? "Unsere Kunden" : "Our Clients")}
             </h1>
 
-            {clientsListComponent.subtitle && (
+            {clientsSlice.subtitle && (
               <h2 className="text-2xl mb-8 text-center text-gray-600 dark:text-gray-300">
-                {clientsListComponent.subtitle}
+                {clientsSlice.subtitle}
               </h2>
             )}
 
-            {clientsListComponent.description && (
-              <div className="prose dark:prose-invert mx-auto mb-12 max-w-4xl text-center">
-                <PortableText
-                  value={clientsListComponent.description}
-                  components={{
-                    block: {
-                      // Different styles for different block types
-                      normal: ({ children }) => (
-                        <p className="mb-4 text-gray-700 dark:text-gray-300 text-xl">
-                          {children}
-                        </p>
-                      ),
-                      h1: ({ children }) => (
-                        <h1 className="text-3xl font-bold mb-4">{children}</h1>
-                      ),
-                      h2: ({ children }) => (
-                        <h2 className="text-2xl font-bold mb-3">{children}</h2>
-                      ),
-                      h3: ({ children }) => (
-                        <h3 className="text-xl font-bold mb-2">{children}</h3>
-                      ),
-                      blockquote: ({ children }) => (
-                        <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4">
-                          {children}
-                        </blockquote>
-                      ),
-                    },
-                    marks: {
-                      // Custom rendering for marks
-                      link: ({ children, value }) => {
-                        const rel = value.href.startsWith("/")
-                          ? undefined
-                          : "noreferrer noopener";
-                        return (
-                          <a
-                            href={value.href}
-                            rel={rel}
-                            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
-                          >
-                            {children}
-                          </a>
-                        );
-                      },
-                      strong: ({ children }) => (
-                        <strong className="font-bold">{children}</strong>
-                      ),
-                      em: ({ children }) => (
-                        <em className="italic">{children}</em>
-                      ),
-                    },
-                    list: {
-                      // Custom rendering for lists
-                      bullet: ({ children }) => (
-                        <ul className="list-disc pl-5 mb-4">{children}</ul>
-                      ),
-                      number: ({ children }) => (
-                        <ol className="list-decimal pl-5 mb-4">{children}</ol>
-                      ),
-                    },
-                    listItem: {
-                      // Custom rendering for list items
-                      bullet: ({ children }) => (
-                        <li className="mb-1">{children}</li>
-                      ),
-                      number: ({ children }) => (
-                        <li className="mb-1">{children}</li>
-                      ),
-                    },
-                  }}
-                />
-              </div>
+            {description && (
+              <p className="mb-12 text-center text-gray-700 dark:text-gray-300 text-xl">
+                {description}
+              </p>
             )}
           </>
         ) : (

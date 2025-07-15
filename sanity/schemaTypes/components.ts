@@ -8,6 +8,10 @@ import TripleHero from "./PKS/components/TripleHero";
 import Menu from "./PKS/components/Menu";
 import blogList from "./PKS/components/blogList";
 import ContactForm from "./PKS/components/ContactForm";
+import ThreeColVideoBanner from "./PKS/components/ThreeColVideoBanner";
+import FourColVideoBanner from "./PKS/components/FourColVideoBanner";
+import ShowCaseTabs from "./PKS/components/ShowCaseTabs";
+import Card3 from "./PKS/components/Card3";
 const ComponentsElements = [
   Hero,
   TripleHero,
@@ -19,5 +23,9 @@ const ComponentsElements = [
   Menu,
   blogList,
   ContactForm,
+  ThreeColVideoBanner,
+  FourColVideoBanner,
+  ShowCaseTabs,
+  Card3,
 ];
 export default ComponentsElements;

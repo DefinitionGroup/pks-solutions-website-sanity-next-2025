@@ -3,6 +3,7 @@ import CardDemo from "./AVTR/components/CardDemo";
 import GridHero from "./AVTR/components/GridHero";
 import ScifiBlock from "./AVTR/components/ScifiBlock";
 import GridHeroVariant from "./AVTR/components/GridHeroVariant";
+
 const AVTRComponentsElements = [
   Hero,
   GridHero,

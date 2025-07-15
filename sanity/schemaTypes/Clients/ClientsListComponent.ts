@@ -21,32 +21,8 @@ export default defineType({
     defineField({
       name: "description",
       title: "Description",
-      type: "array",
-      of: [{ type: "block" }],
-      description: "A rich text description for this section",
-    }),
-    defineField({
-      name: "clients",
-      title: "Clients",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "client" }],
-          description: "Reference to clients",
-          options: {
-            filter: ({ document }) => {
-              // Only show clients in the same language as the current document
-              return {
-                filter: "language == $language",
-                params: { language: document?.language || "de" },
-              };
-            },
-          },
-        },
-      ],
-      validation: (Rule) =>
-        Rule.min(1).warning("At least one client should be selected"),
+      type: "text",
+      description: "A text description for this section",
     }),
   ],
   preview: {
