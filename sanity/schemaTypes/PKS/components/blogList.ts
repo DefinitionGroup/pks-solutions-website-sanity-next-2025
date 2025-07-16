@@ -1,4 +1,4 @@
-import { defineType, defineField, defineArrayMember } from "sanity";
+import { defineType, defineField } from "sanity";
 import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 
 export default defineType({
@@ -7,7 +7,6 @@ export default defineType({
   type: "object",
   fields: [
     defineField(copyPaste),
-
     defineField({
       name: "title",
       title: "Section Title",
@@ -27,36 +26,6 @@ export default defineType({
       initialValue: 6,
       validation: (Rule) => Rule.min(1).max(12),
     }),
-    defineField({
-      name: "selectedPosts",
-      title: "Selected Blog Posts",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "reference",
-          to: [{ type: "blogPost" }],
-          options: { disableNew: true },
-        }),
-      ],
-      description:
-        "Select specific blog posts to display (leave empty to show all)",
-    }),
-    defineField({
-      name: "selectionType",
-      title: "Selection Type",
-      type: "string",
-      options: {
-        list: [
-          { title: "Automatic", value: "auto" },
-          { title: "Manual", value: "manual" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "auto",
-      description:
-        "Automatic: Show recent posts (based on Posts per Page)\nManual: Select specific posts below", // Added description
-      validation: (Rule) => Rule.required(),
-    }),
   ],
   preview: {
     select: {
@@ -66,7 +35,7 @@ export default defineType({
     prepare({ title, subtitle }) {
       return {
         title: title || "Blog Post List",
-        subtitle: subtitle || "Displays a grid of blog posts",
+        subtitle: subtitle || "Displays a grid of latest blog posts",
       };
     },
   },

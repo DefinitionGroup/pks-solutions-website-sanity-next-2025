@@ -1,5 +1,5 @@
 import { defineType, defineField } from "sanity";
-import type { SlugifierFn, SlugSourceContext } from "sanity";
+import type { SlugSourceContext } from "sanity";
 export default defineType({
   name: "blogPost",
   title: "Blog Post",
@@ -116,6 +116,22 @@ export default defineType({
       title: "Author",
       type: "reference",
       to: { type: "blogAuthor" },
+    }),
+    defineField({
+      name: "channels",
+      title: "Channels",
+      type: "array",
+      description: "Select the channels where this blog post will be displayed",
+      of: [{ type: "string" }],
+      options: {
+        list: [
+          { title: "PKS Website", value: "pksWeb" },
+          { title: "AVTR Website", value: "avtWeb" },
+        ],
+        layout: "list",
+      },
+      validation: (Rule) =>
+        Rule.required().min(1).error("At least one channel is required"),
     }),
   ],
   preview: {
