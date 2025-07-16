@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { PortableText } from "@portabletext/react";
+import { PortableText } from "next-sanity";
 import {
   getBlogPostBySlug,
   getAllBlogPostSlugs,
@@ -11,33 +11,24 @@ import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
 import { VisualEditing } from "next-sanity";
 import PreviewBanner from "@/components/PreviewBanner";
-import { MenuType } from "@/types/types"; // Assuming MenuType is defined here or imported
-
+import Link from "next/link";
+// If your route provides channel in params, include it here:
 interface PageProps {
-  params: Promise<{ slug: string; locale: string }>;
+  params: Promise<{ slug: string; locale: string; channel: string }>;
 }
 
-export default async function BlogPostPage(props: PageProps) {
-  // Extract locale along with slug
-  const { slug, locale } = await props.params; // Destructure locale
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug, locale, channel = "pksWeb" } = await params;
   const { isEnabled } = await draftMode();
 
-  // Pass locale to fetch functions
-  const post = await getBlogPostBySlug(slug, locale, isEnabled);
+  // Fetch post and menus with channel and locale
+  const post = await getBlogPostBySlug(slug, locale, isEnabled, channel);
   const [navbarMenu, footerMenu] = await Promise.all([
     getMenuByType("Navbar", locale, isEnabled),
-    getFooterMenu(locale, isEnabled, "pksWeb"),
+    getFooterMenu(locale, isEnabled, channel),
   ]);
 
-  // Check if post exists for the given slug (locale might be relevant here too)
   if (!post) return notFound();
-  // Navbar and Footer menus might be optional depending on requirements
-  if (!navbarMenu) {
-    console.warn(`Navbar menu not found for locale: ${locale}`);
-  }
-  if (!footerMenu) {
-    console.warn(`Footer menu not found for locale: ${locale}`);
-  }
 
   return (
     <>
@@ -47,31 +38,49 @@ export default async function BlogPostPage(props: PageProps) {
           <PreviewBanner />
         </>
       )}
-      {/* Pass locale to FloatingNav */}
       {navbarMenu && <FloatingNav menu={navbarMenu} currentLocale={locale} />}
-
-      <div className="py-12 container mx-auto px-4 py-40">
+      <div className="container mx-auto px-4 py-40">
         <article className="max-w-4xl mx-auto py-12 px-4">
           <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
           <div className="prose dark:prose-invert max-w-none">
             <PortableText value={post.content} />
           </div>
+          <div className="mt-8 mb-16 text-center">
+            <Link
+              href={`/${locale}/blog`}
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 inline-flex items-center gap-2 text-sm"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              {locale === "de" ? "Zurück zum Blog" : "Back to Blog"}
+            </Link>
+          </div>
         </article>
       </div>
-      {/* Pass locale to Footer */}
       {footerMenu && <Footer menu={footerMenu} currentLocale={locale} />}
     </>
   );
 }
 
-// generateStaticParams needs to generate paths for all locales.
-// This might require fetching slugs for each supported locale.
-// Passing a single locale here might be incorrect depending on the i18n strategy.
-// TODO: Review i18n strategy for static param generation.
+// Static params: always include channel (or set a default)
 export async function generateStaticParams() {
-  // Assuming 'de' as a default or primary locale for now to fix the TS error.
-  // Ideally, fetch slugs for all supported locales.
-  const localeToFetch = "de"; // Placeholder: Adjust based on actual i18n setup
-  const posts = await getAllBlogPostSlugs(localeToFetch); // Pass locale
-  return posts.map((post) => ({ slug: post.slug, locale: localeToFetch })); // Include locale in returned params
+  const localeToFetch = "de";
+  const channelToFetch = "pksWeb";
+  const posts = await getAllBlogPostSlugs(localeToFetch, channelToFetch);
+  return posts.map((post) => ({
+    slug: post.slug,
+    locale: localeToFetch,
+    channel: channelToFetch,
+  }));
 }

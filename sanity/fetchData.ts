@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 import { PageType } from "../types/types";
 import { client } from "./lib/client";
-import { ClientPerspective } from "@sanity/client";
+import { ClientPerspective } from "next-sanity";
 import { MenuType } from "../types/types";
 import { BlogList, BlogPost } from "../types/types";
 
@@ -121,12 +121,13 @@ export async function getFooterMenu(
 }
 
 // Updated getBlogPosts to remove channel dependency
+// Updated to include channel filtering
 export async function getBlogPosts(
-  block: BlogList,
+  postsPerPage: number = 6,
   locale: string,
-  draft: boolean = false
+  draft: boolean = false,
+  channel: string = "pksWeb"
 ): Promise<BlogPost[]> {
-  // Add locale parameter
   const options = draft
     ? {
         perspective: "previewDrafts" as ClientPerspective,
@@ -135,57 +136,28 @@ export async function getBlogPosts(
       }
     : {};
 
-  // Removed channel filter, only filter by language
-  if (block.selectionType === "auto") {
-    const query = groq`*[_type == "blogPost" && language == $locale] | order(publishedAt desc)[0...$limit] {
-      _id,
-      title,
-      slug,
-      publishedAt,
-      excerpt,
-      author->{name},
-      language // Include language if needed
-    }`;
-
-    return client.fetch(
-      query,
-      {
-        limit: block.postsPerPage || 6,
-        locale, // Pass locale to the query parameters
-      },
-      options
-    );
-  }
-
-  // Fetch selected posts, ensuring they match the locale if necessary
-  // Removed channel filter
-  const query = groq`*[_type == "blogPost" && _id in $ids && language == $locale] {
+  const limit = Number.isInteger(postsPerPage) ? postsPerPage : 6;
+  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels] | order(publishedAt desc)[0...($limit)] {
     _id,
     title,
     slug,
     publishedAt,
     excerpt,
     author->{name},
-    language // Include language if needed
+    language,
+    channels
   }`;
 
-  return client.fetch(
-    query,
-    {
-      ids: block.selectedPosts?.map((p) => p._id) || [], // Use _ref for references
-      locale, // Pass locale to the query parameters
-    },
-    options
-  );
+  return client.fetch(query, { limit, locale, channel }, options);
 }
 
 // Updated getBlogPostBySlug to remove channel dependency
 export async function getBlogPostBySlug(
   slug: string,
   locale: string,
-  draft: boolean = false
+  draft: boolean = false,
+  channel: string = "pksWeb"
 ): Promise<BlogPost> {
-  // Add locale parameter
   const options = draft
     ? {
         perspective: "previewDrafts" as ClientPerspective,
@@ -194,8 +166,8 @@ export async function getBlogPostBySlug(
       }
     : {};
 
-  // Removed channel filter, only filter by language
-  const query = groq`*[_type == "blogPost" && slug.current == $slug && language == $locale][0]{
+  // Added channel filter
+  const query = groq`*[_type == "blogPost" && slug.current == $slug && language == $locale && $channel in channels][0]{
     _id,
     title,
     slug,
@@ -211,20 +183,23 @@ export async function getBlogPostBySlug(
       title,
       slug
     },
-    language // Include language if needed
+    language,
+    channels
   }`;
 
-  // Pass locale to the query parameters
-  return client.fetch(query, { slug, locale }, options);
+  return client.fetch(query, { slug, locale, channel }, options);
 }
 
 // Updated getAllBlogPostSlugs to remove channel dependency
-export async function getAllBlogPostSlugs(locale: string) {
-  // Add locale parameter
-  // Removed channel filter, only filter by language
-  const query = groq`*[_type == "blogPost" && language == $locale]{ "slug": slug.current }`;
-  // Pass locale to the query parameters
-  return client.fetch<{ slug: string }[]>(query, { locale });
+export async function getAllBlogPostSlugs(
+  locale: string,
+  channel: string
+): Promise<{ slug: string; channel: string }[]> {
+  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels]{ "slug": slug.current, "channel": channels[0] }`;
+  return client.fetch<{ slug: string; channel: string }[]>(query, {
+    locale,
+    channel,
+  });
 }
 
 // Add function to get all page slugs and locales for generateStaticParams

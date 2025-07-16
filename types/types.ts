@@ -374,6 +374,7 @@ export interface BlogPost {
   content: PortableTextBlock;
   categories?: BlogCategory[];
   author?: BlogAuthor;
+  channels: string[];
 }
 
 export interface BlogCategory {
@@ -387,7 +388,7 @@ export interface BlogAuthor {
   _id: string;
   _type: "blogAuthor";
   name: string;
-  image?: SanityImage;
+  image?: CloudinaryAsset;
   bio?: string;
 }
 
@@ -398,6 +399,11 @@ export interface BlogList {
   postsPerPage?: number;
   selectedPosts?: BlogPost[];
   selectionType: "auto" | "manual";
+  channels?: string[];
+}
+export interface BlogPostSlug {
+  slug: string;
+  channel: string;
 }
 
 /**
