@@ -3,6 +3,8 @@ import { CardDemo3 } from "../CardDemo3";
 import { FC } from "react";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero3 as gridHero3Props } from "@/types/types";
+import { resolveSanityLink } from "@/utils/linkResolver";
+
 const GridHero3: FC<gridHero3Props> = (props) => {
   const { leftSection, middleSection, rightSection } = props;
   return (
@@ -47,11 +49,7 @@ const GridHero3: FC<gridHero3Props> = (props) => {
 
             <Button2
               text={rightSection?.ctaButton.name}
-              href={
-                rightSection?.ctaButton?.link?.linkType === "external"
-                  ? rightSection?.ctaButton?.link?.externalUrl
-                  : rightSection?.ctaButton?.link?.internalReference?._ref
-              }
+              href={resolveSanityLink(rightSection?.ctaButton.link)}
             ></Button2>
           </div>
         </div>

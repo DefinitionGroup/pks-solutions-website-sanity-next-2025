@@ -13,20 +13,57 @@ export const getPageBySlug = async (
   draft: boolean = false
 ): Promise<PageType> => {
   const query = groq`*[_type == "page" && slug.current == $slug && language == $locale && channel == $channel][0]{
-  title,
-  _id,
-  _createdAt,
-  _updatedAt,
-  slug,
-  contentPKS,
-  language,
-  channel,
-  protected,
-  allowedGroups[]->{
+    title,
     _id,
-    name
-  }
-}`;
+    _createdAt,
+    _updatedAt,
+    slug,
+    contentPKS[] {
+      ...,
+      _type == "hero" => {
+        ...,
+        ctaButton {
+          name,
+          link {
+            ...,
+            linkType,
+            externalUrl,
+            internalReference-> {
+              _type,
+              slug {
+                current
+              }
+            }
+          }
+        }
+      },
+      _type == "zwischenTitelCta" => {
+        ...,
+        ctaButton {
+          name,
+          link {
+            ...,
+            linkType,
+            externalUrl,
+            internalReference-> {
+              _type,
+              slug {
+                current
+              }
+            }
+          }
+        }
+      }
+      // Add other content types that might have internal references
+    },
+    language,
+    channel,
+    protected,
+    allowedGroups[]-> {
+      _id,
+      name
+    }
+  }`;
 
   const options = draft
     ? {

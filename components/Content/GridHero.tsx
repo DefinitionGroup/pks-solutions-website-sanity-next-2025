@@ -5,6 +5,8 @@ import { FC, ReactNode } from "react";
 import { CardDemo2 } from "../CardDemo2";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero as GridHeroProps } from "@/types/types";
+import { resolveSanityLink } from "@/utils/linkResolver";
+
 const GridHero: FC<GridHeroProps> = (props) => {
   const { sectionOne, showSectionTwo, sectionTwo } = props;
   return (
@@ -36,11 +38,7 @@ const GridHero: FC<GridHeroProps> = (props) => {
             <Button2
               className="border-white/20 px-24 w-full"
               text={sectionOne?.middle.ctaButton.name}
-              href={
-                sectionOne?.middle?.ctaButton?.link?.linkType === "external"
-                  ? sectionOne.middle.ctaButton.link.externalUrl
-                  : sectionOne?.middle?.ctaButton?.link?.internalReference?._ref
-              }
+              href={resolveSanityLink(sectionOne?.middle.ctaButton.link)}
             />
           </div>
           <AnimationWrapper

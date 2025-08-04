@@ -91,15 +91,17 @@ export interface Hero {
   highlightText: string;
   leftDescription: string;
   rightDescription: string;
-  ctaButton: {
+  ctaButton?: {
     name: string;
     link?: {
       _type: string;
       linkType: "external" | "internal";
       externalUrl?: string;
       internalReference?: {
-        _ref: string;
-        _type: "reference";
+        _type: string;
+        slug: {
+          current: string;
+        };
       };
     };
   };
