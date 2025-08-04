@@ -1,7 +1,9 @@
 import React from "react";
 import Button2 from "../Button2";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { ZwischenTitelCta as zwisProps } from "@/types/types";
+import { resolveSanityLink } from "@/utils/linkResolver";
+
 const ZwischenTitelCta: FC<zwisProps> = (props) => {
   const { integrationTitle, headline, subHeadline, ctaButton } = props;
   return (
@@ -20,11 +22,7 @@ const ZwischenTitelCta: FC<zwisProps> = (props) => {
           <Button2
             className="border-white/20 border-r border-l"
             text={ctaButton.name}
-            href={
-              ctaButton?.link?.linkType === "external"
-                ? ctaButton?.link?.externalUrl
-                : ctaButton?.link?.internalReference?._ref
-            }
+            href={resolveSanityLink(ctaButton.link)}
           ></Button2>
         </div>
       </div>

@@ -1,8 +1,9 @@
 import Button2 from "@/components/Button2";
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import { TripleHero as trupleHeroProps } from "@/types/types";
+import { resolveSanityLink } from "@/utils/linkResolver";
 
 const TripleHero: FC<trupleHeroProps> = (props) => {
   const { items } = props;
@@ -33,11 +34,7 @@ const TripleHero: FC<trupleHeroProps> = (props) => {
           <div className="px-4 py-12">
             <Button2
               text={item?.ctaButton.name}
-              href={
-                item?.ctaButton?.link?.linkType === "external"
-                  ? item?.ctaButton?.link?.externalUrl
-                  : item?.ctaButton?.link?.internalReference?._ref
-              }
+              href={resolveSanityLink(item?.ctaButton.link)}
             ></Button2>
           </div>
         </DirectionAwareHover>

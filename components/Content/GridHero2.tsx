@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import Button2 from "../Button2";
 import { GridHero2 as gridHero2Props } from "@/types/types";
+import { resolveSanityLink } from "@/utils/linkResolver";
+
 const GridHero2: FC<gridHero2Props> = (props) => {
   const { leftTitle, middle, right, _key } = props;
   return (
@@ -43,11 +45,7 @@ const GridHero2: FC<gridHero2Props> = (props) => {
           <div className="align-items-start grid col-span-2 col-start-1 text-md text-white">
             <Button2
               text={right?.ctaButton.name}
-              href={
-                right?.ctaButton?.link?.linkType === "external"
-                  ? right?.ctaButton?.link?.externalUrl
-                  : right?.ctaButton?.link?.internalReference?._ref
-              }
+              href={resolveSanityLink(right?.ctaButton.link)}
             ></Button2>
           </div>
         </div>

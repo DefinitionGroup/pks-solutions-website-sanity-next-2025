@@ -96,7 +96,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
                 href={
                   ctaButton?.link?.linkType === "external"
                     ? ctaButton?.link?.externalUrl
-                    : ctaButton?.link?.internalReference?._ref || ""
+                    : ctaButton?.link?.internalReference?.slug?.current || ""
                 }
               />
             </motion.div>

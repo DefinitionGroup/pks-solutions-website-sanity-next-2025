@@ -47,20 +47,21 @@ export default defineType({
       hidden: ({ parent }) => (parent as LinkParent)?.linkType !== "internal",
       options: {
         filter: ({ document }) => {
-          // Get the channel from the parent document if available
           const channel = document?.channel || "pksWeb";
           const language = document?.language || "de";
-          
-          // Filter pages by channel and language
+
           return {
             filter: "channel == $channel && language == $language",
-            params: { channel, language }
+            params: { channel, language },
           };
-        }
+        },
       },
       validation: (Rule) =>
         Rule.custom((reference, context) => {
-          if ((context.parent as LinkParent)?.linkType === "internal" && !reference) {
+          if (
+            (context.parent as LinkParent)?.linkType === "internal" &&
+            !reference
+          ) {
             return "Internal page reference is required for internal links";
           }
           return true;
@@ -75,7 +76,10 @@ export default defineType({
     },
     prepare({ title, externalUrl, internalTitle }) {
       return {
-        title: title === "external" ? externalUrl : internalTitle || "No link selected",
+        title:
+          title === "external"
+            ? externalUrl
+            : internalTitle || "No link selected",
         subtitle: title === "external" ? "External link" : "Internal link",
       };
     },
