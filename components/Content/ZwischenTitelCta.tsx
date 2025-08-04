@@ -1,6 +1,6 @@
 import React from "react";
 import Button2 from "../Button2";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { ZwischenTitelCta as zwisProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 

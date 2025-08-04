@@ -1,6 +1,6 @@
 import Button2 from "@/components/Button2";
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import { TripleHero as trupleHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";

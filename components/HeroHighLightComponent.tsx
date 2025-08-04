@@ -25,24 +25,6 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
     ctaButton,
     modules,
   } = props;
-  const getButtonHref = (button: any) => {
-    if (!button?.link) return "/";
-
-    if (button.link.linkType === "external") {
-      return button.link.externalUrl || "/";
-    }
-
-    // For internal links, use the slug
-    if (
-      button.link.linkType === "internal" &&
-      button.link.internalReference?.slug?.current
-    ) {
-      return `/${button.link.internalReference.slug.current}`;
-    }
-
-    return "/";
-  };
-  console.log(ctaButton);
   return (
     <HeroHighlight className="container">
       {showTopHero && (
@@ -111,7 +93,11 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               <Button2
                 className="border-white/20 px-24 w-full"
                 text={ctaButton?.name || ""}
-                href={getButtonHref(ctaButton)}
+                href={
+                  ctaButton?.link?.linkType === "external"
+                    ? ctaButton?.link?.externalUrl
+                    : ctaButton?.link?.internalReference?.slug?.current || ""
+                }
               />
             </motion.div>
           </div>

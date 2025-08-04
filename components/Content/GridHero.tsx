@@ -1,7 +1,7 @@
 import { cn } from "@/app/lib/utils";
 import Image from "next/image";
 import Button2 from "../Button2";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { CardDemo2 } from "../CardDemo2";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero as GridHeroProps } from "@/types/types";

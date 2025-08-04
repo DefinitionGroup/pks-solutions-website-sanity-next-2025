@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import Button2 from "../Button2";
 import { GridHero2 as gridHero2Props } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
