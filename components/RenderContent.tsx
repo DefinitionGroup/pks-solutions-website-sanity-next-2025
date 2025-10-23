@@ -1,3 +1,5 @@
+///// PageBuilder 1SP Content Map[ping Sanity] ///////
+
 import React from "react";
 import HeroHighlightComponent from "@/components/HeroHighLightComponent";
 import BlogListComponent from "@/components/BlogListComponent";

@@ -18,7 +18,7 @@ function Button2({ text, className, href }: Button2Props) {
   const linkProps = {
     className: (isTop: boolean) => cn(
       isTop 
-        ? "pointer-events-auto absolute top-0 left-0 border-t border-b border-white/20 justify-between font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
+        ? "pointer-events-auto absolutetop-0 left-0 border-t border-b justify-between border-white/20  font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
         : "pointer-events-auto border bg-slate-100 absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-slate-900 transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider",
       className
     ),
@@ -28,8 +28,8 @@ function Button2({ text, className, href }: Button2Props) {
 
   // Content for both links
   const content = (isRotated: boolean) => (
-    <div className="flex justify-between items-center w-full">
-      <span>{text}</span>
+    <div className="flex items-center  w-full">
+      <p className="box flex-grow ">{text}</p>
       <ArrowRight className={isRotated ? "rotate-45" : ""} size={16} />
     </div>
   );

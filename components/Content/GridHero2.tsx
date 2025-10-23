@@ -7,9 +7,9 @@ import { resolveSanityLink } from "@/utils/linkResolver";
 const GridHero2: FC<gridHero2Props> = (props) => {
   const { leftTitle, middle, right, _key } = props;
   return (
-    <div className="z-10 border-white/20 grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l">
+    <div className="z-10 border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l">
       <div
-        className="grid grid-cols-12 col-start-1 row-start-1 w-full"
+        className="md:grid grid-cols-12 col-start-1 row-start-1 w-full"
         key={_key}
       >
         <h2 className="col-span-4 col-start-1 p-8 text-6xl text-white">

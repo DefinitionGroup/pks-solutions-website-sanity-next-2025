@@ -8,16 +8,16 @@ import { resolveSanityLink } from "@/utils/linkResolver";
 const TripleHero: FC<trupleHeroProps> = (props) => {
   const { items } = props;
   return (
-    <div className="relative flex justify-center items-center gap-4 w-full h-[40rem]">
+    <div className="relative md:flex  justify-center  items-center gap-4 w-full h-[40rem]">
       {items.map((item, index) => (
         <DirectionAwareHover
           imageUrl={item.hoverBackgroundCloudinary?.secure_url}
           key={index}
-          className="bg-black text-white"
+          className="bg-black text-white w-full"
           fixedContent={
             <>
               <Image
-                className="py-3 w-1/4 h-1/4 object-cover"
+                className="py-3 md:w-1/4 h-1/4 object-cover"
                 aria-hidden
                 src={item.fixedIconCloudinary?.secure_url || ""}
                 alt="Window icon"
@@ -28,10 +28,10 @@ const TripleHero: FC<trupleHeroProps> = (props) => {
             </>
           }
         >
-          <p className="font-bold text-xl">{item.hoverTitle}</p>
-          <p className="font-normal text-sm">{item.hoverDescription}</p>
+          <p className="font-bold px-4  text-xl">{item.hoverTitle}</p>
+          <p className="font-normal px-4 text-sm">{item.hoverDescription}</p>
 
-          <div className="px-4 py-12">
+          <div className="py-12">
             <Button2
               text={item?.ctaButton.name}
               href={resolveSanityLink(item?.ctaButton.link)}

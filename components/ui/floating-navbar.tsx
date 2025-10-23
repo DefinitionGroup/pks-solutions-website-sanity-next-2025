@@ -84,28 +84,26 @@ export const FloatingNav = ({
         transition={{ type: "spring" }}
         className={cn(
           // Adjusted padding/spacing for language switcher
-          "fixed flex max-w-fit top-10 inset-x-0 mx-auto border border-white/[0.2] rounded-full bg-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-4 items-center justify-center space-x-4",
+          "fixed flex max-w-fit top-10 inset-x-0 mx-auto px-8 border border-white/[0.2] rounded-full bg-neutral-300 dark:bg-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-4 items-center justify-center space-x-4",
           className
-        )}
-      >
+        )}>
         {/* Logo Link - points to the root of the current locale */}
         <Link
           href={`/${currentLocale}`} // Link to the locale's root
           className={cn(
-            "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
-          )}
-        >
+            "relative  items-center flex space-x-1 text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-300 hover:text-neutral-500"
+          )}>
           <Image
             src={menu.imageCloud?.secure_url || "/img/logopks--outline.svg"}
             alt="logo"
             width={128}
             height={32}
-            className="h-6 w-auto"
+            className="h-6 w-auto invert dark:invert-0"
           />
         </Link>
 
         {/* Menu Items */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 px-8 ">
           {" "}
           {/* Group menu items */}
           {menu.menuItems?.map((item, idx) => {
@@ -122,9 +120,8 @@ export const FloatingNav = ({
                 key={`link-${idx}`}
                 href={href} // Use the generated href
                 className={cn(
-                  "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
-                )}
-              >
+                  "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
+                )}>
                 <span className="sm:block hidden text-sm">
                   {item.displayName}
                 </span>
@@ -133,10 +130,10 @@ export const FloatingNav = ({
           })}
         </div>
 
-        {/* Language Switcher - ADDED BACK */}
-        <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4">
+        {/* Language Switcher - REMOVED FOR NOW TEMPORARY */}
+        {/* <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4">
           {" "}
-          {/* Separator and spacing */}
+    
           {locales.map((locale) => {
             const isActive = locale === currentLocale;
             // Construct the path for the other locale using the basePath
@@ -152,16 +149,18 @@ export const FloatingNav = ({
                   isActive
                     ? "bg-neutral-700 text-white" // Style for active locale
                     : "text-neutral-400 hover:text-white hover:bg-neutral-800" // Style for inactive locale
-                )}
-              >
+                )}>
                 {locale.toUpperCase()}
               </Link>
             );
           })}
-        </div>
+        </div> */}
+
+
+          {/* /////////// AUTHENTICATION DISABLED FOR NOW **** TEMPORARY *****  /////////// */}
 
         {/* Authentication Buttons */}
-        <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4 mr-4">
+        {/* <div className="flex items-center space-x-2 border-l border-neutral-700 pl-4 ml-4 mr-4">
           <SignedOut>
             <SignInButton mode="modal">
               <button className="px-3 py-1 rounded-full text-sm border border-transparent font-medium text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
@@ -183,7 +182,7 @@ export const FloatingNav = ({
               }}
             />
           </SignedIn>
-        </div>
+        </div> */}
       </motion.div>
     </AnimatePresence>
   );

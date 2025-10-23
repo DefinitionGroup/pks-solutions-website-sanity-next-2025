@@ -12,8 +12,8 @@ const GridHero: FC<GridHeroProps> = (props) => {
   return (
     <>
       {/* Section One */}
-      <div className="border-white/20 grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l">
-        <div className="place-content-start grid grid-cols-12 col-start-1 row-start-1 w-full">
+      <div className="border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l">
+        <div className="place-content-start md:grid grid-cols-12 col-start-1 row-start-1 w-full">
           {/* Left Side */}
           <div className="flex flex-col col-span-4 col-start-1 row-start-1">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
@@ -57,13 +57,15 @@ const GridHero: FC<GridHeroProps> = (props) => {
 
       {/* Section Two */}
       {showSectionTwo && (
-        <div className="flex justify-between gap-32 my-24">
-          <div className="relative bg-black w-full max-w-lg overflow-hidden">
+        <div className="flex-col md:flex md:flex-row  justify-between my-24">
+          <div className="relative bg-black  grid w-full max-w-lg overflow-hidden">
             <Image
-              className="top-0 left-0 z-0 absolute opacity-75 w-full"
+              className="top-0 left-0 z-0 absolute opacity-75 h-full"
               alt="background image"
               width={1200}
               height={1200}
+           
+          
               src={
                 sectionTwo?.leftCard.imageCloudinary?.secure_url ||
                 "/images/placeholder.jpg"
@@ -71,7 +73,7 @@ const GridHero: FC<GridHeroProps> = (props) => {
             />
             <div
               className={cn(
-                "group w-full cursor-pointer overflow-hidden relative card h-96 shadow-xl mx-auto flex flex-col justify-end p-4 border border-transparent dark:border-neutral-800"
+                "group w-full cursor-pointer  overflow-hidden relative card h-96 shadow-xl mx-auto flex flex-col justify-end p-4 border border-transparent dark:border-neutral-800"
               )}
             >
               <div className="relative z-50 text">
@@ -84,7 +86,7 @@ const GridHero: FC<GridHeroProps> = (props) => {
               </div>
             </div>
           </div>
-          <div className="flex-grow">
+          <div className="flex-grow ">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
               <h4 className="col-span-4 col-start-2 px-8 pt-8 text-2xl text-white">
                 {sectionTwo?.rightSection.subtitle}

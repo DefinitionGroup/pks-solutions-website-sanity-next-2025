@@ -49,10 +49,9 @@ export const HeroHighlight = ({
         containerClassName
       )}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
+      onMouseLeave={handleMouseLeave}>
       {/* Background dot patterns - lower z-index */}
-      <div className="absolute inset-0 z-0 bg-dot-thick-neutral-300/15 dark:bg-dot-thick-neutral-800/15 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-white dark:bg-black bg-dot-thick-neutral-300/15 dark:bg-dot-thick-neutral-800/15 pointer-events-none" />
       <motion.div
         className="absolute inset-0 z-10 bg-dot-thick-indigo-500 dark:bg-dot-thick-indigo-500 opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none"
         style={{
@@ -107,8 +106,7 @@ export const Highlight = ({
       className={cn(
         `relative inline-block pb-1 px-1 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-500 dark:to-purple-500`,
         className
-      )}
-    >
+      )}>
       {children}
     </motion.span>
   );

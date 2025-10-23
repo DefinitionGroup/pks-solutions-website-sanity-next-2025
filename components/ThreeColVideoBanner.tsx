@@ -32,7 +32,7 @@ export default function ThreeColVideoBanner({
   };
 
   return (
-    <div className="justify-center grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-white/20 w-full overflow-hidden">
+    <div className="justify-center md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-white/20 w-full overflow-hidden">
       <video
         loop
         autoPlay
@@ -41,7 +41,7 @@ export default function ThreeColVideoBanner({
         src={videoCloudinary.url}
       />
 
-      <div className="grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
+      <div className="md:grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}

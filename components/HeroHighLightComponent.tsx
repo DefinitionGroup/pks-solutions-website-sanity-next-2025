@@ -26,7 +26,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
     modules,
   } = props;
   return (
-    <HeroHighlight className="container">
+    <HeroHighlight className="container ">
       {showTopHero && (
         <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full bg-black">
           {" "}
@@ -34,12 +34,12 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
             loop
             autoPlay
             muted
-            className="col-start-1 row-start-1 opacity-50"
+            className="col-start-1 row-start-1 min-h-[100%] object-cover row-span-2  opacity-50 z-1"
             width="2000"
             height="2000"
             src={videoCloudinary?.secure_url}
           />
-          <div className="grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
+          <div className="md:grid grid-cols-12 col-start-1 row-start-1 pt-40 md:py-32 w-full z-2 overflow-hidden">
             <motion.h1
               initial={{
                 opacity: 0,
@@ -51,11 +51,10 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               }}
               // Remove type: "spring" if you want to keep the [20, -5, 0] animation
               transition={{ duration: 0.5 }} // Example: Use duration or other tween options
-              className="col-span-9 col-start-1 px-8 py-32 pb-8 w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug"
-            >
+              className="md:col-span-9 md:col-start-1 px-8 pt-32   w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug">
               {headline}
               <br />
-              <Highlight className="text-white dark:text-white">
+              <Highlight className="text-white  dark:text-white">
                 {highlightText}
               </Highlight>
             </motion.h1>
@@ -70,8 +69,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               }}
               // Remove type: "spring"
               transition={{ delay: 0.3, duration: 0.5 }} // Example: Use duration or other tween options
-              className="col-span-6 col-start-1 px-8 text-white lg:text-xl"
-            >
+              className="col-span-6 md:col-span-3 md:col-start-1 px-8 text-white lg:text-xl">
               {leftDescription}
             </motion.div>
             <motion.div
@@ -85,13 +83,12 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               }}
               // Remove type: "spring"
               transition={{ delay: 0.6, duration: 0.5 }} // Example: Use duration or other tween options
-              className="flex flex-col justify-center border-white col-span-3 col-start-10 w-full text-white"
-            >
-              <p className="flex flex-col justify-center border-white p-8 w-full text-sm text-white">
+              className="flex flex-col justify-center border-white md:col-span-3 md:col-start-10 w-full ">
+              <p className="flex flex-col justify-center border-white p-8 w-full text-sm leading-loose text-white">
                 {rightDescription}
               </p>
               <Button2
-                className="border-white/20 px-24 w-full"
+                className="border-white/50 md: px-24 w-full"
                 text={ctaButton?.name || ""}
                 href={
                   ctaButton?.link?.linkType === "external"
@@ -101,7 +98,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               />
             </motion.div>
           </div>
-          <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
+          <div className="md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/50 dark:divide-white/50 w-full min-h-[20rem]">
             <div className="col-span-9"></div>
             <div className="col-span-2"></div>
           </div>
@@ -113,14 +110,13 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
             return (
               <SciFiBlock
                 key={`sciFiBlock-${index}`}
-                className={"scifi-border mb-12 mx-4"}
-              >
+                className={"scifi-border mb-12 mx-4"}>
                 <TripleHero {...block.tripleHero} />
               </SciFiBlock>
             );
           case "gridHero":
             return <GridHero key={`gridHero-${index}`} {...block} />;
-          case "gridHero2":
+          case "gridHero2": 
             return <GridHero2 {...block} key={`gridHero2-${index}`} />;
           case "zwischenTitelCta":
             return (

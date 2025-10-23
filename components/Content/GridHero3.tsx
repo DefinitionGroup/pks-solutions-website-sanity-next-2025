@@ -9,8 +9,8 @@ const GridHero3: FC<gridHero3Props> = (props) => {
   const { leftSection, middleSection, rightSection } = props;
   return (
     <>
-      <div className="border-white/20 grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l min-h-[32rem]">
-        <div className="place-content-start grid grid-cols-12 col-span-2 col-start-1 row-start-1 w-full">
+      <div className="border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l min-h-[32rem]">
+        <div className="place-content-start md:grid grid-cols-12 col-span-2 col-start-1 row-start-1 w-full">
           <div className="flex flex-col col-span-4 col-start-1">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
               <h4 className="px-8 pt-8 text-2xl text-white">
