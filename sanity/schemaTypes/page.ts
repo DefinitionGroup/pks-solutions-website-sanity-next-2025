@@ -106,6 +106,14 @@ export default {
         { type: "clientsList" },
         { type: "contactForm" },
         { type: "showcaseTabs" },
+        // Allow module types at top level as requested
+        { type: "sciFiBlock" },
+        { type: "gridHero" },
+        { type: "gridHero2" },
+        { type: "gridHero3" },
+        { type: "zwischenTitelCta" },
+        { type: "threeColumnVideoBanner" },
+        { type: "fourColumnVideoBanner" },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "pksWeb",
@@ -119,6 +127,13 @@ export default {
         { type: "blogList" },
         { type: "projectList" },
         { type: "clientsList" },
+        // Allow AVT-specific module types at top level
+        { type: "sciFiBlockAVT" },
+        { type: "gridHeroAVT" },
+        { type: "gridHeroVariantAVT" },
+        // Shared banners also available top level
+        { type: "threeColumnVideoBanner" },
+        { type: "fourColumnVideoBanner" },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "avtWeb",

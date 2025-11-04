@@ -12,10 +12,23 @@ import {
   ProjectList,
   ContactForm,
   ThreeColVideoBannerProps,
+  FourColVideoBannerProps,
   ShowcaseTabsProps,
+  SciFiBlock as SciFiBlockType,
+  GridHero as GridHeroType,
+  GridHero2 as GridHero2Type,
+  GridHero3 as GridHero3Type,
+  ZwischenTitelCta as ZwischenTitelCtaType,
 } from "@/types/types";
 import ThreeColVideoBanner from "./ThreeColVideoBanner";
 import { ShowcaseTabs } from "./ShowCaseTabs";
+import SciFiBlock from "@/components/ui/anim/SciFiBlock";
+import TripleHero from "@/components/Content/TripleHero";
+import GridHero from "@/components/Content/GridHero";
+import GridHero2 from "@/components/Content/GridHero2";
+import GridHero3 from "@/components/Content/GridHero3";
+import ZwischenTitelCta from "@/components/Content/ZwischenTitelCta";
+import FourColVideoBanner from "@/components/FourColVideoBanner";
 interface RenderContentProps {
   contentPKS: (
     | Hero
@@ -24,7 +37,13 @@ interface RenderContentProps {
     | ClientsList
     | ContactForm
     | ThreeColVideoBannerProps
+    | FourColVideoBannerProps
     | ShowcaseTabsProps
+    | SciFiBlockType
+    | GridHeroType
+    | GridHero2Type
+    | GridHero3Type
+    | ZwischenTitelCtaType
   )[];
   locale: string;
 }
@@ -47,6 +66,40 @@ const RenderContent: React.FC<RenderContentProps> = ({
                 <HeroHighlightComponent {...(block as Hero)} />
               </DebugBadge>
             );
+          case "sciFiBlock":
+            return (
+              <DebugBadge key={index} name="SciFiBlock">
+                <SciFiBlock className="scifi-border mb-12 mx-4">
+                  <DebugBadge name="TripleHero">
+                    <TripleHero {...(block as SciFiBlockType).tripleHero} />
+                  </DebugBadge>
+                </SciFiBlock>
+              </DebugBadge>
+            );
+          case "gridHero":
+            return (
+              <DebugBadge key={index} name="GridHero">
+                <GridHero {...(block as GridHeroType)} />
+              </DebugBadge>
+            );
+          case "gridHero2":
+            return (
+              <DebugBadge key={index} name="GridHero2">
+                <GridHero2 {...(block as GridHero2Type)} />
+              </DebugBadge>
+            );
+          case "gridHero3":
+            return (
+              <DebugBadge key={index} name="GridHero3">
+                <GridHero3 {...(block as GridHero3Type)} />
+              </DebugBadge>
+            );
+          case "zwischenTitelCta":
+            return (
+              <DebugBadge key={index} name="ZwischenTitelCta">
+                <ZwischenTitelCta {...(block as ZwischenTitelCtaType)} />
+              </DebugBadge>
+            );
           case "blogList":
             return (
               <DebugBadge key={index} name="BlogListComponent">
@@ -63,6 +116,12 @@ const RenderContent: React.FC<RenderContentProps> = ({
             return (
               <DebugBadge key={index} name="ThreeColVideoBanner">
                 <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} />
+              </DebugBadge>
+            );
+          case "fourColumnVideoBanner":
+            return (
+              <DebugBadge key={index} name="FourColVideoBanner">
+                <FourColVideoBanner {...(block as FourColVideoBannerProps)} />
               </DebugBadge>
             );
           case "showcaseTabs":

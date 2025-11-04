@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef } from "react";
 import Button2 from "../Button2";
 import { FC } from "react";

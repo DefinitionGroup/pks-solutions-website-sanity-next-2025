@@ -1,10 +1,13 @@
 import { defineType, defineField } from "sanity";
+import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 
 export default defineType({
   name: "sciFiBlock",
   title: "SciFi Block",
   type: "object",
   fields: [
+    // Enable copy/paste for nested blocks inside this object
+    defineField(copyPaste),
     defineField({
       name: "className",
       title: "Class Name",
