@@ -51,20 +51,22 @@ const ZwischenTitelCta: FC<zwisProps> = (props) => {
       >
         {subHeadline}
       </motion.p>
-      <motion.div
-        className="flex justify-center"
-        variants={itemVariants}
-      >
-        <div className="flex justify-center mt-8 w-64 text-white">
-          <DebugBadge name="Button2">
-            <Button2
-              className="border-white/20 border-r border-l"
-              text={ctaButton.name}
-              href={resolveSanityLink(ctaButton.link)}
-            ></Button2>
-          </DebugBadge>
-        </div>
-      </motion.div>
+      {ctaButton?.name && (ctaButton?.link?.externalUrl || ctaButton?.link?.internalReference) && (
+        <motion.div
+          className="flex justify-center"
+          variants={itemVariants}
+        >
+          <div className="flex justify-center mt-8 w-64 text-white">
+            <DebugBadge name="Button2">
+              <Button2
+                className="border-white/20 border-r border-l"
+                text={ctaButton.name}
+                href={resolveSanityLink(ctaButton.link)}
+              ></Button2>
+            </DebugBadge>
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 };

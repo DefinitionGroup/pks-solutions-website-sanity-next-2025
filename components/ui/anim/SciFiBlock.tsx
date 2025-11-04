@@ -40,9 +40,10 @@ export default function SciFiBlock({ children, className }: SciFiBlockProps) {
   }, [children]);
 
   return (
+    <motion.div className="">
     <motion.section
       ref={parentRef}
-      style={{ overflow: "hidden" }}
+      style={{ overflow: "hidden", marginTop: "2rem",  }}
       className={className}
       initial={{ height: 1, opacity: 0 }}
       animate={{
@@ -64,9 +65,9 @@ export default function SciFiBlock({ children, className }: SciFiBlockProps) {
       exit={{ height: 0 }}
     >
       {/* Child element whose height we want to track */}
-      <div className="p-8" ref={childRef}>
+      <div className=" " ref={childRef}>
         {children}
       </div>
-    </motion.section>
+    </motion.section></motion.div>
   );
 }

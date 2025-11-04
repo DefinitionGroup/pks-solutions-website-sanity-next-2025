@@ -20,7 +20,7 @@ export function CardDemo3({ title, subtitle, video }: CardDemo3Props) {
           autoPlay
           loop
           muted
-          className="bottom-0 absolute opacity-100 mt-8 w-full h-full min-h-[500px] scale-125"
+          className="bottom-0 absolute border  opacity-100 mt-8 w-full h-full min-h-[500px] scale-125"
         >
           <source src={video.secure_url} type="video/mp4" /> Your browser does
           not support the video tag.

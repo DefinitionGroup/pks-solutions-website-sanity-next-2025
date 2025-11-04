@@ -11,6 +11,11 @@ interface Button2Props {
 }
 
 function Button2({ text, className, href }: Button2Props) {
+  // Only render when we have meaningful text content
+  const label = (text ?? "").trim();
+  const hasLabel = label.length > 0;
+  if (!hasLabel) return null;
+
   // Check if the href is external
   const isExternal = href?.startsWith('http') || href?.startsWith('mailto:') || href?.startsWith('tel:');
   
@@ -29,7 +34,7 @@ function Button2({ text, className, href }: Button2Props) {
   // Content for both links
   const content = (isRotated: boolean) => (
     <div className="flex items-center  w-full">
-      <p className="box flex-grow ">{text}</p>
+      <p className="box flex-grow ">{label}</p>
       <ArrowRight className={isRotated ? "rotate-45" : ""} size={16} />
     </div>
   );
@@ -40,7 +45,7 @@ function Button2({ text, className, href }: Button2Props) {
         // External links use regular anchor tags
         <>
           <a
-            href={href}
+            href={href || '#'}
             target="_blank"
             rel="noopener noreferrer"
             className={linkProps.className(true)}
@@ -48,7 +53,7 @@ function Button2({ text, className, href }: Button2Props) {
             {content(false)}
           </a>
           <a
-            href={href}
+            href={href || '#'}
             target="_blank"
             rel="noopener noreferrer"
             className={linkProps.className(false)}

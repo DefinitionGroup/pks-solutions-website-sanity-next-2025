@@ -9,7 +9,7 @@ import DebugBadge from "@/components/dev/DebugBadge";
 const TripleHero: FC<trupleHeroProps> = (props) => {
   const { items } = props;
   return (
-    <div className="relative md:flex  justify-center  items-center gap-4 w-full h-[40rem]">
+    <div className="relative md:flex  justify-center  items-center  gap-4 w-full h-[40rem]">
       {items.map((item, index) => (
         <DebugBadge key={index} name="DirectionAwareHover">
           <DirectionAwareHover
