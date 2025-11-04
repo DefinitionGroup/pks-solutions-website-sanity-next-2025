@@ -19,6 +19,28 @@ export default {
       type: "boolean",
       description: "Mark this page as the homepage for its language and channel.",
       initialValue: false,
+      validation: (Rule: any) =>
+        Rule.custom(async (value: boolean, context: any) => {
+          if (!value) return true;
+          const { document, getClient } = context;
+          const language = document?.language || 'de';
+          const channel = document?.channel || 'pksWeb';
+          const baseId = (document?._id || '').replace(/^drafts\./, '');
+          const client = getClient({ apiVersion: '2024-10-01' });
+          const query = `count(*[_type == "page" && isHomepage == true && language == $language && channel == $channel && !(_id in [$draftId, $publishedId])])`;
+          const params = {
+            language,
+            channel,
+            draftId: `drafts.${baseId}`,
+            publishedId: baseId,
+          };
+          try {
+            const count = await client.fetch(query, params);
+            return count === 0 || 'Another homepage already exists for this language + channel.';
+          } catch (e) {
+            return true;
+          }
+        }),
     }),
     {
       name: "language",
@@ -185,11 +207,22 @@ export default {
     select: {
       title: "title",
       channel: "channel",
+      isHomepage: "isHomepage",
     },
-    prepare({ title, channel }: { title: string; channel: string }) {
+    prepare({
+      title,
+      channel,
+      isHomepage,
+    }: {
+      title: string;
+      channel: string;
+      isHomepage?: boolean;
+    }) {
+      const channelLabel = channel === "pksWeb" ? "PKS Website" : "AVTR Website";
+      const suffix = isHomepage ? " • 🏠 Homepage" : "";
       return {
         title: title || "Untitled Page",
-        subtitle: channel === "pksWeb" ? "PKS Website" : "AVTR Website",
+        subtitle: `${channelLabel}${suffix}`,
       };
     },
   },

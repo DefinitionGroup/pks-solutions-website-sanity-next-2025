@@ -197,6 +197,18 @@ export const structure: StructureResolver = (S) => {
                   S.list()
                     .title(`${channelTitle} - ${lang.title}`)
                     .items([
+                      // Quick access to the homepage for this language/channel
+                      S.listItem()
+                        .title("Homepage")
+                        .icon(MdWeb)
+                        .child(
+                          S.documentTypeList("page")
+                            .title(`Homepage (${lang.title})`)
+                            .filter(
+                              '_type == "page" && channel == $channel && language == $language && isHomepage == true'
+                            )
+                            .params({ channel: channelValue, language: lang.id })
+                        ),
                       // Pages for the channel and language
                       S.listItem()
                         .title("Pages")
