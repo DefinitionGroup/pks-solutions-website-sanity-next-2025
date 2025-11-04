@@ -1,5 +1,6 @@
 import React from "react";
 import Button2 from "../Button2";
+import DebugBadge from "@/components/dev/DebugBadge";
 function ZwischenTitelAboutUs() {
   return (
     <div className="mx-auto py-64 max-w-2xl text-center">
@@ -12,10 +13,12 @@ function ZwischenTitelAboutUs() {
       </p>
       <div className="flex justify-center">
         <div className="flex justify-center mt-8 w-64 text-white">
-          <Button2
-            text="Kontakt aufnehmen."
-            className="border-white/20 border-r border-l"
-          />
+          <DebugBadge name="Button2">
+            <Button2
+              text="Kontakt aufnehmen."
+              className="border-white/20 border-r border-l"
+            />
+          </DebugBadge>
         </div>
       </div>
     </div>

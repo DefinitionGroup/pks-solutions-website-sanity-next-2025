@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Highlight } from "./ui/hero-highlight";
 import Button2 from "./Button2";
 import { easeInOut } from "framer-motion";
+import DebugBadge from "@/components/dev/DebugBadge";
 
 export interface FourColVideoBannerProps {
   videoCloudinary: { url: string };
@@ -149,12 +150,13 @@ export default function FourColVideoBanner({
           className="flex flex-col justify-center border-white col-span-3 col-start-10 mt-72 mb-24 w-full text-white"
         >
           {ctaButtons.map((btn, i) => (
-            <Button2
-              key={i}
-              href={resolveLink(btn.link)}
-              className="border-white/20 px-24 w-full mb-4"
-              text={btn.name}
-            />
+            <DebugBadge key={i} name="Button2">
+              <Button2
+                href={resolveLink(btn.link)}
+                className="border-white/20 px-24 w-full mb-4"
+                text={btn.name}
+              />
+            </DebugBadge>
           ))}
         </motion.div>
       </div>

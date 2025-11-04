@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { ArrowRight } from "@phosphor-icons/react";
+import DebugBadge from "@/components/dev/DebugBadge";
 
 type ContactFormProps = {
   title?: string;
@@ -78,6 +79,7 @@ export default function ContactForm({
 
   if (isSubmitted) {
     return (
+      <DebugBadge name="ContactFormSuccess">
       <div className="container max-w-4xl mx-auto my-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -144,10 +146,12 @@ export default function ContactForm({
           </div>
         </motion.div>
       </div>
+      </DebugBadge>
     );
   }
 
   return (
+    <DebugBadge name="ContactForm">
     <div className="container max-w-4xl mx-auto my-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -327,5 +331,6 @@ export default function ContactForm({
         </div>
       </motion.div>
     </div>
+    </DebugBadge>
   );
 }

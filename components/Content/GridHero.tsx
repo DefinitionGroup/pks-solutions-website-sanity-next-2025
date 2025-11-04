@@ -6,6 +6,7 @@ import { CardDemo2 } from "../CardDemo2";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero as GridHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import DebugBadge from "@/components/dev/DebugBadge";
 
 const GridHero: FC<GridHeroProps> = (props) => {
   const { sectionOne, showSectionTwo, sectionTwo } = props;
@@ -35,17 +36,21 @@ const GridHero: FC<GridHeroProps> = (props) => {
             >
               <h2>{sectionOne?.middle.quote}</h2>
             </AnimationWrapper>{" "}
-            <Button2
-              className="border-white/20 px-24 w-full"
-              text={sectionOne?.middle.ctaButton.name}
-              href={resolveSanityLink(sectionOne?.middle.ctaButton.link)}
-            />
+            <DebugBadge name="Button2">
+              <Button2
+                className="border-white/20 px-24 w-full"
+                text={sectionOne?.middle.ctaButton.name}
+                href={resolveSanityLink(sectionOne?.middle.ctaButton.link)}
+              />
+            </DebugBadge>
           </div>
           <AnimationWrapper
             className="flex justify-start items-start place-content-start col-span-7 col-start-6 row-span-2 row-start-1 p-2 w-full h-full text-md text-white"
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <CardDemo2 videoSource={sectionOne?.right.videoCloudinary} />
+            <DebugBadge name="CardDemo2">
+              <CardDemo2 videoSource={sectionOne?.right.videoCloudinary} />
+            </DebugBadge>
           </AnimationWrapper>
         </div>
 
@@ -100,17 +105,19 @@ const GridHero: FC<GridHeroProps> = (props) => {
                 {sectionTwo?.rightSection.description}
               </h2>
             </AnimationWrapper>
-            <Button2
-              className="inline-block ml-8 px-24 border-r border-l max-w-96"
-              text={sectionTwo?.rightSection.ctaButton.name}
-              href={
-                sectionTwo?.rightSection?.ctaButton?.link?.linkType ===
-                "external"
-                  ? sectionTwo.rightSection.ctaButton.link.externalUrl
-                  : sectionTwo?.rightSection?.ctaButton?.link?.internalReference
-                      ?._ref
-              }
-            ></Button2>
+            <DebugBadge name="Button2">
+              <Button2
+                className="inline-block ml-8 px-24 border-r border-l max-w-96"
+                text={sectionTwo?.rightSection.ctaButton.name}
+                href={
+                  sectionTwo?.rightSection?.ctaButton?.link?.linkType ===
+                  "external"
+                    ? sectionTwo.rightSection.ctaButton.link.externalUrl
+                    : sectionTwo?.rightSection?.ctaButton?.link?.internalReference
+                        ?._ref
+                }
+              ></Button2>
+            </DebugBadge>
           </div>
         </div>
       )}

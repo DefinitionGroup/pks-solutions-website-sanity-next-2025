@@ -1,6 +1,7 @@
 ///// PageBuilder 1SP Content Map[ping Sanity] ///////
 
 import React from "react";
+import DebugBadge from "@/components/dev/DebugBadge";
 import HeroHighlightComponent from "@/components/HeroHighLightComponent";
 import BlogListComponent from "@/components/BlogListComponent";
 import SanityContactForm from "@/components/SanityContactForm";
@@ -41,49 +42,52 @@ const RenderContent: React.FC<RenderContentProps> = ({
       {contentPKS.map((block, index) => {
         switch (block._type) {
           case "hero":
-            return <HeroHighlightComponent key={index} {...block} />;
+            return (
+              <DebugBadge key={index} name="HeroHighlightComponent">
+                <HeroHighlightComponent {...(block as Hero)} />
+              </DebugBadge>
+            );
           case "blogList":
             return (
-              <BlogListComponent
-                key={index}
-                block={block as BlogList}
-                locale={locale}
-              />
+              <DebugBadge key={index} name="BlogListComponent">
+                <BlogListComponent block={block as BlogList} locale={locale} />
+              </DebugBadge>
             );
           case "contactForm":
             return (
-              <SanityContactForm key={index} value={block} locale={locale} />
+              <DebugBadge key={index} name="SanityContactForm">
+                <SanityContactForm value={block} locale={locale} />
+              </DebugBadge>
             );
           case "threeColumnVideoBanner":
             return (
-              <ThreeColVideoBanner
-                key={index}
-                {...(block as ThreeColVideoBannerProps)}
-              />
+              <DebugBadge key={index} name="ThreeColVideoBanner">
+                <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} />
+              </DebugBadge>
             );
           case "showcaseTabs":
             return (
-              <ShowcaseTabs
-                key={index}
-                className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]"
-                // block.tabs comes straight from your Sanity document
-                tabs={(block as any).tabs}
-              />
+              <DebugBadge key={index} name="ShowcaseTabs">
+                <ShowcaseTabs
+                  className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]"
+                  // block.tabs comes straight from your Sanity document
+                  tabs={(block as any).tabs}
+                />
+              </DebugBadge>
             );
           default:
             console.warn(`Unsupported block type: ${block}`);
             return (
-              <div
-                key={index}
-                className="container mx-auto my-4 p-4 border border-dashed border-red-500"
-              >
-                <p className="text-red-500 font-bold">
-                  Unsupported block type: {block._type}
-                </p>
-                <pre className="text-xs text-gray-400">
-                  {JSON.stringify(block, null, 2)}
-                </pre>
-              </div>
+              <DebugBadge key={index} name={`Unsupported: ${String((block as any)?._type ?? "unknown")}`}>
+                <div className="container mx-auto my-4 p-4 border border-dashed border-red-500">
+                  <p className="text-red-500 font-bold">
+                    Unsupported block type: {(block as any)?._type}
+                  </p>
+                  <pre className="text-xs text-gray-400">
+                    {JSON.stringify(block, null, 2)}
+                  </pre>
+                </div>
+              </DebugBadge>
             );
         }
       })}

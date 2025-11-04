@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { ProjectList, Project } from "../types/types";
 import { cn } from "@/app/lib/utils";
+import DebugBadge from "@/components/dev/DebugBadge";
 
 interface ProjectListComponentProps {
   data: ProjectList;
@@ -14,25 +15,29 @@ const ProjectCard = ({ project }: { project: Project }) => {
     <div className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all hover:shadow-xl">
       <div className="relative h-48 w-full overflow-hidden">
         {project.headerImage && (
-          <Image
-            src={project.headerImage.secure_url}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <DebugBadge name="ProjectHeaderImage">
+            <Image
+              src={project.headerImage.secure_url}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </DebugBadge>
         )}
       </div>
       <div className="p-6">
         <div className="mb-4 flex items-center">
           {project.logo && (
             <div className="mr-3 h-10 w-10 overflow-hidden rounded-full">
-              <Image
-                src={project.logo.secure_url}
-                alt={`${project.title} logo`}
-                width={40}
-                height={40}
-                className="object-contain"
-              />
+              <DebugBadge name="ProjectLogo">
+                <Image
+                  src={project.logo.secure_url}
+                  alt={`${project.title} logo`}
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
+              </DebugBadge>
             </div>
           )}
           <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
@@ -42,12 +47,14 @@ const ProjectCard = ({ project }: { project: Project }) => {
             {project.description}
           </p>
         )}
-        <Link
-          href={`/projects/${project.slug.current}`}
-          className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          View Project
-        </Link>
+        <DebugBadge name="ProjectLink">
+          <Link
+            href={`/projects/${project.slug.current}`}
+            className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            View Project
+          </Link>
+        </DebugBadge>
       </div>
     </div>
   );
@@ -80,7 +87,9 @@ const ProjectListComponent: React.FC<ProjectListComponentProps> = ({
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {data.projects?.map((project) => (
-            <ProjectCard key={project._id} project={project} />
+            <DebugBadge key={project._id} name="ProjectCard">
+              <ProjectCard project={project} />
+            </DebugBadge>
           ))}
         </div>
       </div>

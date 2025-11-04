@@ -4,6 +4,7 @@ import { FC } from "react";
 import { ZwischenTitelCta as zwisProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import { motion, useInView } from "framer-motion";
+import DebugBadge from "@/components/dev/DebugBadge";
 
 const ZwischenTitelCta: FC<zwisProps> = (props) => {
   const { integrationTitle, headline, subHeadline, ctaButton } = props;
@@ -55,11 +56,13 @@ const ZwischenTitelCta: FC<zwisProps> = (props) => {
         variants={itemVariants}
       >
         <div className="flex justify-center mt-8 w-64 text-white">
-          <Button2
-            className="border-white/20 border-r border-l"
-            text={ctaButton.name}
-            href={resolveSanityLink(ctaButton.link)}
-          ></Button2>
+          <DebugBadge name="Button2">
+            <Button2
+              className="border-white/20 border-r border-l"
+              text={ctaButton.name}
+              href={resolveSanityLink(ctaButton.link)}
+            ></Button2>
+          </DebugBadge>
         </div>
       </motion.div>
     </motion.div>

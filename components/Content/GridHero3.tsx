@@ -4,6 +4,7 @@ import { FC } from "react";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero3 as gridHero3Props } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import DebugBadge from "@/components/dev/DebugBadge";
 
 const GridHero3: FC<gridHero3Props> = (props) => {
   const { leftSection, middleSection, rightSection } = props;
@@ -33,11 +34,13 @@ const GridHero3: FC<gridHero3Props> = (props) => {
             className="justify-start items-start place-content-start col-span-6 col-start-5 row-span-2 row-start-1 p-2 h-100 text-md text-white"
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <CardDemo3
-              video={middleSection.videoCloudinary}
-              title={middleSection.title}
-              subtitle={middleSection.subtitle}
-            />
+            <DebugBadge name="CardDemo3">
+              <CardDemo3
+                video={middleSection.videoCloudinary}
+                title={middleSection.title}
+                subtitle={middleSection.subtitle}
+              />
+            </DebugBadge>
           </AnimationWrapper>
           <div className="align-items-start grid col-span-2 col-start-11 row-start-1 pt-8 text-md text-white">
             <AnimationWrapper
@@ -47,10 +50,12 @@ const GridHero3: FC<gridHero3Props> = (props) => {
               <h2>{rightSection.quoteRight}</h2>
             </AnimationWrapper>
 
-            <Button2
-              text={rightSection?.ctaButton.name}
-              href={resolveSanityLink(rightSection?.ctaButton.link)}
-            ></Button2>
+            <DebugBadge name="Button2">
+              <Button2
+                text={rightSection?.ctaButton.name}
+                href={resolveSanityLink(rightSection?.ctaButton.link)}
+              ></Button2>
+            </DebugBadge>
           </div>
         </div>
 
