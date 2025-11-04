@@ -63,6 +63,23 @@ export const DirectionAwareHover = ({
     return d;
   };
 
+  // Resolve a usable URL from Cloudinary asset or string
+  const resolveSrc = (input: any): string => {
+    if (!input) return "";
+    if (typeof input === "string") return input;
+    if (typeof input === "object" && input.secure_url) return input.secure_url as string;
+    return "";
+  };
+
+  const src = resolveSrc(imageUrl);
+
+  const isVideoUrl = (u: string): boolean => {
+    if (!u) return false;
+    // Heuristics for Cloudinary/video URLs
+    if (u.includes("/video/upload")) return true;
+    return /\.(mp4|webm|ogg)(\?|#|$)/i.test(u);
+  };
+
   return (
     <motion.div
       onMouseEnter={handleMouseEnter}
@@ -89,16 +106,30 @@ export const DirectionAwareHover = ({
               ease: "easeOut",
             }}
           >
-            <Image
-              alt="image"
-              className={cn(
-                "h-full w-full object-cover scale-[1.15]",
-                imageClassName
-              )}
-              width="1000"
-              height="1000"
-              src={imageUrl}
-            />
+            {isVideoUrl(src) ? (
+              <video
+                className={cn(
+                  "h-full w-full object-cover scale-[1.15]",
+                  imageClassName
+                )}
+                src={src}
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            ) : (
+              <Image
+                alt="image"
+                className={cn(
+                  "h-full w-full object-cover scale-[1.15]",
+                  imageClassName
+                )}
+                width="1000"
+                height="1000"
+                src={src || "/images/placeholder.jpg"}
+              />
+            )}
           </motion.div>
           <motion.div
             variants={textVariants}

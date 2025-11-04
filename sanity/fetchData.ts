@@ -131,6 +131,61 @@ export const getPageBySlug = async (
   return client.fetch(query, { slug, locale, channel }, options);
 };
 
+// Get the homepage for a given locale and channel
+export const getHomepage = async (
+  locale: string,
+  channel: string,
+  draft: boolean = false
+): Promise<PageType | null> => {
+  const query = groq`*[_type == "page" && language == $locale && channel == $channel && isHomepage == true][0]{
+    title,
+    _id,
+    _createdAt,
+    _updatedAt,
+    slug,
+    contentPKS[] {
+      ...,
+      // Hero CTA link + nested module links
+      _type == "hero" => {
+        ...,
+        ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } },
+        modules[] {
+          ...,
+          _type == "gridHero" => {
+            ...,
+            sectionOne { middle { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+            sectionTwo { rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }
+          },
+          _type == "gridHero2" => { ..., right { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+          _type == "gridHero3" => { ..., rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+          _type == "zwischenTitelCta" => { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
+          _type == "sciFiBlock" => { ..., tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
+          _type == "threeColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
+          _type == "fourColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+        }
+      },
+      // Top-level blocks (non-hero) with links
+      _type == "zwischenTitelCta" => { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
+      _type == "gridHero" => { ..., sectionOne { middle { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }, sectionTwo { rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
+      _type == "gridHero2" => { ..., right { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+      _type == "gridHero3" => { ..., rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+      _type == "sciFiBlock" => { ..., tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
+      _type == "threeColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
+      _type == "fourColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+    },
+    language,
+    channel,
+    protected,
+    allowedGroups[]-> { _id, name }
+  }`;
+
+  const options = draft
+    ? { perspective: "previewDrafts" as ClientPerspective, useCdn: false, stega: true }
+    : {};
+
+  return client.fetch(query, { locale, channel }, options);
+};
+
 // Updated getMenuByType to include locale
 export const getMenuByType = async (
   menuType: string,

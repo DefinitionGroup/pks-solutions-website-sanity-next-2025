@@ -13,6 +13,13 @@ export default {
     referenceBehavior: "weak",
   },
   fields: [
+    defineField({
+      name: "isHomepage",
+      title: "Homepage",
+      type: "boolean",
+      description: "Mark this page as the homepage for its language and channel.",
+      initialValue: false,
+    }),
     {
       name: "language",
       title: "Language",
