@@ -19,12 +19,12 @@ const GridHero: FC<GridHeroProps> = (props) => {
           <div className="flex flex-col col-span-4 col-start-1 row-start-1">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
               <h4 className="px-8 pt-8 text-2xl text-white">
-                {sectionOne?.left.subtitle}
+                {sectionOne?.left?.subtitle}
               </h4>
             </AnimationWrapper>
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
               <h2 className="px-8 pb-2 text-6xl text-white">
-                {sectionOne?.left.title}
+                {sectionOne?.left?.title}
               </h2>
             </AnimationWrapper>
           </div>
@@ -34,13 +34,13 @@ const GridHero: FC<GridHeroProps> = (props) => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="col-start-1 p-8 text-2xl text-white"
             >
-              <h2>{sectionOne?.middle.quote}</h2>
+              <h2>{sectionOne?.middle?.quote}</h2>
             </AnimationWrapper>{" "}
             <DebugBadge name="Button2">
               <Button2
                 className="border-white/20 px-24 w-full"
-                text={sectionOne?.middle.ctaButton.name}
-                href={resolveSanityLink(sectionOne?.middle.ctaButton.link)}
+                text={sectionOne?.middle?.ctaButton?.name}
+                href={resolveSanityLink(sectionOne?.middle?.ctaButton?.link)}
               />
             </DebugBadge>
           </div>
@@ -49,7 +49,7 @@ const GridHero: FC<GridHeroProps> = (props) => {
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             <DebugBadge name="CardDemo2">
-              <CardDemo2 videoSource={sectionOne?.right.videoCloudinary} />
+              <CardDemo2 videoSource={sectionOne?.right?.videoCloudinary} />
             </DebugBadge>
           </AnimationWrapper>
         </div>
@@ -72,7 +72,7 @@ const GridHero: FC<GridHeroProps> = (props) => {
            
           
               src={
-                sectionTwo?.leftCard.imageCloudinary?.secure_url ||
+                sectionTwo?.leftCard?.imageCloudinary?.secure_url ||
                 "/images/placeholder.jpg"
               }
             />
@@ -83,10 +83,10 @@ const GridHero: FC<GridHeroProps> = (props) => {
             >
               <div className="relative z-50 text">
                 <h1 className="relative font-bold text-gray-50 text-xl md:text-3xl">
-                  {sectionTwo?.leftCard.title}
+                  {sectionTwo?.leftCard?.title}
                 </h1>
                 <p className="relative my-4 font-normal text-base text-gray-50">
-                  {sectionTwo?.leftCard.description}
+                  {sectionTwo?.leftCard?.description}
                 </p>
               </div>
             </div>
@@ -94,25 +94,25 @@ const GridHero: FC<GridHeroProps> = (props) => {
           <div className="flex-grow ">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
               <h4 className="col-span-4 col-start-2 px-8 pt-8 text-2xl text-white">
-                {sectionTwo?.rightSection.subtitle}
+                {sectionTwo?.rightSection?.subtitle}
               </h4>
               <h2 className="col-span-4 col-start-2 px-8 text-6xl text-white">
-                {sectionTwo?.rightSection.title}
+                {sectionTwo?.rightSection?.title}
               </h2>
             </AnimationWrapper>
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.4 }}>
               <h2 className="col-span-4 col-start-6 p-8 w-3/4 text-md text-white">
-                {sectionTwo?.rightSection.description}
+                {sectionTwo?.rightSection?.description}
               </h2>
             </AnimationWrapper>
             <DebugBadge name="Button2">
               <Button2
                 className="inline-block ml-8 px-24 border-r border-l max-w-96"
-                text={sectionTwo?.rightSection.ctaButton.name}
+                text={sectionTwo?.rightSection?.ctaButton?.name}
                 href={
                   sectionTwo?.rightSection?.ctaButton?.link?.linkType ===
                   "external"
-                    ? sectionTwo.rightSection.ctaButton.link.externalUrl
+                    ? sectionTwo?.rightSection?.ctaButton?.link?.externalUrl
                     : sectionTwo?.rightSection?.ctaButton?.link?.internalReference
                         ?._ref
                 }

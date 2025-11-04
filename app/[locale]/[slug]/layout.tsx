@@ -1,4 +1,4 @@
-import { VisualEditing } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import "../../globals.css";
 import PreviewBanner from "@/components/PreviewBanner";

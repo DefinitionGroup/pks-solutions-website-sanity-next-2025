@@ -9,7 +9,7 @@ import {
 import { draftMode } from "next/headers";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
-import { VisualEditing } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import Link from "next/link";
 // If your route provides channel in params, include it here:

@@ -8,7 +8,7 @@ import {
 import { draftMode } from "next/headers";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
-import { VisualEditing } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import Image from "next/image";
 import Link from "next/link";

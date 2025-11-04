@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/glowing-stars-effect";
 import Button3 from "@/components/Button3";
 import { PortableText } from "@portabletext/react";
-import { VisualEditing } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import { Project, ProjectList } from "@/types/types";
 

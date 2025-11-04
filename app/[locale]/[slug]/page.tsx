@@ -16,7 +16,7 @@ import Footer from "@/components/Footer";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import RenderContent from "@/components/RenderContent";
 import PreviewBanner from "@/components/PreviewBanner";
-import { VisualEditing } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 
 // -- Static params for build
 export async function generateStaticParams() {

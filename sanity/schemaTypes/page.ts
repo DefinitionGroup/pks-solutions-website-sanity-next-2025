@@ -1,4 +1,3 @@
-import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 import { defineField } from "sanity";
 export default {
   name: "page",
@@ -14,7 +13,6 @@ export default {
     referenceBehavior: "weak",
   },
   fields: [
-    defineField(copyPaste),
     {
       name: "language",
       title: "Language",

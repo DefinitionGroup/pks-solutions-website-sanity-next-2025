@@ -10,7 +10,7 @@ import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
 import { draftMode } from "next/headers";
-import { VisualEditing } from "next-sanity";
+import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import { notFound } from "next/navigation";
 import GetDemoComponent from "@/components/GetDemoComponent";

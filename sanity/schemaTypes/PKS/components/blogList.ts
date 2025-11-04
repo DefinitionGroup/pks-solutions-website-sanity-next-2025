@@ -1,12 +1,10 @@
 import { defineType, defineField } from "sanity";
-import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 
 export default defineType({
   name: "blogList",
   title: "Blog List",
   type: "object",
   fields: [
-    defineField(copyPaste),
     defineField({
       name: "title",
       title: "Section Title",

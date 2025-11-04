@@ -1,13 +1,11 @@
 import { defineType, defineField } from "sanity";
-import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 
 export default defineType({
   name: "tripleHero",
   title: "Triple Hero",
   type: "object",
   fields: [
-    // Enable copy/paste within TripleHero items
-    defineField(copyPaste),
+    // copy/paste plugin removed
     defineField({
       name: "items",
       title: "Hero Items",

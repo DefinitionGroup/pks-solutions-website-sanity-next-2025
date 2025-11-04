@@ -1,12 +1,10 @@
 import { defineType, defineField } from "sanity";
-import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 
 export default defineType({
   name: "heroAVT",
   title: "Hero AVT",
   type: "object",
   fields: [
-    defineField(copyPaste),
 
     defineField({
       name: "modules",

@@ -1,12 +1,10 @@
 import { defineType, defineField } from "sanity";
-import { copyPaste } from "@superside-oss/sanity-plugin-copy-paste";
 
 export default defineType({
   name: "hero",
   title: "Hero",
   type: "object",
   fields: [
-    defineField(copyPaste),
     defineField({
       name: "showTopHero",
       title: "Show Top Hero",
