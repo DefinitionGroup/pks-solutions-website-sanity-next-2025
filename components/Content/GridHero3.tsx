@@ -6,8 +6,8 @@ import { GridHero3 as gridHero3Props } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import DebugBadge from "@/components/dev/DebugBadge";
 
-const GridHero3: FC<gridHero3Props> = (props) => {
-  const { leftSection, middleSection, rightSection } = props;
+const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
+  const { leftSection, middleSection, rightSection, locale } = props;
   return (
     <>
       <div className="border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l min-h-[32rem]">
@@ -52,8 +52,8 @@ const GridHero3: FC<gridHero3Props> = (props) => {
 
             <DebugBadge name="Button2">
               <Button2
-                text={rightSection?.ctaButton.name}
-                href={resolveSanityLink(rightSection?.ctaButton.link)}
+                text={rightSection?.ctaButton?.name}
+                href={resolveSanityLink(rightSection?.ctaButton?.link, locale)}
               ></Button2>
             </DebugBadge>
           </div>

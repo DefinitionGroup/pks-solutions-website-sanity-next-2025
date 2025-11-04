@@ -77,7 +77,6 @@ export default defineType({
               type: "link",
               description:
                 "Link for the button (can be external or reference to an internal page)",
-              validation: (Rule) => Rule.required(),
             }),
           ],
         },

@@ -6,8 +6,8 @@ import { TripleHero as trupleHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import DebugBadge from "@/components/dev/DebugBadge";
 
-const TripleHero: FC<trupleHeroProps> = (props) => {
-  const { items } = props;
+const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
+  const { items, locale } = props;
   return (
     <div className="relative md:flex  justify-center  items-center  gap-4 w-full h-[40rem]">
       {items.map((item, index) => (
@@ -35,8 +35,8 @@ const TripleHero: FC<trupleHeroProps> = (props) => {
           <div className="py-12">
             <DebugBadge name="Button2">
               <Button2
-                text={item?.ctaButton.name}
-                href={resolveSanityLink(item?.ctaButton.link)}
+                text={item?.ctaButton?.name}
+                href={resolveSanityLink(item?.ctaButton?.link, locale)}
               ></Button2>
             </DebugBadge>
           </div>

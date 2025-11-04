@@ -102,7 +102,6 @@ export default defineType({
               name: "link",
               title: "Button Link",
               type: "link",
-              validation: (Rule) => Rule.required(),
             }),
           ],
         },

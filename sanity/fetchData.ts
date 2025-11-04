@@ -20,6 +20,7 @@ export const getPageBySlug = async (
     slug,
     contentPKS[] {
       ...,
+      // Hero CTA link resolution
       _type == "hero" => {
         ...,
         ctaButton {
@@ -28,15 +29,44 @@ export const getPageBySlug = async (
             ...,
             linkType,
             externalUrl,
-            internalReference-> {
-              _type,
-              slug {
-                current
-              }
-            }
+            internalReference-> { _type, slug { current } }
+          }
+        },
+        // Resolve links for nested modules inside hero
+        modules[] {
+          ...,
+          _type == "gridHero" => {
+            ...,
+            sectionOne { middle { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+            sectionTwo { rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }
+          },
+          _type == "gridHero2" => {
+            ...,
+            right { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+          },
+          _type == "gridHero3" => {
+            ...,
+            rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+          },
+          _type == "zwischenTitelCta" => {
+            ...,
+            ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } }
+          },
+          _type == "sciFiBlock" => {
+            ...,
+            tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }
+          },
+          _type == "threeColumnVideoBanner" => {
+            ...,
+            ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } }
+          },
+          _type == "fourColumnVideoBanner" => {
+            ...,
+            ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } }
           }
         }
       },
+      // ZwischenTitelCta CTA link resolution
       _type == "zwischenTitelCta" => {
         ...,
         ctaButton {
@@ -45,16 +75,40 @@ export const getPageBySlug = async (
             ...,
             linkType,
             externalUrl,
-            internalReference-> {
-              _type,
-              slug {
-                current
-              }
-            }
+            internalReference-> { _type, slug { current } }
           }
         }
+      },
+      // GridHero links
+      _type == "gridHero" => {
+        ...,
+        sectionOne { middle { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+        sectionTwo { rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }
+      },
+      // GridHero2 links
+      _type == "gridHero2" => {
+        ...,
+        right { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+      },
+      // GridHero3 links
+      _type == "gridHero3" => {
+        ...,
+        rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+      },
+      // SciFiBlock -> TripleHero item links
+      _type == "sciFiBlock" => {
+        ...,
+        tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }
+      },
+      // Three/Four column banners CTA links
+      _type == "threeColumnVideoBanner" => {
+        ...,
+        ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } }
+      },
+      _type == "fourColumnVideoBanner" => {
+        ...,
+        ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } }
       }
-      // Add other content types that might have internal references
     },
     language,
     channel,

@@ -9,13 +9,14 @@ import GridHero2 from "./Content/GridHero2";
 import ZwischenTitelCta from "./Content/ZwischenTitelCta";
 import GridHero3 from "./Content/GridHero3";
 import { Hero as HeroType, ThreeColVideoBannerProps } from "@/types/types";
+import { resolveSanityLink } from "@/utils/linkResolver";
 
 import { FC } from "react";
 import ThreeColVideoBanner from "./ThreeColVideoBanner";
 import FourColVideoBanner from "./FourColVideoBanner";
 import DebugBadge from "@/components/dev/DebugBadge";
 
-const HeroHighlightComponent: FC<HeroType> = (props) => {
+const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
   const {
     showTopHero,
     videoCloudinary,
@@ -25,6 +26,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
     rightDescription,
     ctaButton,
     modules,
+    locale,
   } = props;
   return (
     <HeroHighlight className="container ">
@@ -92,11 +94,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
                 <Button2
                   className="border-white/50 md: px-24 w-full"
                   text={ctaButton?.name || ""}
-                  href={
-                    ctaButton?.link?.linkType === "external"
-                      ? ctaButton?.link?.externalUrl
-                      : ctaButton?.link?.internalReference?.slug?.current || ""
-                  }
+                  href={resolveSanityLink(ctaButton?.link, locale)}
                 />
               </DebugBadge>
             </motion.div>
@@ -114,7 +112,7 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
               <DebugBadge key={`sciFiBlock-${index}`} name="SciFiBlock">
                 <SciFiBlock className={"scifi-border mb-12 mx-4"}>
                   <DebugBadge name="TripleHero">
-                    <TripleHero {...block.tripleHero} />
+                    <TripleHero {...block.tripleHero} locale={locale} />
                   </DebugBadge>
                 </SciFiBlock>
               </DebugBadge>
@@ -122,37 +120,37 @@ const HeroHighlightComponent: FC<HeroType> = (props) => {
           case "gridHero":
             return (
               <DebugBadge key={`gridHero-${index}`} name="GridHero">
-                <GridHero {...block} />
+                <GridHero {...block} locale={locale} />
               </DebugBadge>
             );
           case "gridHero2": 
             return (
               <DebugBadge key={`gridHero2-${index}`} name="GridHero2">
-                <GridHero2 {...block} />
+                <GridHero2 {...block} locale={locale} />
               </DebugBadge>
             );
           case "zwischenTitelCta":
             return (
               <DebugBadge key={`zwischenTitelCta-${index}`} name="ZwischenTitelCta">
-                <ZwischenTitelCta {...block} />
+                <ZwischenTitelCta {...block} locale={locale} />
               </DebugBadge>
             );
           case "gridHero3":
             return (
               <DebugBadge key={`gridHero3-${index}`} name="GridHero3">
-                <GridHero3 {...block} />
+                <GridHero3 {...block} locale={locale} />
               </DebugBadge>
             );
           case "threeColumnVideoBanner":
             return (
               <DebugBadge key={index} name="ThreeColVideoBanner">
-                <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} />
+                <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} locale={locale} />
               </DebugBadge>
             );
           case "fourColumnVideoBanner":
             return (
               <DebugBadge key={index} name="FourColVideoBanner">
-                <FourColVideoBanner {...(block as any)} />
+                <FourColVideoBanner {...(block as any)} locale={locale} />
               </DebugBadge>
             );
 

@@ -63,7 +63,7 @@ const RenderContent: React.FC<RenderContentProps> = ({
           case "hero":
             return (
               <DebugBadge key={index} name="HeroHighlightComponent">
-                <HeroHighlightComponent {...(block as Hero)} />
+                <HeroHighlightComponent {...(block as Hero)} locale={locale} />
               </DebugBadge>
             );
           case "sciFiBlock":
@@ -71,7 +71,7 @@ const RenderContent: React.FC<RenderContentProps> = ({
               <DebugBadge key={index} name="SciFiBlock">
                 <SciFiBlock className="scifi-border mb-12 mx-4">
                   <DebugBadge name="TripleHero">
-                    <TripleHero {...(block as SciFiBlockType).tripleHero} />
+                    <TripleHero {...(block as SciFiBlockType).tripleHero} locale={locale} />
                   </DebugBadge>
                 </SciFiBlock>
               </DebugBadge>
@@ -79,25 +79,25 @@ const RenderContent: React.FC<RenderContentProps> = ({
           case "gridHero":
             return (
               <DebugBadge key={index} name="GridHero">
-                <GridHero {...(block as GridHeroType)} />
+                <GridHero {...(block as GridHeroType)} locale={locale} />
               </DebugBadge>
             );
           case "gridHero2":
             return (
               <DebugBadge key={index} name="GridHero2">
-                <GridHero2 {...(block as GridHero2Type)} />
+                <GridHero2 {...(block as GridHero2Type)} locale={locale} />
               </DebugBadge>
             );
           case "gridHero3":
             return (
               <DebugBadge key={index} name="GridHero3">
-                <GridHero3 {...(block as GridHero3Type)} />
+                <GridHero3 {...(block as GridHero3Type)} locale={locale} />
               </DebugBadge>
             );
           case "zwischenTitelCta":
             return (
               <DebugBadge key={index} name="ZwischenTitelCta">
-                <ZwischenTitelCta {...(block as ZwischenTitelCtaType)} />
+                <ZwischenTitelCta {...(block as ZwischenTitelCtaType)} locale={locale} />
               </DebugBadge>
             );
           case "blogList":
@@ -115,13 +115,13 @@ const RenderContent: React.FC<RenderContentProps> = ({
           case "threeColumnVideoBanner":
             return (
               <DebugBadge key={index} name="ThreeColVideoBanner">
-                <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} />
+                <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} locale={locale} />
               </DebugBadge>
             );
           case "fourColumnVideoBanner":
             return (
               <DebugBadge key={index} name="FourColVideoBanner">
-                <FourColVideoBanner {...(block as FourColVideoBannerProps)} />
+                <FourColVideoBanner {...(block as FourColVideoBannerProps)} locale={locale} />
               </DebugBadge>
             );
           case "showcaseTabs":

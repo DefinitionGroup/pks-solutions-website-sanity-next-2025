@@ -30,14 +30,7 @@ export default defineType({
       description: "URL for external links",
       hidden: ({ parent }) => (parent as LinkParent)?.linkType !== "external",
       validation: (Rule) =>
-        Rule.uri({
-          scheme: ["http", "https", "mailto", "tel"],
-        }).custom((url, context) => {
-          if ((context.parent as LinkParent)?.linkType === "external" && !url) {
-            return "External URL is required for external links";
-          }
-          return true;
-        }),
+        Rule.uri({ scheme: ["http", "https", "mailto", "tel"] }),
     }),
     defineField({
       name: "internalReference",
@@ -56,16 +49,6 @@ export default defineType({
           };
         },
       },
-      validation: (Rule) =>
-        Rule.custom((reference, context) => {
-          if (
-            (context.parent as LinkParent)?.linkType === "internal" &&
-            !reference
-          ) {
-            return "Internal page reference is required for internal links";
-          }
-          return true;
-        }),
     }),
   ],
   preview: {

@@ -7,8 +7,8 @@ import { resolveSanityLink } from "@/utils/linkResolver";
 import { motion, useInView } from "framer-motion";
 import DebugBadge from "@/components/dev/DebugBadge";
 
-const ZwischenTitelCta: FC<zwisProps> = (props) => {
-  const { integrationTitle, headline, subHeadline, ctaButton } = props;
+const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
+  const { integrationTitle, headline, subHeadline, ctaButton, locale } = props;
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -62,7 +62,7 @@ const ZwischenTitelCta: FC<zwisProps> = (props) => {
               <Button2
                 className="border-white/20 border-r border-l"
                 text={ctaButton.name}
-                href={resolveSanityLink(ctaButton.link)}
+                href={resolveSanityLink(ctaButton.link, locale)}
               ></Button2>
             </DebugBadge>
           </div>

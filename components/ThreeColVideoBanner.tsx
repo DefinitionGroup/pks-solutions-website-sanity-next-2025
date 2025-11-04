@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Highlight } from "./ui/hero-highlight";
 import Button2 from "./Button2";
 import { ThreeColVideoBannerProps } from "@/types/types";
+import { resolveSanityLink } from "@/utils/linkResolver";
 import { easeInOut } from "framer-motion";
 import DebugBadge from "@/components/dev/DebugBadge";
 
@@ -16,13 +17,8 @@ export default function ThreeColVideoBanner({
   primaryDescription,
   secondaryDescription,
   ctaButtons,
-}: ThreeColVideoBannerProps) {
-  const resolveLink = (link: any): string => {
-    if (link?.href) return link.href;
-    if (link?.reference?.slug?.current)
-      return `/${link.reference.slug.current}`;
-    return "#";
-  };
+  locale,
+}: ThreeColVideoBannerProps & { locale?: string }) {
 
   // a single tween config for all 3-step keyframe animations
   const keyframeTransition = {
@@ -98,7 +94,7 @@ export default function ThreeColVideoBanner({
           {ctaButtons.map((btn, i) => (
             <DebugBadge key={i} name="Button2">
               <Button2
-                href={resolveLink(btn.link)}
+                href={resolveSanityLink((btn as any).link, locale)}
                 className="border-white/20 px-24 w-full mb-4"
                 text={btn.name}
               />

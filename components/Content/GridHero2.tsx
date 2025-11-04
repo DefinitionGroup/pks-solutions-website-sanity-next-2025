@@ -5,8 +5,8 @@ import { GridHero2 as gridHero2Props } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import DebugBadge from "@/components/dev/DebugBadge";
 
-const GridHero2: FC<gridHero2Props> = (props) => {
-  const { leftTitle, middle, right, _key } = props;
+const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
+  const { leftTitle, middle, right, _key, locale } = props;
   return (
     <div className="z-10 border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l">
       <div
@@ -27,14 +27,14 @@ const GridHero2: FC<gridHero2Props> = (props) => {
           <h2 className="border-white/20 col-span-2 col-start-1 row-start-1 p-8 border-t text-white text-xs">
             {right?.logoTitle}
           </h2>
-          {right?.logos.map((logo, index) => (
+          {(right?.logos ?? []).map((logo, index) => (
             <div
               key={`${_key}-logo-${index}`}
               className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300"
             >
               <Image
                 aria-hidden
-                src={logo.secure_url}
+                src={logo?.secure_url || "/images/placeholder.jpg"}
                 alt="Window icon"
                 width={164}
                 height={164}
@@ -46,8 +46,8 @@ const GridHero2: FC<gridHero2Props> = (props) => {
           <div className="align-items-start grid col-span-2 col-start-1 text-md text-white">
             <DebugBadge name="Button2">
               <Button2
-                text={right?.ctaButton.name}
-                href={resolveSanityLink(right?.ctaButton.link)}
+                text={right?.ctaButton?.name}
+                href={resolveSanityLink(right?.ctaButton?.link, locale)}
               ></Button2>
             </DebugBadge>
           </div>

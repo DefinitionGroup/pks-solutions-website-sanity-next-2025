@@ -16,8 +16,9 @@ function Button2({ text, className, href }: Button2Props) {
   const hasLabel = label.length > 0;
   if (!hasLabel) return null;
 
-  // Check if the href is external
-  const isExternal = href?.startsWith('http') || href?.startsWith('mailto:') || href?.startsWith('tel:');
+  // Determine link behavior
+  const hasHref = Boolean(href && href.trim().length > 0);
+  const isExternal = hasHref && (href!.startsWith('http') || href!.startsWith('mailto:') || href!.startsWith('tel:'));
   
   // Common props for both links
   const linkProps = {
@@ -41,40 +42,46 @@ function Button2({ text, className, href }: Button2Props) {
 
   return (
     <div className={`inline-block relative top-0 left-0 min-w-full ml-[1px] h-14 text-sm overflow-hidden group/btn min-h-6`}>
-      {isExternal ? (
+      { !hasHref ? (
+        // No link provided: render non-clickable blocks
+        <>
+          <div className={linkProps.className(true)}>{content(false)}</div>
+          <div className={linkProps.className(false)}>{content(true)}</div>
+        </>
+      ) : isExternal ? (
         // External links use regular anchor tags
         <>
           <a
-            href={href || '#'}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             className={linkProps.className(true)}
           >
-            {content(false)}
+            {content(false)} b
           </a>
           <a
-            href={href || '#'}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             className={linkProps.className(false)}
           >
-            {content(true)}
+            {content(true)} b
           </a>
         </>
       ) : (
         // Internal links use Next.js Link component
         <>
           <Link
-            href={href || "#"}
-            className={linkProps.className(true)}
+            href={(href as string)}
+            className={linkProps.className(true)} 
           >
-            {content(false)}
+            {content(false)} a
           </Link>
           <Link
-            href={href || "#"}
+            href={(href as string)}
             className={linkProps.className(false)}
           >
-            {content(true)}
+            {content(true)} a
           </Link>
         </>
       )}

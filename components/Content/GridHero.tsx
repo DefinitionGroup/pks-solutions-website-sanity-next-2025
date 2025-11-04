@@ -8,8 +8,8 @@ import { GridHero as GridHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import DebugBadge from "@/components/dev/DebugBadge";
 
-const GridHero: FC<GridHeroProps> = (props) => {
-  const { sectionOne, showSectionTwo, sectionTwo } = props;
+const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
+  const { sectionOne, showSectionTwo, sectionTwo, locale } = props;
   return (
     <>
       {/* Section One */}
@@ -40,7 +40,7 @@ const GridHero: FC<GridHeroProps> = (props) => {
               <Button2
                 className="border-white/20 px-24 w-full"
                 text={sectionOne?.middle?.ctaButton?.name}
-                href={resolveSanityLink(sectionOne?.middle?.ctaButton?.link)}
+                href={resolveSanityLink(sectionOne?.middle?.ctaButton?.link, locale)}
               />
             </DebugBadge>
           </div>
@@ -109,13 +109,7 @@ const GridHero: FC<GridHeroProps> = (props) => {
               <Button2
                 className="inline-block ml-8 px-24 border-r border-l max-w-96"
                 text={sectionTwo?.rightSection?.ctaButton?.name}
-                href={
-                  sectionTwo?.rightSection?.ctaButton?.link?.linkType ===
-                  "external"
-                    ? sectionTwo?.rightSection?.ctaButton?.link?.externalUrl
-                    : sectionTwo?.rightSection?.ctaButton?.link?.internalReference
-                        ?._ref
-                }
+                href={resolveSanityLink(sectionTwo?.rightSection?.ctaButton?.link, locale)}
               ></Button2>
             </DebugBadge>
           </div>
