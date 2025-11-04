@@ -103,7 +103,7 @@ export const FloatingNav = ({
         </Link>
 
         {/* Menu Items */}
-        <div className="flex items-center space-x-4 px-8 ">
+        <div className="flex items-center space-x-4 px-8">
           {" "}
           {/* Group menu items */}
           {menu.menuItems?.map((item, idx) => {
@@ -120,7 +120,7 @@ export const FloatingNav = ({
                 key={`link-${idx}`}
                 href={href} // Use the generated href
                 className={cn(
-                  "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
+                  "relative items-center flex space-x-1 text-neutral-600 dark:text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
                 )}>
                 <span className="sm:block hidden text-sm">
                   {item.displayName}
