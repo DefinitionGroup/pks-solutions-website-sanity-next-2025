@@ -4,6 +4,10 @@ export default defineType({
   name: "user",
   title: "User",
   type: "document",
+  groups: [
+    { name: "basic", title: "Basic Info", default: true },
+    { name: "access", title: "Access & Permissions" },
+  ],
   fields: [
     defineField({
       name: "clerkId",
@@ -11,17 +15,20 @@ export default defineType({
       type: "string",
       readOnly: true,
       validation: (Rule) => Rule.required(),
+      group: "basic",
     }),
     defineField({
       name: "name",
       title: "Name",
       type: "string",
+      group: "basic",
     }),
     defineField({
       name: "email",
       title: "Email",
       type: "string",
       validation: (Rule) => Rule.required().email(),
+      group: "basic",
     }),
     defineField({
       name: "role",
@@ -35,12 +42,14 @@ export default defineType({
         ],
       },
       initialValue: "viewer",
+      group: "access",
     }),
     defineField({
       name: "group",
       title: "User Group",
       type: "reference",
       to: [{ type: "userGroup" }],
+      group: "access",
     }),
   ],
 });

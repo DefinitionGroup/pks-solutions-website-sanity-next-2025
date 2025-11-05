@@ -6,6 +6,12 @@ export default defineType({
   title: "Client",
   type: "document",
   icon: MdPeople, // Fallback icon if logo isn't available
+  groups: [
+    { name: "basic", title: "Basic Info", default: true },
+    { name: "branding", title: "Branding" },
+    { name: "publishing", title: "Channels & Publishing" },
+    { name: "relations", title: "Relations" },
+  ],
   fields: [
     defineField({
       name: "language",
@@ -21,11 +27,13 @@ export default defineType({
       title: "Client Name",
       type: "string",
       validation: (Rule) => Rule.required(),
+      group: "basic",
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
+      group: "basic",
       options: {
         source: "name",
         maxLength: 96,
@@ -77,24 +85,28 @@ export default defineType({
       title: "Client Logo",
       type: "cloudinary.asset",
       description: "Upload the client's logo",
+      group: "branding",
     }),
     defineField({
       name: "website",
       title: "Website URL",
       type: "url",
       description: "The client's website URL",
+      group: "basic",
     }),
     defineField({
       name: "description",
       title: "Description",
       type: "text",
       description: "A brief description of the client",
+      group: "basic",
     }),
     defineField({
       name: "channels",
       title: "Channels",
       type: "array",
       description: "Select the channels where this client will be displayed",
+      group: "publishing",
       of: [{ type: "string" }],
       options: {
         list: [
@@ -108,6 +120,7 @@ export default defineType({
       name: "projects",
       type: "array",
       title: "Connected Projects",
+      group: "relations",
       of: [
         {
           type: "reference",
@@ -139,7 +152,7 @@ export default defineType({
         media:
           logoAsset && logoAsset.secure_url
             ? // Return the asset object itself, not just the URL string
-              logoAsset
+            logoAsset
             : undefined,
       };
     },

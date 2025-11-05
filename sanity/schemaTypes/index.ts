@@ -7,6 +7,7 @@ import ClientsElements from "./Clients";
 import { Objects } from "./Objects";
 import user from "./Users/user";
 import userGroup from "./Users/userGroup";
+
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     page as SchemaTypeDefinition,
@@ -19,3 +20,5 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     userGroup as SchemaTypeDefinition,
   ],
 };
+
+

@@ -12,6 +12,12 @@ export default {
     ],
     referenceBehavior: "weak",
   },
+  groups: [
+    { name: "basic", title: "Basic Info", default: true },
+    { name: "content", title: "Content" },
+    { name: "publishing", title: "Publishing Settings" },
+    { name: "access", title: "Access Control" },
+  ],
   fields: [
     defineField({
       name: "isHomepage",
@@ -19,6 +25,7 @@ export default {
       type: "boolean",
       description: "Mark this page as the homepage for its language and channel.",
       initialValue: false,
+      group: "publishing",
       validation: (Rule: any) =>
         Rule.custom(async (value: boolean, context: any) => {
           if (!value) return true;
@@ -55,11 +62,13 @@ export default {
       name: "title",
       title: "Title",
       type: "string",
+      group: "basic",
     },
     {
       name: "slug",
       title: "Slug",
       type: "slug",
+      group: "basic",
       options: {
         source: "title",
         maxLength: 96,
@@ -120,12 +129,14 @@ export default {
       name: "subtitle",
       title: "Subtitle",
       type: "string",
+      group: "basic",
     },
 
     {
       name: "contentPKS",
       title: "Content PKS",
       type: "array",
+      group: "content",
       of: [
         { type: "hero" },
         { type: "blogList" },
@@ -149,6 +160,7 @@ export default {
       name: "contentAVT",
       title: "Content AVT",
       type: "array",
+      group: "content",
       of: [
         { type: "heroAVT" },
         { type: "blogList" },
@@ -170,6 +182,7 @@ export default {
       name: "channel",
       title: "Channel",
       type: "string",
+      group: "publishing",
       options: {
         list: [
           { title: "PKS Website", value: "pksWeb" },
@@ -191,11 +204,13 @@ export default {
       type: "boolean",
       initialValue: false,
       description: "Restrict access to this page by user group.",
+      group: "access",
     },
     {
       name: "allowedGroups",
       title: "Allowed User Groups",
       type: "array",
+      group: "access",
       of: [{ type: "reference", to: [{ type: "userGroup" }] }],
       hidden: ({ parent }: { parent?: { protected?: boolean } }) =>
         !parent?.protected,

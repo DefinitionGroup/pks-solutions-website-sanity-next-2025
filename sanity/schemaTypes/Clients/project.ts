@@ -4,6 +4,12 @@ export default defineType({
   name: "project",
   title: "Project",
   type: "document",
+  groups: [
+    { name: "basic", title: "Basic Info", default: true },
+    { name: "media", title: "Media" },
+    { name: "relations", title: "Client Relations" },
+    { name: "publishing", title: "Channels & Publishing" },
+  ],
   fields: [
     defineField({
       name: "language",
@@ -19,11 +25,13 @@ export default defineType({
       type: "string",
       title: "Project Name",
       validation: (Rule) => Rule.required(),
+      group: "basic",
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
+      group: "basic",
       options: {
         source: "title", // Changed from "name" to "title"
         maxLength: 96,
@@ -75,11 +83,13 @@ export default defineType({
       title: "Project Logo",
       type: "cloudinary.asset",
       description: "Upload the client's logo",
+      group: "media",
     }),
     defineField({
       name: "headerImage",
       type: "cloudinary.asset",
       title: "Header Image",
+      group: "media",
     }),
 
     defineField({
@@ -87,6 +97,7 @@ export default defineType({
       title: "Description",
       type: "text",
       description: "A brief description of the client",
+      group: "basic",
     }),
 
     defineField({
@@ -94,6 +105,7 @@ export default defineType({
       title: "Channels",
       type: "array",
       description: "Select the channels where this project will be displayed",
+      group: "publishing",
       of: [{ type: "string" }],
       options: {
         list: [
@@ -146,6 +158,7 @@ export default defineType({
       name: "client",
       type: "reference",
       title: "Client",
+      group: "relations",
       to: [{ type: "client" }],
       options: {
         filter: ({ document }) => {
