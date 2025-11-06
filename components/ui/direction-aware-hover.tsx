@@ -21,7 +21,6 @@ export const DirectionAwareHover = ({
   fixedContent: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-
   const [direction, setDirection] = useState<
     "top" | "bottom" | "left" | "right" | string
   >("left");
@@ -85,7 +84,7 @@ export const DirectionAwareHover = ({
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "md:h-96 w-60 h-60 md:w-96 bg-transparent rounded-noone overflow-hidden group/card relative",
+        "md:h-96 w-full   h-full   md:w-196 bg-transparent rounded-noone overflow-hidden group/card relative",
         className
       )}
     >

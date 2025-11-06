@@ -9,9 +9,12 @@ import DebugBadge from "@/components/dev/DebugBadge";
 const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
   return (
-    <div className="relative md:flex  justify-center  items-center  gap-4 w-full h-[40rem]">
+    <div className="relative lg:flex  justify-center  items-center  gap-4 w-full h- lg:h-[40rem]">
       {items.map((item, index) => (
-        <DebugBadge key={index} name="DirectionAwareHover">
+
+
+<>
+        <DebugBadge key={index} name="DirectionAwareHover" >  </DebugBadge>
           <DirectionAwareHover
           imageUrl={item.hoverBackgroundCloudinary?.secure_url}
           className="bg-black text-white w-full"
@@ -41,7 +44,7 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
             </DebugBadge>
           </div>
           </DirectionAwareHover>
-        </DebugBadge>
+   </>   
       ))}
     </div>
   );

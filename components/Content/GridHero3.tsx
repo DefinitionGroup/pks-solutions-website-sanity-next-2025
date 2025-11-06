@@ -10,7 +10,7 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
   const { leftSection, middleSection, rightSection, locale } = props;
   return (
     <>
-      <div className="border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l min-h-[32rem]">
+      <div className="border-white/20 container mx-auto md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l min-h-[32rem]">
         <div className="place-content-start md:grid grid-cols-12 col-span-2 col-start-1 row-start-1 w-full">
           <div className="flex flex-col col-span-4 col-start-1">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>

@@ -24,7 +24,7 @@ function Button2({ text, className, href }: Button2Props) {
   const linkProps = {
     className: (isTop: boolean) => cn(
       isTop 
-        ? "pointer-events-auto absolutetop-0 left-0 border-t border-b justify-between border-white/20  font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
+        ? "pointer-events-auto absolute top-0 left-0 border justify-between border-white/20  font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
         : "pointer-events-auto border bg-slate-100 absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-slate-900 transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider",
       className
     ),
@@ -57,7 +57,7 @@ function Button2({ text, className, href }: Button2Props) {
             rel="noopener noreferrer"
             className={linkProps.className(true)}
           >
-            {content(false)} b
+            {content(false)} 
           </a>
           <a
             href={href}
@@ -65,7 +65,7 @@ function Button2({ text, className, href }: Button2Props) {
             rel="noopener noreferrer"
             className={linkProps.className(false)}
           >
-            {content(true)} b
+            {content(true)}
           </a>
         </>
       ) : (
@@ -75,13 +75,13 @@ function Button2({ text, className, href }: Button2Props) {
             href={(href as string)}
             className={linkProps.className(true)} 
           >
-            {content(false)} a
+            {content(false)} 
           </Link>
           <Link
             href={(href as string)}
             className={linkProps.className(false)}
           >
-            {content(true)} a
+            {content(true)} 
           </Link>
         </>
       )}

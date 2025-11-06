@@ -8,7 +8,7 @@ import DebugBadge from "@/components/dev/DebugBadge";
 const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
   const { leftTitle, middle, right, _key, locale } = props;
   return (
-    <div className="z-10 border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l">
+    <div className="z-10 border-white/20 md:grid grid-cols-1 grid-rows-1 container mx-auto border-t border-r border-b border-l">
       <div
         className="md:grid grid-cols-12 col-start-1 row-start-1 w-full"
         key={_key}

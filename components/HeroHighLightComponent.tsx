@@ -61,7 +61,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
                 {highlightText}
               </Highlight>
             </motion.h1>
-            <motion.div
+            <motion.p
               initial={{
                 opacity: 0,
                 y: 20,
@@ -72,9 +72,9 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               }}
               // Remove type: "spring"
               transition={{ delay: 0.3, duration: 0.5 }} // Example: Use duration or other tween options
-              className="col-span-6 md:col-span-3 md:col-start-1 px-8 text-white lg:text-xl">
+              className="col-span-6 md:col-span-6 md:col-start-1 px-8 text-white lg:text-xl">
               {leftDescription}
-            </motion.div>
+            </motion.p>
             <motion.div
               initial={{
                 opacity: 0,

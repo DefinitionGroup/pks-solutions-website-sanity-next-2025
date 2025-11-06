@@ -40,7 +40,7 @@ export default function SciFiBlock({ children, className }: SciFiBlockProps) {
   }, [children]);
 
   return (
-    <motion.div className="">
+    <motion.div className="container mx-auto ">
     <motion.section
       ref={parentRef}
       style={{ overflow: "hidden", marginTop: "2rem",  }}

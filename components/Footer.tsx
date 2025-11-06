@@ -22,7 +22,7 @@ export default function Footer({
   // Add currentLocale prop
   if (!menu) return null;
   return (
-    <footer className="bg-slate-950">
+    <footer className="bg-black">
       <div className="mx-auto px-6 lg:px-8 py-16 sm:py-24 lg:py-32 max-w-7xl">
         <div className="xl:gap-8 border-white/10 xl:grid xl:grid-cols-3 mt-24 pt-12 border-t">
           {menu.imageCloud && (

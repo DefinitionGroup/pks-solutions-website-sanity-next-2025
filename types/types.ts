@@ -64,7 +64,13 @@ export interface CloudinaryAsset {
   _type: "cloudinary.asset";
   public_id: string;
   secure_url: string;
-  // Add any additional Cloudinary-specific fields if needed.
+  url?: string;
+  resource_type?: "image" | "video" | "raw" | string;
+  format?: string;
+  type?: string;
+  width?: number;
+  height?: number;
+  bytes?: number;
 }
 
 /**

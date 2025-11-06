@@ -29,7 +29,7 @@ export default function ThreeColVideoBanner({
   };
 
   return (
-    <div className="justify-center md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-white/20 w-full overflow-hidden">
+    <div className="justify-center container mx-auto md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-white/20 w-full overflow-hidden">
       <video
         loop
         autoPlay

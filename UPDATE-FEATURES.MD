@@ -274,3 +274,80 @@ prepare({ title, channel, isHomepage }) {
 ## Notes & Next Ideas
 - If you want stricter homepage bounds, we can add a scheduled check (or webhooks) to ensure only one homepage exists per locale/channel.
 - If editors want copy-paste again, we can build a targeted field action that excludes media fields (Cloudinary) and preserves structure.
+
+---
+
+## Folder Slugs (e.g., `services/consulting`)
+
+You can allow editors to enter path-like slugs in Sanity and route them via a catch‑all route in Next.js.
+
+### 1) Sanity: allow `/` in slug and validate
+
+Update the `slug` option on the `page` schema to keep slashes and prevent leading/trailing/double slashes.
+
+```ts
+// sanity/schemaTypes/page.ts (inside slug.options)
+options: {
+  source: 'title',
+  maxLength: 96,
+  slugify: (input: string) =>
+    input
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9/_-]+/g, '')   // allow letters, numbers, _, -, and /
+      .replace(/\/{2,}/g, '/')        // collapse multiple slashes
+      .replace(/^\/+|\/+$/g, ''),     // trim leading/trailing slashes
+  isUnique: async (slug, context) => { /* keep existing implementation */ }
+},
+
+// Add validation on the slug field
+validation: (Rule) =>
+  Rule.required().custom((slug) => {
+    if (!slug) return 'Slug is required'
+    if (slug.includes('//')) return 'Slug must not contain //'
+    if (slug.startsWith('/') || slug.endsWith('/')) return 'No leading/trailing /'
+    return true
+  }),
+```
+
+Your `isUnique` can remain unchanged — slashes are just characters.
+
+### 2) Next.js: use a catch‑all route
+
+Rename your route from `app/[locale]/[slug]/page.tsx` to:
+
+```
+app/[locale]/[...slug]/page.tsx
+```
+
+Update the page component to accept an array and join it for GROQ:
+
+```tsx
+// app/[locale]/[...slug]/page.tsx
+import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
+import { getPageBySlug } from '@/sanity/fetchData'
+
+export async function generateStaticParams() {
+  const pages = await getAllPageSlugsAndLocales() // returns { slug: string, locale: string }
+  return pages.map(({ slug, locale }) => ({
+    locale,
+    slug: slug.split('/'), // split nested slugs
+  }))
+}
+
+export default async function Page({ params }: { params: Promise<{ locale: string; slug: string[] }> }) {
+  const { locale, slug } = await params
+  const { isEnabled } = await draftMode()
+
+  const channel = 'pksWeb'
+  const slugPath = Array.isArray(slug) ? slug.join('/') : slug
+
+  const page = await getPageBySlug(slugPath, locale, channel, isEnabled)
+  if (!page) return notFound()
+
+  // ...render using your existing components
+}
+```
+
+No changes needed to `resolveSanityLink`: it already returns `/${locale}/${slug}` and works with nested slugs.

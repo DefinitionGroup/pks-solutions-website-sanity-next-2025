@@ -60,7 +60,7 @@ export default async function Home({ params }: HomeProps) {
       <div className="flex flex-col justify-center items-center w-full">
         <LampDemo />{" "}
       </div>{" "}
-      <GetDemoComponent />
+      {/* <GetDemoComponent /> */}
       {/* Pass locale from params as currentLocale */}
       {footerMenu && <Footer menu={footerMenu} currentLocale={locale} />}
     </>
