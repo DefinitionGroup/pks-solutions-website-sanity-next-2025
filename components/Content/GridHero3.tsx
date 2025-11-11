@@ -34,13 +34,13 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
             className="justify-start items-start place-content-start col-span-6 col-start-5 row-span-2 row-start-1 p-2 h-100 text-md text-white"
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <DebugBadge name="CardDemo3">
+            <DebugBadge name="CardDemo3">  </DebugBadge>
               <CardDemo3
                 video={middleSection.videoCloudinary}
                 title={middleSection.title}
                 subtitle={middleSection.subtitle}
               />
-            </DebugBadge>
+          
           </AnimationWrapper>
           <div className="align-items-start grid col-span-2 col-start-11 row-start-1 pt-8 text-md text-white">
             <AnimationWrapper
@@ -50,12 +50,12 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
               <h2>{rightSection.quoteRight}</h2>
             </AnimationWrapper>
 
-            <DebugBadge name="Button2">
+            <DebugBadge name="Button2">  </DebugBadge>
               <Button2
                 text={rightSection?.ctaButton?.name}
                 href={resolveSanityLink(rightSection?.ctaButton?.link, locale)}
               ></Button2>
-            </DebugBadge>
+          
           </div>
         </div>
 
