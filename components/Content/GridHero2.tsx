@@ -13,20 +13,20 @@ const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
         className="md:grid grid-cols-12 col-start-1 row-start-1 w-full"
         key={_key}
       >
-        <h2 className="col-span-4 col-start-1 p-8 text-6xl text-white">
+        <h2 className="col-span-4 col-start-1 p-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white">
           {leftTitle}
         </h2>
         <div className="col-span-4 col-start-6">
-          <h2 className="p-8 text-2xl text-white">{middle?.description1}</h2>
+          <p className="p-8 text-lg md:text-xl lg:text-2xl text-white">{middle?.description1}</p>
 
-          <h4 className="border-white/20 p-8 text-md text-white">
+          <p className="border-white/20 p-8 text-sm md:text-base text-white">
             {middle?.description2}
-          </h4>
+          </p>
         </div>
         <div className="z-10 place-content-start grid grid-cols-2 col-span-4 col-start-10 row-start-1">
-          <h2 className="border-white/20 col-span-2 col-start-1 row-start-1 p-8 border-t text-white text-xs">
+          <p className="border-white/20 col-span-2 col-start-1 row-start-1 p-8 border-t text-white text-xs md:text-sm">
             {right?.logoTitle}
-          </h2>
+          </p>
           {(right?.logos ?? []).map((logo, index) => (
             <div
               key={`${_key}-logo-${index}`}
@@ -43,7 +43,7 @@ const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
             </div>
           ))}
 
-          <div className="align-items-start grid col-span-2 col-start-1 text-md text-white">
+          <div className="align-items-start grid col-span-2 col-start-1 text-base text-white">
             <DebugBadge name="Button2">
               <Button2
                 text={right?.ctaButton?.name}

@@ -28,12 +28,12 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
                 width={64}
                 height={64}
               />
-              <p className="font-bold text-5xl">{item.fixedTitle}</p>
+              <p className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl">{item.fixedTitle}</p>
             </>
           }
         >
-          <p className="font-bold px-4  text-xl">{item.hoverTitle}</p>
-          <p className="font-normal px-4 text-sm">{item.hoverDescription}</p>
+          <p className="font-bold px-4 text-lg md:text-xl">{item.hoverTitle}</p>
+          <p className="font-normal px-4 text-xs md:text-sm">{item.hoverDescription}</p>
 
           <div className="py-12">
             <DebugBadge name="Button2">

@@ -61,20 +61,20 @@ export default function FourColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={keyframeTransition}
-          className="col-span-3 col-start-1 mb-8 px-8 py-32 pb-0 w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-lg dark:text-white leading-relaxed lg:leading-snug"
+          className="col-span-3 col-start-1 mb-8 px-8 py-32 pb-0 w-full max-w-3xl font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-neutral-100 dark:text-white leading-relaxed lg:leading-snug"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: [20, -5, 0] }}
             transition={keyframeTransition}
-            className="col-span-3 col-start-1 text-5xl text-white"
+            className="col-span-3 col-start-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white"
           >
             {brandName}
           </motion.div>
           {headline}
           <br />
           {headlineHighlight && (
-            <Highlight className="relative top-16 mt-8 p-8 text-5xl text-white dark:text-white">
+            <Highlight className="relative top-16 mt-8 p-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white dark:text-white">
               {headlineHighlight}
             </Highlight>
           )}
@@ -92,7 +92,7 @@ export default function FourColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-3 col-start-1 mt-16 px-8 text-5xl text-white"
+              className="col-span-3 col-start-1 mt-16 px-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white"
             >
               {column2Title}
             </motion.div>
@@ -102,7 +102,7 @@ export default function FourColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 mt-8 px-8 text-gray-300"
+              className="col-span-4 col-start-1 mt-8 px-8 text-sm md:text-base text-gray-300"
             >
               {column2Description}
             </motion.div>
@@ -121,7 +121,7 @@ export default function FourColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-3 col-start-1 mt-16 px-8 text-5xl text-white"
+              className="col-span-3 col-start-1 mt-16 px-8 text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white"
             >
               {column3Title}
             </motion.div>
@@ -131,7 +131,7 @@ export default function FourColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 mt-44 px-8 text-gray-300"
+              className="col-span-4 col-start-1 mt-44 px-8 text-sm md:text-base text-gray-300"
             >
               {column3Description}
             </motion.div>

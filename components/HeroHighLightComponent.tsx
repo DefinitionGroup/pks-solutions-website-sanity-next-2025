@@ -37,12 +37,11 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
             loop
             autoPlay
             muted
-            className="col-start-1 row-start-1 min-h-[100%] object-cover row-span-2  opacity-50 z-1"
-            width="2000"
-            height="2000"
+            playsInline
+            className="col-start-1 row-start-1 w-full h-full min-h-full object-cover row-span-2 opacity-50 z-[1]"
             src={videoCloudinary?.secure_url}
           />
-          <div className="md:grid grid-cols-12 col-start-1 row-start-1 pt-40 md:py-32 w-full z-2 overflow-hidden">
+          <div className="flex flex-col md:grid md:grid-cols-12 col-start-1 row-start-1 py-16 sm:py-24 md:py-32 w-full z-[2] overflow-hidden">
             <motion.h1
               initial={{
                 opacity: 0,
@@ -54,7 +53,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               }}
               // Remove type: "spring" if you want to keep the [20, -5, 0] animation
               transition={{ duration: 0.5 }} // Example: Use duration or other tween options
-              className="md:col-span-9 md:col-start-1 px-8 pt-32   w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug">
+              className="md:col-span-9 md:col-start-1 px-4 sm:px-6 md:px-8 pt-8 sm:pt-16 md:pt-32 w-full max-w-3xl font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-neutral-100 dark:text-white leading-tight sm:leading-relaxed lg:leading-snug">
               {headline}
               <br />
               <Highlight className="text-white  dark:text-white">
@@ -72,7 +71,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               }}
               // Remove type: "spring"
               transition={{ delay: 0.3, duration: 0.5 }} // Example: Use duration or other tween options
-              className="col-span-6 md:col-span-6 md:col-start-1 px-8 text-white lg:text-xl">
+              className="md:col-span-6 md:col-start-1 px-4 sm:px-6 md:px-8 mt-4 md:mt-0 text-sm sm:text-base md:text-lg lg:text-xl text-white/90">
               {leftDescription}
             </motion.p>
             <motion.div
@@ -86,20 +85,20 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               }}
               // Remove type: "spring"
               transition={{ delay: 0.6, duration: 0.5 }} // Example: Use duration or other tween options
-              className="flex flex-col justify-center border-white md:col-span-3 md:col-start-10 w-full ">
-              <p className="flex flex-col justify-center border-white p-8 w-full text-sm leading-loose text-white">
+              className="flex flex-col justify-center md:col-span-3 md:col-start-10 w-full mt-8 md:mt-0">
+              <p className="p-4 sm:p-6 md:p-8 w-full text-xs sm:text-sm md:text-sm leading-normal text-white/80">
                 {rightDescription}
               </p>
               <DebugBadge name="Button2">
                 <Button2
-                  className="border-white/50 md: px-24 w-full"
+                  className="border-white/50 px-8 sm:px-12 md:px-24 w-full"
                   text={ctaButton?.name || ""}
                   href={resolveSanityLink(ctaButton?.link, locale)}
                 />
               </DebugBadge>
             </motion.div>
           </div>
-          <div className="md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/50 dark:divide-white/50 w-full min-h-[20rem]">
+          <div className="hidden md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/20 w-full min-h-[20rem]">
             <div className="col-span-9"></div>
             <div className="col-span-2"></div>
           </div>

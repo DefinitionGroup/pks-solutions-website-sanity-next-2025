@@ -43,7 +43,7 @@ export default function ThreeColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={keyframeTransition}
-          className="col-span-4 col-start-1 px-8 py-32 pb-0 w-full max-w-3xl font-bold text-4xl text-neutral-100 md:text-4xl lg:text-5xl dark:text-white leading-relaxed lg:leading-snug"
+          className="col-span-4 col-start-1 px-8 py-32 pb-0 w-full max-w-3xl font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-neutral-100 dark:text-white leading-relaxed lg:leading-snug"
         >
           {title}
           {highlight && (
@@ -67,7 +67,7 @@ export default function ThreeColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 px-8 text-white"
+              className="col-span-4 col-start-1 px-8 text-sm sm:text-base md:text-lg text-white"
             >
               {primaryDescription}
             </motion.div>
@@ -78,7 +78,7 @@ export default function ThreeColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 mt-8 px-8 text-gray-300 text-sm"
+              className="col-span-4 col-start-1 mt-8 px-8 text-gray-300 text-xs sm:text-sm"
             >
               {secondaryDescription}
             </motion.div>

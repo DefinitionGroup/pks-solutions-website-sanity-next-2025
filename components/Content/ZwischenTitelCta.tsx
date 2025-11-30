@@ -35,19 +35,19 @@ const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
       animate={isInView ? "visible" : "hidden"}
     >
       <motion.h4
-        className="font-semibold text-base/7 text-red-500"
+        className="font-semibold text-sm md:text-base text-red-500"
         variants={itemVariants}
       >
         {integrationTitle}
       </motion.h4>
       <motion.h3
-        className="mt-2 font-semibold text-4xl text-balance text-white sm:text-5xl tracking-tight"
+        className="mt-2 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-balance text-white tracking-tight"
         variants={itemVariants}
       >
         {headline}
       </motion.h3>
       <motion.p
-        className="mx-auto mt-6 max-w-xl text-gray-400 text-lg/8 text-pretty"
+        className="mx-auto mt-6 max-w-xl text-gray-400 text-base md:text-lg text-pretty"
         variants={itemVariants}
       >
         {subHeadline}

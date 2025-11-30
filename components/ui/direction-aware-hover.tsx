@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/app/lib/utils";
@@ -24,6 +24,16 @@ export const DirectionAwareHover = ({
   const [direction, setDirection] = useState<
     "top" | "bottom" | "left" | "right" | string
   >("left");
+  const [isMobile, setIsMobile] = useState<boolean | null>(null); // null = not yet determined
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -92,13 +102,17 @@ export const DirectionAwareHover = ({
       <AnimatePresence mode="wait">
         <motion.div
           className="relative w-full h-full"
-          initial="initial"
-          whileHover={direction}
-          exit="exit"
+          initial={isMobile === true ? false : "initial"}
+          whileHover={isMobile === true ? undefined : direction}
+          exit={isMobile === true ? undefined : "exit"}
         >
-          <motion.div className="group-hover/card:block z-10 absolute inset-0 hidden bg-black/40 w-full h-full transition duration-500" />
+          {/* Dark overlay - always visible on mobile, hover-only on desktop */}
+          <div className={cn(
+            "z-10 absolute inset-0 bg-black/40 w-full h-full transition duration-500",
+            isMobile === true ? "block" : "hidden group-hover/card:block"
+          )} />
           <motion.div
-            variants={variants}
+            variants={isMobile === true ? undefined : variants}
             className="relative w-full h-full"
             transition={{
               duration: 0.2,
@@ -108,7 +122,7 @@ export const DirectionAwareHover = ({
             {isVideoUrl(src) ? (
               <video
                 className={cn(
-                  "h-full w-full object-cover scale-[1.15]",
+                  "max-h-[550px] w-full object-cover scale-[1.15]",
                   imageClassName
                 )}
                 src={src}
@@ -130,19 +144,31 @@ export const DirectionAwareHover = ({
               />
             )}
           </motion.div>
-          <motion.div
-            variants={textVariants}
-            transition={{
-              duration: 0.5,
-              ease: "easeOut",
-            }}
-            className={cn(
-              "text-white absolute bottom-4 left-4 z-40",
-              childrenClassName
-            )}
-          >
-            {children}
-          </motion.div>
+          {/* Children content - always visible on mobile, animated on desktop */}
+          {isMobile === true ? (
+            <div
+              className={cn(
+                "text-white absolute bottom-4 px-8  z-40",
+                childrenClassName
+              )}
+            >
+              {children}
+            </div>
+          ) : (
+            <motion.div
+              variants={textVariants}
+              transition={{
+                duration: 0.5,
+                ease: "easeOut",
+              }}
+              className={cn(
+                "text-white absolute bottom-4 left-0  z-40",
+                childrenClassName
+              )}
+            >
+              {children}
+            </motion.div>
+          )}
         </motion.div>
       </AnimatePresence>
     </motion.div>

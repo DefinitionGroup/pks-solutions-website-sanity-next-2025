@@ -76,10 +76,10 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
               </AnimationWrapper>
             </div>
 
-            <div className="align-items-start grid col-span-5 col-start-1 mt-16 pt-8 text-md text-white">
+            <div className="align-items-start grid col-span-5 col-start-1 mt-16 pt-8 text-base text-white">
               <AnimationWrapper
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="col-start-1 p-8 text-2xl text-white"
+                className="col-start-1 p-8 text-lg md:text-xl lg:text-2xl text-white"
               >
                 <h2>{sectionOne?.middle?.quote}</h2>
               </AnimationWrapper>
@@ -93,7 +93,7 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
             </div>
             {sectionOne?.right?.videoCloudinary && (
               <AnimationWrapper
-                className="flex justify-start items-start place-content-start col-span-7 col-start-6 row-span-2 row-start-1 p-2 w-full h-full text-md text-white"
+                className="flex justify-start items-start place-content-start col-span-7 col-start-6 row-span-2 row-start-1 p-2 w-full h-full text-base text-white"
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
                 <DebugBadge name="CardDemo2">
@@ -140,10 +140,10 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
               )}
             >
               <div className="relative z-50 text">
-                <h1 className="relative font-bold text-gray-50 text-xl md:text-3xl">
+                <h1 className="relative font-bold text-gray-50 text-lg sm:text-xl md:text-2xl lg:text-3xl">
                   {sectionTwo?.leftCard?.title}
                 </h1>
-                <p className="relative my-4 font-normal text-base text-gray-50">
+                <p className="relative my-4 font-normal text-sm md:text-base text-gray-50">
                   {sectionTwo?.leftCard?.description}
                 </p>
               </div>
@@ -151,17 +151,17 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
           </div>
           <div className="flex-grow ">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h4 className="col-span-4 col-start-2 px-8 pt-8 text-2xl text-white">
+              <h4 className="col-span-4 col-start-2 px-8 pt-8 text-lg md:text-xl lg:text-2xl text-white">
                 {sectionTwo?.rightSection?.subtitle}
               </h4>
-              <h2 className="col-span-4 col-start-2 px-8 text-6xl text-white">
+              <h2 className="col-span-4 col-start-2 px-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white">
                 {sectionTwo?.rightSection?.title}
               </h2>
             </AnimationWrapper>
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.4 }}>
-              <h2 className="col-span-4 col-start-6 p-8 w-3/4 text-md text-white">
+              <p className="col-span-4 col-start-6 p-8 w-3/4 text-sm md:text-base lg:text-lg text-white">
                 {sectionTwo?.rightSection?.description}
-              </h2>
+              </p>
             </AnimationWrapper>
             <DebugBadge name="Button2">
               <Button2

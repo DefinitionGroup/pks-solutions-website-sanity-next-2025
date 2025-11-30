@@ -14,24 +14,24 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
         <div className="place-content-start md:grid grid-cols-12 col-span-2 col-start-1 row-start-1 w-full">
           <div className="flex flex-col col-span-4 col-start-1">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h4 className="px-8 pt-8 text-2xl text-white">
+              <h4 className="px-8 pt-8 text-lg md:text-xl lg:text-2xl text-white">
                 {leftSection.subtitle}
               </h4>
             </AnimationWrapper>
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h2 className="px-8 pb-8 text-6xl text-white">
+              <h2 className="px-8 pb-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white">
                 {leftSection.title}
               </h2>
             </AnimationWrapper>
           </div>
           <AnimationWrapper
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="col-span-3 col-start-1 p-8 text-md text-white"
+            className="col-span-3 col-start-1 p-8 text-sm md:text-base lg:text-lg text-white"
           >
-            <h2>{leftSection.quoteLeft}</h2>
+            <p>{leftSection.quoteLeft}</p>
           </AnimationWrapper>
           <AnimationWrapper
-            className="justify-start items-start place-content-start col-span-6 col-start-5 row-span-2 row-start-1 p-2 h-100 text-md text-white"
+            className="justify-start items-start place-content-start col-span-6 col-start-5 row-span-2 row-start-1 p-2 h-100 text-base text-white"
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             <DebugBadge name="CardDemo3">  </DebugBadge>
@@ -42,12 +42,12 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
               />
           
           </AnimationWrapper>
-          <div className="align-items-start grid col-span-2 col-start-11 row-start-1 pt-8 text-md text-white">
+          <div className="align-items-start grid col-span-2 col-start-11 row-start-1 pt-8 text-base text-white">
             <AnimationWrapper
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="px-8 text-md text-white"
+              className="px-8 text-sm md:text-base lg:text-lg text-white"
             >
-              <h2>{rightSection.quoteRight}</h2>
+              <p>{rightSection.quoteRight}</p>
             </AnimationWrapper>
 
             <DebugBadge name="Button2">  </DebugBadge>
