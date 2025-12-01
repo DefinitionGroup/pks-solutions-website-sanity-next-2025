@@ -13,7 +13,7 @@ const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
         className="md:grid grid-cols-12 col-start-1 row-start-1 w-full"
         key={_key}
       >
-        <h2 className="col-span-4 col-start-1 p-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 dark:text-white">
+        <h2 className="col-span-4  col-start-1 p-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 dark:text-white">
           {leftTitle}
         </h2>
         <div className="col-span-4 col-start-6">

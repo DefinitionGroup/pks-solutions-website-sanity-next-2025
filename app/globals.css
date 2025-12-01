@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
+/* Tailwind v4: Configure dark mode to use class selector instead of media query */
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ededed;
-  }
+/* Dark mode - responds to .dark class on html element */
+.dark {
+  --background: #000000;
+  --foreground: #ededed;
 }
 
 body {

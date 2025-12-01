@@ -18,33 +18,103 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
+import { Sun, Moon } from "@phosphor-icons/react";
+import { useTheme } from "next-themes";
 
 // Define supported locales (consistent with middleware)
 const locales = ["en", "de"];
+
+// Theme Switcher Component using next-themes
+const ThemeSwitcher = () => {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
+
+  if (!mounted) {
+    return (
+      <div className="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse" />
+    );
+  }
+
+  const isDark = resolvedTheme === "dark";
+
+  return (
+    <motion.button
+      onClick={toggleTheme}
+      className="relative w-9 h-9 rounded-full bg-gray-100  dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center overflow-hidden "
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      <AnimatePresence mode="wait">
+        {isDark ? (
+          <motion.div
+            key="sun"
+            initial={{ y: 20, opacity: 0, rotate: -90 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: -20, opacity: 0, rotate: 90 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            <Sun className="w-5 h-5 text-gray-500" weight="fill" />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="moon"
+            initial={{ y: 20, opacity: 0, rotate: 90 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: -20, opacity: 0, rotate: -90 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            <Moon className="w-5 h-5 text-gray-600" weight="fill" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Glow effect */}
+      <motion.div
+        className={cn(
+          "absolute inset-0 rounded-full opacity-0",
+          isDark 
+            ? "bg-gradient-to-r from-yellow-400/20 to-orange-400/20" 
+            : "bg-gradient-to-r from-indigo-400/20 to-purple-400/20"
+        )}
+        animate={{ opacity: [0, 0.5, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      />
+    </motion.button>
+  );
+};
 
 // Animated Hamburger Icon Component
 const HamburgerIcon = ({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) => {
   return (
     <button
       onClick={toggle}
-      className="relative w-10 h-10 flex items-center justify-center focus:outline-none lg:hidden"
+      className="relative w-12 h-8 flex items-center justify-center focus:outline-none lg:hidden"
       aria-label={isOpen ? "Close menu" : "Open menu"}
     >
-      <div className="relative w-6 h-5 flex flex-col justify-between">
+      <div className="relative w-4 h-3 flex flex-col justify-between">
         <motion.span
-          animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+          animate={isOpen ? { rotate: 45, y: 5,x:-5 } : { rotate: 0, y: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="block h-0.5 w-full bg-gray-900 dark:bg-white origin-center"
+          className="block h-0.25 w-full bg-gray-900 dark:bg-white origin-center"
         />
         <motion.span
-          animate={isOpen ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}
+          animate={isOpen ? { opacity: 0, x: -0 } : { opacity: 1, x: 0 }}
           transition={{ duration: 0.2 }}
-          className="block h-0.5 w-full bg-gray-900 dark:bg-white"
+          className="block h-0.25 w-full bg-gray-900 dark:bg-white"
         />
         <motion.span
-          animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+          animate={isOpen ? { rotate: -45, y: -5,x:-5 } : { rotate: 0, y: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="block h-0.5 w-full bg-gray-900 dark:bg-white origin-center"
+          className="block h-0.25 w-full bg-gray-900 dark:bg-white origin-center"
         />
       </div>
     </button>
@@ -135,7 +205,7 @@ const MobileMenuOverlay = ({
             animate={{ backdropFilter: "blur(20px)" }}
             exit={{ backdropFilter: "blur(0px)" }}
             transition={{ duration: 0.4 }}
-            className="absolute inset-0 bg-white/90 dark:bg-black/95"
+            className="absolute inset-0 bg-white/90 dark:bg-black/95 "
           />
 
           {/* Animated gradient accent */}
@@ -212,6 +282,14 @@ const MobileMenuOverlay = ({
               transition={{ delay: 0.4, duration: 0.4 }}
               className="absolute bottom-8 flex flex-col items-center space-y-4"
             >
+              {/* Theme Switcher in Mobile Menu */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.5, type: "spring" }}
+              >
+                <ThemeSwitcher />
+              </motion.div>
               <div className="flex space-x-2">
                 {[0, 1, 2].map((i) => (
                   <motion.div
@@ -352,6 +430,11 @@ export const FloatingNav = ({
                 </Link>
               );
             })}
+          </div>
+
+          {/* Theme Switcher - Desktop */}
+          <div className="hidden lg:block">
+            <ThemeSwitcher />
           </div>
 
           {/* Hamburger Menu Button - Visible only on mobile */}

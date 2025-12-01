@@ -37,10 +37,10 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
             autoPlay
             muted
             playsInline
-            className="col-start-1 row-start-1 w-full h-full min-h-full object-cover row-span-2 opacity-50 z-[1]"
-            src={videoCloudinary?.secure_url}
+            className="col-start-1 row-start-1 w-full h-full min-h-full object-cover row-span-2 opacity-75 z-[1]"
+          src={videoCloudinary?.secure_url}
           />
-          <div className="flex flex-col md:grid md:grid-cols-12 col-start-1 row-start-1 py-16 sm:py-24 md:py-32 w-full z-[2] overflow-hidden">
+          <div className="grid md:grid md:grid-cols-12 col-start-1 row-start-1 py-16 sm:py-24 md:py-32 w-full z-[2] overflow-hidden">
             <motion.h1
               initial={{
                 opacity: 0,
@@ -70,7 +70,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               }}
               // Remove type: "spring"
               transition={{ delay: 0.3, duration: 0.5 }} // Example: Use duration or other tween options
-              className="md:col-span-6 md:col-start-1 px-4 sm:px-6 md:px-8 mt-4 md:mt-0 text-sm sm:text-base md:text-lg lg:text-xl text-white/90">
+              className=" md:col-span-4 md:col-start-1 px-4  sm:px-6 md:px-8 mt-4 md:mt-8 text-sm sm:text-base md:text-lg lg:text-xl text-white/90">
               {leftDescription}
             </motion.p>
             <motion.div
@@ -89,13 +89,13 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
                 {rightDescription}
               </p>
               <Button2
-                  className="border-white/50 text-white px-8 sm:px-12 md:px-24 w-full [&_*]:!text-white"
+                  className="border-white/50 text-white px-8 sm:px-6 md:px-6 w-full [&_*]:!text-white"
                   text={ctaButton?.name || ""}
                   href={resolveSanityLink(ctaButton?.link, locale)}
                 />
             </motion.div>
           </div>
-          <div className="hidden md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
+          <div className="hidden md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-100 dark:divide-white w-full min-h-[20rem]">
             <div className="col-span-9"></div>
             <div className="col-span-2"></div>
           </div>

@@ -33,11 +33,11 @@ export default function ThreeColVideoBanner({
         loop
         autoPlay
         muted
-        className="col-start-1 row-start-1 opacity-30 w-full h-full object-cover"
+        className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover"
         src={videoCloudinary.url}
       />
 
-      <div className="md:grid grid-cols-12 col-start-1 row-start-1 py-32 w-full">
+      <div className="md:grid grid-cols-12 col-start-1 z-50 row-start-1 py-32 w-full">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
@@ -94,14 +94,14 @@ export default function ThreeColVideoBanner({
             <Button2
               key={i}
               href={resolveSanityLink((btn as any).link, locale)}
-              className="border-gray-200 text-white dark:border-white/20 px-24 w-full mb-4"
+              className=" text-white dark:border-white/20  w-full mb-4"
               text={btn.name}
             />
           ))}
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
+      <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200/50 dark:divide-white/50 w-full min-h-[20rem]">
         <div className="col-span-4" />
         <div className="col-span-5" />
         <div className="col-span-3" />

@@ -46,7 +46,12 @@ export const getPageBySlug = async (
           },
           _type == "gridHero3" => {
             ...,
-            rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+            leftSection,
+            middleSection,
+            rightSection { 
+              quoteRight,
+              ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } 
+            }
           },
           _type == "zwischenTitelCta" => {
             ...,
@@ -93,7 +98,9 @@ export const getPageBySlug = async (
       // GridHero3 links
       _type == "gridHero3" => {
         ...,
-        rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+        leftSection,
+        middleSection,
+        rightSection { quoteRight, ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
       },
       // SciFiBlock -> TripleHero item links
       _type == "sciFiBlock" => {
@@ -157,7 +164,7 @@ export const getHomepage = async (
             sectionTwo { rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }
           },
           _type == "gridHero2" => { ..., right { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
-          _type == "gridHero3" => { ..., rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+          _type == "gridHero3" => { ..., leftSection, middleSection, rightSection { quoteRight, ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
           _type == "zwischenTitelCta" => { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
           _type == "sciFiBlock" => { ..., tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
           _type == "threeColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
@@ -168,7 +175,7 @@ export const getHomepage = async (
       _type == "zwischenTitelCta" => { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
       _type == "gridHero" => { ..., sectionOne { middle { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } }, sectionTwo { rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
       _type == "gridHero2" => { ..., right { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
-      _type == "gridHero3" => { ..., rightSection { ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
+      _type == "gridHero3" => { ..., leftSection, middleSection, rightSection { quoteRight, ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
       _type == "sciFiBlock" => { ..., tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
       _type == "threeColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
       _type == "fourColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
