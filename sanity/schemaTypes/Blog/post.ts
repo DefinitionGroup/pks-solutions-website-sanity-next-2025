@@ -4,6 +4,12 @@ export default defineType({
   name: "blogPost",
   title: "Blog Post",
   type: "document",
+  groups: [
+    { name: "basic", title: "Basic Info", default: true },
+    { name: "content", title: "Content" },
+    { name: "taxonomy", title: "Categories & Authors" },
+    { name: "publishing", title: "Publishing" },
+  ],
   fields: [
     defineField({
       name: "language",
@@ -19,11 +25,13 @@ export default defineType({
       title: "Title",
       type: "string",
       validation: (Rule) => Rule.required(),
+      group: "basic",
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
+      group: "basic",
       options: {
         source: "title",
         maxLength: 96,
@@ -78,17 +86,20 @@ export default defineType({
       title: "Published At",
       type: "datetime",
       initialValue: () => new Date().toISOString(),
+      group: "publishing",
     }),
     defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "text",
       rows: 4,
+      group: "basic",
     }),
     defineField({
       name: "content",
       title: "Content",
       type: "array",
+      group: "content",
       of: [
         { type: "block" },
         defineField({
@@ -109,12 +120,14 @@ export default defineType({
       name: "categories",
       title: "Categories",
       type: "array",
+      group: "taxonomy",
       of: [{ type: "reference", to: { type: "blogCategory" } }],
     }),
     defineField({
       name: "author",
       title: "Author",
       type: "reference",
+      group: "taxonomy",
       to: { type: "blogAuthor" },
     }),
     defineField({
@@ -122,6 +135,7 @@ export default defineType({
       title: "Channels",
       type: "array",
       description: "Select the channels where this blog post will be displayed",
+      group: "publishing",
       of: [{ type: "string" }],
       options: {
         list: [

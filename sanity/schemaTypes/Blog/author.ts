@@ -4,6 +4,10 @@ export default defineType({
   name: "blogAuthor",
   title: "Blog Author",
   type: "document",
+  groups: [
+    { name: "basic", title: "Basic Info", default: true },
+    { name: "media", title: "Media" },
+  ],
   fields: [
     defineField({
       name: "language",
@@ -19,17 +23,20 @@ export default defineType({
       title: "Name",
       type: "string",
       validation: (Rule) => Rule.required(),
+      group: "basic",
     }),
     defineField({
       name: "image",
       title: "Image",
       type: "image",
       options: { hotspot: true },
+      group: "media",
     }),
     defineField({
       name: "bio",
       title: "Bio",
       type: "text",
+      group: "basic",
     }),
   ],
 });

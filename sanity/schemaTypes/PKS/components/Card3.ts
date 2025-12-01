@@ -1,4 +1,3 @@
-// schemas/card3.ts
 import { defineType, defineField } from "sanity";
 
 export default defineType({
@@ -30,7 +29,7 @@ export default defineType({
       name: "video",
       title: "Video (Cloudinary)",
       type: "cloudinary.asset",
-      description: "Cloudinary asset for the card’s video",
+      description: "Cloudinary asset for the card's video",
       validation: (Rule) => Rule.required(),
       group: "media",
     }),

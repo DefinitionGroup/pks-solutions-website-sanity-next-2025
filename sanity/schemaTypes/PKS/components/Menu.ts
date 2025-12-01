@@ -22,6 +22,12 @@ export default {
     ],
     referenceBehavior: "weak",
   },
+  groups: [
+    { name: "settings", title: "Settings", default: true },
+    { name: "navbar", title: "Navigation Menu" },
+    { name: "footer", title: "Footer" },
+    { name: "branding", title: "Branding" },
+  ],
   fields: [
     // Removed defineField wrappers from all fields below
     {
@@ -40,6 +46,7 @@ export default {
       description: "Automatically matches menu type",
       hidden: ({ document }: { document: any }) => !!document?.menuType, // Added type annotation for document
       initialValue: "Menu",
+      group: "settings",
     },
     {
       name: "menuType",
@@ -53,6 +60,7 @@ export default {
         layout: "radio",
       },
       validation: (Rule: any) => Rule.required(),
+      group: "settings",
     },
 
     /* Navbar Fields */
@@ -60,6 +68,7 @@ export default {
       name: "menuItems",
       title: "Navigation Items",
       type: "array",
+      group: "navbar",
       of: [
         {
           type: "object",
@@ -103,6 +112,7 @@ export default {
       title: "Logo",
       type: "cloudinary.asset",
       description: "Main logo (used in both header and footer)",
+      group: "branding",
     },
 
     /* Footer Fields */
@@ -110,6 +120,7 @@ export default {
       name: "footerColumns",
       title: "Footer Columns",
       type: "array",
+      group: "footer",
       of: [
         {
           type: "object",
@@ -162,8 +173,8 @@ export default {
                       hidden: ({ parent }: { parent: any }) =>
                         parent?.linkType !== "internal",
                       options: {
-                         // Modify filter to directly reference document's language
-                         // Remove filterParams entirely
+                        // Modify filter to directly reference document's language
+                        // Remove filterParams entirely
                         filter: ({ document }: { document: { language?: string } }) => {
                           if (!document?.language) {
                             return { filter: '_id == "___"' }; // Filter matching nothing
@@ -223,6 +234,7 @@ export default {
       title: "Social Media Links",
       icon: IoShareSocialOutline,
       type: "array",
+      group: "footer",
       of: [
         {
           type: "object",
@@ -282,12 +294,14 @@ export default {
       name: "copyright",
       title: "Copyright Text",
       type: "string",
+      group: "footer",
       hidden: ({ parent }: { parent: any }) => parent?.menuType !== "Footer", // Added type annotation
     },
     {
       name: "channel",
       title: "Channel",
       type: "string",
+      group: "settings",
       options: {
         list: [
           { title: "PKS Website", value: "pksWeb" },
