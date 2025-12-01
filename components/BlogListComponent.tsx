@@ -3,7 +3,6 @@ import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { getBlogPosts } from "@/sanity/fetchData";
 import { draftMode } from "next/headers"; // Import draftMode
-import DebugBadge from "@/components/dev/DebugBadge";
 
 interface BlogListComponentProps {
   block: BlogList;
@@ -31,21 +30,16 @@ export default async function BlogListComponent({
       {(block.title || block.subtitle) && (
         <div className="mb-12 text-center">
           {block.title && (
-            <DebugBadge name="BlogListTitle">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{block.title}</h2>
-            </DebugBadge>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{block.title}</h2>
           )}
           {block.subtitle && (
-            <DebugBadge name="BlogListSubtitle">
-              <p className="text-xl text-gray-600 dark:text-gray-400">{block.subtitle}</p>
-            </DebugBadge>
+            <p className="text-xl text-gray-600 dark:text-gray-400">{block.subtitle}</p>
           )}
         </div>
       )}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post: BlogPost) => (
-          <DebugBadge key={post._id} name="BlogCard">
-            <article className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white dark:bg-gray-900">
+          <article key={post._id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white dark:bg-gray-900">
               <Link
                 href={`/${locale}/blog/${post.slug?.current}`}
                 className="block"
@@ -64,7 +58,6 @@ export default async function BlogListComponent({
                 )}
               </Link>
             </article>
-          </DebugBadge>
         ))}
       </div>
     </section>

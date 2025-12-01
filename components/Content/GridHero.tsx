@@ -8,7 +8,6 @@ import { CardDemo2 } from "../CardDemo2";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero as GridHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
-import DebugBadge from "@/components/dev/DebugBadge";
 
 const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
   const { sectionOne, showSectionTwo, sectionTwo, locale } = props;
@@ -83,22 +82,18 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
               >
                 <h2>{sectionOne?.middle?.quote}</h2>
               </AnimationWrapper>
-              <DebugBadge name="Button2">
-                <Button2
-                  className="border-gray-200 dark:border-white/20 px-24 w-full"
-                  text={sectionOne?.middle?.ctaButton?.name}
-                  href={resolveSanityLink(sectionOne?.middle?.ctaButton?.link, locale)}
-                />
-              </DebugBadge>
+              <Button2
+                className="border-gray-200 dark:border-white/20 px-24 w-full"
+                text={sectionOne?.middle?.ctaButton?.name}
+                href={resolveSanityLink(sectionOne?.middle?.ctaButton?.link, locale)}
+              />
             </div>
             {sectionOne?.right?.videoCloudinary && (
               <AnimationWrapper
                 className="flex justify-start items-start place-content-start col-span-7 col-start-6 row-span-2 row-start-1 p-2 w-full h-full text-base text-gray-900 dark:text-white"
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
-                <DebugBadge name="CardDemo2">
-                  <CardDemo2 videoSource={sectionOne.right.videoCloudinary} />
-                </DebugBadge>
+                <CardDemo2 videoSource={sectionOne.right.videoCloudinary} />
               </AnimationWrapper>
             )}
           </div>
@@ -163,13 +158,11 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
                 {sectionTwo?.rightSection?.description}
               </p>
             </AnimationWrapper>
-            <DebugBadge name="Button2">
-              <Button2
-                className="inline-block ml-8 px-24 border-r border-l max-w-96"
-                text={sectionTwo?.rightSection?.ctaButton?.name}
-                href={resolveSanityLink(sectionTwo?.rightSection?.ctaButton?.link, locale)}
-              ></Button2>
-            </DebugBadge>
+            <Button2
+              className="inline-block ml-8 px-24 border-r border-l max-w-96"
+              text={sectionTwo?.rightSection?.ctaButton?.name}
+              href={resolveSanityLink(sectionTwo?.rightSection?.ctaButton?.link, locale)}
+            ></Button2>
           </div>
         </div>
       )}

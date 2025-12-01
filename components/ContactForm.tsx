@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { ArrowRight } from "@phosphor-icons/react";
-import DebugBadge from "@/components/dev/DebugBadge";
 
 type ContactFormProps = {
   title?: string;
@@ -79,18 +78,17 @@ export default function ContactForm({
 
   if (isSubmitted) {
     return (
-      <DebugBadge name="ContactFormSuccess">
-      <div className="containe max-w-4xl mx-auto my-20">
+      <div className="container max-w-4xl mx-auto my-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative p-8 border border-gray-200 dark:border-white/20 rounded-lg overflow-hidden"
+          className="relative p-8 border border-gray-200 dark:border-white/20 overflow-hidden"
         >
           <div className="absolute inset-0 bg-dot-thick-neutral-800/15 dark:bg-dot-thick-neutral-300/15 pointer-events-none" />
 
           <div className="relative z-10 text-center">
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-500/30 mb-6">
+            <div className="mx-auto flex items-center justify-center h-16 w-16  bg-green-100 dark:bg-green-900/30 border border-green-500/30 mb-6">
               <svg
                 className="h-8 w-8 text-green-600 dark:text-green-500"
                 fill="none"
@@ -146,18 +144,16 @@ export default function ContactForm({
           </div>
         </motion.div>
       </div>
-      </DebugBadge>
     );
   }
 
   return (
-    <DebugBadge name="ContactForm">
-    <div className="  bg-white min-w-full mx-auto ">
+    <div className="  bg-white dark:bg-black min-w-full mx-auto ">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative p-8 bg-white dark:bg-black border container mx-auto max-w-4xl mb-24 border-gray-200 dark:border-white/20 rounded-lg overflow-hidden"
+        className="relative p-8 bg-white dark:bg-black border container mx-auto max-w-4xl my-24 border-gray-200 dark:border-white/20 overflow-hidden"
       >
         <div className="absolute inset-0 bg-dot-thick-neutral-800/15 dark:bg-dot-thick-neutral-300/15 pointer-events-none" />
 
@@ -214,7 +210,7 @@ export default function ContactForm({
                   type="text"
                   className={`block w-full bg-gray-100 dark:bg-gray-900/50 border ${
                     errors.name ? "border-red-500" : "border-gray-300 dark:border-gray-700"
-                  } rounded-md py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
+                  }   py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
                   {...register("name", {
                     required:
                       locale === "de"
@@ -241,7 +237,7 @@ export default function ContactForm({
                   type="email"
                   className={`block w-full bg-gray-100 dark:bg-gray-900/50 border ${
                     errors.email ? "border-red-500" : "border-gray-300 dark:border-gray-700"
-                  } rounded-md py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
+                  }   py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
                   {...register("email", {
                     required:
                       locale === "de"
@@ -276,7 +272,7 @@ export default function ContactForm({
                 rows={6}
                 className={`block w-full bg-gray-100 dark:bg-gray-900/50 border ${
                   errors.message ? "border-red-500" : "border-gray-300 dark:border-gray-700"
-                } rounded-md py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
+                }   py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
                 {...register("message", {
                   required:
                     locale === "de"
@@ -291,12 +287,12 @@ export default function ContactForm({
               )}
             </div>
 
-            <div className="pt-4">
+            <div className="pt-4  max-w-md mx-auto">
               <div className="inline-block relative top-0 left-0 w-full h-14 text-sm overflow-hidden group/btn">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="pointer-events-auto absolute top-0 left-0 border-t border-b border-gray-200 dark:border-white/20 justify-between font-bold flex w-full p-4 text-gray-900 dark:text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="pointer-events-auto absolute top-0 left-0  border max-w-xl border-gray-200 dark:border-white/20 justify-between font-bold flex w-full p-4 text-gray-900 dark:text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex justify-between items-center w-full">
                     <span>
@@ -331,6 +327,5 @@ export default function ContactForm({
         </div>
       </motion.div>
     </div>
-    </DebugBadge>
   );
 }

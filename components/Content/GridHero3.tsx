@@ -4,22 +4,22 @@ import { FC } from "react";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero3 as gridHero3Props } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
-import DebugBadge from "@/components/dev/DebugBadge";
+
 
 const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
   const { leftSection, middleSection, rightSection, locale } = props;
   return (
     <>
-      <div className="border-gray-200 dark:border-white/20  bg-white dark:bg-transparent mx-auto md:grid grid-cols-1 grid-rows-1 border-t border-b border-l min-h-[32rem]">
-        <div className="place-content-start md:grid   grid-cols-12 container mx-auto col-span-2 col-start-1 row-start-1 w-full">
-          <div className="flex flex-col col-span-4 col-start-1">
+      <div className="border-gray-200 dark:border-white/20  bg-white dark:bg-transparent mx-auto container md:grid grid-cols-1 grid-rows-1 border min-h-[20rem] ">
+        <div className="place-content-start md:grid   grid-cols-12 container mx-auto col-span-2 col-start-1 row-start-1 w-full  min-h-[20rem]">
+          <div className="flex flex-col col-span-4 col-start-1  min-h-[20rem]">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
               <h4 className="px-8 pt-8 text-lg md:text-xl lg:text-2xl text-gray-900 dark:text-white">
                 {leftSection.subtitle}
               </h4>
             </AnimationWrapper>
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h2 className="px-8 pb-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 dark:text-white">
+              <h2 className="px-8 pb-8 text-xl md:text-2xl lg:text-3xl xl:text-4xl text-gray-900 dark:text-white">
                 {leftSection.title}
               </h2>
             </AnimationWrapper>
@@ -31,19 +31,18 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
             <p>{leftSection.quoteLeft}</p>
           </AnimationWrapper>
           <AnimationWrapper
-            className="justify-start items-start place-content-start col-span-6 col-start-5 row-span-2 row-start-1 h-100 text-base text-gray-900 dark:text-white"
+            className="justify-start items-start place-content-start col-span-5  col-start-5 row-span-2 row-start-1 text-base text-gray-900 dark:text-white min-h-[24rem]"
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <DebugBadge name="CardDemo3">  </DebugBadge>
+          
               <CardDemo3
-         
                 video={middleSection.videoCloudinary}
                 title={middleSection.title}
                 subtitle={middleSection.subtitle}
               />
           
           </AnimationWrapper>
-          <div className="align-items-start grid col-span-2 col-start-11 row-start-1 pt-8 text-base text-gray-900 dark:text-white">
+          <div className="align-items-start grid col-span-3 col-start-10 row-start-1 pt-8 text-base text-gray-900 dark:text-white">
             <AnimationWrapper
               transition={{ duration: 0.6, delay: 0.4 }}
               className="px-8 text-sm md:text-base lg:text-lg text-gray-600 dark:text-white"
@@ -51,8 +50,9 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
               <p>{rightSection.quoteRight}</p>
             </AnimationWrapper>
 
-            <DebugBadge name="Button2">  </DebugBadge>
+          
               <Button2
+       
                 text={rightSection?.ctaButton?.name}
                 href={resolveSanityLink(rightSection?.ctaButton?.link, locale)}
               ></Button2>
@@ -60,11 +60,6 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 col-start-1 container mx-auto row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
-          <div className="col-span-4"></div>
-          <div className="col-span-6"></div>
-          <div className="col-span-2"></div>
-        </div>
       </div>
     </>
   );

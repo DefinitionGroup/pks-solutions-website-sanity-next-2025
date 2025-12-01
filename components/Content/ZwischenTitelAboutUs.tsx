@@ -1,9 +1,8 @@
 import React from "react";
 import Button2 from "../Button2";
-import DebugBadge from "@/components/dev/DebugBadge";
 function ZwischenTitelAboutUs() {
   return (
-    <div className="mx-auto py-64 max-w-2xl text-center">
+    <div className="mx-auto py-24 max-w-2xl text-center">
       <h2 className="font-semibold text-base/7 text-red-500">INTEGRATION</h2>
       <p className="mt-2 font-semibold text-4xl text-balance text-white sm:text-5xl tracking-tight">
         Passen Sie sich nicht an Ihre Software.
@@ -13,12 +12,10 @@ function ZwischenTitelAboutUs() {
       </p>
       <div className="flex justify-center">
         <div className="flex justify-center mt-8 w-64 text-white">
-          <DebugBadge name="Button2">
-            <Button2
+          <Button2
               text="Kontakt aufnehmen."
               className="border-white/20 border-r border-l"
             />
-          </DebugBadge>
         </div>
       </div>
     </div>

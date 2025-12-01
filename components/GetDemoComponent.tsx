@@ -1,5 +1,4 @@
 import Button2 from "./Button2";
-import DebugBadge from "@/components/dev/DebugBadge";
 export default function GetDemoComponent() {
   return (
     <div className="bg-gray-50 dark:bg-slate-950">
@@ -17,12 +16,10 @@ export default function GetDemoComponent() {
         </p>
         <div className="flex justify-center">
           <div className="flex justify-center mt-8 w-64 text-gray-900 dark:text-white">
-            <DebugBadge name="Button2">
-              <Button2
+            <Button2
                 text="Demo anfordern."
                 className="border-gray-300 dark:border-white/20 border-r border-l"
               />
-            </DebugBadge>
           </div>
         </div>
       </div>

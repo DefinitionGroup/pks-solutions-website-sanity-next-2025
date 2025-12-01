@@ -8,7 +8,6 @@ import Button2 from "./Button2";
 import { ThreeColVideoBannerProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import { easeInOut } from "framer-motion";
-import DebugBadge from "@/components/dev/DebugBadge";
 
 export default function ThreeColVideoBanner({
   videoCloudinary,
@@ -92,13 +91,12 @@ export default function ThreeColVideoBanner({
           className="flex flex-col justify-center border-white col-span-3 col-start-10 mt-24 mb-24 w-full text-gray-100 dark:text-white"
         >
           {ctaButtons.map((btn, i) => (
-            <DebugBadge key={i} name="Button2">
-              <Button2
-                href={resolveSanityLink((btn as any).link, locale)}
-                className="border-gray-200 text-white dark:border-white/20 px-24 w-full mb-4"
-                text={btn.name}
-              />
-            </DebugBadge>
+            <Button2
+              key={i}
+              href={resolveSanityLink((btn as any).link, locale)}
+              className="border-gray-200 text-white dark:border-white/20 px-24 w-full mb-4"
+              text={btn.name}
+            />
           ))}
         </motion.div>
       </div>

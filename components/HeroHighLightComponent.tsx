@@ -14,7 +14,6 @@ import { resolveSanityLink } from "@/utils/linkResolver";
 import { FC } from "react";
 import ThreeColVideoBanner from "./ThreeColVideoBanner";
 import FourColVideoBanner from "./FourColVideoBanner";
-import DebugBadge from "@/components/dev/DebugBadge";
 
 const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
   const {
@@ -89,13 +88,11 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               <p className="p-4 sm:p-6 md:p-8 w-full text-xs sm:text-sm md:text-sm leading-normal text-white/80">
                 {rightDescription}
               </p>
-              <DebugBadge name="Button2">
-                <Button2
+              <Button2
                   className="border-white/50 text-white px-8 sm:px-12 md:px-24 w-full [&_*]:!text-white"
                   text={ctaButton?.name || ""}
                   href={resolveSanityLink(ctaButton?.link, locale)}
                 />
-              </DebugBadge>
             </motion.div>
           </div>
           <div className="hidden md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
@@ -108,49 +105,33 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
         switch (block._type) {
           case "sciFiBlock":
             return (
-              <DebugBadge key={`sciFiBlock-${index}`} name="SciFiBlock">
-                <SciFiBlock className={"scifi-border mb-12 mx-4"}>
-                  <DebugBadge name="TripleHero">
-                    <TripleHero {...block.tripleHero} locale={locale} />
-                  </DebugBadge>
-                </SciFiBlock>
-              </DebugBadge>
+              <SciFiBlock key={`sciFiBlock-${index}`} className={"scifi-border mb-12 mx-4"}>
+                <TripleHero {...block.tripleHero} locale={locale} />
+              </SciFiBlock>
             );
           case "gridHero":
             return (
-              <DebugBadge key={`gridHero-${index}`} name="GridHero">
-                <GridHero {...block} locale={locale} />
-              </DebugBadge>
+              <GridHero key={`gridHero-${index}`} {...block} locale={locale} />
             );
           case "gridHero2": 
             return (
-              <DebugBadge key={`gridHero2-${index}`} name="GridHero2">
-                <GridHero2 {...block} locale={locale} />
-              </DebugBadge>
+              <GridHero2 key={`gridHero2-${index}`} {...block} locale={locale} />
             );
           case "zwischenTitelCta":
             return (
-              <DebugBadge key={`zwischenTitelCta-${index}`} name="ZwischenTitelCta">
-                <ZwischenTitelCta {...block} locale={locale} />
-              </DebugBadge>
+              <ZwischenTitelCta key={`zwischenTitelCta-${index}`} {...block} locale={locale} />
             );
           case "gridHero3":
             return (
-              <DebugBadge key={`gridHero3-${index}`} name="GridHero3">
-                <GridHero3 {...block} locale={locale} />
-              </DebugBadge>
+              <GridHero3 key={`gridHero3-${index}`} {...block} locale={locale} />
             );
           case "threeColumnVideoBanner":
             return (
-              <DebugBadge key={index} name="ThreeColVideoBanner">
-                <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} locale={locale} />
-              </DebugBadge>
+              <ThreeColVideoBanner key={index} {...(block as ThreeColVideoBannerProps)} locale={locale} />
             );
           case "fourColumnVideoBanner":
             return (
-              <DebugBadge key={index} name="FourColVideoBanner">
-                <FourColVideoBanner {...(block as any)} locale={locale} />
-              </DebugBadge>
+              <FourColVideoBanner key={index} {...(block as any)} locale={locale} />
             );
 
           default:

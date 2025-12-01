@@ -4,7 +4,6 @@ import React from "react";
 import { Tabs } from "./ui/tabs";
 import { CloudinaryAsset } from "@/types/types";
 import { CardDemo3 } from "./CardDemo3";
-import DebugBadge from "@/components/dev/DebugBadge";
 // Module types: extend this union as you add more module schemas
 type Module = {
   _type: "card3";
@@ -36,13 +35,12 @@ export function ShowcaseTabs({ className, tabs }: ShowcaseTabsProps) {
           switch (module._type) {
             case "card3":
               return (
-                <DebugBadge key={idx} name="CardDemo3">
-                  <CardDemo3
-                    title={module.title}
-                    subtitle={module.subtitle}
-                    video={module.video}
-                  />
-                </DebugBadge>
+                <CardDemo3
+                  key={idx}
+                  title={module.title}
+                  subtitle={module.subtitle}
+                  video={module.video}
+                />
               );
             default:
               return null;
@@ -56,9 +54,7 @@ export function ShowcaseTabs({ className, tabs }: ShowcaseTabsProps) {
     <div
       className={`${className} h-[20rem] md:h-[50rem] [perspective:1000px] relative z-30 flex flex-col justify-start items-start mx-auto my-40 w-full max-w-5xl`}
     >
-      <DebugBadge name="Tabs">
-        <Tabs tabs={items} />
-      </DebugBadge>
+      <Tabs tabs={items} />
     </div>
   );
 }

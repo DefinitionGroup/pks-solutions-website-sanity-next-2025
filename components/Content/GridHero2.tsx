@@ -3,7 +3,7 @@ import { FC } from "react";
 import Button2 from "../Button2";
 import { GridHero2 as gridHero2Props } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
-import DebugBadge from "@/components/dev/DebugBadge";
+
 
 const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
   const { leftTitle, middle, right, _key, locale } = props;
@@ -44,12 +44,10 @@ const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
           ))}
 
           <div className="align-items-start grid col-span-2 col-start-1 text-base text-gray-900 dark:text-white">
-            <DebugBadge name="Button2">
-              <Button2
-                text={right?.ctaButton?.name}
-                href={resolveSanityLink(right?.ctaButton?.link, locale)}
-              ></Button2>
-            </DebugBadge>
+            <Button2
+              text={right?.ctaButton?.name}
+              href={resolveSanityLink(right?.ctaButton?.link, locale)}
+            ></Button2>
           </div>
         </div>
       </div>

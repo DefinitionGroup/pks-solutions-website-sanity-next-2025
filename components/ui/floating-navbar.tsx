@@ -18,7 +18,6 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
-import DebugBadge from "@/components/dev/DebugBadge";
 
 // Define supported locales (consistent with middleware)
 const locales = ["en", "de"];
@@ -89,21 +88,19 @@ export const FloatingNav = ({
           className
         )}>
         {/* Logo Link - points to the root of the current locale */}
-        <DebugBadge name="NavLogo">
-          <Link
-            href={`/${currentLocale}`} // Link to the locale's root
-            className={cn(
-              "relative  items-center flex space-x-1 text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-300 hover:text-neutral-500"
-            )}>
-            <Image
-              src={menu.imageCloud?.secure_url || "/img/logopks--outline.svg"}
-              alt="logo"
-              width={128}
-              height={32}
-              className="h-6 w-auto invert dark:invert-0"
-            />
-          </Link>
-        </DebugBadge>
+        <Link
+          href={`/${currentLocale}`} // Link to the locale's root
+          className={cn(
+            "relative  items-center flex space-x-1 text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-300 hover:text-neutral-500"
+          )}>
+          <Image
+            src={menu.imageCloud?.secure_url || "/img/logopks--outline.svg"}
+            alt="logo"
+            width={128}
+            height={32}
+            className="h-6 w-auto invert dark:invert-0"
+          />
+        </Link>
 
         {/* Menu Items */}
         <div className="flex items-center space-x-4 px-8">
@@ -119,17 +116,16 @@ export const FloatingNav = ({
               : `/${currentLocale}/${item.page.slug.current}`; // Prepend locale for other slugs
 
             return (
-              <DebugBadge key={`link-${idx}`} name="NavLink">
-                <Link
-                  href={href} // Use the generated href
-                  className={cn(
-                    "relative items-center flex space-x-1 text-neutral-600 dark:text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
-                  )}>
-                  <span className="sm:block hidden text-sm">
-                    {item.displayName}
-                  </span>
-                </Link>
-              </DebugBadge>
+              <Link
+                key={`link-${idx}`}
+                href={href} // Use the generated href
+                className={cn(
+                  "relative items-center flex space-x-1 text-neutral-600 dark:text-neutral-100 dark:hover:text-neutral-300 hover:text-neutral-500"
+                )}>
+                <span className="sm:block hidden text-sm">
+                  {item.displayName}
+                </span>
+              </Link>
             );
           })}
         </div>

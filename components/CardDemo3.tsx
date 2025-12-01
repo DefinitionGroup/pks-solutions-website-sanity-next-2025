@@ -12,7 +12,7 @@ export function CardDemo3({ title, subtitle, video }: CardDemo3Props) {
     <div className="w-full h-full min-h-full">
       <div
         className={cn(
-          "group w-full min-h-full cursor-pointer  overflow-hidden relative card h-full shadow-xl mx-auto flex flex-col justify-end p-4  dark:border-neutral-800"
+          "group w-full min-h-full cursor-pointer min-h-[24rem] overflow-hidden relative card h-full shadow-xl mx-auto flex flex-col justify-end p-4  dark:border-neutral-800"
         )}
       >
         {" "}
@@ -26,9 +26,9 @@ export function CardDemo3({ title, subtitle, video }: CardDemo3Props) {
           not support the video tag.
         </video>
         <div className="top-0 z-50 absolute pt-4 text">
-          <h1 className="relative font-bold text-gray-50 text-xl md:text-3xl">
+          <h3 className="relative font-bold text-gray-50 text-xl md:text-3xl">
             {title}
-          </h1>
+          </h3>
           <p className="relative font-normal text-base text-gray-50">
             {subtitle}
           </p>

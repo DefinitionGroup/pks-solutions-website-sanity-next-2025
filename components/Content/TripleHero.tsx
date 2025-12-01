@@ -4,7 +4,6 @@ import { FC } from "react";
 import Image from "next/image";
 import { TripleHero as trupleHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
-import DebugBadge from "@/components/dev/DebugBadge";
 
 const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
@@ -14,8 +13,8 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
 
 
 <>
-        <DebugBadge key={index} name="DirectionAwareHover" >  </DebugBadge>
           <DirectionAwareHover
+          key={index}
           imageUrl={item.hoverBackgroundCloudinary?.secure_url}
           className="bg-black text-white w-full"
           fixedContent={
@@ -33,15 +32,14 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
           }
         >
           <p className="font-bold px-4 text-lg md:text-xl">{item.hoverTitle}</p>
-          <p className="font-normal px-4 text-xs md:text-sm">{item.hoverDescription}</p>
+          <p className="font-normal w-3/4 px-4 text-xs md:text-sm">{item.hoverDescription}</p>
 
           <div className="py-12 px-4">
-            <DebugBadge name="Button2">
-              <Button2
+            <Button2
+                className="text-white"
                 text={item?.ctaButton?.name}
                 href={resolveSanityLink(item?.ctaButton?.link, locale)}
               ></Button2>
-            </DebugBadge>
           </div>
           </DirectionAwareHover>
    </>   

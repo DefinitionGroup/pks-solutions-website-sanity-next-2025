@@ -9,7 +9,6 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import { MenuType } from "@/types/types";
-import DebugBadge from "@/components/dev/DebugBadge";
 
 // Update the props interface to include currentLocale
 export default function Footer({
@@ -26,15 +25,13 @@ export default function Footer({
       <div className="mx-auto px-6 lg:px-8 py-16 sm:py-24 lg:py-32 max-w-7xl">
         <div className="xl:gap-8 border-gray-200 dark:border-white/10 xl:grid xl:grid-cols-3 mt-24 pt-12 border-t">
           {menu.imageCloud && (
-            <DebugBadge name="FooterLogo">
-              <Image
+            <Image
                 className="px-12 inline-block invert dark:invert-0"
                 src={menu.imageCloud.secure_url}
                 alt="logo"
                 width={250}
                 height={222}
               />
-            </DebugBadge>
           )}
           {/* Footer Columns */}
           <div className="gap-8 grid grid-cols-1 xl:col-span-2 mt-16 xl:mt-0">
@@ -55,17 +52,14 @@ export default function Footer({
                       return (
                         <li key={linkIndex}>
                           {link.linkType === "internal" ? (
-                            <DebugBadge name="FooterLink">
-                              <Link
+                            <Link
                                 href={internalHref} // Use the locale-aware href
                                 className="text-gray-600 dark:text-gray-400 text-sm/6 hover:text-gray-900 dark:hover:text-white"
                               >
                                 {link.displayName}
                               </Link>
-                            </DebugBadge>
                           ) : (
-                            <DebugBadge name="FooterLink">
-                              <Link
+                            <Link
                                 href={link.externalUrl || "#"}
                                 className="text-gray-600 dark:text-gray-400 text-sm/6 hover:text-gray-900 dark:hover:text-white"
                                 target="_blank"
@@ -73,7 +67,6 @@ export default function Footer({
                               >
                                 {link.displayName}
                               </Link>
-                            </DebugBadge>
                           )}
                         </li>
                       );
@@ -98,26 +91,23 @@ export default function Footer({
               }[social.platform];
 
               return Icon ? (
-                <DebugBadge key={index} name="SocialLink">
-                  <Link
-                    href={social.url}
-                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon aria-hidden="true" className="size-6" />
-                  </Link>
-                </DebugBadge>
+                <Link
+                  key={index}
+                  href={social.url}
+                  className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon aria-hidden="true" className="size-6" />
+                </Link>
               ) : null;
             })}
           </div>
 
           {menu.copyright && (
-            <DebugBadge name="FooterCopyright">
-              <p className="md:order-1 mt-8 md:mt-0 text-gray-500 dark:text-gray-400 text-sm/6">
+            <p className="md:order-1 mt-8 md:mt-0 text-gray-500 dark:text-gray-400 text-sm/6">
                 &copy; {menu.copyright}
               </p>
-            </DebugBadge>
           )}
         </div>
       </div>
