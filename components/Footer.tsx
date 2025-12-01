@@ -22,13 +22,13 @@ export default function Footer({
   // Add currentLocale prop
   if (!menu) return null;
   return (
-    <footer className="bg-black">
+    <footer className="bg-gray-100 dark:bg-black">
       <div className="mx-auto px-6 lg:px-8 py-16 sm:py-24 lg:py-32 max-w-7xl">
-        <div className="xl:gap-8 border-white/10 xl:grid xl:grid-cols-3 mt-24 pt-12 border-t">
+        <div className="xl:gap-8 border-gray-200 dark:border-white/10 xl:grid xl:grid-cols-3 mt-24 pt-12 border-t">
           {menu.imageCloud && (
             <DebugBadge name="FooterLogo">
               <Image
-                className="px-12 inline-block"
+                className="px-12 inline-block invert dark:invert-0"
                 src={menu.imageCloud.secure_url}
                 alt="logo"
                 width={250}
@@ -41,7 +41,7 @@ export default function Footer({
             <div className="md:gap-8 md:grid md:grid-cols-4">
               {menu.footerColumns?.map((column, index) => (
                 <div key={index} className={index > 0 ? "mt-10 md:mt-0" : ""}>
-                  <h3 className="font-semibold text-sm/6 text-white">
+                  <h3 className="font-semibold text-sm/6 text-gray-900 dark:text-white">
                     {column.title}
                   </h3>
                   <ul role="list" className="space-y-4 mt-6">
@@ -58,7 +58,7 @@ export default function Footer({
                             <DebugBadge name="FooterLink">
                               <Link
                                 href={internalHref} // Use the locale-aware href
-                                className="text-gray-400 text-sm/6 hover:text-white"
+                                className="text-gray-600 dark:text-gray-400 text-sm/6 hover:text-gray-900 dark:hover:text-white"
                               >
                                 {link.displayName}
                               </Link>
@@ -67,7 +67,7 @@ export default function Footer({
                             <DebugBadge name="FooterLink">
                               <Link
                                 href={link.externalUrl || "#"}
-                                className="text-gray-400 text-sm/6 hover:text-white"
+                                className="text-gray-600 dark:text-gray-400 text-sm/6 hover:text-gray-900 dark:hover:text-white"
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
@@ -85,7 +85,7 @@ export default function Footer({
           </div>
         </div>
         {/* Social Links & Copyright */}
-        <div className="md:flex md:justify-between md:items-center border-white/10 mt-12 pt-8 border-t">
+        <div className="md:flex md:justify-between md:items-center border-gray-200 dark:border-white/10 mt-12 pt-8 border-t">
           <div className="flex gap-x-6 md:order-2">
             {menu.socialLinks?.map((social, index) => {
               const Icon = {
@@ -101,7 +101,7 @@ export default function Footer({
                 <DebugBadge key={index} name="SocialLink">
                   <Link
                     href={social.url}
-                    className="text-gray-400 hover:text-gray-300"
+                    className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -114,7 +114,7 @@ export default function Footer({
 
           {menu.copyright && (
             <DebugBadge name="FooterCopyright">
-              <p className="md:order-1 mt-8 md:mt-0 text-gray-400 text-sm/6">
+              <p className="md:order-1 mt-8 md:mt-0 text-gray-500 dark:text-gray-400 text-sm/6">
                 &copy; {menu.copyright}
               </p>
             </DebugBadge>

@@ -8,29 +8,29 @@ import DebugBadge from "@/components/dev/DebugBadge";
 const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
   const { leftTitle, middle, right, _key, locale } = props;
   return (
-    <div className="z-10 border-white/20 md:grid grid-cols-1 grid-rows-1 container mx-auto border-t border-r border-b border-l">
+    <div className="z-10 border-gray-200 dark:border-white/20 md:grid grid-cols-1 grid-rows-1 container mx-auto border-t border-r border-b border-l">
       <div
         className="md:grid grid-cols-12 col-start-1 row-start-1 w-full"
         key={_key}
       >
-        <h2 className="col-span-4 col-start-1 p-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white">
+        <h2 className="col-span-4 col-start-1 p-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 dark:text-white">
           {leftTitle}
         </h2>
         <div className="col-span-4 col-start-6">
-          <p className="p-8 text-lg md:text-xl lg:text-2xl text-white">{middle?.description1}</p>
+          <p className="p-8 text-lg md:text-xl lg:text-2xl text-gray-900 dark:text-white">{middle?.description1}</p>
 
-          <p className="border-white/20 p-8 text-sm md:text-base text-white">
+          <p className="border-gray-200 dark:border-white/20 p-8 text-sm md:text-base text-gray-600 dark:text-white">
             {middle?.description2}
           </p>
         </div>
         <div className="z-10 place-content-start grid grid-cols-2 col-span-4 col-start-10 row-start-1">
-          <p className="border-white/20 col-span-2 col-start-1 row-start-1 p-8 border-t text-white text-xs md:text-sm">
+          <p className="border-gray-200 dark:border-white/20 col-span-2 col-start-1 row-start-1 p-8 border-t text-gray-600 dark:text-white text-xs md:text-sm">
             {right?.logoTitle}
           </p>
           {(right?.logos ?? []).map((logo, index) => (
             <div
               key={`${_key}-logo-${index}`}
-              className="flex justify-center items-center border-white/20 bg-slate-900/50 hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300"
+              className="flex justify-center items-center border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-slate-900/50 hover:bg-gray-200 dark:hover:bg-slate-900/70 opacity-50 hover:opacity-100 border h-20 transition duration-300"
             >
               <Image
                 aria-hidden
@@ -43,7 +43,7 @@ const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
             </div>
           ))}
 
-          <div className="align-items-start grid col-span-2 col-start-1 text-base text-white">
+          <div className="align-items-start grid col-span-2 col-start-1 text-base text-gray-900 dark:text-white">
             <DebugBadge name="Button2">
               <Button2
                 text={right?.ctaButton?.name}
@@ -54,7 +54,7 @@ const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
+      <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
         <div className="col-span-5"></div>
         <div className="col-span-4"></div>
         <div className="col-span-3"></div>

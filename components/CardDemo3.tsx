@@ -9,10 +9,10 @@ interface CardDemo3Props {
 
 export function CardDemo3({ title, subtitle, video }: CardDemo3Props) {
   return (
-    <div className="w-full h-full min-h-[500px]">
+    <div className="w-full h-full min-h-full">
       <div
         className={cn(
-          "group w-full cursor-pointer  overflow-hidden relative card h-full shadow-xl mx-auto flex flex-col justify-end p-4  dark:border-neutral-800"
+          "group w-full min-h-full cursor-pointer  overflow-hidden relative card h-full shadow-xl mx-auto flex flex-col justify-end p-4  dark:border-neutral-800"
         )}
       >
         {" "}
@@ -20,7 +20,7 @@ export function CardDemo3({ title, subtitle, video }: CardDemo3Props) {
           autoPlay
           loop
           muted
-          className="bottom-0 absolute border  opacity-100 mt-8 w-full h-full min-h-[500px] scale-125"
+          className="bottom-0 absolute border  object-cover opacity-100 mt-8 w-full h-full min-h-full scale-125"
         >
           <source src={video.secure_url} type="video/mp4" /> Your browser does
           not support the video tag.

@@ -80,19 +80,19 @@ export default function ContactForm({
   if (isSubmitted) {
     return (
       <DebugBadge name="ContactFormSuccess">
-      <div className="container max-w-4xl mx-auto my-20">
+      <div className="containe max-w-4xl mx-auto my-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative p-8 bg-black border border-white/20 rounded-lg overflow-hidden"
+          className="relative p-8 border border-gray-200 dark:border-white/20 rounded-lg overflow-hidden"
         >
-          <div className="absolute inset-0 bg-dot-thick-neutral-300/15 dark:bg-dot-thick-neutral-800/15 pointer-events-none" />
+          <div className="absolute inset-0 bg-dot-thick-neutral-800/15 dark:bg-dot-thick-neutral-300/15 pointer-events-none" />
 
           <div className="relative z-10 text-center">
-            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-900/30 border border-green-500/30 mb-6">
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-500/30 mb-6">
               <svg
-                className="h-8 w-8 text-green-500"
+                className="h-8 w-8 text-green-600 dark:text-green-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -106,10 +106,10 @@ export default function ContactForm({
                 />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               {locale === "de" ? "E-Mail gesendet!" : "Message Sent!"}
             </h3>
-            <p className="text-gray-300 mb-8 max-w-md mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
               {successMessage}
             </p>
 
@@ -117,7 +117,7 @@ export default function ContactForm({
               <button
                 type="button"
                 onClick={() => setIsSubmitted(false)}
-                className="pointer-events-auto absolute top-0 left-0 border-t border-b border-white/20 justify-between font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
+                className="pointer-events-auto absolute top-0 left-0 border-t border-b border-gray-200 dark:border-white/20 justify-between font-bold flex w-full p-4 text-gray-900 dark:text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out"
               >
                 <div className="flex justify-between items-center w-full">
                   <span>
@@ -131,7 +131,7 @@ export default function ContactForm({
               <button
                 type="button"
                 onClick={() => setIsSubmitted(false)}
-                className="pointer-events-auto border bg-slate-100 absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-slate-900 transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider"
+                className="pointer-events-auto border bg-gray-900 dark:bg-slate-100 absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-white dark:text-slate-900 transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider"
               >
                 <div className="flex justify-between items-center w-full">
                   <span>
@@ -152,14 +152,14 @@ export default function ContactForm({
 
   return (
     <DebugBadge name="ContactForm">
-    <div className="container max-w-4xl mx-auto my-20">
+    <div className="  bg-white min-w-full mx-auto ">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative p-8 bg-black border border-white/20 rounded-lg overflow-hidden"
+        className="relative p-8 bg-white dark:bg-black border container mx-auto max-w-4xl mb-24 border-gray-200 dark:border-white/20 rounded-lg overflow-hidden"
       >
-        <div className="absolute inset-0 bg-dot-thick-neutral-300/15 dark:bg-dot-thick-neutral-800/15 pointer-events-none" />
+        <div className="absolute inset-0 bg-dot-thick-neutral-800/15 dark:bg-dot-thick-neutral-300/15 pointer-events-none" />
 
         <div className="relative z-10">
           {title && (
@@ -167,7 +167,7 @@ export default function ContactForm({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl font-bold text-center text-white mb-3"
+              className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-3"
             >
               {title}
             </motion.h2>
@@ -178,7 +178,7 @@ export default function ContactForm({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-center text-gray-300 mb-10 max-w-xl mx-auto"
+              className="text-center text-gray-600 dark:text-gray-300 mb-10 max-w-xl mx-auto"
             >
               {subtitle}
             </motion.p>
@@ -205,16 +205,16 @@ export default function ContactForm({
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   {nameFieldLabel}
                 </label>
                 <input
                   id="name"
                   type="text"
-                  className={`block w-full bg-gray-900/50 border ${
-                    errors.name ? "border-red-500" : "border-gray-700"
-                  } rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors`}
+                  className={`block w-full bg-gray-100 dark:bg-gray-900/50 border ${
+                    errors.name ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                  } rounded-md py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
                   {...register("name", {
                     required:
                       locale === "de"
@@ -232,16 +232,16 @@ export default function ContactForm({
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   {emailFieldLabel}
                 </label>
                 <input
                   id="email"
                   type="email"
-                  className={`block w-full bg-gray-900/50 border ${
-                    errors.email ? "border-red-500" : "border-gray-700"
-                  } rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors`}
+                  className={`block w-full bg-gray-100 dark:bg-gray-900/50 border ${
+                    errors.email ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                  } rounded-md py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
                   {...register("email", {
                     required:
                       locale === "de"
@@ -267,16 +267,16 @@ export default function ContactForm({
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
                 {messageFieldLabel}
               </label>
               <textarea
                 id="message"
                 rows={6}
-                className={`block w-full bg-gray-900/50 border ${
-                  errors.message ? "border-red-500" : "border-gray-700"
-                } rounded-md py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors`}
+                className={`block w-full bg-gray-100 dark:bg-gray-900/50 border ${
+                  errors.message ? "border-red-500" : "border-gray-300 dark:border-gray-700"
+                } rounded-md py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white focus:border-transparent transition-colors`}
                 {...register("message", {
                   required:
                     locale === "de"
@@ -296,7 +296,7 @@ export default function ContactForm({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="pointer-events-auto absolute top-0 left-0 border-t border-b border-white/20 justify-between font-bold flex w-full p-4 text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="pointer-events-auto absolute top-0 left-0 border-t border-b border-gray-200 dark:border-white/20 justify-between font-bold flex w-full p-4 text-gray-900 dark:text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-12 transition-all duration-250 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex justify-between items-center w-full">
                     <span>
@@ -312,7 +312,7 @@ export default function ContactForm({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="pointer-events-auto border bg-white absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-black transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="pointer-events-auto border bg-gray-900 dark:bg-white absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-white dark:text-black transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex justify-between items-center w-full">
                     <span>

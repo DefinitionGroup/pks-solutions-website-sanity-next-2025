@@ -31,7 +31,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
   return (
     <HeroHighlight className="container ">
       {showTopHero && (
-        <div className="justify-center border-white/20 grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full bg-black">
+        <div className="justify-center border-gray-200 dark:border-white/20 bg-black grid grid-cols-1 grid-rows-1 col-span-12 border-t border-r border-b border-l w-full ">
           {" "}
           <video
             loop
@@ -91,14 +91,14 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               </p>
               <DebugBadge name="Button2">
                 <Button2
-                  className="border-white/50 px-8 sm:px-12 md:px-24 w-full"
+                  className="border-white/50 text-white px-8 sm:px-12 md:px-24 w-full [&_*]:!text-white"
                   text={ctaButton?.name || ""}
                   href={resolveSanityLink(ctaButton?.link, locale)}
                 />
               </DebugBadge>
             </motion.div>
           </div>
-          <div className="hidden md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/20 w-full min-h-[20rem]">
+          <div className="hidden md:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
             <div className="col-span-9"></div>
             <div className="col-span-2"></div>
           </div>

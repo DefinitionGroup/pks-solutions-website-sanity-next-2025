@@ -29,25 +29,25 @@ const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
   return (
     <motion.div
       ref={ref}
-      className="mx-auto py-64 max-w-2xl text-center"
+      className="mx-auto py-64  bg-white dark:bg-transparent text-center "
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
       <motion.h4
-        className="font-semibold text-sm md:text-base text-red-500"
+        className="font-semibold text-sm md:text-base text-red-600 dark:text-red-500"
         variants={itemVariants}
       >
         {integrationTitle}
       </motion.h4>
       <motion.h3
-        className="mt-2 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-balance text-white tracking-tight"
+        className="mt-2 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-balance text-gray-900 dark:text-white tracking-tight"
         variants={itemVariants}
       >
         {headline}
       </motion.h3>
       <motion.p
-        className="mx-auto mt-6 max-w-xl text-gray-400 text-base md:text-lg text-pretty"
+        className="mx-auto mt-6 max-w-xl text-gray-500 dark:text-gray-400 text-base md:text-lg text-pretty"
         variants={itemVariants}
       >
         {subHeadline}
@@ -57,10 +57,10 @@ const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
           className="flex justify-center"
           variants={itemVariants}
         >
-          <div className="flex justify-center mt-8 w-64 text-white">
+          <div className="flex justify-center mt-8 w-64 text-gray-900 dark:text-white">
             <DebugBadge name="Button2">
               <Button2
-                className="border-white/20 border-r border-l"
+                className="border-gray-300  dark:border-white/20 border-r border-l"
                 text={ctaButton.name}
                 href={resolveSanityLink(ctaButton.link, locale)}
               ></Button2>

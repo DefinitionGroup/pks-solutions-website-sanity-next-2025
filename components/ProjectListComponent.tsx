@@ -12,7 +12,7 @@ interface ProjectListComponentProps {
 
 const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <div className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all hover:shadow-xl">
+    <div className="group relative overflow-hidden rounded-lg bg-white dark:bg-gray-900 shadow-md transition-all hover:shadow-xl">
       <div className="relative h-48 w-full overflow-hidden">
         {project.headerImage && (
           <DebugBadge name="ProjectHeaderImage">
@@ -40,10 +40,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
               </DebugBadge>
             </div>
           )}
-          <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">{project.title}</h3>
         </div>
         {project.description && (
-          <p className="mb-4 text-gray-600 line-clamp-3">
+          <p className="mb-4 text-gray-600 dark:text-gray-400 line-clamp-3">
             {project.description}
           </p>
         )}
@@ -69,16 +69,16 @@ const ProjectListComponent: React.FC<ProjectListComponentProps> = ({
     <section className="py-16">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
-          <h2 className="mb-2 text-3xl font-bold text-gray-900 md:text-4xl">
+          <h2 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
             {data.title}
           </h2>
           {data.subtitle && (
-            <p className="mx-auto max-w-2xl text-xl text-gray-600">
+            <p className="mx-auto max-w-2xl text-xl text-gray-600 dark:text-gray-400">
               {data.subtitle}
             </p>
           )}
           {data.description && (
-            <div className="mx-auto mt-4 max-w-3xl prose">
+            <div className="mx-auto mt-4 max-w-3xl prose dark:prose-invert">
               {/* <PortableText value={data.description} /> */}
               <p>{data.description}</p>
             </div>

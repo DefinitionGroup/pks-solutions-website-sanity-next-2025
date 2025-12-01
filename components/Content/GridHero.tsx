@@ -60,32 +60,32 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
     <>
       {/* Section One */}
       {hasSectionOneContent && (
-        <div className="border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l bg-black text-white">
+        <div className="border-gray-200 dark:border-white/20 md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l bg-white dark:bg-black text-gray-900 dark:text-white">
           <div className="place-content-start md:grid grid-cols-12 col-start-1 row-start-1 w-full">
             {/* Left Side */}
             <div className="flex flex-col col-span-4 col-start-1 row-start-1">
               <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-                <h4 className="px-8 pt-8 text-2xl text-white">
+                <h4 className="px-8 pt-8 text-2xl text-gray-900 dark:text-white">
                   {sectionOne?.left?.subtitle}
                 </h4>
               </AnimationWrapper>
               <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-                <h2 className="px-8 pb-2 text-6xl text-white">
+                <h2 className="px-8 pb-2 text-6xl text-gray-900 dark:text-white">
                   {sectionOne?.left?.title}
                 </h2>
               </AnimationWrapper>
             </div>
 
-            <div className="align-items-start grid col-span-5 col-start-1 mt-16 pt-8 text-base text-white">
+            <div className="align-items-start grid col-span-5 col-start-1 mt-16 pt-8 text-base text-gray-900 dark:text-white">
               <AnimationWrapper
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="col-start-1 p-8 text-lg md:text-xl lg:text-2xl text-white"
+                className="col-start-1 p-8 text-lg md:text-xl lg:text-2xl text-gray-900 dark:text-white"
               >
                 <h2>{sectionOne?.middle?.quote}</h2>
               </AnimationWrapper>
               <DebugBadge name="Button2">
                 <Button2
-                  className="border-white/20 px-24 w-full"
+                  className="border-gray-200 dark:border-white/20 px-24 w-full"
                   text={sectionOne?.middle?.ctaButton?.name}
                   href={resolveSanityLink(sectionOne?.middle?.ctaButton?.link, locale)}
                 />
@@ -93,7 +93,7 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
             </div>
             {sectionOne?.right?.videoCloudinary && (
               <AnimationWrapper
-                className="flex justify-start items-start place-content-start col-span-7 col-start-6 row-span-2 row-start-1 p-2 w-full h-full text-base text-white"
+                className="flex justify-start items-start place-content-start col-span-7 col-start-6 row-span-2 row-start-1 p-2 w-full h-full text-base text-gray-900 dark:text-white"
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
                 <DebugBadge name="CardDemo2">
@@ -103,7 +103,7 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
             )}
           </div>
 
-          <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
+          <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
             <div className="col-span-5"></div>
             <div className="col-span-6"></div>
           </div>
@@ -113,7 +113,7 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
       {/* Section Two */}
       {shouldRenderSectionTwo && (
         <div className="flex-col md:flex md:flex-row justify-between my-24">
-          <div className="relative bg-black  grid w-full max-w-lg overflow-hidden">
+          <div className="relative bg-gray-100 dark:bg-black  grid w-full max-w-lg overflow-hidden">
             {leftCardMedia.type === "video" ? (
               <video
                 className="top-0 left-0 z-0 absolute opacity-75 h-full w-full object-cover"
@@ -151,15 +151,15 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
           </div>
           <div className="flex-grow ">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h4 className="col-span-4 col-start-2 px-8 pt-8 text-lg md:text-xl lg:text-2xl text-white">
+              <h4 className="col-span-4 col-start-2 px-8 pt-8 text-lg md:text-xl lg:text-2xl text-gray-900 dark:text-white">
                 {sectionTwo?.rightSection?.subtitle}
               </h4>
-              <h2 className="col-span-4 col-start-2 px-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white">
+              <h2 className="col-span-4 col-start-2 px-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 dark:text-white">
                 {sectionTwo?.rightSection?.title}
               </h2>
             </AnimationWrapper>
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.4 }}>
-              <p className="col-span-4 col-start-6 p-8 w-3/4 text-sm md:text-base lg:text-lg text-white">
+              <p className="col-span-4 col-start-6 p-8 w-3/4 text-sm md:text-base lg:text-lg text-gray-600 dark:text-white">
                 {sectionTwo?.rightSection?.description}
               </p>
             </AnimationWrapper>

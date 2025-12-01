@@ -10,42 +10,43 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
   const { leftSection, middleSection, rightSection, locale } = props;
   return (
     <>
-      <div className="border-white/20 container mx-auto md:grid grid-cols-1 grid-rows-1 border-t border-r border-b border-l min-h-[32rem]">
-        <div className="place-content-start md:grid grid-cols-12 col-span-2 col-start-1 row-start-1 w-full">
+      <div className="border-gray-200 dark:border-white/20  bg-white dark:bg-transparent mx-auto md:grid grid-cols-1 grid-rows-1 border-t border-b border-l min-h-[32rem]">
+        <div className="place-content-start md:grid   grid-cols-12 container mx-auto col-span-2 col-start-1 row-start-1 w-full">
           <div className="flex flex-col col-span-4 col-start-1">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h4 className="px-8 pt-8 text-lg md:text-xl lg:text-2xl text-white">
+              <h4 className="px-8 pt-8 text-lg md:text-xl lg:text-2xl text-gray-900 dark:text-white">
                 {leftSection.subtitle}
               </h4>
             </AnimationWrapper>
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h2 className="px-8 pb-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white">
+              <h2 className="px-8 pb-8 text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 dark:text-white">
                 {leftSection.title}
               </h2>
             </AnimationWrapper>
           </div>
           <AnimationWrapper
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="col-span-3 col-start-1 p-8 text-sm md:text-base lg:text-lg text-white"
+            className="col-span-3 col-start-1 p-8 text-sm md:text-base lg:text-lg text-gray-600 dark:text-white"
           >
             <p>{leftSection.quoteLeft}</p>
           </AnimationWrapper>
           <AnimationWrapper
-            className="justify-start items-start place-content-start col-span-6 col-start-5 row-span-2 row-start-1 p-2 h-100 text-base text-white"
+            className="justify-start items-start place-content-start col-span-6 col-start-5 row-span-2 row-start-1 h-100 text-base text-gray-900 dark:text-white"
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             <DebugBadge name="CardDemo3">  </DebugBadge>
               <CardDemo3
+         
                 video={middleSection.videoCloudinary}
                 title={middleSection.title}
                 subtitle={middleSection.subtitle}
               />
           
           </AnimationWrapper>
-          <div className="align-items-start grid col-span-2 col-start-11 row-start-1 pt-8 text-base text-white">
+          <div className="align-items-start grid col-span-2 col-start-11 row-start-1 pt-8 text-base text-gray-900 dark:text-white">
             <AnimationWrapper
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="px-8 text-sm md:text-base lg:text-lg text-white"
+              className="px-8 text-sm md:text-base lg:text-lg text-gray-600 dark:text-white"
             >
               <p>{rightSection.quoteRight}</p>
             </AnimationWrapper>
@@ -59,7 +60,7 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
+        <div className="grid grid-cols-12 col-start-1 container mx-auto row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
           <div className="col-span-4"></div>
           <div className="col-span-6"></div>
           <div className="col-span-2"></div>

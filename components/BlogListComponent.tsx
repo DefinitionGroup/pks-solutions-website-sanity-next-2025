@@ -32,12 +32,12 @@ export default async function BlogListComponent({
         <div className="mb-12 text-center">
           {block.title && (
             <DebugBadge name="BlogListTitle">
-              <h2 className="text-3xl font-bold mb-4">{block.title}</h2>
+              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{block.title}</h2>
             </DebugBadge>
           )}
           {block.subtitle && (
             <DebugBadge name="BlogListSubtitle">
-              <p className="text-xl text-gray-600">{block.subtitle}</p>
+              <p className="text-xl text-gray-600 dark:text-gray-400">{block.subtitle}</p>
             </DebugBadge>
           )}
         </div>
@@ -45,7 +45,7 @@ export default async function BlogListComponent({
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post: BlogPost) => (
           <DebugBadge key={post._id} name="BlogCard">
-            <article className="border rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <article className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white dark:bg-gray-900">
               <Link
                 href={`/${locale}/blog/${post.slug?.current}`}
                 className="block"
@@ -53,12 +53,12 @@ export default async function BlogListComponent({
                 <time className="text-sm text-gray-600 dark:text-gray-400">
                   {formatDate(post.publishedAt)}
                 </time>
-                <h2 className="text-xl font-bold mt-2 mb-3">{post.title}</h2>
+                <h2 className="text-xl font-bold mt-2 mb-3 text-gray-900 dark:text-white">{post.title}</h2>
                 <p className="text-gray-700 dark:text-gray-300 line-clamp-3">
                   {post.excerpt}
                 </p>
                 {post.author?.name && (
-                  <div className="mt-4 text-sm text-gray-500">
+                  <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
                     By {post.author.name}
                   </div>
                 )}

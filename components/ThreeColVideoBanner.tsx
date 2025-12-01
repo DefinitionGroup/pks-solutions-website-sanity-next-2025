@@ -29,7 +29,7 @@ export default function ThreeColVideoBanner({
   };
 
   return (
-    <div className="justify-center container mx-auto md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-white/20 w-full overflow-hidden">
+    <div className="justify-center container bg-black mx-auto md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
       <video
         loop
         autoPlay
@@ -60,14 +60,14 @@ export default function ThreeColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.6 }}
-          className="flex flex-col justify-center border-white col-span-5 col-start-5 mt-24 mb-24 w-full text-white"
+          className="flex flex-col justify-center border-white col-span-5 col-start-5 mt-24 mb-24 w-full text-gray-900 dark:text-white"
         >
           {primaryDescription && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 px-8 text-sm sm:text-base md:text-lg text-white"
+              className="col-span-4 col-start-1 px-8 text-sm sm:text-base md:text-lg text-gray-100 dark:text-white"
             >
               {primaryDescription}
             </motion.div>
@@ -78,7 +78,7 @@ export default function ThreeColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 mt-8 px-8 text-gray-300 text-xs sm:text-sm"
+              className="col-span-4 col-start-1 mt-8 px-8 text-gray-100 dark:text-gray-100 text-xs sm:text-sm"
             >
               {secondaryDescription}
             </motion.div>
@@ -89,13 +89,13 @@ export default function ThreeColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.69 }}
-          className="flex flex-col justify-center border-white col-span-3 col-start-10 mt-24 mb-24 w-full text-white"
+          className="flex flex-col justify-center border-white col-span-3 col-start-10 mt-24 mb-24 w-full text-gray-100 dark:text-white"
         >
           {ctaButtons.map((btn, i) => (
             <DebugBadge key={i} name="Button2">
               <Button2
                 href={resolveSanityLink((btn as any).link, locale)}
-                className="border-white/20 px-24 w-full mb-4"
+                className="border-gray-200 text-white dark:border-white/20 px-24 w-full mb-4"
                 text={btn.name}
               />
             </DebugBadge>
@@ -103,7 +103,7 @@ export default function ThreeColVideoBanner({
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-white/20 dark:divide-white/10 w-full min-h-[20rem]">
+      <div className="grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200 dark:divide-white/20 w-full min-h-[20rem]">
         <div className="col-span-4" />
         <div className="col-span-5" />
         <div className="col-span-3" />

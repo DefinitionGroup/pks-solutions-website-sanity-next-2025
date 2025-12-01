@@ -35,7 +35,7 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
           <p className="font-bold px-4 text-lg md:text-xl">{item.hoverTitle}</p>
           <p className="font-normal px-4 text-xs md:text-sm">{item.hoverDescription}</p>
 
-          <div className="py-12">
+          <div className="py-12 px-4">
             <DebugBadge name="Button2">
               <Button2
                 text={item?.ctaButton?.name}

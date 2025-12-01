@@ -48,7 +48,7 @@ export default async function RootLayout({
             </SignedIn>
           </header> */}
           <div className="justify-items-center items-center grid grid-rows-[1fr_10px] p-0 w-full">
-            <main className="items-center sm:items-start gap-8 row-start-1 bg-black w-full">
+            <main className="items-center sm:items-start gap-8 row-start-1 dark:bg-black w-full">
               {children}
             </main>
           </div>
