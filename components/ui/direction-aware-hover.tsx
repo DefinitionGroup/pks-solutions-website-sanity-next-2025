@@ -94,7 +94,7 @@ export const DirectionAwareHover = ({
       onMouseEnter={handleMouseEnter}
       ref={ref}
       className={cn(
-        "md:h-96 w-full   h-full   md:w-196 bg-transparent rounded-noone overflow-hidden group/card relative",
+        "md:h-96 w-full   h-full   md:w-196 bg-transparent rounded-noone overflow-hidden group/card relative id-direction-aware-hover",
         className
       )}
     >
@@ -122,7 +122,7 @@ export const DirectionAwareHover = ({
             {isVideoUrl(src) ? (
               <video
                 className={cn(
-                  "max-h-[550px] w-full object-cover scale-[1.15]",
+                  "max-h-[550px] w-full object-cover scale-[1.15] ",
                   imageClassName
                 )}
                 src={src}
