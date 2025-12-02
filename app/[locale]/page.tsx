@@ -1,4 +1,3 @@
-import { LampDemo } from "@/components/ui/lamp";
 import { getFooterMenu, getHomepage, getMenuByType } from "@/sanity/fetchData"; // Correct order
 // Removed unused imports: HeroHighlightComponent and icons
 import { FloatingNav } from "@/components/ui/floating-navbar";
