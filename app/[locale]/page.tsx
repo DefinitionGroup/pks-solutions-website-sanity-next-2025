@@ -1,15 +1,13 @@
 import { LampDemo } from "@/components/ui/lamp";
-import { PageType } from "@/types/types";
 import { getFooterMenu, getHomepage, getMenuByType } from "@/sanity/fetchData"; // Correct order
-import HeroHighlightComponent from "@/components/HeroHighLightComponent";
-import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
+// Removed unused imports: HeroHighlightComponent and icons
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import { notFound } from "next/navigation";
-import GetDemoComponent from "@/components/GetDemoComponent";
+// GetDemoComponent unused (kept as commented example)
 import RenderContent from "@/components/RenderContent"; // Import RenderContent
 
 // Define the default locale
@@ -42,7 +40,7 @@ export default async function Home({ params }: HomeProps) {
     console.warn(`Footer menu not found for locale: ${locale}`); // This logs the warning if 'en' Footer is missing
   }
 
-  const { title, contentPKS } = page;
+  const { contentPKS } = page;
 
   return (
     <>

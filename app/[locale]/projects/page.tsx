@@ -9,13 +9,9 @@ import { draftMode } from "next/headers";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
 
-import {
-  GlowingStarsBackgroundCard,
-  GlowingStarsTitle,
-  GlowingStarsDescription,
-} from "@/components/ui/glowing-stars-effect";
+import { GlowingStarsBackgroundCard, GlowingStarsTitle } from "@/components/ui/glowing-stars-effect";
 import Button3 from "@/components/Button3";
-import { PortableText } from "@portabletext/react";
+// Removed unused PortableText import
 import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import { Project, ProjectList } from "@/types/types";

@@ -15,19 +15,9 @@ import {
   GlowingStarsDescription,
 } from "@/components/ui/glowing-stars-effect";
 import Button3 from "@/components/Button3";
-import { PortableText } from "@portabletext/react";
 import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
-import {
-  BlogList,
-  Hero,
-  ClientsList,
-  ProjectList,
-  ContactForm,
-  ShowcaseTabsProps,
-  ThreeColVideoBannerProps,
-  Client,
-} from "@/types/types";
+import { ClientsList, Client } from "@/types/types";
 
 // Define the page props interface
 interface PageProps {

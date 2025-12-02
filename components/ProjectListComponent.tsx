@@ -1,9 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
 import { ProjectList, Project } from "../types/types";
-import { cn } from "@/app/lib/utils";
+// Removed unused PortableText and cn imports
 
 interface ProjectListComponentProps {
   data: ProjectList;

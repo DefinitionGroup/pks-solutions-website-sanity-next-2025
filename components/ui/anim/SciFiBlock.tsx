@@ -16,8 +16,9 @@ export default function SciFiBlock({ children, className }: SciFiBlockProps) {
   useEffect(() => {
     // Function to calculate the child's height and set the parent height
     const updateHeight = () => {
-      if (childRef.current) {
-        const childHeight = childRef.current.offsetHeight;
+      const currentChild = childRef.current;
+      if (currentChild) {
+        const childHeight = currentChild.offsetHeight;
         setHeight(childHeight);
       }
     };
@@ -27,14 +28,15 @@ export default function SciFiBlock({ children, className }: SciFiBlockProps) {
 
     // You can also set up a ResizeObserver to monitor changes in the child's size
     const resizeObserver = new ResizeObserver(() => updateHeight());
-    if (childRef.current) {
-      resizeObserver.observe(childRef.current);
+    const observedChild = childRef.current;
+    if (observedChild) {
+      resizeObserver.observe(observedChild);
     }
 
     // Cleanup observer on component unmount
     return () => {
-      if (childRef.current) {
-        resizeObserver.unobserve(childRef.current);
+      if (observedChild) {
+        resizeObserver.unobserve(observedChild);
       }
     };
   }, [children]);
