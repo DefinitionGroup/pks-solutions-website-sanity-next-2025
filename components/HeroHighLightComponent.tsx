@@ -101,7 +101,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
           </div>
         </div>
       )}
-      {modules?.map((block: any, index: number) => {
+    {modules?.map((block: any, index: number) => {
         switch (block._type) {
           case "sciFiBlock":
             return (
