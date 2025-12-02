@@ -145,7 +145,7 @@ export default function FourColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.7 }}
-          className="flex flex-col justify-end lg:col-span-3 lg:col-start-10 px-6 lg:px-8 py-8 pb-16 lg:py-0 lg:mt-72 lg:mb-24 w-full border-t border-white/10 lg:border-t-0"
+          className="flex flex-col justify-end lg:col-span-3 lg:col-start-10  py-8 pb-16 lg:py-0 lg:mt-72 lg:mb-24 w-full border-t border-white/10 lg:border-t-0"
         >
           {ctaButtons.map((btn, i) => (
             <Button2

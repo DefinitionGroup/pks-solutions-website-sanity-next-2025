@@ -14,7 +14,7 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
         <div className="place-content-start md:grid   grid-cols-12 container mx-auto col-span-2 col-start-1 row-start-1 w-full  min-h-[20rem]">
           <div className="flex flex-col col-span-4 col-start-1  min-h-[20rem]">
             <AnimationWrapper transition={{ duration: 0.6, delay: 0.1 }}>
-              <h4 className="px-8 pt-8 text-lg md:text-xl lg:text-2xl text-red-500  text-gray-900 dark:text-white">
+              <h4 className="px-8 pt-8 text-lg  md:text-lg lg:text-lg text-red-500  text-gray-900 dark:text-white">
                 {leftSection.subtitle}
               </h4>
             </AnimationWrapper>
