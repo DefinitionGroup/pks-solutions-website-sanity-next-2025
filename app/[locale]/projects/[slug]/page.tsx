@@ -28,7 +28,7 @@ export default async function ProjectDetailPage(props: PageProps) {
   const project = await getProjectBySlug(slug, locale, isEnabled);
   const [navbarMenu, footerMenu] = await Promise.all([
     getMenuByType("Navbar", locale, isEnabled),
-    getFooterMenu(locale, isEnabled, "pksWeb"),
+    getFooterMenu(locale, isEnabled, channel),
   ]);
 
   // Handle case where project is not found

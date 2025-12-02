@@ -11,23 +11,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { MenuType } from "@/types/types";
 import { usePathname } from "next/navigation";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
+// Removed unused Clerk auth components
 import { Sun, Moon } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 
-// Define supported locales (consistent with middleware)
-const locales = ["en", "de"];
+// supported locales handled elsewhere; removed unused `locales`
 
 // Theme Switcher Component using next-themes
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -171,7 +164,7 @@ const MobileMenuOverlay = ({
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.4 },
     },
     exit: {
       opacity: 0,
@@ -185,7 +178,7 @@ const MobileMenuOverlay = ({
     hidden: { scaleX: 0 },
     visible: {
       scaleX: 1,
-      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.6 },
     },
   };
 
@@ -358,14 +351,7 @@ export const FloatingNav = ({
 
   if (!menu || !menu.menuItems) return null;
 
-  const getPathWithoutLocale = () => {
-    if (pathname.startsWith(`/${currentLocale}`)) {
-      return pathname.substring(`/${currentLocale}`.length) || "/";
-    }
-    return pathname;
-  };
-
-  const basePath = getPathWithoutLocale();
+  // removed unused getPathWithoutLocale/basePath helpers
   const homeSlugForCurrentLocale =
     currentLocale === "en" ? "home" : "startseite";
 
