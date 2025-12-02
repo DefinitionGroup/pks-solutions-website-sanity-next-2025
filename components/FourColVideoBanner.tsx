@@ -158,7 +158,7 @@ export default function FourColVideoBanner({
         </motion.div>
       </div>
 
-      {/* bottom divider grid - hidden on mobile */}
+      {/* bottom divider grid - hidden on mobile TEST */}
       <div className="hidden lg:grid grid-cols-12 col-start-1 row-start-1 divide-x divide-gray-200/20 dark:divide-white/20 w-full min-h-[20rem]">
         <div className="col-span-3"></div>
         <div className="col-span-3"></div>
