@@ -56,13 +56,13 @@ export default function FourColVideoBanner({
       />
 
       {/* Content Grid - stacks on mobile, 4 cols on desktop */}
-      <div className="flex flex-col lg:grid lg:grid-cols-12 col-start-1 row-start-1 w-full">
+      <div className="flex flex-col lg:grid lg:grid-cols-12 col-start-1 row-start-1 w-full z-[9999] relative top-0  opacity-100">
         {/* Column 1 - Brand & Headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={keyframeTransition}
-          className="lg:col-span-3 lg:col-start-1 px-6 lg:px-8 pt-16 pb-8 lg:py-24 lg:pb-0 w-full"
+          className="lg:col-span-3 lg:col-start-1 px-6 lg:px-8 pt-16 pb-8 lg:py-24 lg:pb-0  z-50 w-full"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}

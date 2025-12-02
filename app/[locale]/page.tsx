@@ -55,9 +55,7 @@ export default async function Home({ params }: HomeProps) {
       {/* Use RenderContent for page content blocks, passing the locale */}
       {contentPKS && <RenderContent contentPKS={contentPKS} locale={locale} />}
       {/* Other components specific to the homepage */}
-      <div className="flex flex-col justify-center items-center w-full">
-        <LampDemo />{" "}
-      </div>{" "}
+
       {/* <GetDemoComponent /> */}
       {/* Pass locale from params as currentLocale */}
       {footerMenu && <Footer menu={footerMenu} currentLocale={locale} />}

@@ -16,9 +16,9 @@ export function LampDemo() {
           damping: 23,
           bounce: 0.2,
         }}
-        className="z-10 bg-clip-text bg-gradient-to-br from-red-300 to-red-700 mt-8 py-4 max-w-[50%] font-medium text-4xl text-center text-transparent md:text-6xl leading-none tracking-tight"
+        className="z-10 bg-clip-text bg-gradient-to-br border border-white from-red-200 to-red-700 mt-62 py-4 max-w-[50%] font-medium text-4xl text-center text-transparent md:text-6xl leading-none tracking-tight"
       >
-        Erfassen Sie Daten in Ihrem Unternehmen. Auf die richtige Art und Weise.
+        Erfassen Sie Daten in Ihrem Unternehmen. sAuf die richtige Art und Weise.
       </motion.h2>{" "}
       <motion.h3
         initial={{ opacity: 0.1, y: 200, scale: 0.8 }}
@@ -56,7 +56,7 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex pb-96 dark:min-h-[80vh]  flex-col items-center justify-center overflow-hidden bg-white dark:bg-slate-950 w-full rounded-md z-0",
+        "relative flex pb-96 flex-col items-center justify-center overflow-hidden bg-white dark:bg-slate-950 w-full rounded-md z-0",
         className
       )} 
     >
@@ -123,8 +123,8 @@ export const LampContainer = ({
         </div>
       )}
       <div className={cn(
-        "relative z-50 flex flex-col  items-center px-5 pb-32",
-        isDark ? "-translate-y-[34rem]" : ""
+        "relative z-50 flex flex-col items-center px-5  pb-12",
+        isDark ? "-translate-y-[0rem]" : ""
       )}>
         {children}
       </div>
