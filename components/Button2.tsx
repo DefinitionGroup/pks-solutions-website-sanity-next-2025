@@ -24,8 +24,8 @@ function Button2({ text, className, href }: Button2Props) {
   const linkProps = {
     className: (isTop: boolean) => cn(
       isTop 
-        ? "pointer-events-auto absolute top-0 left-0 border justify-between border-gray-300 dark:border-white/20 font-bold flex w-full p-4 text-gray-900 dark:text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-16 transition-all duration-250 ease-in-out"
-        : "pointer-events-auto border  absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-gray-900 dark:text-white transition-all duration-250 ease-in-out p-4 hover:cursor-pointer tracking-wider",
+        ? "pointer-events-auto absolute top-0 left-0 border justify-between border-gray-300 dark:border-white/20 font-bold flex w-full p-3 sm:p-4 text-gray-900 dark:text-white hover:cursor-pointer tracking-wider group-hover/btn:-top-14 sm:group-hover/btn:-top-16 transition-all duration-250 ease-in-out"
+        : "pointer-events-auto border absolute font-bold left-0 flex justify-between top-[100%] w-full group-hover/btn:top-0 text-gray-900 dark:text-white transition-all duration-250 ease-in-out p-3 sm:p-4 hover:cursor-pointer tracking-wider",
       className
     ),
     target: isExternal ? "_blank" : undefined,
@@ -41,7 +41,7 @@ function Button2({ text, className, href }: Button2Props) {
   );
 
   return (
-    <div className={`inline-block relative top-0 left-0 min-w-full ml-[1px] h-14 text-sm overflow-hidden group/btn min-h-6`}>
+    <div className={`inline-block relative top-0 left-0 min-w-full ml-[1px] h-12 sm:h-14 text-xs sm:text-sm overflow-hidden group/btn min-h-6`}>
       { !hasHref ? (
         // No link provided: render non-clickable blocks
         <>

@@ -8,7 +8,7 @@ import { resolveSanityLink } from "@/utils/linkResolver";
 const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
   return (
-    <div className="relative lg:flex  justify-center  items-center  gap-4 w-full h- lg:h-[40rem]">
+    <div className="relative lg:flex  justify-center  items-center  gap-4 w-full lg:h-[40rem]">
       {items.map((item, index) => (
 
 
@@ -16,11 +16,11 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
           <DirectionAwareHover
           key={index}
           imageUrl={item.hoverBackgroundCloudinary?.secure_url}
-          className="bg-black text-white w-full"
+          className="bg-black flex  justify-end flex-col mt-4 min-h-[500px] text-white w-full"
           fixedContent={
             <>
               <Image
-                className="py-3 md:w-1/4 h-1/4 object-cover"
+                className="h-10 w-10 md:w-1/4 object-contain relative"
                 aria-hidden
                 src={item.fixedIconCloudinary?.secure_url || ""}
                 alt="Window icon"
@@ -31,16 +31,17 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
             </>
           }
         >
-          <p className="font-bold px-4 text-lg md:text-xl">{item.hoverTitle}</p>
-          <p className="font-normal w-3/4 px-4 text-xs md:text-sm">{item.hoverDescription}</p>
+          <div className="pt-4 md:px-8 ">
+          <p className="font-bold text-xl mb-4 md:text-2xl">{item.hoverTitle}</p>
+          <p className="font-normal w-3/4 text-xs md:text-sm">{item.hoverDescription}</p>
 
-          <div className="py-12 px-4">
+          <div className="py-12">
             <Button2
                 className="text-white"
                 text={item?.ctaButton?.name}
                 href={resolveSanityLink(item?.ctaButton?.link, locale)}
               ></Button2>
-          </div>
+          </div> </div> 
           </DirectionAwareHover>
    </>   
       ))}

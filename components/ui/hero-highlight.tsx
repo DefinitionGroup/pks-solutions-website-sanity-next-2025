@@ -45,7 +45,7 @@ export const HeroHighlight = ({
     <div
       ref={ref}
       className={cn(
-        "relative pt-40 flex items-center justify-center w-full group",
+        "relative pt-20 sm:pt-28 md:pt-40 flex items-center justify-center w-full group",
         containerClassName
       )}
       onMouseMove={handleMouseMove}
