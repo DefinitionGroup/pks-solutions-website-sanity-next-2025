@@ -56,19 +56,19 @@ export default function FourColVideoBanner({
       />
 
       {/* Content Grid - stacks on mobile, 4 cols on desktop */}
-      <div className="flex flex-col lg:grid lg:grid-cols-12 col-start-1 row-start-1 w-full z-[9999] relative top-0  opacity-100">
+      <div className="flex flex-col lg:grid  lg:grid-cols-12 col-start-1 row-start-1 w-full z-[9999] relative top-0  opacity-100">
         {/* Column 1 - Brand & Headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={keyframeTransition}
-          className="lg:col-span-3 lg:col-start-1 px-6 lg:px-8 pt-16 pb-8 lg:py-24 lg:pb-0  z-50 w-full"
+          className="lg:col-span-3 lg:col-start-1 px-6 lg:px-8  pb-24 flex flex-col justify-center lg:mt-24  z-50 w-full"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: [20, -5, 0] }}
             transition={keyframeTransition}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-5xl text-white font-bold mb-4"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-5xl  text-white font-bold mb-4"
           >
             {brandName}
           </motion.div>
@@ -76,7 +76,7 @@ export default function FourColVideoBanner({
             {headline}
           </h3>
           {headlineHighlight && (
-            <Highlight className="inline-block mt-6 lg:mt-8 lg:relative lg:top-16 p-4 lg:p-8 text-lg  sm:text-xl md:text-2xl lg:text-5xl text-white dark:text-white">
+            <Highlight className="inline-block mt-2 lg:relative lg:top-16 p-4 lg:p-4 text-lg  sm:text-xl md:text-2xl lg:text-3xl text-white dark:text-white">
               {headlineHighlight}
             </Highlight>
           )}

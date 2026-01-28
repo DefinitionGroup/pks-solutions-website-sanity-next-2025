@@ -11,6 +11,7 @@ import { easeInOut } from "framer-motion";
 
 export default function ThreeColVideoBanner({
   videoCloudinary,
+  imageCloudinary,
   title,
   highlight,
   primaryDescription,
@@ -27,22 +28,34 @@ export default function ThreeColVideoBanner({
     times: [0, 0.5, 1],
   };
 
+  // Determine background URL - prefer video, fallback to image
+  const backgroundUrl = videoCloudinary?.url || imageCloudinary?.secure_url || imageCloudinary?.url;
+  const isVideo = !!videoCloudinary?.url;
+
   return (
     <div className="justify-center container bg-black mx-auto md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
-      <video
-        loop
-        autoPlay
-        muted
-        className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover"
-        src={videoCloudinary.url}
-      />
+      {isVideo ? (
+        <video
+          loop
+          autoPlay
+          muted
+          className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover"
+          src={backgroundUrl}
+        />
+      ) : backgroundUrl ? (
+        <img
+          src={backgroundUrl}
+          alt=""
+          className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover"
+        />
+      ) : null}
 
-      <div className="md:grid grid-cols-12 col-start-1 z-50 row-start-1 py-32 w-full">
+      <div className="md:grid grid-cols-12 col-start-1 z-50 row-start-1 py-32 pt- w-full">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={keyframeTransition}
-          className="col-span-4 col-start-1 px-8 py-32 pb-0 w-full max-w-3xl font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-neutral-100 dark:text-white leading-relaxed lg:leading-snug"
+          className="col-span-4 col-start-1 px-8 pt-24 pb-0 w-full max-w-3xl font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-neutral-100 dark:text-white leading-relaxed lg:leading-snug"
         >
           {title}
           {highlight && (
@@ -59,14 +72,14 @@ export default function ThreeColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.6 }}
-          className="flex flex-col justify-center border-white col-span-5 col-start-5 mt-24 mb-24 w-full text-gray-900 dark:text-white"
+          className="flex flex-col  justify-start border-white col-span-5 col-start-5 mt-24 mb-24 w-full text-gray-900 dark:text-white"
         >
           {primaryDescription && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 px-8 text-sm sm:text-base md:text-lg text-gray-100 dark:text-white"
+              className="col-span-4 col-start-1 px-8 pr-24 text-sm sm:text-base md:text-xl text-gray-100 dark:text-white"
             >
               {primaryDescription}
             </motion.div>
@@ -77,7 +90,7 @@ export default function ThreeColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 mt-8 px-8 text-gray-100 dark:text-gray-100 text-xs sm:text-sm"
+              className="col-span-4 col-start-1 mt-8 px-8 pr-24 text-neutral-400 leading-relaxed dark:text-neutral-400 text-xs sm:text-base"
             >
               {secondaryDescription}
             </motion.div>
@@ -94,7 +107,7 @@ export default function ThreeColVideoBanner({
             <Button2
               key={i}
               href={resolveSanityLink((btn as any).link, locale)}
-              className=" text-white dark:border-white/20  w-full mb-4"
+              className=" text-white dark:border-white/50  w-full mb-4"
               text={btn.name}
             />
           ))}

@@ -40,7 +40,7 @@ export default function DebugBadge({
           // Visuals
           "text-[10px] leading-none font-medium tracking-wide",
           "px-1.5 py-1 rounded border",
-          "bg-black/60 text-emerald-200 border-emerald-500/60",
+          "bg-red-600 text-white border-red-700",
           "shadow-sm backdrop-blur",
         ].join(" ")}
       >

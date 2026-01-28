@@ -13,7 +13,7 @@ interface Button2Props {
 function Button3({ text, className, href }: Button2Props) {
   return (
     <div
-      className={`inline-block relative top-0 left-0  min-w-full ml-[1px]   h-14 text-sm overflow-hidden group/btn min-h-6 `}
+      className={`inline-block relative top-0 left-0  min-w-full  h-14 text-sm overflow-hidden group/btn min-h-6 `}
     >
       <Link
         href={href}

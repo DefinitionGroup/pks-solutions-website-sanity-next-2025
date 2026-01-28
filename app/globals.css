@@ -14,11 +14,14 @@
   --foreground: #ededed;
 }
 
+
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .no-visible-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -36,68 +39,88 @@ body {
 
   .scifi-border {
     background:
-      repeating-linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.2) 0px,
-          rgba(255, 255, 255, 0.2) 10px,
-          rgba(255, 255, 255, 0) 10px,
-          rgba(255, 255, 255, 0)
-        )
-        top left / 1px 16px no-repeat,
-      repeating-linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.2) 0px,
-          rgba(255, 255, 255, 0.2) 10px,
-          rgba(255, 255, 255, 0) 10px,
-          rgba(255, 255, 255, 0)
-        )
-        top right / 1px 16px no-repeat,
-      repeating-linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.2) 0px,
-          rgba(255, 255, 255, 0.2) 10px,
-          rgba(255, 255, 255, 0) 10px,
-          rgba(255, 255, 255, 0)
-        )
-        bottom left / 1px 96px no-repeat,
-      repeating-linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.2) 0px,
-          rgba(255, 255, 255, 0.2) 10px,
-          rgba(255, 255, 255, 0) 10px,
-          rgba(255, 255, 255, 0)
-        )
-        bottom right / 1px 96px no-repeat,
-      repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.2) 0px,
-          rgba(255, 255, 255, 0.2) 1px,
-          rgba(255, 255, 255, 0) 1px,
-          rgba(255, 255, 255, 0)
-        )
-        top / 100% 1px no-repeat,
-      repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.2) 0px,
-          rgba(255, 255, 255, 0.2) 10px,
-          rgba(255, 255, 255, 0) 10px,
-          rgba(255, 255, 255, 0)
-        )
-        bottom / 100% 1px no-repeat;
+      repeating-linear-gradient(90deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 10px,
+        rgba(255, 255, 255, 0) 10px,
+        rgba(255, 255, 255, 0)) top left / 1px 16px no-repeat,
+      repeating-linear-gradient(90deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 10px,
+        rgba(255, 255, 255, 0) 10px,
+        rgba(255, 255, 255, 0)) top right / 1px 16px no-repeat,
+      repeating-linear-gradient(90deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 10px,
+        rgba(255, 255, 255, 0) 10px,
+        rgba(255, 255, 255, 0)) bottom left / 1px 96px no-repeat,
+      repeating-linear-gradient(90deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 10px,
+        rgba(255, 255, 255, 0) 10px,
+        rgba(255, 255, 255, 0)) bottom right / 1px 96px no-repeat,
+      repeating-linear-gradient(0deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 1px,
+        rgba(255, 255, 255, 0) 1px,
+        rgba(255, 255, 255, 0)) top / 100% 1px no-repeat,
+      repeating-linear-gradient(0deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 10px,
+        rgba(255, 255, 255, 0) 10px,
+        rgba(255, 255, 255, 0)) bottom / 100% 1px no-repeat;
   }
 
   .bg-dot-thick-neutral-300\/15 {
     background-image: radial-gradient(circle, rgb(212 212 212 / 0.15) 1px, transparent 1px);
     background-size: 24px 24px;
   }
-  
+
   .bg-dot-thick-neutral-800\/15 {
     background-image: radial-gradient(circle, rgb(38 38 38 / 0.15) 1px, transparent 1px);
     background-size: 24px 24px;
   }
-  
+
   .bg-dot-thick-indigo-500 {
     background-image: radial-gradient(circle, rgb(99 102 241) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+}
+
+
+/* Override container max-width for all screen sizes */
+@layer utilities {
+  .container {
+    max-width: 96rem !important;
+  }
+
+  @media (width >=40rem) {
+    .container {
+      max-width: 96rem !important;
+    }
+  }
+
+  @media (width >=48rem) {
+    .container {
+      max-width: 96rem !important;
+    }
+  }
+
+  @media (width >=64rem) {
+    .container {
+      max-width: 96rem !important;
+    }
+  }
+
+  @media (width >=80rem) {
+    .container {
+      max-width: 96rem !important;
+    }
+  }
+
+  @media (width >=96rem) {
+    .container {
+      max-width: 96rem !important;
+    }
   }
 }

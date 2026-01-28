@@ -40,13 +40,13 @@ const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
         {integrationTitle}
       </motion.h4>
       <motion.h3
-        className="mt-2 font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-balance text-gray-900 dark:text-white tracking-tight"
+        className="mt-2  text-2xl sm:text-3xl md:text-4xl  max-w-3xl mx-auto lg:text-5xl text-balance text-gray-900 dark:text-white tracking-tight"
         variants={itemVariants}
       >
         {headline}
       </motion.h3>
       <motion.p
-        className="mx-auto mt-6 max-w-xl text-gray-500 dark:text-gray-400 text-base md:text-lg text-pretty"
+        className="mx-auto mt-3 max-w-2xl text-gray-500 dark:text-gray-400 text-base md:text-lg text-pretty"
         variants={itemVariants}
       >
         {subHeadline}

@@ -35,13 +35,13 @@ function Button2({ text, className, href }: Button2Props) {
   // Content for both links
   const content = (isRotated: boolean) => (
     <div className="flex items-center  w-full">
-      <p className="box flex-grow ">{label}</p>
+      <p className="box flex-grow pl-4">{label}</p>
       <ArrowRight className={isRotated ? "rotate-45" : ""} size={16} />
     </div>
   );
 
   return (
-    <div className={`inline-block relative top-0 left-0 min-w-full ml-[1px] h-12 sm:h-14 text-xs sm:text-sm overflow-hidden group/btn min-h-6`}>
+    <div className={`inline-block relative top-0 left-0 min-w-full h-12 sm:h-14 text-xs sm:text-sm overflow-hidden group/btn min-h-6`}>
       { !hasHref ? (
         // No link provided: render non-clickable blocks
         <>

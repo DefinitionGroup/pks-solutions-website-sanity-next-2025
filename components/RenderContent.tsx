@@ -1,6 +1,7 @@
 ///// PageBuilder 1SP Content Map[ping Sanity] ///////
 
 import React from "react";
+import DebugBadge from "@/components/dev/DebugBadge";
 import HeroHighlightComponent from "@/components/HeroHighLightComponent";
 import BlogListComponent from "@/components/BlogListComponent";
 import SanityContactForm from "@/components/SanityContactForm";
@@ -61,54 +62,75 @@ const RenderContent: React.FC<RenderContentProps> = ({
         switch (block._type) {
           case "hero":
             return (
-              <HeroHighlightComponent key={index} {...(block as Hero)} locale={locale} />
+              <DebugBadge key={index} name="HeroHighlightComponent">
+                <HeroHighlightComponent {...(block as Hero)} locale={locale} />
+              </DebugBadge>
             );
           case "sciFiBlock":
             return (
-              <SciFiBlock key={index} className="scifi-border mb-12 mx-4">
-                <TripleHero {...(block as SciFiBlockType).tripleHero} locale={locale} />
-              </SciFiBlock>
+              <DebugBadge key={index} name="SciFiBlock">
+                <SciFiBlock className="scifi-border mb-12 mx-4">
+                  <TripleHero {...(block as SciFiBlockType).tripleHero} locale={locale} />
+                </SciFiBlock>
+              </DebugBadge>
             );
           case "gridHero":
             return (
-              <GridHero key={index} {...(block as GridHeroType)} locale={locale} />
+              <DebugBadge key={index} name="GridHero">
+                <GridHero {...(block as GridHeroType)} locale={locale} />
+              </DebugBadge>
             );
           case "gridHero2":
             return (
-              <GridHero2 key={index} {...(block as GridHero2Type)} locale={locale} />
+              <DebugBadge key={index} name="GridHero2">
+                <GridHero2 {...(block as GridHero2Type)} locale={locale} />
+              </DebugBadge>
             );
           case "gridHero3":
             return (
-              <GridHero3 key={index} {...(block as GridHero3Type)} locale={locale} />
+              <DebugBadge key={index} name="GridHero3">
+                <GridHero3 {...(block as GridHero3Type)} locale={locale} />
+              </DebugBadge>
             );
           case "zwischenTitelCta":
             return (
-              <ZwischenTitelCta key={index} {...(block as ZwischenTitelCtaType)} locale={locale} />
+              <DebugBadge key={index} name="ZwischenTitelCta">
+                <ZwischenTitelCta {...(block as ZwischenTitelCtaType)} locale={locale} />
+              </DebugBadge>
             );
           case "blogList":
             return (
-              <BlogListComponent key={index} block={block as BlogList} locale={locale} />
+              <DebugBadge key={index} name="BlogListComponent">
+                <BlogListComponent block={block as BlogList} locale={locale} />
+              </DebugBadge>
             );
           case "contactForm":
             return (
-              <SanityContactForm key={index} value={block} locale={locale} />
+              <DebugBadge key={index} name="SanityContactForm">
+                <SanityContactForm value={block} locale={locale} />
+              </DebugBadge>
             );
           case "threeColumnVideoBanner":
             return (
-              <ThreeColVideoBanner key={index} {...(block as ThreeColVideoBannerProps)} locale={locale} />
+              <DebugBadge key={index} name="ThreeColVideoBanner">
+                <ThreeColVideoBanner {...(block as ThreeColVideoBannerProps)} locale={locale} />
+              </DebugBadge>
             );
           case "fourColumnVideoBanner":
             return (
-              <FourColVideoBanner key={index} {...(block as FourColVideoBannerProps)} locale={locale} />
+              <DebugBadge key={index} name="FourColVideoBanner">
+                <FourColVideoBanner {...(block as FourColVideoBannerProps)} locale={locale} />
+              </DebugBadge>
             );
           case "showcaseTabs":
             return (
-              <ShowcaseTabs
-                key={index}
-                className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]"
-                // block.tabs comes straight from your Sanity document
-                tabs={(block as any).tabs}
-              />
+              <DebugBadge key={index} name="ShowcaseTabs">
+                <ShowcaseTabs
+                  className="relative z-30 flex justify-center items-center gap-4 w-full h-[40rem]"
+                  // block.tabs comes straight from your Sanity document
+                  tabs={(block as any).tabs}
+                />
+              </DebugBadge>
             );
           default:
             console.warn(`Unsupported block type: ${block}`);

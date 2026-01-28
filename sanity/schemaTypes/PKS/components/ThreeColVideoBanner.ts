@@ -20,8 +20,14 @@ export default defineType({
       name: "videoCloudinary",
       title: "Background Video (Cloudinary)",
       type: "cloudinary.asset",
-      description: "Cloudinary asset for the background video",
-      validation: (Rule) => Rule.required(),
+      description: "Cloudinary asset for the background video (use either video or image)",
+      group: "background",
+    }),
+    defineField({
+      name: "imageCloudinary",
+      title: "Background Image (Cloudinary)",
+      type: "cloudinary.asset",
+      description: "Cloudinary asset for the background image (alternative to video)",
       group: "background",
     }),
 
@@ -30,7 +36,7 @@ export default defineType({
       name: "title",
       title: "Headline",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required(),∑
       group: "column1",
     }),
     defineField({

@@ -14,7 +14,8 @@ export interface SanityImage {
 
 export interface ThreeColVideoBannerProps {
   _type: "threeColumnVideoBanner";
-  videoCloudinary: { url: string };
+  videoCloudinary?: { url: string };
+  imageCloudinary?: { url: string; secure_url?: string };
   title: string;
   highlight?: string;
   primaryDescription?: string;
