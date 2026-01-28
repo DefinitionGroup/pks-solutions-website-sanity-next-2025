@@ -36,7 +36,7 @@ export default defineType({
       name: "title",
       title: "Headline",
       type: "string",
-      validation: (Rule) => Rule.required(),∑
+      validation: (Rule) => Rule.required(),
       group: "column1",
     }),
     defineField({
