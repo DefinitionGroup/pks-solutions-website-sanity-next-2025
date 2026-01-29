@@ -12,7 +12,6 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
       {items.map((item, index) => (
 
 
-<>
           <DirectionAwareHover
           key={index}
           imageUrl={item.hoverBackgroundCloudinary?.secure_url}
@@ -43,7 +42,6 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
               ></Button2>
           </div> </div> 
           </DirectionAwareHover>
-   </>   
       ))}
     </div>
   );

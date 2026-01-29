@@ -167,6 +167,24 @@ export interface SciFiBlock {
 }
 
 /**
+ * DoubleHero Schema and its Hero Items.
+ */
+export interface DoubleHero {
+  _type: "doubleHero";
+  items: HeroItem[]; // Must contain exactly two items in your schema validation.
+}
+
+/**
+ * SciFi2ColBlock Schema
+ * This schema uses the DoubleHero module.
+ */
+export interface SciFi2ColBlock {
+  _type: "sciFi2ColBlock";
+  className?: string;
+  doubleHero: DoubleHero;
+}
+
+/**
  * GridHero Schema
  */
 export interface GridHero {

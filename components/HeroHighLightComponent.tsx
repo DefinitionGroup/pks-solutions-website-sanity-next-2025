@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Button2 from "./Button2";
 import SciFiBlock from "./ui/anim/SciFiBlock";
 import TripleHero from "./Content/TripleHero";
+import DoubleHero from "./Content/DoubleHero";
 import GridHero from "./Content/GridHero";
 import GridHero2 from "./Content/GridHero2";
 import ZwischenTitelCta from "./Content/ZwischenTitelCta";
@@ -105,6 +106,12 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
                 <TripleHero {...block.tripleHero} locale={locale} />
               </SciFiBlock>
             );
+          case "sciFi2ColBlock":
+              return (
+                <SciFiBlock key={`sciFi2ColBlock-${index}`} className={"scifi-border mb-12 mx-4"}>
+                  <DoubleHero {...block.doubleHero} locale={locale} />
+                </SciFiBlock>
+              );
           case "gridHero":
             return (
               <GridHero key={`gridHero-${index}`} {...block} locale={locale} />

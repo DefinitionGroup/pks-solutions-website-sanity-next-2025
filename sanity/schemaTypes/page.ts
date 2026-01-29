@@ -146,6 +146,7 @@ export default {
         { type: "showcaseTabs" },
         // Allow module types at top level as requested
         { type: "sciFiBlock" },
+        { type: "sciFi2ColBlock" },
         { type: "gridHero" },
         { type: "gridHero2" },
         { type: "gridHero3" },

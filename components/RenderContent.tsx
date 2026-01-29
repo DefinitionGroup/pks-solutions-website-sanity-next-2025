@@ -15,6 +15,7 @@ import {
   FourColVideoBannerProps,
   ShowcaseTabsProps,
   SciFiBlock as SciFiBlockType,
+  SciFi2ColBlock as SciFi2ColBlockType,
   GridHero as GridHeroType,
   GridHero2 as GridHero2Type,
   GridHero3 as GridHero3Type,
@@ -24,6 +25,7 @@ import ThreeColVideoBanner from "./ThreeColVideoBanner";
 import { ShowcaseTabs } from "./ShowCaseTabs";
 import SciFiBlock from "@/components/ui/anim/SciFiBlock";
 import TripleHero from "@/components/Content/TripleHero";
+import DoubleHero from "@/components/Content/DoubleHero";
 import GridHero from "@/components/Content/GridHero";
 import GridHero2 from "@/components/Content/GridHero2";
 import GridHero3 from "@/components/Content/GridHero3";
@@ -40,6 +42,7 @@ interface RenderContentProps {
     | FourColVideoBannerProps
     | ShowcaseTabsProps
     | SciFiBlockType
+    | SciFi2ColBlockType
     | GridHeroType
     | GridHero2Type
     | GridHero3Type
@@ -71,6 +74,14 @@ const RenderContent: React.FC<RenderContentProps> = ({
               <DebugBadge key={index} name="SciFiBlock">
                 <SciFiBlock className="scifi-border mb-12 mx-4">
                   <TripleHero {...(block as SciFiBlockType).tripleHero} locale={locale} />
+                </SciFiBlock>
+              </DebugBadge>
+            );
+          case "sciFi2ColBlock":
+            return (
+              <DebugBadge key={index} name="SciFi2ColBlock">
+                <SciFiBlock className="scifi-border mb-12 mx-4">
+                  <DoubleHero {...(block as SciFi2ColBlockType).doubleHero} locale={locale} />
                 </SciFiBlock>
               </DebugBadge>
             );
