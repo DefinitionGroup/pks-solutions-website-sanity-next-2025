@@ -5,11 +5,9 @@ import { FC } from "react";
 import Image from "next/image";
 import { DoubleHero as DoubleHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
-import { useTheme } from "next-themes";
 
 const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
-  const { resolvedTheme } = useTheme();
 
   return (
     <div className="relative lg:flex  justify-start items-start  gap-4 w-full px-8 ">
