@@ -1,26 +1,32 @@
-import Button2 from "@/components/Button2";
+"use client";
 
+import Button2 from "@/components/Button2";
 import { FC } from "react";
 import Image from "next/image";
 import { DoubleHero as DoubleHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import { useTheme } from "next-themes";
 
 const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
+  const { resolvedTheme } = useTheme();
+
   return (
     <div className="relative lg:flex  justify-start items-start  gap-4 w-full px-8 ">
       {items.map((item, index) => (
         <div
           key={index}
-          className="bg-black flex  justify-start flex-col mt-4   text-white w-full h-full mb-16"
+          className="bg-white dark:bg-black flex  justify-start flex-col mt-4 text-black dark:text-white w-full h-full mb-16"
           >
          <Image
-              className="h-60 w-1/2 mb-2 object-contain relative"
+              className=" w-1/1 mb-2 object-contain relative"
               aria-hidden
               src={item.fixedIconCloudinary?.secure_url || ""}
               alt="Window icon"
               width={60}
-              height={60} />
+              height={60} 
+            
+            />
             <p className="text-xl sm:text-xl  md:text-3xl lg:text-3xl">
               {item.fixedTitle}
             </p>
@@ -28,11 +34,11 @@ const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
             <p className=" text-lg md:text-xl">
               {item.hoverTitle}
             </p>
-            <p className="font-normal w-1/2  mt-8 text-xs leading-relaxed md:text-sm">
+            <p className="font-normal w-3/4 mt-8 text-base leading-relaxed md:text-base">
               {item.hoverDescription}
             </p>
             <Button2
-              className="text-white mt-8"
+              className="mt-8"
               text={item?.ctaButton?.name}
               href={resolveSanityLink(item?.ctaButton?.link, locale)}
             ></Button2>
