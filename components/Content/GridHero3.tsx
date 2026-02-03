@@ -36,7 +36,7 @@ const GridHero3: FC<gridHero3Props & { locale?: string }> = (props) => {
           >
           
               <CardDemo3
-                video={middleSection.videoCloudinary}
+                media={middleSection.videoCloudinary}
                 title={middleSection.title}
                 subtitle={middleSection.subtitle}
               />

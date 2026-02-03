@@ -20,6 +20,7 @@ import {
   GridHero2 as GridHero2Type,
   GridHero3 as GridHero3Type,
   ZwischenTitelCta as ZwischenTitelCtaType,
+  ContentSection as ContentSectionType,
 } from "@/types/types";
 import ThreeColVideoBanner from "./ThreeColVideoBanner";
 import { ShowcaseTabs } from "./ShowCaseTabs";
@@ -31,6 +32,7 @@ import GridHero2 from "@/components/Content/GridHero2";
 import GridHero3 from "@/components/Content/GridHero3";
 import ZwischenTitelCta from "@/components/Content/ZwischenTitelCta";
 import FourColVideoBanner from "@/components/FourColVideoBanner";
+import ContentSection from "@/components/Content/ContentSection";
 interface RenderContentProps {
   contentPKS: (
     | Hero
@@ -47,6 +49,7 @@ interface RenderContentProps {
     | GridHero2Type
     | GridHero3Type
     | ZwischenTitelCtaType
+    | ContentSectionType
   )[];
   locale: string;
 }
@@ -141,6 +144,12 @@ const RenderContent: React.FC<RenderContentProps> = ({
                   // block.tabs comes straight from your Sanity document
                   tabs={(block as any).tabs}
                 />
+              </DebugBadge>
+            );
+          case "contentSection":
+            return (
+              <DebugBadge key={index} name="ContentSection">
+                <ContentSection {...(block as ContentSectionType)} locale={locale} />
               </DebugBadge>
             );
           default:

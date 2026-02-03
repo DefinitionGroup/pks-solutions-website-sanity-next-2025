@@ -115,6 +115,11 @@ export const getPageBySlug = async (
       _type == "fourColumnVideoBanner" => {
         ...,
         ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } }
+      },
+      // Content Section - Portable Text
+      _type == "contentSection" => {
+        ...,
+        content
       }
     },
     language,
@@ -128,10 +133,10 @@ export const getPageBySlug = async (
 
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   // Pass locale to the query parameters
@@ -178,7 +183,8 @@ export const getHomepage = async (
       _type == "gridHero3" => { ..., leftSection, middleSection, rightSection { quoteRight, ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } },
       _type == "sciFiBlock" => { ..., tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
       _type == "threeColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
-      _type == "fourColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } }
+      _type == "fourColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
+      _type == "contentSection" => { ..., content }
     },
     language,
     channel,
@@ -223,10 +229,10 @@ export const getMenuByType = async (
 
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   // Pass locale to the query parameters
@@ -263,10 +269,10 @@ export async function getFooterMenu(
 
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   // Pass locale and channel to the query parameters
@@ -283,10 +289,10 @@ export async function getBlogPosts(
 ): Promise<BlogPost[]> {
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   const limit = Number.isInteger(postsPerPage) ? postsPerPage : 6;
@@ -313,10 +319,10 @@ export async function getBlogPostBySlug(
 ): Promise<BlogPost> {
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   // Added channel filter
@@ -377,10 +383,10 @@ export async function getProjects(
 ): Promise<any[]> {
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   // Updated query to filter by channel
@@ -411,10 +417,10 @@ export async function getProjectBySlug(
 ): Promise<any> {
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   const query = groq`*[_type == "project" && slug.current == $slug && language == $locale][0]{
@@ -455,10 +461,10 @@ export async function getClients(
 ): Promise<any[]> {
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   // Updated query to filter by channel
@@ -485,10 +491,10 @@ export async function getClientBySlug(
 ): Promise<any> {
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   const query = groq`*[_type == "client" && slug.current == $slug && language == $locale && $channel in channels][0]{
@@ -525,10 +531,10 @@ export async function getProjectList(
 ): Promise<any> {
   const options = draft
     ? {
-        perspective: "previewDrafts" as ClientPerspective,
-        useCdn: false,
-        stega: true,
-      }
+      perspective: "previewDrafts" as ClientPerspective,
+      useCdn: false,
+      stega: true,
+    }
     : {};
 
   // Query to fetch a standalone project list document for a specific locale
