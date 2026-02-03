@@ -153,6 +153,7 @@ export default {
         { type: "zwischenTitelCta" },
         { type: "threeColumnVideoBanner" },
         { type: "fourColumnVideoBanner" },
+        { type: "contentSection" },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "pksWeb",

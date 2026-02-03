@@ -324,6 +324,16 @@ export interface ZwischenTitelCta {
 }
 
 /**
+ * ContentSection Schema
+ */
+export interface ContentSection {
+  _type: "contentSection";
+  content: PortableTextBlock[];
+  containerClass?: string;
+}
+
+
+/**
  * PageType Schema
  */
 // Add these interfaces above your existing PageType definition
@@ -381,6 +391,7 @@ export interface PageType {
     | ContactForm
     | ThreeColVideoBannerProps
     | ShowcaseTabsProps
+    | ContentSection
   )[];
   channel: string;
   protected?: boolean;
