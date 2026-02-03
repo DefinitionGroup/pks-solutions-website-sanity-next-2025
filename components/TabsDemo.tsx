@@ -75,7 +75,7 @@ const DummyContent = () => {
     <CardDemo3
       title={""}
       subtitle={""}
-      video={{
+      media={{
         _type: "cloudinary.asset",
         secure_url:
           "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",

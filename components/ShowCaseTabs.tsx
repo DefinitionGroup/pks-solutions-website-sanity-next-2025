@@ -39,7 +39,7 @@ export function ShowcaseTabs({ className, tabs }: ShowcaseTabsProps) {
                   key={idx}
                   title={module.title}
                   subtitle={module.subtitle}
-                  video={module.video}
+                  media={module.video}
                 />
               );
             default:
