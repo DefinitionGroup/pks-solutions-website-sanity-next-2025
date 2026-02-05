@@ -129,6 +129,7 @@ export const DirectionAwareHover = ({
                 autoPlay
                 muted
                 loop
+
                 playsInline
               />
             ) : (

@@ -38,7 +38,8 @@ export default function ThreeColVideoBanner({
         <video
           loop
           autoPlay
-          muted
+          muted playsInline
+
           className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover"
           src={backgroundUrl}
         />

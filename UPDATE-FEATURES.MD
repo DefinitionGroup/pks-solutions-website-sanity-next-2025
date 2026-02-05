@@ -44,7 +44,7 @@ const isVideo = src.includes('/video/upload') || /\.(mp4|webm|ogg)(\?|#|$)/i.tes
 return (
   <motion.div>
     {isVideo ? (
-      <video src={src} autoPlay muted loop playsInline className="object-cover ..." />
+      <video src={src} autoPlay muted loop  playsInline className="object-cover ..." />
     ) : (
       <Image src={src || '/images/placeholder.jpg'} alt="image" width={1000} height={1000} className="object-cover ..." />
     )}

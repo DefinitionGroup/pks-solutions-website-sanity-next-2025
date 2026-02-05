@@ -23,7 +23,7 @@ export function CardDemo3({ title, subtitle, media }: CardDemo3Props) {
           <video
             autoPlay
             loop
-            muted
+            muted playsInline
             className="bottom-0 absolute border object-cover opacity-70 mt-8 w-full h-full min-h-full scale-125"
           >
             <source src={media.secure_url} type="video/mp4" />
