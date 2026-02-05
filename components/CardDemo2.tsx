@@ -13,6 +13,7 @@ export function CardDemo2({ videoSource }: { videoSource?: CloudinaryAsset }) {
           autoPlay
           loop
           muted
+          playsInline
           className="flex-grow flex-1 mt-8 w-full h-full scale-100"
         >
           <source src={videoSource?.secure_url} type="video/mp4" /> Your browser
