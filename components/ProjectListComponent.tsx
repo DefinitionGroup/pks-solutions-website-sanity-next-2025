@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectList, Project } from "../types/types";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 // Removed unused PortableText and cn imports
 
 interface ProjectListComponentProps {
@@ -14,7 +15,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
       <div className="relative h-48 w-full overflow-hidden">
         {project.headerImage && (
           <Image
-            src={project.headerImage.secure_url}
+            src={getOptimizedCloudinaryImageUrl(project.headerImage.secure_url, {
+              width: 960,
+            })}
             alt={project.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -26,7 +29,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
           {project.logo && (
             <div className="mr-3 h-10 w-10 overflow-hidden rounded-full">
               <Image
-                src={project.logo.secure_url}
+                src={getOptimizedCloudinaryImageUrl(project.logo.secure_url, {
+                  width: 128,
+                })}
                 alt={`${project.title} logo`}
                 width={40}
                 height={40}

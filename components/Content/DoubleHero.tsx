@@ -5,6 +5,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { DoubleHero as DoubleHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
@@ -19,7 +20,11 @@ const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
           <Image
             className=" w-1/1 mb-2 object-contain relative"
             aria-hidden
-            src={item.fixedIconCloudinary?.secure_url || ""}
+            src={
+              getOptimizedCloudinaryImageUrl(item.fixedIconCloudinary?.secure_url, {
+                width: 240,
+              }) || "/images/placeholder.jpg"
+            }
             alt="Window icon"
             width={60}
             height={60}

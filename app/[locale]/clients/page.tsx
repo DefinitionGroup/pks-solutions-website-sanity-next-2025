@@ -18,6 +18,7 @@ import Button3 from "@/components/Button3";
 import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import { ClientsList, Client } from "@/types/types";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 // Define the page props interface
 interface PageProps {
@@ -101,7 +102,10 @@ export default async function ClientsPage(props: PageProps) {
                     {client.logo && (
                       <div className="w-24 h-24 relative mx-auto mb-4 bg-white/10 rounded-full overflow-hidden flex items-center justify-center p-2">
                         <Image
-                          src={client.logo.secure_url}
+                          src={getOptimizedCloudinaryImageUrl(
+                            client.logo.secure_url,
+                            { width: 256 }
+                          )}
                           alt={client.name}
                           fill
                           className="object-contain "

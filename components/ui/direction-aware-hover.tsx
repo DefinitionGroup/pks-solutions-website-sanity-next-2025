@@ -4,6 +4,11 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/app/lib/utils";
+import {
+  getOptimizedCloudinaryImageUrl,
+  getOptimizedCloudinaryVideoUrl,
+  resolveCloudinaryAssetUrl,
+} from "@/utils/cloudinary";
 
 export const DirectionAwareHover = ({
   imageUrl,
@@ -76,11 +81,9 @@ export const DirectionAwareHover = ({
   const resolveSrc = (input: any): string => {
     if (!input) return "";
     if (typeof input === "string") return input;
-    if (typeof input === "object" && input.secure_url) return input.secure_url as string;
+    if (typeof input === "object") return resolveCloudinaryAssetUrl(input);
     return "";
   };
-
-  const src = resolveSrc(imageUrl);
 
   const isVideoUrl = (u: string): boolean => {
     if (!u) return false;
@@ -88,6 +91,11 @@ export const DirectionAwareHover = ({
     if (u.includes("/video/upload")) return true;
     return /\.(mp4|webm|ogg)(\?|#|$)/i.test(u);
   };
+
+  const rawSrc = resolveSrc(imageUrl);
+  const src = isVideoUrl(rawSrc)
+    ? getOptimizedCloudinaryVideoUrl(rawSrc, { width: 1400 })
+    : getOptimizedCloudinaryImageUrl(rawSrc, { width: 1200 });
 
   return (
     <motion.div

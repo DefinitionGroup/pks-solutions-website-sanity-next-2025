@@ -4,6 +4,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { TripleHero as trupleHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
@@ -21,7 +22,14 @@ const TripleHero: FC<trupleHeroProps & { locale?: string }> = (props) => {
               <Image
                 className="h-10 w-10 md:w-1/4 object-contain relative"
                 aria-hidden
-                src={item.fixedIconCloudinary?.secure_url || ""}
+                src={
+                  getOptimizedCloudinaryImageUrl(
+                    item.fixedIconCloudinary?.secure_url,
+                    {
+                      width: 256,
+                    }
+                  ) || "/images/placeholder.jpg"
+                }
                 alt="Window icon"
                 width={64}
                 height={64}

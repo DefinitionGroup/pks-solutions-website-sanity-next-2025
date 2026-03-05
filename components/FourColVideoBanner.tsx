@@ -7,9 +7,13 @@ import { Highlight } from "./ui/hero-highlight";
 import Button2 from "./Button2";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import { easeInOut } from "framer-motion";
+import {
+  getOptimizedCloudinaryVideoUrl,
+  resolveCloudinaryAssetUrl,
+} from "@/utils/cloudinary";
 
 export interface FourColVideoBannerProps {
-  videoCloudinary: { url: string };
+  videoCloudinary: { url?: string; secure_url?: string };
   brandName: string;
   headline: string;
   headlineHighlight?: string;
@@ -43,6 +47,10 @@ export default function FourColVideoBanner({
     duration: 0.8,
     times: [0, 0.5, 1],
   };
+  const videoUrl = getOptimizedCloudinaryVideoUrl(
+    resolveCloudinaryAssetUrl(videoCloudinary),
+    { width: 1920 }
+  );
 
   return (
     <div className="justify-center bg-black grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
@@ -52,7 +60,7 @@ export default function FourColVideoBanner({
         muted
         playsInline
         className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover min-h-[100vh] lg:min-h-0"
-        src={videoCloudinary.url}
+        src={videoUrl}
       />
 
       {/* Content Grid - stacks on mobile, 4 cols on desktop */}

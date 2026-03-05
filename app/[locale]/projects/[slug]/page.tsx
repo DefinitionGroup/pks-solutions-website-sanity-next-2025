@@ -13,6 +13,7 @@ import PreviewBanner from "@/components/PreviewBanner";
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 // Define the page props interface
 interface PageProps {
@@ -50,7 +51,11 @@ export default async function ProjectDetailPage(props: PageProps) {
       {/* Hero section with image and content overlay */}
       <div className="relative w-full h-[60vh] min-h-[500px] max-w-screen-2xl mx-auto overflow-hidden mt-[8rem] rounded-xl border border-white/20">
         <Image
-          src={project.headerImage?.secure_url || defaultHeaderImage}
+          src={
+            getOptimizedCloudinaryImageUrl(project.headerImage?.secure_url, {
+              width: 2200,
+            }) || defaultHeaderImage
+          }
           alt={project.title || "Project image"}
           fill
           priority
@@ -130,7 +135,10 @@ export default async function ProjectDetailPage(props: PageProps) {
                   {project.client.logo ? (
                     <div className="w-16 h-16 relative mr-4">
                       <Image
-                        src={project.client.logo.secure_url}
+                        src={getOptimizedCloudinaryImageUrl(
+                          project.client.logo.secure_url,
+                          { width: 256 }
+                        )}
                         alt={project.client.name}
                         fill
                         className="object-contain rounded-full"
@@ -166,7 +174,9 @@ export default async function ProjectDetailPage(props: PageProps) {
           <div className="max-w-4xl mx-auto">
             <div className="w-32 h-32 relative mx-auto">
               <Image
-                src={project.logo.secure_url}
+                src={getOptimizedCloudinaryImageUrl(project.logo.secure_url, {
+                  width: 320,
+                })}
                 alt={`${project.title} logo`}
                 fill
                 className="object-contain"

@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: process.env.FROM_EMAIL || "website@example.com",
-      to: recipient || process.env.TO_EMAIL || "default@example.com",
+      to: recipient || process.env.TO_EMAIL || "m.adelstein@icloud.com",
       replyTo: email,
       subject: `New contact form submission from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,

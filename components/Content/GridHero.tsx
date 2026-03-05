@@ -8,20 +8,25 @@ import { CardDemo2 } from "../CardDemo2";
 import AnimationWrapper from "../ui/anim/AnimationWrapper";
 import { GridHero as GridHeroProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import {
+  getOptimizedCloudinaryImageUrl,
+  getOptimizedCloudinaryVideoUrl,
+  resolveCloudinaryAssetUrl,
+} from "@/utils/cloudinary";
 
 const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
   const { sectionOne, showSectionTwo, sectionTwo, locale } = props;
 
   const leftCardMedia = useMemo<
     | { type: "image"; src: string }
-    | { type: "video"; src: string; mimeType: string }
+    | { type: "video"; src: string }
   >(() => {
     const asset = sectionTwo?.leftCard?.imageCloudinary;
     if (!asset) {
       return { src: "/img/austin-distel-rxpThOwuVgE-unsplash.jpg", type: "image" as const };
     }
 
-    const src = asset.secure_url ?? asset.url;
+    const src = resolveCloudinaryAssetUrl(asset);
     if (!src) {
       return { src: "/img/austin-distel-rxpThOwuVgE-unsplash.jpg", type: "image" as const };
     }
@@ -34,13 +39,15 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
 
     if (isVideo) {
       return {
-        src,
+        src: getOptimizedCloudinaryVideoUrl(src, { width: 1280 }),
         type: "video" as const,
-        mimeType: format ? `video/${format}` : "video/mp4",
       };
     }
 
-    return { src, type: "image" as const };
+    return {
+      src: getOptimizedCloudinaryImageUrl(src, { width: 1200 }),
+      type: "image" as const,
+    };
   }, [sectionTwo?.leftCard?.imageCloudinary]);
 
   const hasSectionOneContent = Boolean(
@@ -118,7 +125,7 @@ const GridHero: FC<GridHeroProps & { locale?: string }> = (props) => {
                 playsInline
                 aria-label="background video"
               >
-                <source src={leftCardMedia.src} type={leftCardMedia.mimeType} />
+                <source src={leftCardMedia.src} />
               </video>
             ) : (
               <Image

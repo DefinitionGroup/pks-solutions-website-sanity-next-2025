@@ -9,6 +9,7 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import { MenuType } from "@/types/types";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 // Update the props interface to include currentLocale
 export default function Footer({
@@ -27,7 +28,9 @@ export default function Footer({
           {menu.imageCloud && (
             <Image
                 className="px-12 inline-block invert dark:invert-0"
-                src={menu.imageCloud.secure_url}
+                src={getOptimizedCloudinaryImageUrl(menu.imageCloud.secure_url, {
+                  width: 500,
+                })}
                 alt="logo"
                 width={250}
                 height={222}
