@@ -26,7 +26,7 @@ type FormData = {
 export default function ContactForm({
   title = "Contact Us",
   subtitle = "We'd love to hear from you",
-  emailRecipient = "contact@example.com",
+  emailRecipient = "",
   successMessage = "Thank you for your message. We'll get back to you soon!",
   nameFieldLabel = "Your Name",
   emailFieldLabel = "Your Email",
@@ -37,7 +37,6 @@ export default function ContactForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  console.log(locale);
   const {
     register,
     handleSubmit,
@@ -57,12 +56,20 @@ export default function ContactForm({
         },
         body: JSON.stringify({
           ...data,
-          recipient: emailRecipient,
+          ...(emailRecipient ? { recipient: emailRecipient } : {}),
         }),
       });
 
+      const payload = await response.json().catch(() => null);
+
       if (!response.ok) {
-        throw new Error("Something went wrong. Please try again later.");
+        throw new Error(
+          payload?.detail ||
+            payload?.error ||
+            (locale === "de"
+              ? "Etwas ist schiefgelaufen. Bitte versuche es später erneut."
+              : "Something went wrong. Please try again later.")
+        );
       }
 
       reset();
