@@ -11,11 +11,11 @@ const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
   const { items, locale } = props;
 
   return (
-    <div className="relative lg:flex  justify-start items-start   h-full gap-4 w-full px-8 ">
+    <div className="relative lg:flex  justify-start items-start   border border-white h-full gap-4 w-full px-8 ">
       {items.map((item, index) => (
         <div
           key={index}
-          className="bg-white dark:bg-black flex  justify-start flex-col mt-4 text-black dark:text-white w-full h-full mb-16"
+          className="bg-white dark:bg-black flex   justify-start flex-col mt-4 text-black dark:text-white w-full h-full mb-16"
         >
           <Image
             className=" w-1/1 mb-2 object-contain relative"
@@ -37,7 +37,7 @@ const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
           <p className=" text-sm md:text-lg">
             {item.hoverTitle}
           </p>
-          <p className="font-normal w-3/4 mt-8 text-base leading-relaxed md:text-base">
+          <p className="font-normal w-full md:w-3/4 mt-8 text-sm md:text-base leading-relaxed md:text-base">
             {item.hoverDescription}
           </p>
           <Button2

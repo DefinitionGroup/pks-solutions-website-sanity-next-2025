@@ -95,13 +95,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const toEmail = process.env.TO_EMAIL?.trim() || recipient?.trim();
+    const toEmail =
+      process.env.TO_EMAIL?.trim() ||
+      recipient?.trim() ||
+      process.env.FROM_EMAIL?.trim();
     if (!toEmail) {
       return NextResponse.json(
         {
           error: 'Contact form is not configured correctly.',
           detail:
-            'No recipient email is configured. Add TO_EMAIL in Vercel or set a recipient in Sanity.',
+            'No recipient email is configured. Add TO_EMAIL in Vercel, set a recipient in Sanity, or configure FROM_EMAIL.',
         },
         { status: 500 },
       );
