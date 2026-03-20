@@ -1,7 +1,17 @@
 "use client";
 import { cn } from "@/app/lib/utils";
 import { CloudinaryAsset } from "@/types/types";
+import {
+  getOptimizedCloudinaryVideoUrl,
+  resolveCloudinaryAssetUrl,
+} from "@/utils/cloudinary";
+
 export function CardDemo2({ videoSource }: { videoSource?: CloudinaryAsset }) {
+  const videoUrl = getOptimizedCloudinaryVideoUrl(
+    resolveCloudinaryAssetUrl(videoSource),
+    { width: 1280 }
+  );
+
   return (
     <div className="flex-grow">
       <div
@@ -15,9 +25,9 @@ export function CardDemo2({ videoSource }: { videoSource?: CloudinaryAsset }) {
           muted
           playsInline
           className="flex-grow flex-1 mt-8 w-full h-full scale-100"
+          src={videoUrl}
         >
-          <source src={videoSource?.secure_url} type="video/mp4" /> Your browser
-          does not support the video tag.
+          Your browser does not support the video tag.
         </video>
       </div>
     </div>

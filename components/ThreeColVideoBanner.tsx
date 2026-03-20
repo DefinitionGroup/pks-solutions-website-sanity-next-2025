@@ -8,6 +8,12 @@ import Button2 from "./Button2";
 import { ThreeColVideoBannerProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import { easeInOut } from "framer-motion";
+import Image from "next/image";
+import {
+  getOptimizedCloudinaryImageUrl,
+  getOptimizedCloudinaryVideoUrl,
+  resolveCloudinaryAssetUrl,
+} from "@/utils/cloudinary";
 
 export default function ThreeColVideoBanner({
   videoCloudinary,
@@ -29,8 +35,16 @@ export default function ThreeColVideoBanner({
   };
 
   // Determine background URL - prefer video, fallback to image
-  const backgroundUrl = videoCloudinary?.url || imageCloudinary?.secure_url || imageCloudinary?.url;
-  const isVideo = !!videoCloudinary?.url;
+  const videoUrl = getOptimizedCloudinaryVideoUrl(
+    resolveCloudinaryAssetUrl(videoCloudinary),
+    { width: 1920 }
+  );
+  const imageUrl = getOptimizedCloudinaryImageUrl(
+    resolveCloudinaryAssetUrl(imageCloudinary),
+    { width: 1920 }
+  );
+  const backgroundUrl = videoUrl || imageUrl;
+  const isVideo = !!videoUrl;
 
   return (
     <div className="justify-center container bg-black mx-auto md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
@@ -44,11 +58,15 @@ export default function ThreeColVideoBanner({
           src={backgroundUrl}
         />
       ) : backgroundUrl ? (
-        <img
-          src={backgroundUrl}
-          alt=""
-          className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover"
-        />
+        <div className="relative col-start-1 row-start-1 w-full h-full">
+          <Image
+            src={backgroundUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            className="opacity-60 w-full h-full object-cover"
+          />
+        </div>
       ) : null}
 
       <div className="md:grid grid-cols-12 col-start-1 z-50 row-start-1 py-32 pt- w-full">

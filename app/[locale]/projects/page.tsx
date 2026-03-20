@@ -15,6 +15,7 @@ import Button3 from "@/components/Button3";
 import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import { Project, ProjectList } from "@/types/types";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 // Define the page props interface
 interface PageProps {
@@ -94,7 +95,10 @@ export default async function ProjectsPage(props: PageProps) {
               <GlowingStarsBackgroundCard
                 key={project._id}
                 className="h-full"
-                backgroundImage={project.headerImage?.secure_url}
+                backgroundImage={getOptimizedCloudinaryImageUrl(
+                  project.headerImage?.secure_url,
+                  { width: 1400 }
+                )}
               >
                 <div className="p-2 flex flex-col h-full">
                   <div className="flex-1">

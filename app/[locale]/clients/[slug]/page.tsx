@@ -13,6 +13,7 @@ import PreviewBanner from "@/components/PreviewBanner";
 import Image from "next/image";
 import Link from "next/link";
 import { Project } from "@/types/types";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 // Define the page props interface
 interface PageProps {
@@ -54,7 +55,9 @@ export default async function ClientDetailPage(props: PageProps) {
           {client.logo && (
             <div className="mb-8 w-40 h-40 relative bg-white/10 rounded-full p-2 backdrop-blur-sm border border-white/20 shadow-xl overflow-hidden">
               <Image
-                src={client.logo.secure_url}
+                src={getOptimizedCloudinaryImageUrl(client.logo.secure_url, {
+                  width: 320,
+                })}
                 alt={`${client.name} logo`}
                 fill
                 className="object-contain "
@@ -137,7 +140,10 @@ export default async function ClientDetailPage(props: PageProps) {
                   {project.logo ? (
                     <div className="relative w-full h-full">
                       <Image
-                        src={project.logo.secure_url}
+                        src={getOptimizedCloudinaryImageUrl(
+                          project.logo.secure_url,
+                          { width: 180 }
+                        )}
                         alt={project.title}
                         fill
                         className="object-contain p-1"

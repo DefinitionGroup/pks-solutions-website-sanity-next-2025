@@ -2,6 +2,11 @@
 import { cn } from "@/app/lib/utils";
 import { CloudinaryAsset } from "@/types/types";
 import Image from "next/image";
+import {
+  getOptimizedCloudinaryImageUrl,
+  getOptimizedCloudinaryVideoUrl,
+  resolveCloudinaryAssetUrl,
+} from "@/utils/cloudinary";
 
 interface CardDemo3Props {
   title: string;
@@ -11,6 +16,13 @@ interface CardDemo3Props {
 
 export function CardDemo3({ title, subtitle, media }: CardDemo3Props) {
   const isVideo = media.resource_type === "video";
+  const sourceUrl = resolveCloudinaryAssetUrl(media);
+  const optimizedVideoUrl = getOptimizedCloudinaryVideoUrl(sourceUrl, {
+    width: 1280,
+  });
+  const optimizedImageUrl = getOptimizedCloudinaryImageUrl(sourceUrl, {
+    width: 1200,
+  });
 
   return (
     <div className="w-full h-full min-h-full">
@@ -25,13 +37,13 @@ export function CardDemo3({ title, subtitle, media }: CardDemo3Props) {
             loop
             muted playsInline
             className="bottom-0 absolute border object-cover opacity-70 mt-8 w-full h-full min-h-full scale-125"
+            src={optimizedVideoUrl}
           >
-            <source src={media.secure_url} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         ) : (
           <Image
-            src={media.secure_url}
+            src={optimizedImageUrl || "/images/placeholder.jpg"}
             alt={title}
             fill
             className="bottom-0 absolute border object-cover opacity-70 mt-8 scale-125"

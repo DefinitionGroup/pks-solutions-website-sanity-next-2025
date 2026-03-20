@@ -11,6 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MenuType } from "@/types/types";
 import { usePathname } from "next/navigation";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 // Removed unused Clerk auth components
 import { Sun, Moon } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
@@ -388,7 +389,11 @@ export const FloatingNav = ({
               "relative items-center flex space-x-1 text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-300 hover:text-neutral-500"
             )}>
             <Image
-              src={menu.imageCloud?.secure_url || "/img/logopks--outline.svg"}
+              src={
+                getOptimizedCloudinaryImageUrl(menu.imageCloud?.secure_url, {
+                  width: 256,
+                }) || "/img/logopks--outline.svg"
+              }
               alt="logo"
               width={128}
               height={32}

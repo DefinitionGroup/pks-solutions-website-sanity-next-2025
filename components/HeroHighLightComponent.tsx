@@ -11,6 +11,10 @@ import ZwischenTitelCta from "./Content/ZwischenTitelCta";
 import GridHero3 from "./Content/GridHero3";
 import { Hero as HeroType, ThreeColVideoBannerProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import {
+  getOptimizedCloudinaryVideoUrl,
+  resolveCloudinaryAssetUrl,
+} from "@/utils/cloudinary";
 
 import { FC } from "react";
 import ThreeColVideoBanner from "./ThreeColVideoBanner";
@@ -28,6 +32,10 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
     modules,
     locale,
   } = props;
+  const heroVideoUrl = getOptimizedCloudinaryVideoUrl(
+    resolveCloudinaryAssetUrl(videoCloudinary),
+    { width: 1920 }
+  );
   return (
     <HeroHighlight className="container ">
       {showTopHero && (
@@ -38,7 +46,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
             muted
             playsInline
             className="col-start-1 row-start-1 w-full h-full min-h-[50vh] sm:min-h-[60vh] md:min-h-full object-cover row-span-2 opacity-75 z-[1]"
-            src={videoCloudinary?.secure_url}
+            src={heroVideoUrl}
           />
           <div className="grid grid-cols-1 md:grid-cols-12 col-start-1 row-start-1 py-8 sm:py-16 md:py-24 lg:py-32 w-full z-[2] overflow-hidden">
             <motion.h1

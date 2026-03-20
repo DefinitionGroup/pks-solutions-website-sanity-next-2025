@@ -3,6 +3,7 @@ import { FC } from "react";
 import Button2 from "../Button2";
 import { GridHero2 as gridHero2Props } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
+import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 
 const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
@@ -34,7 +35,11 @@ const GridHero2: FC<gridHero2Props & { locale?: string }> = (props) => {
             >
               <Image
                 aria-hidden
-                src={logo?.secure_url || "/images/placeholder.jpg"}
+                src={
+                  getOptimizedCloudinaryImageUrl(logo?.secure_url, {
+                    width: 328,
+                  }) || "/images/placeholder.jpg"
+                }
                 alt="Window icon"
                 width={164}
                 height={164}

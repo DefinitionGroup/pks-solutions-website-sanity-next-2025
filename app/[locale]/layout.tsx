@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import "../globals.css";
@@ -31,7 +32,16 @@ export default async function RootLayout({
 
   return (
     <html lang="de" suppressHydrationWarning>
-      <head />
+      <head>
+        <Script
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          strategy="beforeInteractive"
+          data-cbid="6eb88f68-48a9-4980-98b6-97f74d415df6"
+          data-blockingmode="auto"
+          type="text/javascript"
+        />
+      </head>
       <body className={` ${fontBrandRegular.className} antialiased`}>
         <ThemeProvider
           attribute="class"
