@@ -14,10 +14,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { Project } from "@/types/types";
 import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
+import type { Metadata } from "next";
+import { absoluteUrl, truncateDescription } from "@/lib/seo";
 
 // Define the page props interface
 interface PageProps {
   params: Promise<{ slug: string; locale: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const client = await getClientBySlug(slug, locale);
+
+  if (!client) return {};
+
+  const title = client.name;
+  const description = truncateDescription(client.description);
+  const url = absoluteUrl(`/${locale}/clients/${slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url },
+  };
 }
 
 export default async function ClientDetailPage(props: PageProps) {

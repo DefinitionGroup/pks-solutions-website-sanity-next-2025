@@ -53,6 +53,8 @@ export default clerkMiddleware(async (auth, req) => {
 });
 
 export const config = {
-  // Matcher ignoring `/_next/`, `/api/`, `/studio` and static files
-  matcher: ["/((?!api|studio|img|_next/static|_next/image|favicon.ico).*)"],
+  // Matcher ignoring `/_next/`, `/api/`, `/studio`, static files, and SEO files
+  matcher: [
+    "/((?!api|studio|img|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml).*)",
+  ],
 };

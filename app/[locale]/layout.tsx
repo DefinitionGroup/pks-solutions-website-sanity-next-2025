@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
 const fontBrandRegular = localFont({
@@ -17,21 +18,43 @@ const fontBrandRegular = localFont({
 // });
 
 export const metadata: Metadata = {
-  title: "PKS Solutions Website",
-  description: "Welcome to PKS Solutions, your partner in innovation.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "PKS Solutions | Intelligenter arbeiten statt schneller",
+    template: "%s | PKS Solutions",
+  },
+  description:
+    "PKS Solutions liefert Softwarelösungen für Zeiterfassung, Prozessoptimierung und datengetriebene Entscheidungen in Fertigung und Verwaltung.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    siteName: "PKS Solutions",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
+
+interface RootLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}
 
 export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  params,
+}: RootLayoutProps) {
   if (!children) {
     return null;
   }
 
+  const { locale } = await params;
+
   return (
-    <html lang="de" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <Script
           id="Cookiebot"

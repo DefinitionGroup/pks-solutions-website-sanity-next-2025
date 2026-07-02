@@ -8,6 +8,8 @@ import PreviewBanner from "@/components/PreviewBanner";
 import { notFound } from "next/navigation";
 // GetDemoComponent unused (kept as commented example)
 import RenderContent from "@/components/RenderContent"; // Import RenderContent
+import type { Metadata } from "next";
+import { absoluteUrl, localeAlternates, truncateDescription } from "@/lib/seo";
 
 // Define the default locale
 //const defaultLocale = "de";
@@ -15,6 +17,34 @@ import RenderContent from "@/components/RenderContent"; // Import RenderContent
 // Define props to receive params
 interface HomeProps {
   params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: HomeProps): Promise<Metadata> {
+  const { locale } = await params;
+  const page = await getHomepage(locale, "pksWeb");
+
+  const title = page?.title
+    ? `${page.title} | PKS Solutions`
+    : "PKS Solutions | Intelligenter arbeiten statt schneller";
+  const description =
+    truncateDescription(page?.subtitle) ||
+    "PKS Solutions liefert Softwarelösungen für Zeiterfassung, Prozessoptimierung und datengetriebene Entscheidungen in Fertigung und Verwaltung.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(`/${locale}`),
+      languages: localeAlternates(""),
+    },
+    openGraph: {
+      title,
+      description,
+      url: absoluteUrl(`/${locale}`),
+    },
+  };
 }
 
 // Update the function signature to accept props

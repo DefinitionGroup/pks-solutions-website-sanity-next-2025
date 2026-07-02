@@ -383,6 +383,7 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
+  _updatedAt?: string;
   contentPKS: (
     | Hero
     | BlogList
