@@ -17,6 +17,8 @@ import { FloatingNav } from "@/components/ui/floating-navbar";
 import RenderContent from "@/components/RenderContent";
 import PreviewBanner from "@/components/PreviewBanner";
 import { VisualEditing } from "next-sanity/visual-editing";
+import type { Metadata } from "next";
+import { absoluteUrl, truncateDescription } from "@/lib/seo";
 
 // -- Static params for build
 export async function generateStaticParams() {
@@ -37,6 +39,34 @@ export const revalidate = 10;
 
 interface PageProps {
   params: Promise<{ slug: string; locale: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const page = await getPageBySlug(slug, locale, "pksWeb");
+
+  if (!page || page.protected) {
+    return {};
+  }
+
+  const title = page.title;
+  const description = truncateDescription(page.subtitle);
+  const url = absoluteUrl(`/${locale}/${slug}`);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+    },
+  };
 }
 
 export default async function Page({ params }: PageProps) {
