@@ -396,6 +396,7 @@ export interface PageType {
   )[];
   channel: string;
   protected?: boolean;
+  excludeFromSearch?: boolean;
   allowedGroups?: UserGroup[];
 }
 

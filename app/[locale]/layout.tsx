@@ -3,7 +3,14 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { SITE_URL } from "@/lib/seo";
+import { notFound } from "next/navigation";
+import {
+  DEFAULT_DESCRIPTION,
+  HOME_TITLE,
+  SITE_URL,
+  absoluteUrl,
+  isSupportedLocale,
+} from "@/lib/seo";
 import "../globals.css";
 
 const fontBrandRegular = localFont({
@@ -20,17 +27,17 @@ const fontBrandRegular = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "PKS Solutions | Intelligenter arbeiten statt schneller",
+    default: HOME_TITLE,
     template: "%s | PKS Solutions",
   },
-  description:
-    "PKS Solutions liefert Softwarelösungen für Zeiterfassung, Prozessoptimierung und datengetriebene Entscheidungen in Fertigung und Verwaltung.",
+  description: DEFAULT_DESCRIPTION,
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
     siteName: "PKS Solutions",
+    locale: "de_DE",
     type: "website",
   },
   twitter: {
@@ -52,10 +59,40 @@ export default async function RootLayout({
   }
 
   const { locale } = await params;
+  if (!isSupportedLocale(locale)) {
+    notFound();
+  }
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE_URL}/#organization`,
+        name: "PKS Solutions",
+        url: SITE_URL,
+        logo: absoluteUrl("/img/logopks--outline.svg"),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: "PKS Solutions",
+        inLanguage: "de-DE",
+        publisher: { "@id": `${SITE_URL}/#organization` },
+      },
+    ],
+  };
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
+        />
         <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"

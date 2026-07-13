@@ -13,7 +13,11 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { absoluteUrl, truncateDescription } from "@/lib/seo";
+import {
+  DEFAULT_LOCALE,
+  absoluteUrl,
+  truncateDescription,
+} from "@/lib/seo";
 // If your route provides channel in params, include it here:
 interface PageProps {
   params: Promise<{ slug: string; locale: string; channel: string }>;
@@ -23,20 +27,21 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug, locale, channel = "pksWeb" } = await params;
-  const post = await getBlogPostBySlug(slug, locale, false, channel);
+  if (locale !== DEFAULT_LOCALE) {
+    return { robots: { index: false, follow: false } };
+  }
 
-  if (!post) return {};
+  const post = await getBlogPostBySlug(slug, locale, false, channel);
+  if (!post) return { robots: { index: false, follow: false } };
 
   const title = post.title;
   const description = truncateDescription(post.excerpt);
-  const url = absoluteUrl(`/${locale}/blog/${slug}`);
+  const url = absoluteUrl(`/${DEFAULT_LOCALE}/blog/${slug}`);
 
   return {
     title,
     description,
-    alternates: {
-      canonical: url,
-    },
+    alternates: { canonical: url },
     openGraph: {
       title,
       description,
@@ -49,6 +54,7 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug, locale, channel = "pksWeb" } = await params;
+  if (locale !== DEFAULT_LOCALE) return notFound();
   const { isEnabled } = await draftMode();
 
   // Fetch post and menus with channel and locale
