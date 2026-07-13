@@ -85,7 +85,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="de" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

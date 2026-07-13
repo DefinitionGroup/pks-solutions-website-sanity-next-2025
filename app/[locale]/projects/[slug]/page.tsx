@@ -14,10 +14,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
+import type { Metadata } from "next";
+import { absoluteUrl, truncateDescription } from "@/lib/seo";
 
 // Define the page props interface
 interface PageProps {
   params: Promise<{ slug: string; locale: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const project = await getProjectBySlug(slug, locale);
+
+  if (!project) return {};
+
+  const title = project.title;
+  const description = truncateDescription(
+    project.excerpt ||
+      (typeof project.description === "string" ? project.description : undefined)
+  );
+  const url = absoluteUrl(`/${locale}/projects/${slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: "article" },
+  };
 }
 
 export default async function ProjectDetailPage(props: PageProps) {
