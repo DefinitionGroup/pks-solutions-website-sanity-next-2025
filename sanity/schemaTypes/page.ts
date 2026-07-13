@@ -49,6 +49,15 @@ export default {
           }
         }),
     }),
+    defineField({
+      name: "excludeFromSearch",
+      title: "Exclude from search engines",
+      type: "boolean",
+      description:
+        "Keep this page public, but exclude it from the sitemap and search-engine indexing.",
+      initialValue: false,
+      group: "publishing",
+    }),
     {
       name: "language",
       title: "Language",

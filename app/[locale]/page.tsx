@@ -8,6 +8,12 @@ import PreviewBanner from "@/components/PreviewBanner";
 import { notFound } from "next/navigation";
 // GetDemoComponent unused (kept as commented example)
 import RenderContent from "@/components/RenderContent"; // Import RenderContent
+import type { Metadata } from "next";
+import {
+  DEFAULT_DESCRIPTION,
+  HOME_TITLE,
+  absoluteUrl,
+} from "@/lib/seo";
 
 // Define the default locale
 //const defaultLocale = "de";
@@ -15,6 +21,23 @@ import RenderContent from "@/components/RenderContent"; // Import RenderContent
 // Define props to receive params
 interface HomeProps {
   params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const url = absoluteUrl("/de");
+
+  return {
+    title: { absolute: HOME_TITLE },
+    description: DEFAULT_DESCRIPTION,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: HOME_TITLE,
+      description: DEFAULT_DESCRIPTION,
+      url,
+    },
+  };
 }
 
 // Update the function signature to accept props

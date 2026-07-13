@@ -383,6 +383,7 @@ export interface PageType {
   title: string;
   slug: string;
   subtitle: string;
+  _updatedAt?: string;
   contentPKS: (
     | Hero
     | BlogList
@@ -395,6 +396,7 @@ export interface PageType {
   )[];
   channel: string;
   protected?: boolean;
+  excludeFromSearch?: boolean;
   allowedGroups?: UserGroup[];
 }
 

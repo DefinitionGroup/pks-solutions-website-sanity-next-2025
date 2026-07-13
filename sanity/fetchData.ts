@@ -14,6 +14,7 @@ export const getPageBySlug = async (
 ): Promise<PageType> => {
   const query = groq`*[_type == "page" && slug.current == $slug && language == $locale && channel == $channel][0]{
     title,
+    subtitle,
     _id,
     _createdAt,
     _updatedAt,
@@ -125,6 +126,7 @@ export const getPageBySlug = async (
     language,
     channel,
     protected,
+    excludeFromSearch,
     allowedGroups[]-> {
       _id,
       name
@@ -151,6 +153,7 @@ export const getHomepage = async (
 ): Promise<PageType | null> => {
   const query = groq`*[_type == "page" && language == $locale && channel == $channel && isHomepage == true][0]{
     title,
+    subtitle,
     _id,
     _createdAt,
     _updatedAt,
@@ -189,6 +192,7 @@ export const getHomepage = async (
     language,
     channel,
     protected,
+    excludeFromSearch,
     allowedGroups[]-> { _id, name }
   }`;
 
@@ -353,9 +357,11 @@ export async function getBlogPostBySlug(
 export async function getAllBlogPostSlugs(
   locale: string,
   channel: string
-): Promise<{ slug: string; channel: string }[]> {
-  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels]{ "slug": slug.current, "channel": channels[0] }`;
-  return client.fetch<{ slug: string; channel: string }[]>(query, {
+): Promise<{ slug: string; channel: string; _updatedAt?: string }[]> {
+  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels]{ "slug": slug.current, "channel": channels[0], _updatedAt }`;
+  return client.fetch<
+    { slug: string; channel: string; _updatedAt?: string }[]
+  >(query, {
     locale,
     channel,
   });
@@ -366,13 +372,25 @@ export async function getAllPageSlugsAndLocales() {
   const query = groq`*[_type == "page" && defined(slug.current) && defined(language)]{
     "slug": slug.current,
     "locale": language,
-    "channel": channel // Add channel field
+    "channel": channel,
+    "isHomepage": isHomepage,
+    protected,
+    excludeFromSearch,
+    _updatedAt
   }`;
   // No draft options needed usually for static generation
   // Update the return type to include channel
-  return client.fetch<{ slug: string; locale: string; channel: string }[]>(
-    query
-  );
+  return client.fetch<
+    {
+      slug: string;
+      locale: string;
+      channel: string;
+      isHomepage?: boolean;
+      protected?: boolean;
+      excludeFromSearch?: boolean;
+      _updatedAt?: string;
+    }[]
+  >(query);
 }
 
 // Add function to get all projects with locale support

@@ -1,10 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { client } from "@/sanity/lib/client";
+import { DEFAULT_LOCALE } from "@/lib/seo";
 
-// Define your supported locales and default locale
-const locales = ["en", "de"];
-const defaultLocale = "de";
+const englishRedirects: Record<string, string> = {
+  "/en": "/de",
+  "/en/about": "/de/ueber-uns",
+  "/en/blog": "/de/blog",
+  "/en/home": "/de",
+  "/en/solutions": "/de/loesungen",
+};
+
+const retiredGermanPaths = new Set([
+  "/de/startseite22",
+  "/de/startseitearc",
+  "/de/testpage",
+]);
 
 // Define public routes that don't require authentication
 const publicRoutes = createRouteMatcher([
@@ -19,16 +30,50 @@ const publicRoutes = createRouteMatcher([
 // Export the Clerk middleware with correct handler function
 // Removed explicit types for auth, req, and evt
 export default clerkMiddleware(async (auth, req) => {
-  // Handle localization first
-  const { pathname: localePathname } = req.nextUrl; // Renamed to avoid redeclaration
-  const pathnameHasLocale = locales.some(
-    (locale) => localePathname.startsWith(`/${locale}/`) || localePathname === `/${locale}`
-  );
+  const { pathname } = req.nextUrl;
+  const normalizedPathname = pathname.toLowerCase();
+
+  if (normalizedPathname === "/de/kontakt") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/de/kontakt-zu-uns";
+    return NextResponse.redirect(url, 308);
+  }
+
+  if (
+    normalizedPathname === "/en" ||
+    normalizedPathname.startsWith("/en/")
+  ) {
+    const redirectPath = englishRedirects[normalizedPathname];
+    if (redirectPath) {
+      const url = req.nextUrl.clone();
+      url.pathname = redirectPath;
+      return NextResponse.redirect(url, 308);
+    }
+
+    return new NextResponse(null, {
+      status: 410,
+      headers: { "X-Robots-Tag": "noindex, nofollow" },
+    });
+  }
+
+  if (retiredGermanPaths.has(normalizedPathname)) {
+    return new NextResponse(null, {
+      status: 410,
+      headers: { "X-Robots-Tag": "noindex, nofollow" },
+    });
+  }
+
+  const pathnameHasLocale =
+    pathname === `/${DEFAULT_LOCALE}` ||
+    pathname.startsWith(`/${DEFAULT_LOCALE}/`);
 
   if (!pathnameHasLocale) {
-    const locale = defaultLocale;
-    req.nextUrl.pathname = `/${locale}${localePathname}`;
-    return NextResponse.redirect(req.nextUrl);
+    const url = req.nextUrl.clone();
+    url.pathname =
+      pathname === "/"
+        ? `/${DEFAULT_LOCALE}`
+        : `/${DEFAULT_LOCALE}${pathname}`;
+    return NextResponse.redirect(url, 308);
   }
 
   // Then handle authentication
@@ -44,7 +89,6 @@ export default clerkMiddleware(async (auth, req) => {
   );
 
   // Check if current path is restricted for this user
-  const { pathname } = req.nextUrl; // Now safe to declare here
   if (user?.restrictedPages?.includes(pathname)) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
@@ -53,6 +97,7 @@ export default clerkMiddleware(async (auth, req) => {
 });
 
 export const config = {
-  // Matcher ignoring `/_next/`, `/api/`, `/studio` and static files
-  matcher: ["/((?!api|studio|img|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/((?!api|studio|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)",
+  ],
 };
