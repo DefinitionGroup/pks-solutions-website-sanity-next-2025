@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { client } from "@/sanity/lib/client";
-import { DEFAULT_LOCALE } from "@/lib/seo";
-
-const englishRedirects: Record<string, string> = {
-  "/en": "/de",
-  "/en/about": "/de/ueber-uns",
-  "/en/blog": "/de/blog",
-  "/en/home": "/de",
-  "/en/solutions": "/de/loesungen",
-};
+import { DEFAULT_LOCALE, resolveCanonicalPath } from "@/lib/seo";
 
 const retiredGermanPaths = new Set([
   "/de/startseite22",
@@ -32,10 +24,11 @@ const publicRoutes = createRouteMatcher([
 export default clerkMiddleware(async (auth, req) => {
   const { pathname } = req.nextUrl;
   const normalizedPathname = pathname.toLowerCase();
+  const canonicalPathname = resolveCanonicalPath(pathname);
 
-  if (normalizedPathname === "/de/kontakt") {
+  if (canonicalPathname !== pathname) {
     const url = req.nextUrl.clone();
-    url.pathname = "/de/kontakt-zu-uns";
+    url.pathname = canonicalPathname;
     return NextResponse.redirect(url, 308);
   }
 
@@ -43,13 +36,6 @@ export default clerkMiddleware(async (auth, req) => {
     normalizedPathname === "/en" ||
     normalizedPathname.startsWith("/en/")
   ) {
-    const redirectPath = englishRedirects[normalizedPathname];
-    if (redirectPath) {
-      const url = req.nextUrl.clone();
-      url.pathname = redirectPath;
-      return NextResponse.redirect(url, 308);
-    }
-
     return new NextResponse(null, {
       status: 410,
       headers: { "X-Robots-Tag": "noindex, nofollow" },

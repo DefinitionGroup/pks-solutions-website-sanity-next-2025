@@ -7,6 +7,36 @@ export const HOME_TITLE =
 export const DEFAULT_DESCRIPTION =
   "PKS Solutions macht Zeit, Abläufe und Leistung messbar – mit Software für Prozesskennzahlen, Zeiterfassung und effizientere Produktion.";
 
+export const CANONICAL_PATH_REDIRECTS: Readonly<Record<string, string>> = {
+  "/home": "/de",
+  "/startseite": "/de",
+  "/de/home": "/de",
+  "/de/startseite": "/de",
+  "/en": "/de",
+  "/en/home": "/de",
+
+  "/contact": "/de/kontakt-zu-uns",
+  "/kontakt": "/de/kontakt-zu-uns",
+  "/de/contact": "/de/kontakt-zu-uns",
+  "/de/kontakt": "/de/kontakt-zu-uns",
+  "/de/kontakt-zuuns": "/de/kontakt-zu-uns",
+  "/en/contact": "/de/kontakt-zu-uns",
+
+  "/about": "/de/ueber-uns",
+  "/de/about": "/de/ueber-uns",
+  "/de/uber-uns": "/de/ueber-uns",
+  "/en/about": "/de/ueber-uns",
+
+  "/solutions": "/de/loesungen",
+  "/de/losungen": "/de/loesungen",
+  "/de/solutions": "/de/loesungen",
+  "/en/solutions": "/de/loesungen",
+
+  "/imprint": "/de/impressum",
+  "/en/imprint": "/de/impressum",
+  "/en/blog": "/de/blog",
+};
+
 export const NON_PUBLIC_PAGE_SLUGS = new Set([
   "clients",
   "kontakt",
@@ -21,8 +51,20 @@ export const NON_PUBLIC_PAGE_SLUGS = new Set([
 
 export const NOINDEX_PAGE_SLUGS = new Set(["blog"]);
 
+export function resolveCanonicalPath(path: string): string {
+  const pathWithLeadingSlash = path.startsWith("/") ? path : `/${path}`;
+  const normalizedPath =
+    pathWithLeadingSlash === "/"
+      ? pathWithLeadingSlash
+      : pathWithLeadingSlash.replace(/\/+$/, "");
+
+  return (
+    CANONICAL_PATH_REDIRECTS[normalizedPath.toLowerCase()] ?? normalizedPath
+  );
+}
+
 export function absoluteUrl(path: string): string {
-  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+  return `${SITE_URL}${resolveCanonicalPath(path)}`;
 }
 
 export function isSupportedLocale(locale: string): boolean {
