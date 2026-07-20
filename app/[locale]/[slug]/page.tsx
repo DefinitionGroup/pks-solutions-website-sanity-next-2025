@@ -118,7 +118,7 @@ export default async function Page({ params }: PageProps) {
     const { userId } = await auth();
     if (!userId) {
       // Not logged in
-      redirect("/sign-in");
+      redirect(`/${DEFAULT_LOCALE}/sign-in`);
     }
     // Fetch user's group from Sanity
     const userGroup = await getUserGroupByClerkId(userId);
