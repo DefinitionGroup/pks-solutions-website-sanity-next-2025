@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import {
   DEFAULT_DESCRIPTION,
@@ -117,6 +118,7 @@ export default async function RootLayout({
             </div>
           </ClerkProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
