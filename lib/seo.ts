@@ -19,6 +19,8 @@ export const NON_PUBLIC_PAGE_SLUGS = new Set([
   "testuserspage",
 ]);
 
+export const NOINDEX_PAGE_SLUGS = new Set(["blog"]);
+
 export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
@@ -31,6 +33,14 @@ export function isSupportedLocale(locale: string): boolean {
 
 export function isPublicPageSlug(slug: string): boolean {
   return !NON_PUBLIC_PAGE_SLUGS.has(slug.toLowerCase());
+}
+
+export function isIndexablePageSlug(slug: string): boolean {
+  const normalizedSlug = slug.toLowerCase();
+  return (
+    !NON_PUBLIC_PAGE_SLUGS.has(normalizedSlug) &&
+    !NOINDEX_PAGE_SLUGS.has(normalizedSlug)
+  );
 }
 
 export function truncateDescription(
