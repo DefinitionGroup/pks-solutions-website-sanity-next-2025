@@ -21,6 +21,7 @@ import type { Metadata } from "next";
 import {
   DEFAULT_LOCALE,
   absoluteUrl,
+  isIndexablePageSlug,
   isPublicPageSlug,
   truncateDescription,
 } from "@/lib/seo";
@@ -62,7 +63,7 @@ export async function generateMetadata({
   }
 
   const page = await getPageBySlug(slug, locale, "pksWeb");
-  if (!page || page.protected || page.excludeFromSearch) {
+  if (!page || page.protected) {
     return { robots: { index: false, follow: false } };
   }
 
@@ -73,6 +74,9 @@ export async function generateMetadata({
   return {
     title,
     description,
+    robots: !page.excludeFromSearch && isIndexablePageSlug(slug)
+      ? undefined
+      : { index: false, follow: true },
     alternates: { canonical: url },
     openGraph: { title, description, url },
   };
