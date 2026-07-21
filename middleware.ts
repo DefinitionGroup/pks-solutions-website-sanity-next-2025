@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { client } from "@/sanity/lib/client";
-import { DEFAULT_LOCALE, resolveCanonicalPath } from "@/lib/seo";
+import { DEFAULT_LOCALE, SITE_URL, resolveCanonicalPath } from "@/lib/seo";
+
+const apexHostname = new URL(SITE_URL).hostname.replace(/^www\./, "");
 
 const retiredGermanPaths = new Set([
   "/de/startseite22",
@@ -26,15 +28,9 @@ export default clerkMiddleware(async (auth, req) => {
   const normalizedPathname = pathname.toLowerCase();
   const canonicalPathname = resolveCanonicalPath(pathname);
 
-  if (canonicalPathname !== pathname) {
-    const url = req.nextUrl.clone();
-    url.pathname = canonicalPathname;
-    return NextResponse.redirect(url, 308);
-  }
-
   if (
-    normalizedPathname === "/en" ||
-    normalizedPathname.startsWith("/en/")
+    canonicalPathname === pathname &&
+    (normalizedPathname === "/en" || normalizedPathname.startsWith("/en/"))
   ) {
     return new NextResponse(null, {
       status: 410,
@@ -49,16 +45,32 @@ export default clerkMiddleware(async (auth, req) => {
     });
   }
 
-  const pathnameHasLocale =
-    pathname === `/${DEFAULT_LOCALE}` ||
-    pathname.startsWith(`/${DEFAULT_LOCALE}/`);
+  const canonicalPathHasLocale =
+    canonicalPathname === `/${DEFAULT_LOCALE}` ||
+    canonicalPathname.startsWith(`/${DEFAULT_LOCALE}/`);
 
-  if (!pathnameHasLocale) {
+  const destinationPathname = canonicalPathHasLocale
+    ? canonicalPathname
+    : canonicalPathname === "/"
+      ? `/${DEFAULT_LOCALE}`
+      : `/${DEFAULT_LOCALE}${canonicalPathname}`;
+
+  const requestHostname =
+    req.headers.get("host")?.split(":", 1)[0].toLowerCase() ??
+    req.nextUrl.hostname.toLowerCase();
+  const isApexHost = requestHostname === apexHostname;
+
+  if (destinationPathname !== pathname || isApexHost) {
     const url = req.nextUrl.clone();
-    url.pathname =
-      pathname === "/"
-        ? `/${DEFAULT_LOCALE}`
-        : `/${DEFAULT_LOCALE}${pathname}`;
+    url.pathname = destinationPathname;
+
+    if (isApexHost) {
+      const canonicalSiteUrl = new URL(SITE_URL);
+      url.protocol = canonicalSiteUrl.protocol;
+      url.hostname = canonicalSiteUrl.hostname;
+      url.port = canonicalSiteUrl.port;
+    }
+
     return NextResponse.redirect(url, 308);
   }
 
