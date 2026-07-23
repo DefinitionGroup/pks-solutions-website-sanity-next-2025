@@ -126,11 +126,7 @@ export const getPageBySlug = async (
     language,
     channel,
     protected,
-    excludeFromSearch,
-    allowedGroups[]-> {
-      _id,
-      name
-    }
+    excludeFromSearch
   }`;
 
   const options = draft
@@ -192,8 +188,7 @@ export const getHomepage = async (
     language,
     channel,
     protected,
-    excludeFromSearch,
-    allowedGroups[]-> { _id, name }
+    excludeFromSearch
   }`;
 
   const options = draft
@@ -576,11 +571,4 @@ export async function getProjectList(
   }`;
 
   return client.fetch(query, { locale }, options);
-}
-export async function getUserGroupByClerkId(
-  clerkId: string
-): Promise<{ _id: string; name: string } | null> {
-  const query = groq`*[_type == "user" && clerkId == $clerkId][0]{ group->{_id, name} }`;
-  const user = await client.fetch(query, { clerkId });
-  return user?.group || null;
 }

@@ -12,7 +12,6 @@ import Image from "next/image";
 import { MenuType } from "@/types/types";
 import { usePathname } from "next/navigation";
 import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
-// Removed unused Clerk auth components
 import { Sun, Moon } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 

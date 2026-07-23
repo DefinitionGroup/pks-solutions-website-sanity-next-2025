@@ -16,7 +16,6 @@ export default {
     { name: "basic", title: "Basic Info", default: true },
     { name: "content", title: "Content" },
     { name: "publishing", title: "Publishing Settings" },
-    { name: "access", title: "Access Control" },
   ],
   fields: [
     defineField({
@@ -211,22 +210,12 @@ export default {
     },
     {
       name: "protected",
-      title: "Protected Page",
+      title: "Keep page offline",
       type: "boolean",
       initialValue: false,
-      description: "Restrict access to this page by user group.",
-      group: "access",
-    },
-    {
-      name: "allowedGroups",
-      title: "Allowed User Groups",
-      type: "array",
-      group: "access",
-      of: [{ type: "reference", to: [{ type: "userGroup" }] }],
-      hidden: ({ parent }: { parent?: { protected?: boolean } }) =>
-        !parent?.protected,
       description:
-        "Only users in these groups can access this page if protected.",
+        "Keep this page unavailable on the public website. Uncheck to publish it.",
+      group: "publishing",
     },
   ],
   preview: {

@@ -9,7 +9,6 @@ import {
   MdTranslate,
   MdPeople, // Import icon for clients
   MdWork,
-  MdSupervisedUserCircle, // Import icon for projects
 } from "react-icons/md"; // Import necessary icons
 
 // Define templates for creating documents with pre-filled channel
@@ -276,14 +275,6 @@ export const structure: StructureResolver = (S) => {
           )
       );
   };
-  const createUsersStructure = () => {
-    return S.listItem()
-      .title("Users")
-      .icon(MdSupervisedUserCircle)
-      .child(
-        S.documentTypeList("user").title("Users").filter('_type == "user"')
-      );
-  };
   return S.list()
     .title("Content")
     .items([
@@ -292,7 +283,6 @@ export const structure: StructureResolver = (S) => {
       createBlogsStructure(),
       createClientsStructure(),
       createProjectsStructure(),
-      createUsersStructure(),
       S.divider(),
 
       ...S.documentTypeListItems().filter(
@@ -305,7 +295,6 @@ export const structure: StructureResolver = (S) => {
             "menu",
             "client",
             "project",
-            "user",
           ].includes(listItem.getId() || "")
       ),
     ]);
