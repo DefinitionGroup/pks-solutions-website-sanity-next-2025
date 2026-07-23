@@ -1,15 +1,13 @@
 // app/[slug]/page.tsx
 
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { draftMode } from "next/headers";
-import { auth } from "@clerk/nextjs/server";
 
 import {
   getPageBySlug,
   getMenuByType,
   getFooterMenu,
   getAllPageSlugsAndLocales,
-  getUserGroupByClerkId,
 } from "@/sanity/fetchData";
 
 import Footer from "@/components/Footer";
@@ -113,28 +111,10 @@ export default async function Page({ params }: PageProps) {
     console.warn(`Footer menu not found for locale: ${locale}`);
   }
 
-  // === GROUP PROTECTION LOGIC ===
+  // Authentication has been retired. Never expose legacy protected pages.
   if (page.protected) {
-    const { userId } = await auth();
-    if (!userId) {
-      // Not logged in
-      redirect(`/${DEFAULT_LOCALE}/sign-in`);
-    }
-    // Fetch user's group from Sanity
-    const userGroup = await getUserGroupByClerkId(userId);
-    const allowedGroupIds =
-      page.allowedGroups?.map((g: { _id: string }) => g._id) ?? [];
-    if (!userGroup || !allowedGroupIds.includes(userGroup._id)) {
-      // Not allowed
-      return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
-          <h1 className="text-3xl font-bold mb-2">Unauthorized</h1>
-          <p className="text-lg">You are not allowed to view this page.</p>
-        </div>
-      );
-    }
+    notFound();
   }
-  // === END GROUP PROTECTION LOGIC ===
 
   const { contentPKS } = page;
 

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
@@ -110,13 +109,11 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ClerkProvider>
-            <div className="justify-items-center items-center grid grid-rows-[1fr_10px] p-0 w-full">
-              <main className="items-center sm:items-start gap-8 row-start-1 dark:bg-black w-full">
-                {children}
-              </main>
-            </div>
-          </ClerkProvider>
+          <div className="justify-items-center items-center grid grid-rows-[1fr_10px] p-0 w-full">
+            <main className="items-center sm:items-start gap-8 row-start-1 dark:bg-black w-full">
+              {children}
+            </main>
+          </div>
         </ThemeProvider>
         <Analytics />
       </body>
