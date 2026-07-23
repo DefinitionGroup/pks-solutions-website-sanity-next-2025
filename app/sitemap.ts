@@ -8,10 +8,20 @@ import {
 
 const CHANNEL = "pksWeb";
 
+// Site-wide SEO revision (metadata, canonicals, redirects) deployed 21 Jul 2026;
+// Sanity _updatedAt predates it, so use it as a lastmod floor.
+const SEO_REVISION_DATE = new Date("2026-07-21T09:01:00.000Z");
+
+function lastModifiedFor(updatedAt: string | undefined): Date {
+  const updated = updatedAt ? new Date(updatedAt) : SEO_REVISION_DATE;
+  return updated > SEO_REVISION_DATE ? updated : SEO_REVISION_DATE;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
     {
       url: absoluteUrl(`/${DEFAULT_LOCALE}`),
+      lastModified: lastModifiedFor(undefined),
       changeFrequency: "weekly",
       priority: 1,
     },
@@ -33,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     entries.push({
       url: absoluteUrl(`/${DEFAULT_LOCALE}/${page.slug}`),
-      lastModified: page._updatedAt ? new Date(page._updatedAt) : undefined,
+      lastModified: lastModifiedFor(page._updatedAt),
       changeFrequency: "monthly",
       priority: 0.7,
     });
