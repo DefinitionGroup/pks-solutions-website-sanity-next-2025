@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Analytics } from "@vercel/analytics/next";
+import ConsentGoogleAnalytics from '@/components/ConsentGoogleAnalytics';
 import { notFound } from "next/navigation";
 import {
   DEFAULT_DESCRIPTION,
@@ -116,6 +117,7 @@ export default async function RootLayout({
           </div>
         </ThemeProvider>
         <Analytics />
+        <ConsentGoogleAnalytics />
       </body>
     </html>
   );
