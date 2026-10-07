@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Logo from "@/components/Logo";
 import {
   FaFacebook,
   FaInstagram,
@@ -9,7 +9,6 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import { MenuType } from "@/types/types";
-import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 
 // Update the props interface to include currentLocale
 export default function Footer({
@@ -25,17 +24,9 @@ export default function Footer({
     <footer className="bg-gray-100 mt-8  dark:bg-black">
       <div className="mx-auto px-6 lg:px-8 py-16 sm:py-24 lg:py-32 max-w-7xl">
         <div className="xl:gap-8 border-gray-200 dark:border-white/10 xl:grid xl:grid-cols-3 mt-24 pt-12 border-t">
-          {menu.imageCloud && (
-            <Image
-                className="px-12 inline-block invert dark:invert-0"
-                src={getOptimizedCloudinaryImageUrl(menu.imageCloud.secure_url, {
-                  width: 500,
-                })}
-                alt="logo"
-                width={250}
-                height={222}
-              />
-          )}
+          <Link href={`/${currentLocale}`} aria-label="PKS Solutions Startseite" className="inline-flex px-12">
+            <Logo className="h-7 lg:h-8" />
+          </Link>
           {/* Footer Columns */}
           <div className="gap-8 grid grid-cols-1 xl:col-span-2 mt-16 xl:mt-0">
             <div className="md:gap-8 md:grid md:grid-cols-4">

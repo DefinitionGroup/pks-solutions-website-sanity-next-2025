@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
+import Logo from '@/components/Logo';
 import { notFound } from 'next/navigation';
 import { customerPreviewGroups, isCustomerPreview } from '@/lib/customer-preview';
 
@@ -16,7 +16,7 @@ export default function CustomerPreview() {
   return (
     <div className="bg-dot-thick-neutral-300/15 px-6 pb-28 pt-12 sm:px-12 sm:pt-20">
       <div className="mx-auto max-w-5xl">
-        <Image src="/img/logopks--outline.svg" alt="PKS Solutions" width={278} height={48} priority className="mb-12 h-auto w-64 invert dark:invert-0" />
+        <Logo className="mb-12 h-10" priority />
         <h1 className="max-w-3xl text-balance text-4xl leading-tight sm:text-5xl">Die neuen Texte. Alle Seiten im Überblick.</h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed">Prüfen Sie die redaktionellen Entwürfe direkt im Website-Layout. Alle 16 Seiten zeigen automatisch den aktuellen Draft-Stand aus Sanity. Es wurde nichts veröffentlicht.</p>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed opacity-75">Inhaltliche Änderungen erscheinen beim erneuten Laden. Das Kontaktformular versendet in dieser Vorschau keine Nachrichten. Die drei noch nicht freigegebenen Referenzvorlagen sind nicht enthalten.</p>

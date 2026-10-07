@@ -8,10 +8,9 @@ import {
 } from "framer-motion";
 import { cn } from "@/app/lib/utils";
 import Link from "next/link";
-import Image from "next/image";
+import Logo from "@/components/Logo";
 import { MenuType } from "@/types/types";
 import { usePathname } from "next/navigation";
-import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 import { Sun, Moon } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 
@@ -387,17 +386,7 @@ export const FloatingNav = ({
             className={cn(
               "relative items-center flex space-x-1 text-neutral-800 dark:text-neutral-300 dark:hover:text-neutral-300 hover:text-neutral-500"
             )}>
-            <Image
-              src={
-                getOptimizedCloudinaryImageUrl(menu.imageCloud?.secure_url, {
-                  width: 256,
-                }) || "/img/logopks--outline.svg"
-              }
-              alt="logo"
-              width={128}
-              height={32}
-              className="h-5 lg:h-6 w-auto invert dark:invert-0"
-            />
+            <Logo className="h-5 lg:h-6" priority />
           </Link>
 
           {/* Desktop Menu Items - Hidden on mobile */}

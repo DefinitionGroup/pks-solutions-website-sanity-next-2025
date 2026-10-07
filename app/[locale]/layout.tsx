@@ -74,7 +74,7 @@ export default async function RootLayout({
         "@id": `${SITE_URL}/#organization`,
         name: "PKS Solutions",
         url: SITE_URL,
-        logo: absoluteUrl("/img/logopks--outline.svg"),
+        logo: absoluteUrl("/img/logo-pks-black.svg"),
       },
       {
         "@type": "WebSite",
