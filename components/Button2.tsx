@@ -20,11 +20,17 @@ function Button2({ text, className, href }: Button2Props) {
   const hasHref = Boolean(href && href.trim().length > 0);
   const isExternal = hasHref && (href!.startsWith('http') || href!.startsWith('mailto:') || href!.startsWith('tel:'));
   
+  // Margins position the whole button; on the clipped sliding layers they would push the label out of view
+  const classTokens = (className ?? "").split(/\s+/).filter(Boolean);
+  const isMargin = (token: string) => /^(?:[\w-]+:)*-?m[trblxy]?-/.test(token);
+  const outerClass = classTokens.filter(isMargin).join(" ");
+  const innerClass = classTokens.filter((token) => !isMargin(token)).join(" ");
+
   // Shared look of the sizer and both sliding layers
   const layerClass = (extra: string) => cn(
     "flex justify-between border border-gray-300 dark:border-white/20 font-bold w-full min-h-12 sm:min-h-14 p-3 sm:p-4 text-gray-900 dark:text-white tracking-wider",
     extra,
-    className
+    innerClass
   );
   const topClass = layerClass("pointer-events-auto absolute top-0 left-0 h-full hover:cursor-pointer transition-transform duration-250 ease-in-out group-hover/btn:-translate-y-full group-focus-within/btn:-translate-y-full");
   const bottomClass = layerClass("pointer-events-auto absolute top-0 left-0 h-full hover:cursor-pointer transition-transform duration-250 ease-in-out translate-y-full group-hover/btn:translate-y-0 group-focus-within/btn:translate-y-0");
@@ -41,7 +47,7 @@ function Button2({ text, className, href }: Button2Props) {
   const hiddenLayer = { "aria-hidden": true, tabIndex: -1 } as const;
 
   return (
-    <div className="inline-block relative min-w-full text-xs sm:text-sm overflow-hidden group/btn">
+    <div className={cn("inline-block relative min-w-full text-xs sm:text-sm overflow-hidden group/btn", outerClass)}>
       {/* Invisible in-flow copy gives the button its height, so wrapped labels keep the full border */}
       <div aria-hidden="true" className={layerClass("invisible !m-0")}>{content(false)}</div>
       { !hasHref ? (
