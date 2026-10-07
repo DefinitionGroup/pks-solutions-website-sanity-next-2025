@@ -2,7 +2,7 @@ import { getFooterMenu, getHomepage, getMenuByType } from "@/sanity/fetchData"; 
 // Removed unused imports: HeroHighlightComponent and icons
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import Footer from "@/components/Footer";
-import { draftMode } from "next/headers";
+import { getContentPreview as draftMode } from '@/lib/content-preview';
 import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import { notFound } from "next/navigation";

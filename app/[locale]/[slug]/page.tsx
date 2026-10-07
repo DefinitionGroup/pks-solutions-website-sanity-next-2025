@@ -1,7 +1,7 @@
 // app/[slug]/page.tsx
 
 import { notFound } from "next/navigation";
-import { draftMode } from "next/headers";
+import { getContentPreview as draftMode } from '@/lib/content-preview';
 
 import {
   getPageBySlug,

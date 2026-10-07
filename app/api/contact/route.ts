@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { isCustomerPreview } from '@/lib/customer-preview';
 
 export const runtime = 'nodejs';
 
@@ -53,6 +54,9 @@ function getErrorDetail(error: unknown) {
 }
 
 export async function POST(request: Request) {
+  if (isCustomerPreview()) {
+    return NextResponse.json({ error: 'Der Versand ist in der Kundenvorschau deaktiviert.' }, { status: 403 });
+  }
   try {
     const { name, email, message, recipient }: ContactPayload =
       await request.json();

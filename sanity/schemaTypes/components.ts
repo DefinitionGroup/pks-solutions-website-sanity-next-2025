@@ -16,6 +16,7 @@ import FourColVideoBanner from "./PKS/components/FourColVideoBanner";
 import ShowCaseTabs from "./PKS/components/ShowCaseTabs";
 import Card3 from "./PKS/components/Card3";
 import ContentSection from "./PKS/components/ContentSection";
+import { faqSection, editorialMedia, processSteps } from './PKS/components/EditorialBlocks';
 const ComponentsElements = [
   Hero,
   TripleHero,
@@ -35,5 +36,8 @@ const ComponentsElements = [
   ShowCaseTabs,
   Card3,
   ContentSection,
+  faqSection,
+  editorialMedia,
+  processSteps,
 ];
 export default ComponentsElements;

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-05T10:22:25Z",
+  "title": "Design System: PKS Solutions",
+  "extensions": {
+    "colorMeta": {
+      "background": {"role":"neutral","displayName":"Helle Grundfläche","tonalRamp":["oklch(15% 0 0)","oklch(25% 0 0)","oklch(35% 0 0)","oklch(47% 0 0)","oklch(59% 0 0)","oklch(71% 0 0)","oklch(83% 0 0)","oklch(95% 0 0)"]},
+      "foreground": {"role":"neutral","displayName":"Dunkle Grundschrift","tonalRamp":["oklch(15% 0 0)","oklch(25% 0 0)","oklch(35% 0 0)","oklch(47% 0 0)","oklch(59% 0 0)","oklch(71% 0 0)","oklch(83% 0 0)","oklch(95% 0 0)"]},
+      "background-dark": {"role":"neutral","displayName":"Dunkle Grundfläche","tonalRamp":["oklch(15% 0 0)","oklch(25% 0 0)","oklch(35% 0 0)","oklch(47% 0 0)","oklch(59% 0 0)","oklch(71% 0 0)","oklch(83% 0 0)","oklch(95% 0 0)"]},
+      "foreground-dark": {"role":"neutral","displayName":"Helle Grundschrift","tonalRamp":["oklch(15% 0 0)","oklch(25% 0 0)","oklch(35% 0 0)","oklch(47% 0 0)","oklch(59% 0 0)","oklch(71% 0 0)","oklch(83% 0 0)","oklch(95% 0 0)"]},
+      "highlight-start": {"role":"primary","displayName":"Roter Verlauf – heller Start","tonalRamp":["oklch(39.6% 0.141 25.723)","oklch(44.4% 0.177 26.899)","oklch(50.5% 0.213 27.518)","oklch(57.7% 0.245 27.325)","oklch(63.7% 0.237 25.331)","oklch(70.4% 0.191 22.216)","oklch(80.8% 0.114 19.571)","oklch(88.5% 0.062 18.334)"]},
+      "highlight-end": {"role":"primary","displayName":"Roter Verlauf – kräftiges Ende","tonalRamp":["oklch(39.6% 0.141 25.723)","oklch(44.4% 0.177 26.899)","oklch(50.5% 0.213 27.518)","oklch(57.7% 0.245 27.325)","oklch(63.7% 0.237 25.331)","oklch(70.4% 0.191 22.216)","oklch(80.8% 0.114 19.571)","oklch(88.5% 0.062 18.334)"]},
+      "border-dark": {"role":"neutral","displayName":"Transparente helle Linie","tonalRamp":["oklch(15% 0 0)","oklch(25% 0 0)","oklch(35% 0 0)","oklch(47% 0 0)","oklch(59% 0 0)","oklch(71% 0 0)","oklch(83% 0 0)","oklch(95% 0 0)"]}
+    },
+    "typographyMeta": {
+      "display-desktop":{"displayName":"Hero Desktop","purpose":"Beobachteter Hero bei 1280 px; keine neue uniforme Skala."},
+      "body":{"displayName":"Fließtext","purpose":"Borna; im App-Kontext über next/font/local geladen."},
+      "label":{"displayName":"Navigation und CTA","purpose":"Kompakte Beschriftung; keine eigenständige zweite Schrift."},
+      "editorial-title":{"displayName":"Redaktioneller Abschnittstitel","purpose":"Gemeinsam für FAQ, Text/Bild und Prozess; keine globale Überschriftenregel."},
+      "editorial-body":{"displayName":"Redaktioneller Lesetext","purpose":"EditorialText mit maximal 68ch; explizite CSS-Modul-Stile ohne Typography-Plugin."}
+    },
+    "shadows":[{"name":"floating-navigation","value":"0px 2px 3px -1px rgba(0,0,0,0.1),0px 1px 0px 0px rgba(25,28,33,0.02),0px 0px 0px 1px rgba(25,28,33,0.08)","purpose":"Vorhandene schwebende Navigation, nicht Inhaltskarten."}],
+    "motion":[
+      {"name":"hero-entry","value":"0.5s","purpose":"Bestehender Hero-Auftritt."},
+      {"name":"section-entry","value":"0.6s ease-out","purpose":"Vorhandener AnimationWrapper; Reduced Motion noch nicht als geprüft behandeln."},
+      {"name":"button-slide","value":"0.25s ease-in-out","purpose":"Vorhandene Linien-CTA-Bewegung."},
+      {"name":"editorial-feedback","value":"0.2s","purpose":"Link-Unterstreichung, CTA-Pfeil und FAQ-Indikator; bei Reduced Motion deaktiviert."},
+      {"name":"editorial-image-hover","value":"0.6s cubic-bezier(.16,1,.3,1)","purpose":"Cover-Fotografie bis scale(1.025), nur bei Hover-Fähigkeit und ohne Reduced Motion."}
+    ],
+    "breakpoints":[{"name":"sm","value":"640px"},{"name":"md","value":"768px"},{"name":"lg","value":"1024px"},{"name":"xl","value":"1280px"},{"name":"2xl","value":"1536px"}]
+  },
+  "components": [
+    {
+      "name":"Button2 – Linien-CTA",
+      "kind":"button",
+      "refersTo":"button2-desktop",
+      "description":"Dokumentarische CSS-Übersetzung der bestehenden Optik, nicht App-Code. Ein Link statt der duplizierten Bestands-Links; Fokus ergänzt nur für diese Vorschau. Borna wird aus dem Host geerbt.",
+      "html":"<a class=\"ds-cta\" href=\"#\"><span class=\"ds-first\">Kontakt aufnehmen <span aria-hidden=\"true\">→</span></span><span class=\"ds-second\" aria-hidden=\"true\">Kontakt aufnehmen <span>↗</span></span></a>",
+      "css":".ds-cta{position:relative;display:block;height:56px;min-width:240px;overflow:hidden;color:#111827;font-family:inherit;font-weight:700;font-size:14px;line-height:20px;letter-spacing:.05em}.ds-first,.ds-second{position:absolute;left:0;right:0;display:flex;justify-content:space-between;padding:16px;border:1px solid #d1d5db;transition:transform .25s ease-in-out}.ds-first{top:0}.ds-second{top:100%}.ds-cta:hover .ds-first,.ds-cta:hover .ds-second{transform:translateY(-56px)}.ds-cta:focus-visible{outline:2px solid currentColor;outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-first,.ds-second{transition:none}}"
+    },
+    {
+      "name":"Kontaktfeld",
+      "kind":"input",
+      "description":"Heller Formularzustand nach ContactForm.tsx; Label, Kanten und Fokus-Ring aus dem Bestand.",
+      "html":"<label class=\"ds-label\" for=\"ds-name\">Name</label><input class=\"ds-input\" id=\"ds-name\" type=\"text\" placeholder=\"Ihr Name\">",
+      "css":".ds-label{display:block;font-family:inherit;font-weight:500;font-size:14px;line-height:20px;color:#374151;margin-bottom:8px}.ds-input{display:block;width:calc(100% - 34px);background:#f3f4f6;border:1px solid #d1d5db;border-radius:0;padding:12px 16px;color:#111827;font-family:inherit;font-size:16px;transition:border-color .15s}.ds-input::placeholder{color:#9ca3af}.ds-input:focus{outline:none;border-color:transparent;box-shadow:0 0 0 2px #111827}"
+    },
+    {
+      "name":"Schwebende Navigation – Formstudie",
+      "kind":"nav",
+      "description":"Reduzierte Geometrie des Bestands. Textmarkierung PKS ist kein Ersatz für das echte Logo. Mobile Menülogik und Theme-Wechsel bleiben im Originalbaustein.",
+      "html":"<nav class=\"ds-nav\" aria-label=\"Beispielnavigation\"><strong>PKS</strong><a href=\"#\">Lösungen</a><a href=\"#\">Kontakt</a></nav>",
+      "css":".ds-nav{display:flex;align-items:center;gap:24px;width:fit-content;padding:16px 32px;border:1px solid #e5e7eb;border-radius:9999px;background:rgb(255 255 255/.8);backdrop-filter:blur(12px);color:#111827;box-shadow:0px 2px 3px -1px rgba(0,0,0,.1),0px 1px 0px rgba(25,28,33,.02),0px 0px 0px 1px rgba(25,28,33,.08);font-family:inherit}.ds-nav a{font-size:14px;color:inherit;text-decoration:none}.ds-nav a:hover{text-decoration:underline}.ds-nav a:focus-visible{outline:2px solid currentColor;outline-offset:4px}"
+    },
+    {
+      "name":"Hero-Hervorhebung",
+      "kind":"custom",
+      "description":"Vorhandener roter Verlauf aus hero-highlight.tsx. Nur für eine tatsächliche kurze Textpassage, nicht für einen leeren Streifen.",
+      "html":"<span class=\"ds-highlight\">Prozesse verbessern.</span>",
+      "css":".ds-highlight{display:inline;padding:0 8px 8px;color:white;background:linear-gradient(to right,oklch(80.8% .114 19.571),oklch(63.7% .237 25.331));font-family:inherit;font-size:32px;font-weight:700;line-height:1.6}"
+    },
+    {
+      "name":"Neutrale Rasterfläche",
+      "kind":"custom",
+      "description":"Bestands-Punktraster aus globals.css; Atmosphäre, kein Bildersatz.",
+      "html":"<div class=\"ds-dots\"><p>PKS Solutions</p></div>",
+      "css":".ds-dots{min-height:120px;padding:32px;background-color:var(--background,#ffffff);background-image:radial-gradient(circle,rgb(212 212 212/.15) 1px,transparent 1px);background-size:24px 24px;color:var(--foreground,#171717);font-family:inherit}.ds-dots p{font-size:24px;margin:0}"
+    },
+    {
+      "name":"FAQ – native Fragezeile",
+      "kind":"custom",
+      "refersTo":"editorial-prose",
+      "description":"Kompakter heller Ausschnitt aus FaqSection; native Bedienung, Linien und Plus/Minus. Borna wird vom Host geerbt. Kein zusätzlicher Inhalt wird angefordert.",
+      "html":"<details class=\"ds-faq\"><summary><h3>Was gehört zu einer Auftragszeit?</h3><svg class=\"ds-faq-plus\" viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M4 12h16\" stroke=\"currentColor\" stroke-width=\"1.5\"/><path class=\"ds-faq-vertical\" d=\"M12 4v16\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></summary><p>Entscheidend ist eine einheitliche Zuordnung zu Auftrag, Tätigkeit und Arbeitsplatz.</p></details>",
+      "css":".ds-faq{font-family:inherit;color:#171717;border-block:1px solid #d4d4d4}.ds-faq summary{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:72px;padding-block:1.5rem;cursor:pointer;list-style:none}.ds-faq summary::-webkit-details-marker{display:none}.ds-faq h3{margin:0;font-size:clamp(1.125rem,1.6vw,1.375rem);font-weight:500;line-height:1.4}.ds-faq summary:hover{color:#525252}.ds-faq summary:focus-visible{outline:2px solid currentColor;outline-offset:6px}.ds-faq-plus{width:24px;height:24px;flex:0 0 24px}.ds-faq-vertical{transform-origin:center;transition:transform .2s ease-out}.ds-faq[open] .ds-faq-vertical{transform:scaleY(0)}.ds-faq p{max-width:68ch;margin:0;padding:0 2.5rem 1.75rem 0;color:#525252;font-size:1.0625rem;line-height:1.7}@media(prefers-reduced-motion:reduce){.ds-faq-vertical{transition:none}}"
+    },
+    {
+      "name":"Text & Bild – Zustand ohne Bild",
+      "kind":"custom",
+      "refersTo":"editorial-heading",
+      "description":"Implementierter Fallback von EditorialMedia ohne gültiges Bild. Bewusst kein erfundenes Asset im Vorschau-Snippet; mit echtem Bild verwendet die App das 5:7-Raster und eine figure mit Caption.",
+      "html":"<section class=\"ds-media\"><h2>Auftragszeiten mit PSystem erfassen</h2><p>Auftrag, Tätigkeit und Arbeitsplatz zusammenführen.</p><a href=\"#psystem\">PSystem ansehen<svg viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M4 12h15m-6-6 6 6-6 6\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></section>",
+      "css":".ds-media{font-family:inherit;color:#171717}.ds-media h2{margin:0 0 2rem;font-size:clamp(1.8rem,3.2vw,3rem);font-weight:500;line-height:1.12;letter-spacing:-.025em;text-wrap:balance;overflow-wrap:anywhere}.ds-media p{max-width:68ch;font-size:1.0625rem;line-height:1.7;color:#525252}.ds-media a{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:2rem;padding-block:1rem;border-block:1px solid #d4d4d4;color:inherit;text-decoration:none;font-size:.9375rem}.ds-media svg{width:24px;height:24px;flex-shrink:0;transition:transform .2s}.ds-media a:hover svg{transform:translateX(4px)}.ds-media a:focus-visible{outline:2px solid currentColor;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-media svg{transition:none}}"
+    },
+    {
+      "name":"Prozess – offene Schrittliste",
+      "kind":"custom",
+      "refersTo":"editorial-section",
+      "description":"Kompakter heller Ausschnitt aus ProcessSteps. Statische semantische Liste ohne Karten oder aktive Zustände; Texte sind beschriftete Strukturbeispiele, keine Leistungsversprechen.",
+      "html":"<section class=\"ds-process\"><h2>Auftrag, Tätigkeit und Arbeitsplatz zusammenführen</h2><ol><li><span class=\"ds-step-number\" aria-hidden=\"true\">01</span><h3>Zuordnung festlegen</h3></li><li><span class=\"ds-step-number\" aria-hidden=\"true\">02</span><h3>Nebenzeiten berücksichtigen</h3></li></ol></section>",
+      "css":".ds-process{font-family:inherit;padding:2rem;color:#171717;background:#f5f5f5;border-block:1px solid #d4d4d4}.ds-process h2{margin:0 0 3rem;font-size:clamp(1.8rem,3.2vw,3rem);font-weight:500;line-height:1.12;letter-spacing:-.025em;text-wrap:balance;overflow-wrap:anywhere}.ds-process ol{list-style:none;margin:0;padding:0}.ds-process li{display:grid;grid-template-columns:3rem minmax(0,1fr);gap:1.25rem;padding-block:2rem;border-top:1px solid #d4d4d4}.ds-step-number{font-size:1.75rem;font-variant-numeric:tabular-nums;line-height:1.2;color:#525252}.ds-process h3{margin:0;font-size:clamp(1.4rem,2vw,1.75rem);font-weight:500;line-height:1.2}@media(min-width:768px){.ds-process ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:3rem}}"
+    }
+  ],
+  "narrative": {
+    "northStar":"Präzise Prozesse, sichtbar gemacht",
+    "overview":"PKS verbindet industrielle Bildwelten mit einer sachlichen, geometrischen Typografie. Große Medienflächen, asymmetrische Spalten und feine Rasterlinien tragen die Gestaltung. Inhaltliche Abwechslung entsteht durch den Wechsel von Bild, Erklärung und konkretem Produktbezug, nicht durch zusätzliche Dekoration.\n\nDie vorhandene Identität bleibt verbindlich: PKS-Logo, Borna, monochrome Grundflächen, gezielte rote Hervorhebungen und die bestehende schwebende Navigation. Neue Blöcke sollen diesen Bestand ergänzen. Hell- und Dunkelmodus bleiben gleichwertig.",
+    "keyCharacteristics":["Borna für Überschriften, Fließtext und Navigation.","Großflächige reale Medien statt dekorativer Kachelwände.","Asymmetrisches Zwölfspaltenraster mit feinen Trennlinien.","Eckige Inhaltsflächen; abgerundete Navigation als bestehende Ausnahme.","Zurückhaltende, funktionale Bewegung mit der vorhandenen Motion-Bibliothek."],
+    "rules":[],
+    "dos":["Do: Borna, PKS-Logo, vorhandene Rasterlogik und beide Farbmodi bewahren.","Do: Reale Produktansichten und passende betriebliche Situationen als visuelle Belege einsetzen.","Do: Vorhandene Blöcke erweitern, bevor ähnliche neue Blöcke entstehen.","Do: Typografie, Lesereihenfolge, Tastaturbedienung und reduzierte Bewegung gemeinsam prüfen.","Do: Bestandsbefund, vorgeschlagene Verbesserung und umgesetzten Zustand klar trennen."],
+    "donts":["Don't: Eine neue Schrift, Farbwelt oder Animationsbibliothek allein wegen eines Skill-Defaults einführen.","Don't: Textflächen in dekorative Cards verpacken oder jede Seite gleich komponieren.","Don't: Zufallsbilder, erfundene Produkt-Screenshots, Kundenstimmen oder Kennzahlen als echte Belege ausgeben.","Don't: Die goldene Vorschauleiste oder lokale Hover-Farben zu neuen Markenfarben erklären.","Don't: Redaktionelle Texte, Live-Seiten oder CMS-Dokumente im Zuge dieser Bestandsdokumentation verändern."]
+  }
+}

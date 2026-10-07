@@ -17,6 +17,7 @@ import {
 } from "@/utils/cloudinary";
 
 import { FC } from "react";
+import { stegaClean } from 'next-sanity';
 import ThreeColVideoBanner from "./ThreeColVideoBanner";
 import FourColVideoBanner from "./FourColVideoBanner";
 
@@ -59,12 +60,9 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
                 y: [20, -5, 0],
               }}
               transition={{ duration: 0.5 }}
-              className="col-span-1 md:col-span-9 md:col-start-1 px-4 sm:px-6 md:px-8 pt-4 sm:pt-8 md:pt-16 lg:pt-32 w-full max-w-3xl font-bold text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl text-neutral-100 dark:text-white leading-tight sm:leading-snug md:leading-relaxed">
+              className="col-span-1 md:col-span-9 md:col-start-1 px-4 sm:px-6 md:px-8 pt-4 sm:pt-8 md:pt-16 lg:pt-32 w-full max-w-[22ch] break-words hyphens-auto sm:hyphens-manual text-balance font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-[1.1] tracking-[-0.02em] text-neutral-100 dark:text-white">
               {headline}
-              <br />
-              <Highlight className="text-white dark:text-white">
-                {highlightText}
-              </Highlight>
+              {stegaClean(highlightText || '').trim() && <><br /><Highlight className="text-white dark:text-white">{highlightText}</Highlight></>}
             </motion.h1>
             <motion.p
               initial={{
@@ -76,7 +74,7 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
                 y: [20, -5, 0],
               }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="col-span-1 text-lg md:col-span-4 md:col-start-1 px-4 sm:px-6 md:px-8 mt-3 sm:mt-4 md:mt-8 sm:text-base md:text-lg text-white/90">
+              className="col-span-1 md:col-span-9 md:col-start-1 px-4 sm:px-6 md:px-8 mt-5 sm:mt-6 md:mt-8 max-w-[68ch] text-pretty text-base md:text-lg leading-relaxed text-white/85">
               {leftDescription}
             </motion.p>
             <motion.div
@@ -90,11 +88,14 @@ const HeroHighlightComponent: FC<HeroType & { locale?: string }> = (props) => {
               }}
               transition={{ delay: 0.6, duration: 0.5 }}
               className="flex flex-col justify-center col-span-1 md:col-span-3 md:col-start-10 w-full mt-6 sm:mt-8 md:mt-0 px-4 md:px-0">
-              <p className="py-3 sm:py-4 md:p-6 lg:p-8 w-full text sm:text-lg leading-relaxed text-white/80">
-                {rightDescription}
-              </p>
+              {stegaClean(rightDescription || '').trim() && (
+                <p className="py-3 sm:py-4 md:p-6 lg:p-8 w-full text-pretty sm:text-lg leading-relaxed text-white/80">
+                  {rightDescription}
+                </p>
+              )}
+              {/* On desktop the column dividers form the button's sides, so only top and bottom borders are drawn */}
               <Button2
-                className="border-white/50 text-white w-full [&_*]:!text-white"
+                className="border-white/30 dark:border-white/30 md:border-x-0 text-white w-full [&_*]:!text-white"
                 text={ctaButton?.name || ""}
                 href={resolveSanityLink(ctaButton?.link, locale)}
               />

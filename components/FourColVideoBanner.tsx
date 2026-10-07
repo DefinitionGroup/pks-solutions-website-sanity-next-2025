@@ -3,7 +3,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Highlight } from "./ui/hero-highlight";
+import { Highlight, hasText } from "./ui/hero-highlight";
 import Button2 from "./Button2";
 import { resolveSanityLink } from "@/utils/linkResolver";
 import { easeInOut } from "framer-motion";
@@ -52,14 +52,17 @@ export default function FourColVideoBanner({
     { width: 1920 }
   );
 
+  // The background never sizes the banner: content sets the height
   return (
-    <div className="justify-center bg-black grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
+    <div className="relative justify-center bg-black grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
+      {/* Invisible 16:9 spacer: minimum desktop height without clipping taller content */}
+      <div aria-hidden="true" className="hidden lg:block col-start-1 row-start-1 aspect-video" />
       <video
         loop
         autoPlay
         muted
         playsInline
-        className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover min-h-[100vh] lg:min-h-0"
+        className="absolute inset-0 opacity-60 w-full h-full object-cover"
         src={videoUrl}
       />
 
@@ -70,20 +73,20 @@ export default function FourColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={keyframeTransition}
-          className="lg:col-span-3 lg:col-start-1 px-6 lg:px-8  pb-24 flex flex-col justify-center lg:mt-24  z-50 w-full"
+          className="lg:col-span-3 lg:col-start-1 min-w-0 px-6 lg:px-8 pt-12 pb-8 lg:pt-0 lg:pb-24 flex flex-col justify-center lg:mt-24  z-50 w-full"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: [20, -5, 0] }}
             transition={keyframeTransition}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-5xl  text-white font-bold mb-4"
+            className="text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl leading-[1.1] break-words hyphens-auto text-white font-bold mb-4"
           >
             {brandName}
           </motion.div>
           <h3 className="text-lg sm:text-lg md:text-xl lg:text-2xl text-neutral-100 dark:text-white leading-relaxed lg:leading-snug">
             {headline}
           </h3>
-          {headlineHighlight && (
+          {hasText(headlineHighlight) && (
             <Highlight className="inline-block mt-2 lg:relative lg:top-16 p-4 lg:p-4 text-lg  sm:text-xl md:text-2xl lg:text-3xl text-white dark:text-white">
               {headlineHighlight}
             </Highlight>
@@ -95,14 +98,14 @@ export default function FourColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.3 }}
-          className="flex flex-col justify-end lg:mt-24  lg:col-span-3 lg:col-start-4 px-6 lg:px-8 py-8 lg:py-0 lg:mb-24 w-full border-t border-white/10 lg:border-t-0"
+          className="flex flex-col justify-end lg:mt-24  lg:col-span-3 lg:col-start-4 min-w-0 px-6 lg:px-8 py-8 lg:py-0 lg:mb-24 w-full border-t border-white/10 lg:border-t-0"
         >
           {column2Title && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.4 }}
-              className=" text-xl sm:text-2xl md:text-3xl lg:text-5xl text-gray-200 dark:text-white"
+              className="text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl leading-[1.1] tracking-[-0.01em] text-balance break-words hyphens-auto text-gray-200 dark:text-white"
             >
               {column2Title}
             </motion.div>
@@ -112,7 +115,7 @@ export default function FourColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.5 }}
-              className="mt-4 lg:mt-8 text-sm self-end md:text-base text-gray-300 dark:text-gray-300"
+              className="mt-4 lg:mt-8 text-sm md:text-base text-gray-300 dark:text-gray-300"
             >
               {column2Description}
             </motion.div>
@@ -124,14 +127,14 @@ export default function FourColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.5 }}
-          className="flex flex-col justify-end lg:col-span-3 lg:col-start-7 px-6 lg:px-8 py-8 lg:py-0 lg:mt-24 lg:mb-24 w-full border-t border-white/10 lg:border-t-0"
+          className="flex flex-col justify-end lg:col-span-3 lg:col-start-7 min-w-0 px-6 lg:px-8 py-8 lg:py-0 lg:mt-24 lg:mb-24 w-full border-t border-white/10 lg:border-t-0"
         >
           {column3Title && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.6 }}
-              className=" text-xl sm:text-2xl md:text-3xl lg:text-5xl text-gray-300 dark:text-white"
+              className="text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl leading-[1.1] tracking-[-0.01em] text-balance break-words hyphens-auto text-gray-300 dark:text-white"
             >
               {column3Title}
             </motion.div>
@@ -153,13 +156,14 @@ export default function FourColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.7 }}
-          className="flex flex-col justify-end lg:col-span-3 lg:col-start-10  py-8 pb-16 lg:py-0 lg:mt-72 lg:mb-24 w-full border-t border-white/10 lg:border-t-0"
+          className="flex flex-col justify-end lg:col-span-3 lg:col-start-10  px-6 lg:px-0 py-8 lg:py-0 lg:mt-72 lg:mb-24 w-full border-t border-white/10 lg:border-t-0 [&>*+*]:-mt-px"
         >
+          {/* Stacked buttons share one line; on desktop the column dividers form their sides */}
           {ctaButtons.map((btn, i) => (
             <Button2
               key={i}
               href={resolveSanityLink((btn as any).link, locale)}
-              className="border-gray-200 dark:border-white/20 px-4 lg:px-4 w-full mb-4 text-white"
+              className="border-white/30 dark:border-white/30 lg:border-x-0 px-4 lg:px-4 w-full text-white"
               text={btn.name}
             />
           ))}

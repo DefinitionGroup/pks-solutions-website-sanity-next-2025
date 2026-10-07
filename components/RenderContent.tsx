@@ -33,6 +33,10 @@ import GridHero3 from "@/components/Content/GridHero3";
 import ZwischenTitelCta from "@/components/Content/ZwischenTitelCta";
 import FourColVideoBanner from "@/components/FourColVideoBanner";
 import ContentSection from "@/components/Content/ContentSection";
+import FaqSection from '@/components/Content/FaqSection';
+import EditorialMedia from '@/components/Content/EditorialMedia';
+import ProcessSteps from '@/components/Content/ProcessSteps';
+import type { EditorialBlock } from '@/types/editorial';
 interface RenderContentProps {
   contentPKS: (
     | Hero
@@ -50,6 +54,7 @@ interface RenderContentProps {
     | GridHero3Type
     | ZwischenTitelCtaType
     | ContentSectionType
+    | EditorialBlock
   )[];
   locale: string;
 }
@@ -66,6 +71,12 @@ const RenderContent: React.FC<RenderContentProps> = ({
     <>
       {contentPKS.map((block, index) => {
         switch (block._type) {
+          case 'faqSection':
+            return <FaqSection key={block._key || index} {...block} />;
+          case 'editorialMedia':
+            return <EditorialMedia key={block._key || index} {...block} locale={locale} />;
+          case 'processSteps':
+            return <ProcessSteps key={block._key || index} {...block} />;
           case "hero":
             return (
               <DebugBadge key={index} name="HeroHighlightComponent">
@@ -115,7 +126,7 @@ const RenderContent: React.FC<RenderContentProps> = ({
           case "blogList":
             return (
               <DebugBadge key={index} name="BlogListComponent">
-                <BlogListComponent block={block as BlogList} locale={locale} />
+                <BlogListComponent block={block as unknown as React.ComponentProps<typeof BlogListComponent>["block"]} locale={locale} />
               </DebugBadge>
             );
           case "contactForm":
@@ -149,7 +160,7 @@ const RenderContent: React.FC<RenderContentProps> = ({
           case "contentSection":
             return (
               <DebugBadge key={index} name="ContentSection">
-                <ContentSection {...(block as ContentSectionType)} locale={locale} />
+                <ContentSection {...(block as ContentSectionType)} locale={locale} isPageStart={index === 0} />
               </DebugBadge>
             );
           default:

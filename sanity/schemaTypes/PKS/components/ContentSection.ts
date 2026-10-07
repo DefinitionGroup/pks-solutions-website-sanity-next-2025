@@ -6,6 +6,11 @@ export default defineType({
   type: "object",
   fields: [
     defineField({
+      name: 'layout', title: 'Textanordnung', type: 'string', initialValue: 'reading',
+      options: { list: [{ title: 'Lesespalte', value: 'reading' }, { title: 'Überschrift links, Text rechts', value: 'introColumns' }] },
+      description: 'Die zweispaltige Variante nutzt die erste H2 als Überschrift.',
+    }),
+    defineField({
       name: "content",
       title: "Content",
       type: "array",
@@ -14,7 +19,8 @@ export default defineType({
     }),
     defineField({
       name: "containerClass",
-      title: "Container Class",
+      title: "Bestehende Container-Klassen (Legacy)",
+      readOnly: true,
       type: "string",
       description: "Optional custom CSS classes for the container div",
       initialValue: "container mx-auto px-4 py-8",

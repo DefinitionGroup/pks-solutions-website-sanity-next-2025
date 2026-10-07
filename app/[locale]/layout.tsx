@@ -13,6 +13,8 @@ import {
   isSupportedLocale,
 } from "@/lib/seo";
 import "../globals.css";
+import Link from 'next/link';
+import { isCustomerPreview } from '@/lib/customer-preview';
 
 const fontBrandRegular = localFont({
   src: "../fonts/borna-regular-webfont.woff2",
@@ -94,14 +96,14 @@ export default async function RootLayout({
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}
         />
-        <Script
+        {!isCustomerPreview() && <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"
           strategy="beforeInteractive"
           data-cbid="6eb88f68-48a9-4980-98b6-97f74d415df6"
           data-blockingmode="auto"
           type="text/javascript"
-        />
+        />}
       </head>
       <body className={` ${fontBrandRegular.className} antialiased`}>
         <ThemeProvider
@@ -113,11 +115,17 @@ export default async function RootLayout({
           <div className="justify-items-center items-center grid grid-rows-[1fr_10px] p-0 w-full">
             <main className="items-center sm:items-start gap-8 row-start-1 dark:bg-black w-full">
               {children}
+              {isCustomerPreview() && (
+                <aside aria-label="Kundenvorschau" className="fixed inset-x-0 bottom-0 z-[100] flex flex-wrap items-center justify-center gap-x-4 gap-y-1 border-t border-black/15 bg-yellow-600 px-4 py-3 text-center text-sm text-black">
+                  <span>Kundenvorschau · Nicht veröffentlicht</span>
+                  <Link href="/de/vorschau" className="underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">Alle 16 Seiten ansehen</Link>
+                </aside>
+              )}
             </main>
           </div>
         </ThemeProvider>
-        <Analytics />
-        <ConsentGoogleAnalytics />
+        {!isCustomerPreview() && <Analytics />}
+        {!isCustomerPreview() && <ConsentGoogleAnalytics />}
       </body>
     </html>
   );

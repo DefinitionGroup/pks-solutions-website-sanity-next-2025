@@ -4,12 +4,13 @@ import Button2 from "../Button2";
 import { FC } from "react";
 import { ZwischenTitelCta as zwisProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 
 const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
   const { integrationTitle, headline, subHeadline, ctaButton, locale } = props;
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const reducedMotion = useReducedMotion();
 
   const containerVariants = {
     hidden: {},
@@ -21,8 +22,8 @@ const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    hidden: { opacity: 1, y: reducedMotion ? 0 : 12 },
+    visible: { opacity: 1, y: 0, transition: { duration: reducedMotion ? 0 : 0.5 } },
   };
 
   return (
@@ -33,18 +34,18 @@ const ZwischenTitelCta: FC<zwisProps & { locale?: string }> = (props) => {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
-      <motion.h4
+      <motion.p
         className="font-semibold text-sm md:text-base text-red-600 dark:text-red-500"
         variants={itemVariants}
       >
         {integrationTitle}
-      </motion.h4>
-      <motion.h3
+      </motion.p>
+      <motion.h2
         className="mt-2  text-2xl sm:text-3xl md:text-4xl  max-w-3xl mx-auto lg:text-5xl text-balance text-gray-900 dark:text-white tracking-tight"
         variants={itemVariants}
       >
         {headline}
-      </motion.h3>
+      </motion.h2>
       <motion.p
         className="mx-auto mt-3 max-w-2xl text-gray-500 dark:text-gray-400 text-base md:text-lg text-pretty"
         variants={itemVariants}

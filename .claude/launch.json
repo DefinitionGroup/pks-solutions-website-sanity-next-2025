@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "customer-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "-p", "3110"],
+      "env": {
+        "VERCEL_ENV": "preview",
+        "PKS_CUSTOMER_PREVIEW": "1"
+      },
+      "port": 3110
+    }
+  ]
+}

@@ -118,6 +118,10 @@ export const getPageBySlug = async (
         ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } }
       },
       // Content Section - Portable Text
+      _type == "editorialMedia" => {
+        ...,
+        cta { name, link { ..., internalReference-> { _type, slug { current } } } }
+      },
       _type == "contentSection" => {
         ...,
         content
@@ -183,7 +187,8 @@ export const getHomepage = async (
       _type == "sciFiBlock" => { ..., tripleHero { items[] { ..., ctaButton { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } } } },
       _type == "threeColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
       _type == "fourColumnVideoBanner" => { ..., ctaButtons[] { name, link { ..., linkType, externalUrl, internalReference-> { _type, slug { current } } } } },
-      _type == "contentSection" => { ..., content }
+      _type == "contentSection" => { ..., content },
+      _type == "editorialMedia" => { ..., cta { name, link { ..., internalReference-> { _type, slug { current } } } } }
     },
     language,
     channel,
@@ -278,13 +283,28 @@ export async function getFooterMenu(
   return client.fetch(query, { locale, channel }, options);
 }
 
-// Updated getBlogPosts to remove channel dependency
-// Updated to include channel filtering
+// Shared card projection: list, related posts and the article header use the same fields
+const BLOG_CARD_PROJECTION = `
+    _id,
+    title,
+    slug,
+    publishedAt,
+    excerpt,
+    coverImage,
+    coverAlt,
+    author->{name},
+    "wordCount": length(string::split(pt::text(content), " ")),
+    language,
+    channels
+`;
+
+// Newest posts of a channel, or the editor's hand-picked selection in its given order
 export async function getBlogPosts(
   postsPerPage: number = 6,
   locale: string,
   draft: boolean = false,
-  channel: string = "pksWeb"
+  channel: string = "pksWeb",
+  selectedIds: string[] = []
 ): Promise<BlogPost[]> {
   const options = draft
     ? {
@@ -295,18 +315,30 @@ export async function getBlogPosts(
     : {};
 
   const limit = Number.isInteger(postsPerPage) ? postsPerPage : 6;
-  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels] | order(publishedAt desc)[0...($limit)] {
-    _id,
-    title,
-    slug,
-    publishedAt,
-    excerpt,
-    author->{name},
-    language,
-    channels
-  }`;
+  if (selectedIds.length) {
+    const query = groq`*[_type == "blogPost" && _id in $ids && language == $locale && $channel in channels] { ${BLOG_CARD_PROJECTION} }`;
+    const posts = await client.fetch<BlogPost[]>(query, { ids: selectedIds, locale, channel }, options);
+    const byId = new Map(posts.map((post) => [post._id.replace(/^drafts\./, ""), post]));
+    return selectedIds.map((id) => byId.get(id)).filter((post): post is BlogPost => Boolean(post));
+  }
+  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels] | order(publishedAt desc)[0...($limit)] { ${BLOG_CARD_PROJECTION} }`;
 
   return client.fetch(query, { limit, locale, channel }, options);
+}
+
+// Other posts of the same channel for the "continue reading" section
+export async function getRelatedBlogPosts(
+  slug: string,
+  locale: string,
+  draft: boolean = false,
+  channel: string = "pksWeb",
+  limit: number = 2
+): Promise<BlogPost[]> {
+  const options = draft
+    ? { perspective: "previewDrafts" as ClientPerspective, useCdn: false, stega: true }
+    : {};
+  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels && slug.current != $slug && count(content) > 0] | order(publishedAt desc, _updatedAt desc)[0...($limit)] { ${BLOG_CARD_PROJECTION} }`;
+  return client.fetch(query, { slug, locale, channel, limit }, options);
 }
 
 // Updated getBlogPostBySlug to remove channel dependency
@@ -329,9 +361,13 @@ export async function getBlogPostBySlug(
     _id,
     title,
     slug,
+    _updatedAt,
     publishedAt,
     excerpt,
     content,
+    coverImage,
+    coverAlt,
+    "wordCount": length(string::split(pt::text(content), " ")),
     author->{
       name,
       image,

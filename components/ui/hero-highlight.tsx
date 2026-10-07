@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/app/lib/utils";
+import { stegaClean } from "next-sanity";
 import {
   useMotionValue,
   motion,
@@ -78,6 +79,10 @@ export const HeroHighlight = ({
   );
 };
 
+// Sanity preview strings carry invisible markers, so an empty field is not an empty string.
+export const hasText = (value: unknown) =>
+  typeof value === "string" ? stegaClean(value).trim().length > 0 : Boolean(value);
+
 export const Highlight = ({
   children,
   className,
@@ -85,6 +90,8 @@ export const Highlight = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  // Never draw the coloured bar without text inside it
+  if (!hasText(children)) return null;
   return (
     <motion.span
       initial={{
