@@ -12,7 +12,7 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import PreviewBanner from "@/components/PreviewBanner";
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
+import { PortableText } from "next-sanity";
 import { getOptimizedCloudinaryImageUrl } from "@/utils/cloudinary";
 import type { Metadata } from "next";
 import { absoluteUrl, truncateDescription } from "@/lib/seo";
