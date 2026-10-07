@@ -9,6 +9,7 @@ import {
 import { cn } from "@/app/lib/utils";
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import { useMounted } from "@/lib/use-mounted";
 import { MenuType } from "@/types/types";
 import { usePathname } from "next/navigation";
 import { Sun, Moon } from "@phosphor-icons/react";
@@ -18,12 +19,8 @@ import { useTheme } from "next-themes";
 
 // Theme Switcher Component using next-themes
 const ThemeSwitcher = () => {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const { setTheme, resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const toggleTheme = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
@@ -343,10 +340,12 @@ export const FloatingNav = ({
     }
   });
 
-  // Close mobile menu on route change
-  useEffect(() => {
+  // Close mobile menu on route change (adjusted during render, not in an effect)
+  const [menuPathname, setMenuPathname] = useState(pathname);
+  if (menuPathname !== pathname) {
+    setMenuPathname(pathname);
     setMobileMenuOpen(false);
-  }, [pathname]);
+  }
 
   if (!menu || !menu.menuItems) return null;
 

@@ -31,14 +31,6 @@ const nextConfig: NextConfig = {
   },
   // Enable React Strict Mode
   reactStrictMode: true,
-  // Configure webpack to handle the get-it package
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      setImmediate: false,
-    };
-    return config;
-  },
 };
 
 export default nextConfig;

@@ -10,7 +10,7 @@ const retiredGermanPaths = new Set([
   "/de/testpage",
 ]);
 
-export default function middleware(req: NextRequest) {
+export default function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (isCustomerPreview() && pathname === '/') {
     return NextResponse.redirect(new URL('/de/vorschau', req.url), 307);

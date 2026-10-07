@@ -12,7 +12,6 @@ export function withDebugBadge<T extends React.ComponentType<any>>(
     const label = name || (Component.displayName || (Component as any).name || "Component");
     return (
       <DebugBadge name={label}>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {React.createElement(Component as any, props)}
       </DebugBadge>
     );
