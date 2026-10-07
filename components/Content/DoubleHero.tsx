@@ -17,18 +17,18 @@ const DoubleHero: FC<DoubleHeroProps & { locale?: string }> = (props) => {
           key={index}
           className="bg-white dark:bg-black flex   justify-start flex-col mt-4 text-black dark:text-white w-full h-full mb-16"
         >
+          {/* Shown at full column width (founder portraits), so request a file sharp enough for 2x screens */}
           <Image
-            className=" w-1/1 mb-2 object-contain relative"
-            aria-hidden
+            className="w-full h-auto mb-2 object-contain relative"
             src={
               getOptimizedCloudinaryImageUrl(item.fixedIconCloudinary?.secure_url, {
-                width: 240,
+                width: 1400,
               }) || "/images/placeholder.jpg"
             }
-            alt="Window icon"
-            width={60}
-            height={60}
-
+            alt={item.fixedTitle || ""}
+            width={1400}
+            height={933}
+            sizes="(min-width: 768px) 50vw, 100vw"
           />
           <p className="text-2xl sm:text-2xl  md:text-3xl lg:text-3xl">
             {item.fixedTitle}
