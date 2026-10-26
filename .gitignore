@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+
+# production backups written by scripts/sync-content-dev-to-prod.mjs
+.backups/
