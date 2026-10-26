@@ -26,10 +26,9 @@
     "framer-motion": "^12.7.3",
     "mini-svg-data-uri": "^1.4.4",
     "next": "16.4.3",
-    "next-cloudinary": "^6.16.0",
-    "next-sanity": "13.3.4",
+    "next-sanity": "13.4.0",
     "next-themes": "^0.4.6",
-    "nodemailer": "^7.0.3",
+    "nodemailer": "^10.2.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-hook-form": "^7.56.3",
@@ -37,12 +36,12 @@
     "sanity": "6.18.0",
     "sanity-plugin-cloudinary": "2.1.5",
     "sanity-plugin-internationalized-array": "5.3.2",
-    "styled-components": "6.1.19",
+    "styled-components": "6.6.0",
     "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
     "@sanity/cli": "8.14.0",
-    "@types/nodemailer": "^6.4.17",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
@@ -50,5 +49,17 @@
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@vercel/frameworks": {
+      "js-yaml": "3.15.2",
+      "smol-toml": "1.9.1"
+    },
+    "@module-federation/dts-plugin": {
+      "undici": "7.30.1"
+    },
+    "typeid-js": {
+      "uuid": "11.1.1"
+    }
   }
 }
