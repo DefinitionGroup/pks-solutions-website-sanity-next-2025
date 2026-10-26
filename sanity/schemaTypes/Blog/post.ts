@@ -165,6 +165,15 @@ export default defineType({
       validation: (Rule) =>
         Rule.required().min(1).error("At least one channel is required"),
     }),
+    defineField({
+      name: "excludeFromSearch",
+      title: "Exclude from search engines",
+      type: "boolean",
+      description:
+        "Keep this post public, but exclude it from the sitemap and search-engine indexing.",
+      initialValue: false,
+      group: "publishing",
+    }),
   ],
   preview: {
     select: {

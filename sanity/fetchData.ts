@@ -378,7 +378,8 @@ export async function getBlogPostBySlug(
       slug
     },
     language,
-    channels
+    channels,
+    excludeFromSearch
   }`;
 
   return client.fetch(query, { slug, locale, channel }, options);
@@ -388,10 +389,10 @@ export async function getBlogPostBySlug(
 export async function getAllBlogPostSlugs(
   locale: string,
   channel: string
-): Promise<{ slug: string; channel: string; _updatedAt?: string }[]> {
-  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels]{ "slug": slug.current, "channel": channels[0], _updatedAt }`;
+): Promise<{ slug: string; channel: string; _updatedAt?: string; excludeFromSearch?: boolean }[]> {
+  const query = groq`*[_type == "blogPost" && language == $locale && $channel in channels]{ "slug": slug.current, "channel": channels[0], _updatedAt, excludeFromSearch }`;
   return client.fetch<
-    { slug: string; channel: string; _updatedAt?: string }[]
+    { slug: string; channel: string; _updatedAt?: string; excludeFromSearch?: boolean }[]
   >(query, {
     locale,
     channel,

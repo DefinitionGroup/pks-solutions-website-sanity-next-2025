@@ -19,7 +19,6 @@ import type { Metadata } from "next";
 import {
   DEFAULT_LOCALE,
   absoluteUrl,
-  isIndexablePageSlug,
   isPublicPageSlug,
   truncateDescription,
 } from "@/lib/seo";
@@ -72,7 +71,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    robots: !page.excludeFromSearch && isIndexablePageSlug(slug)
+    robots: !page.excludeFromSearch
       ? undefined
       : { index: false, follow: true },
     alternates: { canonical: url },

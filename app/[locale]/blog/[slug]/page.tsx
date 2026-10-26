@@ -53,7 +53,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    robots: { index: false, follow: true },
+    robots: post.excludeFromSearch ? { index: false, follow: true } : undefined,
     alternates: { canonical: url },
     openGraph: {
       title,
