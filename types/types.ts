@@ -330,6 +330,7 @@ export interface ContentSection {
   _type: "contentSection";
   content: PortableTextBlock[];
   containerClass?: string;
+  layout?: 'reading' | 'introColumns';
 }
 
 
@@ -393,6 +394,7 @@ export interface PageType {
     | ThreeColVideoBannerProps
     | ShowcaseTabsProps
     | ContentSection
+    | import('./editorial').EditorialBlock
   )[];
   channel: string;
   protected?: boolean;
@@ -409,8 +411,12 @@ export interface BlogPost {
     current: string;
   };
   publishedAt: string;
+  _updatedAt?: string;
   excerpt?: string;
   content: PortableTextBlock;
+  coverImage?: { secure_url?: string; url?: string; width?: number; height?: number; resource_type?: string };
+  coverAlt?: string;
+  wordCount?: number;
   categories?: BlogCategory[];
   author?: BlogAuthor;
   channels: string[];

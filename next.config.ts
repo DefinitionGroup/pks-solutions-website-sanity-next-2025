@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async headers() {
+    if (process.env.VERCEL_ENV !== 'preview' || process.env.PKS_CUSTOMER_PREVIEW !== '1') return [];
+    return [{
+      source: '/:path*',
+      headers: [
+        { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        { key: 'Referrer-Policy', value: 'no-referrer' },
+      ],
+    }];
+  },
   serverExternalPackages: ["get-it"],
   images: {
     unoptimized: true,
@@ -21,14 +31,6 @@ const nextConfig: NextConfig = {
   },
   // Enable React Strict Mode
   reactStrictMode: true,
-  // Configure webpack to handle the get-it package
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      setImmediate: false,
-    };
-    return config;
-  },
 };
 
 export default nextConfig;

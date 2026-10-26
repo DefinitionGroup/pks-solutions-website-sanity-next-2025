@@ -1,5 +1,5 @@
 import { VisualEditing } from "next-sanity/visual-editing";
-import { draftMode } from "next/headers";
+import { getContentPreview as draftMode } from '@/lib/content-preview';
 import "../../globals.css";
 import PreviewBanner from "@/components/PreviewBanner";
 export default async function RootLayout({

@@ -96,6 +96,24 @@ export default defineType({
       group: "basic",
     }),
     defineField({
+      name: "coverImage",
+      title: "Titelbild (Cloudinary)",
+      type: "cloudinary.asset",
+      group: "basic",
+      description: "Optional. Echtes Kontext- oder Produktbild; erscheint in Artikelkopf und Übersicht.",
+    }),
+    defineField({
+      name: "coverAlt",
+      title: "Bildbeschreibung",
+      type: "string",
+      group: "basic",
+      hidden: ({ parent }) => !parent?.coverImage,
+      validation: (Rule) =>
+        Rule.custom((value, context) =>
+          !(context.parent as { coverImage?: unknown })?.coverImage || Boolean(value?.trim()) || "Ein Titelbild braucht eine Beschreibung."
+        ),
+    }),
+    defineField({
       name: "content",
       title: "Content",
       type: "array",

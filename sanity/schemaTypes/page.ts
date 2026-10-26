@@ -162,6 +162,9 @@ export default {
         { type: "threeColumnVideoBanner" },
         { type: "fourColumnVideoBanner" },
         { type: "contentSection" },
+        { type: 'faqSection' },
+        { type: 'editorialMedia' },
+        { type: 'processSteps' },
       ],
       hidden: ({ parent }: { parent?: { channel?: string } }) =>
         parent?.channel !== "pksWeb",

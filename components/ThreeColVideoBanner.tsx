@@ -3,7 +3,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Highlight } from "./ui/hero-highlight";
+import { Highlight, hasText } from "./ui/hero-highlight";
 import Button2 from "./Button2";
 import { ThreeColVideoBannerProps } from "@/types/types";
 import { resolveSanityLink } from "@/utils/linkResolver";
@@ -46,19 +46,22 @@ export default function ThreeColVideoBanner({
   const backgroundUrl = videoUrl || imageUrl;
   const isVideo = !!videoUrl;
 
+  // The background never sizes the banner: content sets the height
   return (
-    <div className="justify-center container bg-black mx-auto md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
+    <div className="relative justify-center container bg-black mx-auto md:grid grid-cols-1 grid-rows-1 col-span-12 border-[1px] border-gray-200 dark:border-white/20 w-full overflow-hidden">
+      {/* Invisible 16:9 spacer: minimum desktop height without clipping taller content */}
+      <div aria-hidden="true" className="hidden md:block col-start-1 row-start-1 aspect-video" />
       {isVideo ? (
         <video
           loop
           autoPlay
           muted playsInline
 
-          className="col-start-1 row-start-1 opacity-60 w-full h-full object-cover"
+          className="absolute inset-0 opacity-60 w-full h-full object-cover"
           src={backgroundUrl}
         />
       ) : backgroundUrl ? (
-        <div className="relative col-start-1 row-start-1 w-full h-full">
+        <div className="absolute inset-0">
           <Image
             src={backgroundUrl}
             alt=""
@@ -69,15 +72,15 @@ export default function ThreeColVideoBanner({
         </div>
       ) : null}
 
-      <div className="md:grid grid-cols-12 col-start-1 z-50 row-start-1 py-32 pt- w-full">
+      <div className="relative md:grid grid-cols-12 col-start-1 z-50 row-start-1 py-16 md:py-32 w-full">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={keyframeTransition}
-          className="col-span-4 col-start-1 px-8 pt-24 pb-0 w-full max-w-3xl font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-neutral-100 dark:text-white leading-relaxed lg:leading-snug"
+          className="col-span-4 col-start-1 px-8 pt-0 md:pt-24 pb-0 w-full min-w-0 max-w-3xl break-words hyphens-auto text-balance font-bold text-3xl md:text-3xl lg:text-4xl xl:text-5xl text-neutral-100 dark:text-white leading-[1.1] tracking-[-0.02em]"
         >
           {title}
-          {highlight && (
+          {hasText(highlight) && (
             <>
               <br />
               <Highlight className="text-white dark:text-white">
@@ -91,14 +94,14 @@ export default function ThreeColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.6 }}
-          className="flex flex-col  justify-start border-white col-span-5 col-start-5 mt-24 mb-24 w-full text-gray-900 dark:text-white"
+          className="flex flex-col  justify-start border-white col-span-5 col-start-5 mt-8 md:mt-24 md:mb-24 w-full text-gray-900 dark:text-white"
         >
           {primaryDescription && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 px-8 pr-24 text-sm sm:text-base md:text-xl text-gray-100 dark:text-white"
+              className="col-span-4 col-start-1 px-8 md:pr-24 text-sm sm:text-base md:text-xl text-gray-100 dark:text-white"
             >
               {primaryDescription}
             </motion.div>
@@ -109,7 +112,7 @@ export default function ThreeColVideoBanner({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: [20, -5, 0] }}
               transition={{ ...keyframeTransition, delay: 0.3 }}
-              className="col-span-4 col-start-1 mt-8 px-8 pr-24 text-neutral-400 leading-relaxed dark:text-neutral-400 text-xs sm:text-base"
+              className="col-span-4 col-start-1 mt-8 px-8 md:pr-24 text-white/75 leading-relaxed dark:text-white/75 text-sm sm:text-base [text-shadow:0_1px_12px_rgb(0_0_0/0.6)]"
             >
               {secondaryDescription}
             </motion.div>
@@ -120,13 +123,13 @@ export default function ThreeColVideoBanner({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: [20, -5, 0] }}
           transition={{ ...keyframeTransition, delay: 0.69 }}
-          className="flex flex-col justify-center border-white col-span-3 col-start-10 mt-24 mb-24 w-full text-gray-100 dark:text-white"
+          className="flex flex-col justify-center border-white col-span-3 col-start-10 mt-10 px-8 md:px-0 md:mt-24 md:mb-24 w-full [&>*+*]:-mt-px text-gray-100 dark:text-white"
         >
           {ctaButtons.map((btn, i) => (
             <Button2
               key={i}
               href={resolveSanityLink((btn as any).link, locale)}
-              className=" text-white dark:border-white/50  w-full mb-4"
+              className="border-white/30 dark:border-white/30 text-white w-full"
               text={btn.name}
             />
           ))}

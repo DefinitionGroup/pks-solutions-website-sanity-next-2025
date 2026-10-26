@@ -9,6 +9,7 @@ export const client = createClient({
   token: process.env.SANITY_API_READ_TOKEN,
   useCdn: false,
   stega: {
-    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL,
+    // The embedded Studio is available even when no deployment override is set.
+    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || "/studio",
   },
 });

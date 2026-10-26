@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useMounted } from "@/lib/use-mounted";
 import { cn } from "@/app/lib/utils";
 import { useTheme } from "next-themes";
 
@@ -44,12 +45,8 @@ export const LampContainer = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const isDark = mounted && resolvedTheme === "dark";
 

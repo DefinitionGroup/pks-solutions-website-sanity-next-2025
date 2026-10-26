@@ -18,6 +18,14 @@ export default defineType({
       initialValue: "Explore our latest articles and updates",
     }),
     defineField({
+      name: "selectedPosts",
+      title: "Ausgewählte Beiträge",
+      type: "array",
+      description: "Optional. Ohne Auswahl erscheinen die neuesten Beiträge des Kanals. Der erste Beitrag wird hervorgehoben.",
+      of: [{ type: "reference", to: [{ type: "blogPost" }], options: { disableNew: true } }],
+      validation: (Rule) => Rule.unique().max(12),
+    }),
+    defineField({
       name: "postsPerPage",
       title: "Posts per Page",
       type: "number",

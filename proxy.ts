@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DEFAULT_LOCALE, SITE_URL, resolveCanonicalPath } from "@/lib/seo";
+import { isCustomerPreview } from '@/lib/customer-preview';
 
 const apexHostname = new URL(SITE_URL).hostname.replace(/^www\./, "");
 
@@ -9,8 +10,11 @@ const retiredGermanPaths = new Set([
   "/de/testpage",
 ]);
 
-export default function middleware(req: NextRequest) {
+export default function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  if (isCustomerPreview() && pathname === '/') {
+    return NextResponse.redirect(new URL('/de/vorschau', req.url), 307);
+  }
   const normalizedPathname = pathname.toLowerCase();
   const canonicalPathname = resolveCanonicalPath(pathname);
 
