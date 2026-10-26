@@ -420,6 +420,7 @@ export interface BlogPost {
   categories?: BlogCategory[];
   author?: BlogAuthor;
   channels: string[];
+  excludeFromSearch?: boolean;
 }
 
 export interface BlogCategory {

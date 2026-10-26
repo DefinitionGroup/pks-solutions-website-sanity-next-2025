@@ -1,9 +1,12 @@
 import type { MetadataRoute } from "next";
-import { getAllPageSlugsAndLocales } from "@/sanity/fetchData";
+import {
+  getAllBlogPostSlugs,
+  getAllPageSlugsAndLocales,
+} from "@/sanity/fetchData";
 import {
   DEFAULT_LOCALE,
   absoluteUrl,
-  isIndexablePageSlug,
+  isPublicPageSlug,
 } from "@/lib/seo";
 
 const CHANNEL = "pksWeb";
@@ -36,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       page.isHomepage ||
       page.protected ||
       page.excludeFromSearch ||
-      !isIndexablePageSlug(page.slug)
+      !isPublicPageSlug(page.slug)
     ) {
       continue;
     }
@@ -46,6 +49,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: lastModifiedFor(page._updatedAt),
       changeFrequency: "monthly",
       priority: 0.7,
+    });
+  }
+
+  const posts = await getAllBlogPostSlugs(DEFAULT_LOCALE, CHANNEL);
+  for (const post of posts) {
+    if (!post.slug || post.excludeFromSearch) continue;
+    entries.push({
+      url: absoluteUrl(`/${DEFAULT_LOCALE}/blog/${post.slug}`),
+      lastModified: lastModifiedFor(post._updatedAt),
+      changeFrequency: "monthly",
+      priority: 0.5,
     });
   }
 
