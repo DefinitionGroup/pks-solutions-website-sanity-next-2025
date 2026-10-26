@@ -100,10 +100,11 @@ for (const id of ids) {
   if (src.has(`drafts.${id}`)) problems.push(`${id} (${INCLUDE[id]}) hat einen unveröffentlichten Entwurf in ${SOURCE}, der nicht mitkopiert würde`);
   const live = dst.get(id);
   const draft = dst.get(`drafts.${id}`);
-  for (const d of [live, draft]) {
-    if (d && d._updatedAt > doc._updatedAt) problems.push(`${d._id} wurde in ${TARGET} nach dem Stand in ${SOURCE} bearbeitet (${d._updatedAt})`);
-  }
   const action = !live ? 'neu' : content(live) === content(doc) ? 'unverändert' : 'aktualisiert';
+  // An earlier sync leaves production newer but identical; only real edits there must stop the run.
+  for (const d of [live, draft]) {
+    if (d && content(d) !== content(doc) && d._updatedAt > doc._updatedAt) problems.push(`${d._id} wurde in ${TARGET} nach dem Stand in ${SOURCE} bearbeitet (${d._updatedAt})`);
+  }
   plan.push({ id, doc, action, live, draft });
 }
 
